@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Begum ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff5f9e, #ff85c1);
+        font-family: Arial, sans-serif;
+    }
+
+    .box {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        max-width: 400px;
+        width: 90%;
+    }
+
+    h1 {
+        color: #ff3b7a;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 16px;
+        margin: 10px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .yes {
+        background: #ff3b7a;
+        color: white;
+    }
+
+    .no {
+        background: #ccc;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    .message {
+        font-size: 24px;
+        color: #ff3b7a;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1 id="question">Do You Love Me? ❤️</h1>
+
+    <div id="buttons">
+        <button class="yes" onclick="sayYes()">Yes</button>
+        <button class="no" onclick="sayNo()">No</button>
+    </div>
+
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    function sayNo() {
+        document.getElementById("message").innerText = "Begum Please Yes Kero 🥺❤️";
+    }
+
+    function sayYes() {
+        document.getElementById("question").innerText = "";
+        document.getElementById("buttons").style.display = "none";
+        document.getElementById("message").innerText = "I LOVE YOU ANUSHA ❤️😍";
+    }
+</script>
+
+</body>
+</html>
