@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For My Begum ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorry Anusha Jaan ❤️</title>
 
 <style>
     body {
@@ -11,126 +12,171 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #ff5f9e, #ff85c1);
-        font-family: Arial, sans-serif;
-        overflow: hidden; /* Taake kisses screen se bahar scroll na karein */
+        /* Romantic Background Gradient */
+        background: linear-gradient(135deg, #ff758c, #ff7eb3, #c23667);
+        font-family: 'Arial', sans-serif;
+        overflow: hidden;
+        text-align: center;
     }
 
-    /* Background Kisses Style */
-    .kiss {
+    /* Container Box Style */
+    .container {
+        background: rgba(255, 255, 255, 0.92);
+        padding: 40px;
+        border-radius: 30px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+        z-index: 10;
+        border: 3px solid #ff4d6d;
+    }
+
+    /* Teddy Bear Style */
+    .teddy-section {
+        font-size: 120px; /* Teddy ka size bara kiya */
+        margin-bottom: -20px;
+        filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+    }
+
+    /* Headings */
+    h1.main-sorry {
+        color: #d90429;
+        font-size: 70px;
+        margin: 0;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    h2.sub-heading {
+        color: #c9184a;
+        font-size: 28px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    /* Button Style */
+    .action-btn {
+        background: linear-gradient(45deg, #ff4d6d, #c9184a);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
+        transition: transform 0.3s, box-shadow 0.3s;
+        font-weight: bold;
+    }
+
+    .action-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(255, 77, 109, 0.6);
+    }
+
+    /* Final Message Style (Hidden initially) */
+    .final-love-message {
+        display: none;
+        font-size: 32px;
+        color: #d90429;
+        font-weight: bold;
+        line-height: 1.5;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    /* Floating Elements (Kisses and Roses) */
+    .floater {
         position: absolute;
-        font-size: 24px;
-        animation: floatUp 5s linear infinite;
         opacity: 0;
-        z-index: -1; /* Buttons ke piche rahega */
+        z-index: 1;
+        pointer-events: none; /* Taake click mein masla na karein */
+        animation: floatUp linear forwards;
     }
 
     @keyframes floatUp {
         0% {
-            transform: translateY(100vh) scale(0.5);
-            opacity: 1;
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0.8;
         }
         100% {
-            transform: translateY(-10vh) scale(1.5);
+            transform: translateY(-10vh) rotate(360deg);
             opacity: 0;
         }
     }
 
-    .box {
-        background: rgba(255, 255, 255, 0.9); /* Thoda transparent taake background dikhe */
-        padding: 40px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        max-width: 400px;
-        width: 90%;
-        position: relative;
-        z-index: 10;
-    }
-
-    h1 {
-        color: #ff3b7a;
-        margin-bottom: 20px;
-    }
-
-    button {
-        padding: 12px 25px;
-        font-size: 16px;
-        margin: 10px;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .yes {
-        background: #ff3b7a;
-        color: white;
-    }
-
-    .no {
-        background: #ccc;
-    }
-
-    button:hover {
-        transform: scale(1.1);
-    }
-
-    .message {
-        font-size: 24px;
-        color: #ff3b7a;
-        margin-top: 20px;
-        font-weight: bold;
-    }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-    <h1 id="question">Do You Love Me? ❤️</h1>
-
-    <div id="buttons">
-        <button class="yes" onclick="sayYes()">Yes</button>
-        <button class="no" onclick="sayNo()">No</button>
+<div class="container">
+    <div id="initial-content">
+        <div class="teddy-section">
+            🧸🌹
+        </div>
+        <h1 class="main-sorry">SORRY</h1>
+        <h2 class="sub-heading">ANUSHA JAAN SORRY</h2>
+        
+        <button class="action-btn" onclick="showLoveMessage()">Begum please Press</button>
     </div>
 
-    <div class="message" id="message"></div>
+    <div id="final-message" class="final-love-message"></div>
 </div>
 
 <script>
-    // Kisses generate karne ka function
-    function createKiss() {
-        const kiss = document.createElement('div');
-        kiss.classList.add('kiss');
-        kiss.innerText = '💋';
+    // Function to generate floating kisses and roses
+    function createFloater(type) {
+        const floater = document.createElement('div');
+        floater.classList.add('floater');
         
-        // Random position aur speed
-        kiss.style.left = Math.random() * 100 + 'vw';
-        kiss.style.animationDuration = Math.random() * 2 + 3 + 's';
-        
-        document.body.appendChild(kiss);
+        if (type === 'kiss') {
+            floater.innerText = '💋';
+            floater.style.fontSize = Math.random() * 20 + 15 + 'px'; // Size 15px se 35px tak
+        } else {
+            floater.innerText = '🌹';
+            floater.style.fontSize = Math.random() * 25 + 20 + 'px'; // Size 20px se 45px tak
+        }
 
-        // Animation khatam hone ke baad remove kar dena taake PC slow na ho
+        floater.style.left = Math.random() * 100 + 'vw';
+        floater.style.animationDuration = Math.random() * 4 + 4 + 's'; // Speed 4s se 8s tak
+        
+        document.body.appendChild(floater);
+
+        // Remove after animation ends
         setTimeout(() => {
-            kiss.remove();
-        }, 5000);
+            floater.remove();
+        }, 8000);
     }
 
-    // Har 300ms mein ek naya kiss add hoga
-    setInterval(createKiss, 300);
+    // Kisses aur Roses ko alag alag speed par generate karna
+    setInterval(() => createFloater('kiss'), 500);
+    setInterval(() => createFloater('rose'), 700);
 
-    function sayNo() {
-        document.getElementById("message").innerText = "Begum Please Yes Kero 🥺❤️";
-    }
-
-    function sayYes() {
-        document.getElementById("question").innerText = "";
-        document.getElementById("buttons").style.display = "none";
-        document.getElementById("message").innerText = "I LOVE YOU ANUSHA ❤️😍";
+    // Button click function
+    function showLoveMessage() {
+        // Purana content chupana
+        document.getElementById("initial-content").style.display = "none";
         
-        // Jab "Yes" bole toh speed badha dein? 
-        setInterval(createKiss, 100); 
+        // Naya message dikhana
+        const messageDiv = document.getElementById("final-message");
+        messageDiv.innerText = "I Pyar You Mere Zindagi , Mere Jaan , Mere Duniya. Umaaahhhh ❤️😘";
+        messageDiv.style.display = "block";
+
+        // Teddy ko bhi final message mein chota sa add kar sakte hain agar chahein
+        // messageDiv.innerHTML += "<br><span style='font-size:60px'>🧸💖</span>";
+
+        // Button click ke baad floating speed tez kar dein?
+        setInterval(() => createFloater('kiss'), 200);
+        setInterval(() => createFloater('rose'), 300);
     }
 </script>
 
