@@ -12,171 +12,130 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        /* Romantic Background Gradient */
         background: linear-gradient(135deg, #ff758c, #ff7eb3, #c23667);
         font-family: 'Arial', sans-serif;
         overflow: hidden;
         text-align: center;
     }
 
-    /* Container Box Style */
-    .container {
-        background: rgba(255, 255, 255, 0.92);
-        padding: 40px;
-        border-radius: 30px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        max-width: 500px;
-        width: 90%;
-        position: relative;
-        z-index: 10;
-        border: 3px solid #ff4d6d;
-    }
-
-    /* Teddy Bear Style */
-    .teddy-section {
-        font-size: 120px; /* Teddy ka size bara kiya */
-        margin-bottom: -20px;
-        filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
-    }
-
-    /* Headings */
-    h1.main-sorry {
-        color: #d90429;
-        font-size: 70px;
-        margin: 0;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-
-    h2.sub-heading {
-        color: #c9184a;
-        font-size: 28px;
-        margin-top: 10px;
-        margin-bottom: 30px;
-        font-weight: bold;
-    }
-
-    /* Button Style */
-    .action-btn {
-        background: linear-gradient(45deg, #ff4d6d, #c9184a);
-        color: white;
-        border: none;
-        padding: 15px 40px;
-        font-size: 20px;
-        border-radius: 50px;
-        cursor: pointer;
-        box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
-        transition: transform 0.3s, box-shadow 0.3s;
-        font-weight: bold;
-    }
-
-    .action-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 15px 30px rgba(255, 77, 109, 0.6);
-    }
-
-    /* Final Message Style (Hidden initially) */
-    .final-love-message {
-        display: none;
-        font-size: 32px;
-        color: #d90429;
-        font-weight: bold;
-        line-height: 1.5;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    /* Floating Elements (Kisses and Roses) */
+    /* Floating Elements */
     .floater {
         position: absolute;
         opacity: 0;
         z-index: 1;
-        pointer-events: none; /* Taake click mein masla na karein */
+        pointer-events: none;
         animation: floatUp linear forwards;
     }
 
     @keyframes floatUp {
-        0% {
-            transform: translateY(100vh) rotate(0deg);
-            opacity: 0.8;
-        }
-        100% {
-            transform: translateY(-10vh) rotate(360deg);
-            opacity: 0;
-        }
+        0% { transform: translateY(100vh) rotate(0deg); opacity: 0.8; }
+        100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
+    .box {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 30px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        max-width: 450px;
+        width: 90%;
+        position: relative;
+        z-index: 10;
+        border: 4px solid #ff4d6d;
+    }
+
+    .teddy {
+        font-size: 100px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    h1.sorry-text {
+        color: #d90429;
+        font-size: 60px;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: 5px;
+    }
+
+    h2.jaan-text {
+        color: #c9184a;
+        font-size: 26px;
+        margin: 10px 0 25px 0;
+    }
+
+    .btn-press {
+        background: #ff4d6d;
+        color: white;
+        border: none;
+        padding: 15px 35px;
+        font-size: 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+    }
+
+    .btn-press:hover {
+        transform: scale(1.1);
+        background: #c9184a;
+    }
+
+    #love-message {
+        display: none;
+        font-size: 28px;
+        color: #d90429;
+        font-weight: bold;
+        line-height: 1.4;
+        animation: heartBeat 1.5s infinite;
+    }
+
+    @keyframes heartBeat {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-    <div id="initial-content">
-        <div class="teddy-section">
-            🧸🌹
-        </div>
-        <h1 class="main-sorry">SORRY</h1>
-        <h2 class="sub-heading">ANUSHA JAAN SORRY</h2>
-        
-        <button class="action-btn" onclick="showLoveMessage()">Begum please Press</button>
+<div class="box">
+    <div id="content">
+        <div class="teddy">🧸🌹</div>
+        <h1 class="sorry-text">SORRY</h1>
+        <h2 class="jaan-text">ANUSHA JAAN SORRY</h2>
+        <button class="btn-press" onclick="revealMessage()">Begum please Press</button>
     </div>
 
-    <div id="final-message" class="final-love-message"></div>
+    <div id="love-message">
+        I Pyar You Mere Zindagi, Mere Jaan, Mere Duniya. <br> Umaaahhhh 😘❤️
+    </div>
 </div>
 
 <script>
-    // Function to generate floating kisses and roses
-    function createFloater(type) {
-        const floater = document.createElement('div');
-        floater.classList.add('floater');
-        
-        if (type === 'kiss') {
-            floater.innerText = '💋';
-            floater.style.fontSize = Math.random() * 20 + 15 + 'px'; // Size 15px se 35px tak
-        } else {
-            floater.innerText = '🌹';
-            floater.style.fontSize = Math.random() * 25 + 20 + 'px'; // Size 20px se 45px tak
-        }
-
-        floater.style.left = Math.random() * 100 + 'vw';
-        floater.style.animationDuration = Math.random() * 4 + 4 + 's'; // Speed 4s se 8s tak
-        
-        document.body.appendChild(floater);
-
-        // Remove after animation ends
-        setTimeout(() => {
-            floater.remove();
-        }, 8000);
+    // Rose aur Kiss generate karne ka function
+    function createEffect(emoji) {
+        const el = document.createElement('div');
+        el.classList.add('floater');
+        el.innerText = emoji;
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.fontSize = Math.random() * 20 + 20 + 'px';
+        el.style.animationDuration = Math.random() * 3 + 4 + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 7000);
     }
 
-    // Kisses aur Roses ko alag alag speed par generate karna
-    setInterval(() => createFloater('kiss'), 500);
-    setInterval(() => createFloater('rose'), 700);
+    setInterval(() => createEffect('💋'), 500);
+    setInterval(() => createEffect('🌹'), 800);
 
-    // Button click function
-    function showLoveMessage() {
-        // Purana content chupana
-        document.getElementById("initial-content").style.display = "none";
+    function revealMessage() {
+        document.getElementById('content').style.display = 'none';
+        const msg = document.getElementById('love-message');
+        msg.style.display = 'block';
         
-        // Naya message dikhana
-        const messageDiv = document.getElementById("final-message");
-        messageDiv.innerText = "I Pyar You Mere Zindagi , Mere Jaan , Mere Duniya. Umaaahhhh ❤️😘";
-        messageDiv.style.display = "block";
-
-        // Teddy ko bhi final message mein chota sa add kar sakte hain agar chahein
-        // messageDiv.innerHTML += "<br><span style='font-size:60px'>🧸💖</span>";
-
-        // Button click ke baad floating speed tez kar dein?
-        setInterval(() => createFloater('kiss'), 200);
-        setInterval(() => createFloater('rose'), 300);
+        // Speed up effects
+        setInterval(() => createEffect('❤️'), 300);
     }
 </script>
 
