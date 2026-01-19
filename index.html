@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Himmat Mat Haarna Jaan ❤️</title>
+<title>For My Queen Anu ❤️</title>
 
 <style>
     body {
@@ -12,8 +12,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        /* Thora calm aur soft gradient */
-        background: linear-gradient(135deg, #ffafbd, #ffc3a0, #ff4d6d);
+        background: linear-gradient(135deg, #4a00e0, #ff0040, #ff4d6d);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         overflow: hidden;
         text-align: center;
@@ -28,116 +27,117 @@
     }
 
     @keyframes floatUp {
-        0% { transform: translateY(110vh) rotate(0deg); opacity: 0.9; }
+        0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
         100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
     }
 
     .box {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 40px 30px;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 40px 25px;
         border-radius: 40px;
-        box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-        max-width: 500px;
-        width: 85%;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+        max-width: 480px;
+        width: 88%;
         position: relative;
         z-index: 10;
         border: 4px solid #ffccd5;
     }
 
-    .emoji-top {
-        font-size: 70px;
+    .top-emoji {
+        font-size: 75px;
         margin-bottom: 10px;
     }
 
     h1.heading-text {
         color: #d90429;
-        font-size: 38px;
-        margin: 10px 0;
-        font-weight: 900;
-    }
-
-    .sad-note {
-        font-size: 18px;
-        color: #555;
+        font-size: 35px;
         margin-bottom: 20px;
-        line-height: 1.4;
+        font-weight: 900;
+        line-height: 1.2;
     }
 
-    .btn-support {
-        background: #ff4d6d;
+    .btn-hold {
+        background: #d90429;
         color: white;
         border: none;
-        padding: 18px 40px;
-        font-size: 20px;
-        border-radius: 50px;
+        padding: 20px 45px;
+        font-size: 24px;
+        border-radius: 60px;
         cursor: pointer;
         font-weight: bold;
-        transition: 0.4s;
-        box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+        transition: 0.5s;
+        box-shadow: 0 10px 25px rgba(217, 4, 41, 0.4);
     }
 
-    .btn-support:hover {
-        transform: scale(1.05);
-        background: #d90429;
+    .btn-hold:hover {
+        transform: scale(1.1) translateY(-5px);
+        background: #800000;
+        box-shadow: 0 15px 30px rgba(128, 0, 0, 0.5);
     }
 
     #love-message {
         display: none;
-        animation: fadeIn 1.2s ease-in;
+        animation: slideUp 1s ease-out;
     }
 
-    .always-with-you {
-        font-size: 32px;
+    .main-text {
+        font-size: 26px;
         color: #800000;
         font-weight: 900;
         margin-bottom: 15px;
-        display: block;
+        line-height: 1.4;
     }
 
-    .comfort-msg {
-        font-size: 18px;
-        color: #444;
-        line-height: 1.6;
-        background: #fff0f3;
-        padding: 20px;
-        border-radius: 25px;
-        border-right: 6px solid #ff4d6d;
-        margin: 15px 0;
-    }
-
-    .footer-msg {
-        margin-top: 20px;
-        font-size: 20px;
+    .always-with-you {
+        font-size: 28px;
         color: #d90429;
         font-weight: bold;
+        display: block;
+        margin-top: 10px;
+        animation: pulse 1.5s infinite;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
+    .final-love {
+        font-size: 30px;
+        color: #ff0040;
+        margin-top: 20px;
+        font-weight: 900;
+        border-top: 2px dashed #ffccd5;
+        padding-top: 15px;
+    }
+
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
     }
 </style>
 </head>
 <body>
 
 <div class="box">
-    <div id="content">
-        <div class="emoji-top">🥺🫂❤️</div>
-        <h1 class="heading-text">Udass Nahi Hona Jaan...</h1>
-        <p class="sad-note">Kal jo hua usay bhool jayen, main hoon na aapke saath.</p>
-        <button class="btn-support" onclick="revealMessage()">Mera Haath Pakro 🤝</button>
+    <div id="initial-content">
+        <div class="top-emoji">👸💖</div>
+        <h1 class="heading-text">Jaan, Udass Bilkul Nahi Hona...</h1>
+        <button class="btn-hold" onclick="showLove()">Mera Hath Pakroo 🤝</button>
     </div>
 
     <div id="love-message">
-        <span class="always-with-you">I am always with you Jaan! ❤️</span>
+        <div class="main-text">
+            Tum mujhe deserve karti hooo meri Duniya tum hoo meri kainat meri Zindagi meri Jaan.
+        </div>
         
-        <div class="comfort-msg">
-            Aap rona nahi, aapki smile meri duniya hai. Papa ne danta toh koi baat nahi, wo bade hain. Par aap akele nahi ho, main har mushkil mein aapke saath khara hoon. 
+        <div class="always-with-you">
+            I am always with you Jaan! ❤️
         </div>
 
-        <div class="footer-msg">
-            Chalo ab jaldi se smile karo! 😊 <br>
-            I Love You Infinity! 💋
+        <div class="final-love">
+            I Love You Sooo Much Anu 💋
         </div>
     </div>
 </div>
@@ -148,18 +148,32 @@
         el.classList.add('floater');
         el.innerText = emoji;
         el.style.left = Math.random() * 100 + 'vw';
-        let size = Math.random() * 30 + 35;
+        
+        // Random size for variety
+        let size = Math.random() * 25 + 40; 
         el.style.fontSize = size + 'px';
-        el.style.animationDuration = Math.random() * 3 + 5 + 's';
+        
+        el.style.animationDuration = Math.random() * 2 + 4 + 's';
         document.body.appendChild(el);
-        setTimeout(() => el.remove(), 7000);
+        setTimeout(() => el.remove(), 6000);
     }
 
-    // Shuru mein halke se phool aur hearts
-    setInterval(() => createEffect('🌸'), 1000);
-    setInterval(() => createEffect('❤️'), 1500);
+    // Piche halki si barish flowers aur hearts ki
+    setInterval(() => createEffect('🌸'), 1200);
+    setInterval(() => createEffect('✨'), 2000);
 
-    function revealMessage() {
-        document.getElementById('content').style.display = 'none';
+    function showLove() {
+        document.getElementById('initial-content').style.display = 'none';
         const msg = document.getElementById('love-message');
         msg.style.display = 'block';
+        
+        // Button dabane par dher saare effects
+        setInterval(() => createEffect('❤️'), 400);
+        setInterval(() => createEffect('💋'), 600);
+        setInterval(() => createEffect('🫂'), 800);
+        setInterval(() => createEffect('🌹'), 1000);
+    }
+</script>
+
+</body>
+</html>
