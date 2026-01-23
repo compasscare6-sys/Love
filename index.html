@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Queen Anu ❤️</title>
+<title>Sorry Anu Baby ❤️</title>
 
 <style>
     body {
@@ -18,6 +18,7 @@
         text-align: center;
     }
 
+    /* Floating Kisses & Hearts */
     .floater {
         position: absolute;
         opacity: 0;
@@ -32,112 +33,169 @@
     }
 
     .box {
-        background: rgba(255, 255, 255, 0.98);
-        padding: 40px 25px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px 20px;
         border-radius: 40px;
         box-shadow: 0 30px 70px rgba(0,0,0,0.4);
-        max-width: 480px;
-        width: 88%;
+        max-width: 450px;
+        width: 90%;
         position: relative;
         z-index: 10;
         border: 4px solid #ffccd5;
     }
 
-    .top-emoji {
-        font-size: 75px;
-        margin-bottom: 10px;
+    /* Teddy Bear CSS */
+    .teddy {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        background: #fff;
+        border-radius: 50% 50% 45% 45%;
+        margin: 0 auto 20px;
+        box-shadow: inset -10px -10px 20px #f0f0f0, 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .teddy::before, .teddy::after { /* Ears */
+        content: '';
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        background: #fff;
+        border-radius: 50%;
+        top: -5px;
+        z-index: -1;
+    }
+    .teddy::before { left: 10px; }
+    .teddy::after { right: 10px; }
+    
+    .teddy-face {
+        position: relative;
+        top: 40px;
+    }
+    .eye {
+        width: 12px;
+        height: 12px;
+        background: #333;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 15px;
+    }
+    .nose {
+        width: 16px;
+        height: 12px;
+        background: #ff99aa;
+        border-radius: 50%;
+        margin: 5px auto;
+    }
+    .sorry-text {
+        background: #ff4d6d;
+        color: white;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .chocolate {
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        font-size: 50px;
+        transform: rotate(15deg);
     }
 
     h1.heading-text {
         color: #d90429;
-        font-size: 35px;
-        margin-bottom: 20px;
+        font-size: 38px;
+        margin: 10px 0;
         font-weight: 900;
-        line-height: 1.2;
     }
 
-    .btn-hold {
+    .btn-sorry {
         background: #d90429;
         color: white;
         border: none;
-        padding: 20px 45px;
-        font-size: 24px;
-        border-radius: 60px;
+        padding: 18px 30px;
+        font-size: 20px;
+        border-radius: 50px;
         cursor: pointer;
         font-weight: bold;
-        transition: 0.5s;
-        box-shadow: 0 10px 25px rgba(217, 4, 41, 0.4);
+        transition: 0.4s;
+        box-shadow: 0 8px 20px rgba(217, 4, 41, 0.3);
     }
 
-    .btn-hold:hover {
-        transform: scale(1.1) translateY(-5px);
-        background: #800000;
-        box-shadow: 0 15px 30px rgba(128, 0, 0, 0.5);
+    .btn-sorry:hover {
+        transform: scale(1.05);
+        background: #ff0040;
     }
 
-    #love-message {
+    #message-content {
         display: none;
-        animation: slideUp 1s ease-out;
+        animation: fadeIn 1s ease-in;
     }
 
-    .main-text {
-        font-size: 26px;
+    .poetry {
+        font-size: 20px;
         color: #800000;
-        font-weight: 900;
-        margin-bottom: 15px;
-        line-height: 1.4;
+        font-style: italic;
+        line-height: 1.5;
+        margin-bottom: 20px;
     }
 
-    .always-with-you {
-        font-size: 28px;
+    .sub-text {
+        font-size: 18px;
         color: #d90429;
         font-weight: bold;
-        display: block;
-        margin-top: 10px;
-        animation: pulse 1.5s infinite;
+        margin-bottom: 15px;
     }
 
-    .final-love {
-        font-size: 30px;
+    .final-note {
+        font-size: 22px;
         color: #ff0040;
-        margin-top: 20px;
         font-weight: 900;
-        border-top: 2px dashed #ffccd5;
+        border-top: 2px solid #ffccd5;
         padding-top: 15px;
     }
 
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
 </style>
 </head>
 <body>
 
 <div class="box">
-    <div id="initial-content">
-        <div class="top-emoji">👸💖</div>
-        <h1 class="heading-text">Jaan, Udass Bilkul Nahi Hona...</h1>
-        <button class="btn-hold" onclick="showLove()">Mera Hath Pakroo 🤝</button>
+    <div id="initial-screen">
+        <div class="teddy">
+            <div class="teddy-face">
+                <div class="eye"></div>
+                <div class="eye"></div>
+                <div class="nose"></div>
+                <div class="sorry-text">SORRY BEGUM</div>
+            </div>
+        </div>
+
+        <div class="chocolate">🍫</div>
+        
+        <h1 class="heading-text">Sorry Baba 🥺</h1>
+        <button class="btn-sorry" onclick="revealLove()">Dil Karey tu Buttton dabaney</button>
     </div>
 
-    <div id="love-message">
-        <div class="main-text">
-            Tum mujhe deserve karti hooo meri Duniya tum hoo meri kainat meri Zindagi meri Jaan.
+    <div id="message-content">
+        <div class="poetry">
+            “Mana thora sa shor karta hoon, thora sa tang bhi,<br>
+            Par begum, meri har khamoshi mein bhi sirf tum hi tum ho.” 💖
         </div>
         
-        <div class="always-with-you">
-            I am always with you Jaan! ❤️
+        <div class="sub-text">
+            Maaf kardena kal ke liye ANU SORRY BABA 🙏
         </div>
 
-        <div class="final-love">
-            I Love You Sooo Much Anu 💋
+        <div class="final-note">
+            I Love You Meri Zindagi Meri Jeeney ki waja Mere Jaan Wifey 💋
         </div>
     </div>
 </div>
@@ -148,30 +206,25 @@
         el.classList.add('floater');
         el.innerText = emoji;
         el.style.left = Math.random() * 100 + 'vw';
-        
-        // Random size for variety
-        let size = Math.random() * 25 + 40; 
+        let size = Math.random() * 20 + 30; 
         el.style.fontSize = size + 'px';
-        
-        el.style.animationDuration = Math.random() * 2 + 4 + 's';
+        el.style.animationDuration = Math.random() * 3 + 3 + 's';
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 6000);
     }
 
-    // Piche halki si barish flowers aur hearts ki
-    setInterval(() => createEffect('🌸'), 1200);
-    setInterval(() => createEffect('✨'), 2000);
+    // Background effects
+    setInterval(() => createEffect('💋'), 1000);
+    setInterval(() => createEffect('❤️'), 1500);
 
-    function showLove() {
-        document.getElementById('initial-content').style.display = 'none';
-        const msg = document.getElementById('love-message');
-        msg.style.display = 'block';
+    function revealLove() {
+        document.getElementById('initial-screen').style.display = 'none';
+        document.getElementById('message-content').style.display = 'block';
         
-        // Button dabane par dher saare effects
-        setInterval(() => createEffect('❤️'), 400);
-        setInterval(() => createEffect('💋'), 600);
-        setInterval(() => createEffect('🫂'), 800);
-        setInterval(() => createEffect('🌹'), 1000);
+        // Extra celebration on click
+        setInterval(() => createEffect('🌹'), 500);
+        setInterval(() => createEffect('✨'), 700);
+        setInterval(() => createEffect('🧸'), 900);
     }
 </script>
 
