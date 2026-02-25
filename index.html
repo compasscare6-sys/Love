@@ -13,7 +13,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #000; /* Black Theme */
+            background: #000; 
             background: radial-gradient(circle, #330000 0%, #000000 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
@@ -21,7 +21,6 @@
             overflow-x: hidden;
         }
 
-        /* Floating Lips (Kisses) */
         .floater {
             position: absolute;
             opacity: 0;
@@ -42,7 +41,7 @@
             box-shadow: 0 0 30px rgba(255, 0, 64, 0.4);
             max-width: 600px;
             width: 90%;
-            border: 2px solid #ff0040; /* Red Border */
+            border: 2px solid #ff0040; 
             position: relative;
             z-index: 10;
             backdrop-filter: blur(10px);
@@ -52,7 +51,7 @@
         h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            color: #ff0040; /* Bright Red */
+            color: #ff0040;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -76,12 +75,11 @@
             padding: 20px;
             border-radius: 15px;
             border-left: 5px solid #ff0040;
-            max-height: 350px;
+            max-height: 400px;
             overflow-y: auto;
             margin-bottom: 25px;
         }
 
-        /* Scrollbar styling */
         .message-box::-webkit-scrollbar { width: 5px; }
         .message-box::-webkit-scrollbar-thumb { background: #ff0040; border-radius: 10px; }
 
@@ -116,20 +114,19 @@
 
     <div class="container">
         <div class="winner-tag">🏆 LUDO WINNER ANU 🏆</div>
-        <h1>Anu Jeet Gai! 🎉</h1>
+        <h1>Anu Jeet Gai! 🎉💃</h1>
         
         <div class="message-box">
-            "ANUSHA Mere JAAN , Meri Zindagi Apka Miya chata hai key uski Biwi har chez me Kamiyab hooo Duniya me or Akhiryat me bhi. ALLAH tuje hamesha khush rakey hamesha kamiyabi dey kabhi teri zindagi me koi rukawatein na aiii hamesha hasti reh mere jaan q key tuje dek kar tu me Jeeta huun. tere sansomein mein mere sansein basi hai. mera Dil Dharkta sirf tere liye hai. <br><br>
-            Life me kabhi bhi koi bhi bara masla q na ajaii ANU jesey aj tak sub mil kar face kara hai seeeka hai ek dusrey se samja hai ek dusrey se mashwara liya hai isssi tarah ageey bhi INSHALLAH ZINDAGI guzarni hai baki MIYA hai tere tuje sambhalney ke liye kabhi udass nhi dekna tha tuje mood off nhi kabhi tere ank me ansoo bhi nhi bs hamesha SMILE kartey we dekna chata huun mein apni Pyari Begum JAAN ko. <br><br>
-            You Known What tere bagair me kuch bhi nhi tu khafa hoti hai naraz hoti hai dil ajeeb sa hojata hai maz nhi ata kuch nhi acha nhi lagta hai liken jab tu pyar se muje sirf JAAN khe kar pukarti hai tu aisa lagta hai muje jesey sub kuch mil gaya hai or yeh sach baat hai pyar key dawey bhut kartey hai pyar bhut kartey hai par mene tujse pyar ka dawa bhi kara hai nibahaya bhii hamesha nibahaoo gha q key mene tujse 1 nazar me hee ISHQ karliya hai . <br><br>
-            Miss kar rha tha tu soucha kuch naii tarikey se dil ki baaten kerdoo mere jaan se. I MISS YOU Meri JAAN & I LOVE YOU So So Soooooooooo Much Baba. Mere Zohja. Umaaahhhh Umaaahhh. "
+            "<strong>ANUSHA Mere JAAN</strong> ❤️, Meri Zindagi Apka Miya chata hai key uski Biwi har chez me Kamiyab hooo Duniya me or Akhiryat me bhi. 🤲 ALLAH tuje hamesha khush rakey hamesha kamiyabi dey kabhi teri zindagi me koi rukawatein na aiii ✨ hamesha hasti reh mere jaan q key tuje dek kar tu me Jeeta huun. 😊 tere sansomein mein mere sansein basi hai.. mera Dil Dharkta sirf tere liye hai. 💓 <br><br>
+            Life me kabhi bhi koi bhi bara masla q na ajaii ANU jesey aj tak sub mil kar face kara hai seeeka hai ek dusrey se samja hai ek dusrey se mashwara liya hai 🤝 isssi tarah ageey bhi INSHALLAH ZINDAGI guzarni hai baki MIYA hai tere tuje sambhalney ke liye 🛡️ kabhi udass nhi dekna tha tuje mood off nhi kabhi tere ank me ansoo bhi nhi 🙅‍♂️ bs hamesha SMILE kartey we dekna chata huun mein apni Pyari Begum JAAN ko. 😍 <br><br>
+            You Known What tere bagair me kuch bhi nhi tu khafa hoti hai naraz hoti hai dil ajeeb sa hojata hai maz nhi ata kuch nhi acha nhi lagta hai 🥺 liken jab tu pyar se muje sirf JAAN khe kar pukarti hai tu aisa lagta hai muje jesey sub kuch mil gaya hai aur yeh sach baat hai 😇 pyar key dawey bhut kartey hai pyar bhut kartey hai par mene tujse pyar ka dawa bhi kara hai nibahaya bhii hamesha nibahaoo gha q key mene tujse 1 nazar me hee ISHQ karliya hai . 💘 <br><br>
+            Miss kar rha tha tu soucha kuch naii tarikey se dil ki baaten kerdoo mere jaan se. ✍️ I MISS YOU Meri JAAN & I LOVE YOU So So Soooooooooo Much Baba. 🧸 Mere Zohja. Umaaahhhh Umaaahhh. 💋💋"
         </div>
 
-        <button class="btn-party" onclick="celebrate()">Party Time & Kisses! 💋</button>
+        <button class="btn-party" onclick="celebrate()">Jashn Shuru Karein! 🥳🔥</button>
     </div>
 
     <script>
-        // Floating Lips Effect
         function createLips() {
             const lip = document.createElement('div');
             lip.classList.add('floater');
@@ -141,12 +138,11 @@
             setTimeout(() => lip.remove(), 7000);
         }
 
-        // Keep kisses floating in background
-        setInterval(createLips, 1000);
+        setInterval(createLips, 1200);
 
         function celebrate() {
-            // Confetti and extra kisses on button click
-            for (let i = 0; i < 100; i++) {
+            alert("Anu: Maine sab ko Ludo mein hara diya! 🏆 Ab Party hogi! 🎉");
+            for (let i = 0; i < 120; i++) {
                 setTimeout(createConfetti, i * 10);
                 if(i % 5 === 0) createLips();
             }
@@ -159,7 +155,6 @@
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             confetti.style.top = '-10px';
-            
             document.body.appendChild(confetti);
 
             const anim = confetti.animate([
@@ -169,7 +164,6 @@
                 duration: Math.random() * 3000 + 2000,
                 easing: 'ease-out'
             });
-
             anim.onfinish = () => confetti.remove();
         }
     </script>
