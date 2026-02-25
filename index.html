@@ -1,127 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anu - The Ludo Queen 🏆</title>
-<style>
-    body {
-        margin: 0;
-        background: #1a1a1a;
-        color: white;
-        font-family: 'Poppins', sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anu Jeet Gai! 🏆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f0c29;
+            background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
 
-    .story-container {
-        text-align: center;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        border: 2px solid #ff4d6d;
-        width: 90%;
-        max-width: 500px;
-    }
+        .main-card {
+            width: 95%;
+            max-width: 600px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
 
-    .ludo-img {
-        width: 100%;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(255, 77, 109, 0.5);
-        margin-bottom: 20px;
-    }
+        /* Image Section */
+        .scene-box {
+            width: 100%;
+            position: relative;
+        }
 
-    h1 {
-        color: #ff4d6d;
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-        text-shadow: 2px 2px #000;
-    }
+        .scene-box img {
+            width: 100%;
+            display: block;
+            border-bottom: 4px solid #ff4d6d;
+        }
 
-    .celebration-text {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
+        /* Text Section */
+        .content {
+            padding: 30px 20px;
+        }
 
-    .btn-win {
-        background: #ff4d6d;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        font-size: 1.2rem;
-        border-radius: 50px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: 0.3s;
-        box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-    }
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            color: #ff4d6d;
+            margin: 0;
+            text-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
 
-    .btn-win:hover {
-        transform: scale(1.1);
-        background: #ff0040;
-    }
+        .status-tag {
+            display: inline-block;
+            background: #ffbd03;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            animation: pulse 1.5s infinite;
+        }
 
-    /* Confetti Style */
-    .confetti {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        background-color: #f00;
-        z-index: 1000;
-    }
-</style>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            color: #ff4d6d;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .btn-celebrate {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Fredoka One', cursive;
+            transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn-celebrate:hover {
+            transform: translateY(-5px);
+            background: #ff0040;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.6);
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body>
 
-<div class="story-container">
-    <img src="YOUR_IMAGE_LINK_HERE" alt="Anu Winning Ludo" class="ludo-img">
-    
-    <h1>HURRAY! ANU JEET GAI 🏆</h1>
-    
-    <div class="celebration-text">
-        Coaching mein 4 saheliyan, Ludo ki baazi... <br>
-        Sab ko hara kar, <b>Anu</b> bani aaj ki winner! 😎
+    <div class="main-card">
+        <div class="scene-box">
+            <img src="https://i.ibb.co/pBWf6mXW/60098f99-e6e7-448c-850d-d91244f07a50.png" alt="Anu Ludo Winner">
+        </div>
+
+        <div class="content">
+            <div class="status-tag">LUDO QUEEN 👑</div>
+            <h1>HURRAYYY!</h1>
+            
+            <p class="story-text">
+                Coaching mein doston ke sath mehfil jami thi,<br>
+                Abaya mein charon saheliyan Ludo khel rahi thin...<br>
+                Lekin baazi sirf ek ne maari!<br>
+                <span class="highlight">Meri Biwi "ANU" Jeet Gai! 🎉</span>
+            </p>
+
+            <button class="btn-celebrate" onclick="partyTime()">Jashn Manao! 💃</button>
+        </div>
     </div>
 
-    <button class="btn-win" onclick="startHurray()">Click for Hurray! 🎉</button>
-</div>
-
-<script>
-    function startHurray() {
-        alert("Anu: HURRAYYY! Main Jeet Gai! 💃✨");
-        for(let i=0; i<100; i++) {
-            createConfetti();
+    <script>
+        function partyTime() {
+            // Success Message
+            alert("ANU: Dekha! Maine kaha tha na main hi jeetungi! 😎🏆");
+            
+            // Generate Confetti
+            for(let i=0; i<150; i++) {
+                createConfetti();
+            }
         }
-    }
 
-    function createConfetti() {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-        confetti.style.top = '-10px';
-        confetti.style.borderRadius = '50%';
-        confetti.style.opacity = Math.random();
-        
-        document.body.appendChild(confetti);
+        function createConfetti() {
+            const colors = ['#ff4d6d', '#ffbd03', '#00f2ff', '#70ff03', '#ffffff'];
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.top = '-20px';
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            
+            document.body.appendChild(confetti);
 
-        const animation = confetti.animate([
-            { transform: 'translateY(0) rotate(0)', opacity: 1 },
-            { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-        ], {
-            duration: Math.random() * 3000 + 2000,
-            easing: 'ease-out'
-        });
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0)', opacity: 1 },
+                { transform: `translateY(100vh) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'cubic-bezier(0, .9, .57, 1)'
+            });
 
-        animation.onfinish = () => confetti.remove();
-    }
-</script>
-
+            animation.onfinish = () => confetti.remove();
+        }
+    </script>
 </body>
 </html>
