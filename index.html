@@ -65,19 +65,20 @@
         }
 
         .message {
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 1rem;
+            line-height: 1.6;
             color: #ffe5e5;
             font-weight: 300;
+            text-align: center;
         }
 
         .highlight {
             color: #ffb5a7;
             font-weight: 600;
             display: block;
-            margin-top: 12px;
-            font-size: 1.2rem;
-            line-height: 1.4;
+            margin-top: 15px;
+            font-size: 1.15rem;
+            line-height: 1.5;
         }
 
         .floater {
@@ -97,19 +98,20 @@
 
     <div id="opener" onclick="reveal()">
         <div class="gift-emoji">🎁</div>
-        <p style="color: #ffb5a7; letter-spacing: 3px; font-size: 0.8rem; margin-top: 15px;">TAP TO OPEN YOUR MORNING SURPRISE</p>
+        <p style="color: #ffb5a7; letter-spacing: 2px; font-size: 0.9rem; margin-top: 20px; font-weight: 600;">
+            Rabi ki Jaan Zara Box ko gussey me Kholna
+        </p>
     </div>
 
     <div id="content">
         <h1>Anu Jaan... ☀️</h1>
         <div class="card">
             <p class="message">
-                "Uth gaye aap? Meri duniya mein dubaara khushboo bharne ke liye shukriya. ✨<br><br>
-                Sone ke baad jab pehli baar aankh khulti hai na, toh dil bas aapka hi chehra dhoondta hai. 
-                Aap so rahi thi toh itni pyari lag rahi thi ki mera dil hi nahi kiya aapko jagane ka... <br><br>
+                "Uth gaye aap? Meri Duniya mein aney ke liye shukriya mere Zindagi ko acha bananey ke liye shukriya. ✨<br><br>
+                Sone ke baad jab pehli baar aankh khulti hai na, toh dil bas tumhara hi chehra dhoondta hai. 
+                Kaash me tere pass hota tu tuje jhee bhar kar dekta phir office jata par koi nh wo din ab ziada dur nhi jab teri Morning mere Bahaoo mein hogi. <br><br>
                 <span class="highlight">
-                    I Love You & A Very Tight wala Hug You Jaan! 🤗❤️<br>
-                    Bhut sari Muchi bhi aapke liye! 💋💋💋
+                    I Love You Meri Guriya, Bhut dil kar rha hai tuje seney se laganey ka tuje pyar karney ka tuje dair sari muxhiyan deney ka. 🤗💋
                 </span>
             </p>
         </div>
@@ -126,7 +128,6 @@
                 { opacity: 1, transform: 'scale(1)' }
             ], { duration: 1000, easing: 'ease-out' });
 
-            // Launch both Hearts and Kisses
             setInterval(() => createFloater('❤️'), 300);
             setInterval(() => createFloater('💋'), 500);
         }
