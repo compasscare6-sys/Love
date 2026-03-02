@@ -3,168 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu Jeet Gai & I Love You 🎉</title>
+    <title>Good Morning Meri Jaan ❤️</title>
     <style>
+        :root {
+            --primary: #ff4d6d;
+            --gold: #ffb5a7;
+        }
+
         body {
             margin: 0;
-            padding: 0;
+            background: #0b090a;
+            color: white;
+            font-family: 'Poppins', sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: #000; 
-            background: radial-gradient(circle, #330000 0%, #000000 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
+            height: 100vh;
+            overflow: hidden;
             text-align: center;
-            overflow-x: hidden;
         }
 
-        .floater {
-            position: absolute;
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-            animation: floatUp linear forwards;
+        /* The Surprise Box */
+        #box-container {
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
-            100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+        #box-container:hover {
+            transform: scale(1.1);
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 0 30px rgba(255, 0, 64, 0.4);
-            max-width: 600px;
+        .gift-box {
+            font-size: 80px;
+            filter: drop-shadow(0 0 20px var(--primary));
+        }
+
+        /* Hidden Content */
+        #main-content {
+            display: none;
             width: 90%;
-            border: 2px solid #ff0040; 
-            position: relative;
-            z-index: 10;
-            backdrop-filter: blur(10px);
-            margin: 20px;
+            max-width: 500px;
+            animation: fadeIn 2s ease-in;
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #ff0040;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            color: var(--primary);
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 10px rgba(255, 77, 109, 0.5);
         }
 
-        .winner-tag {
-            background: white;
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 20px;
+        .morning-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--gold);
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
         }
 
-        .message-box {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #fff;
-            text-align: justify;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 5px solid #ff0040;
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 25px;
+        .love-text {
+            font-style: italic;
+            line-height: 1.6;
+            font-size: 1.1rem;
         }
 
-        .message-box::-webkit-scrollbar { width: 5px; }
-        .message-box::-webkit-scrollbar-thumb { background: #ff0040; border-radius: 10px; }
+        .floating-heart {
+            position: absolute;
+            color: var(--primary);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: float 4s linear infinite;
+        }
 
-        .btn-party {
-            background: #ff0040;
-            color: white;
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-audio {
+            margin-top: 20px;
+            background: var(--primary);
             border: none;
-            padding: 15px 40px;
-            font-size: 1.2em;
+            padding: 10px 25px;
+            color: white;
             border-radius: 50px;
-            cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 0, 64, 0.5);
-        }
-
-        .btn-party:hover {
-            transform: scale(1.05);
-            background-color: #ffffff;
-            color: #ff0040;
-        }
-
-        .confetti {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            z-index: 999;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="winner-tag">🏆 LUDO WINNER ANU 🏆</div>
-        <h1>Anu Jeet Gai! 🎉💃</h1>
-        
-        <div class="message-box">
-            "<strong>ANUSHA Mere JAAN</strong> ❤️, Meri Zindagi Apka Miya chata hai key uski Biwi har chez me Kamiyab hooo Duniya me or Akhiryat me bhi. 🤲 ALLAH tuje hamesha khush rakey hamesha kamiyabi dey kabhi teri zindagi me koi rukawatein na aiii ✨ hamesha hasti reh mere jaan q key tuje dek kar tu me Jeeta huun. 😊 tere sansomein mein mere sansein basi hai.. mera Dil Dharkta sirf tere liye hai. 💓 <br><br>
-            Life me kabhi bhi koi bhi bara masla q na ajaii ANU jesey aj tak sub mil kar face kara hai seeeka hai ek dusrey se samja hai ek dusrey se mashwara liya hai 🤝 isssi tarah ageey bhi INSHALLAH ZINDAGI guzarni hai baki MIYA hai tere tuje sambhalney ke liye 🛡️ kabhi udass nhi dekna tha tuje mood off nhi kabhi tere ank me ansoo bhi nhi 🙅‍♂️ bs hamesha SMILE kartey we dekna chata huun mein apni Pyari Begum JAAN ko. 😍 <br><br>
-            You Known What tere bagair me kuch bhi nhi tu khafa hoti hai naraz hoti hai dil ajeeb sa hojata hai maz nhi ata kuch nhi acha nhi lagta hai 🥺 liken jab tu pyar se muje sirf JAAN khe kar pukarti hai tu aisa lagta hai muje jesey sub kuch mil gaya hai aur yeh sach baat hai 😇 pyar key dawey bhut kartey hai pyar bhut kartey hai par mene tujse pyar ka dawa bhi kara hai nibahaya bhii hamesha nibahaoo gha q key mene tujse 1 nazar me hee ISHQ karliya hai . 💘 <br><br>
-            Miss kar rha tha tu soucha kuch naii tarikey se dil ki baaten kerdoo mere jaan se. ✍️ I MISS YOU Meri JAAN & I LOVE YOU So So Soooooooooo Much Baba. 🧸 Mere Zohja. Umaaahhhh Umaaahhh. 💋💋"
-        </div>
+    <div id="box-container" onclick="openSurprise()">
+        <div class="gift-box">🎁</div>
+        <p style="margin-top: 20px; letter-spacing: 2px;">ANU, TAB HERE FOR A SURPRISE...</p>
+    </div>
 
-        <button class="btn-party" onclick="celebrate()">Jashn Shuru Karein! 🥳🔥</button>
+    <div id="main-content">
+        <h1>Good Morning, Meri Jaan! ☀️</h1>
+        <div class="morning-card">
+            <p class="love-text">
+                "Uth gaye aap? ✨<br><br>
+                Sone ke baad jab pehli baar aankh khulti hai na, toh dil bas aapka hi chehra dhoondta hai. 
+                Aap so rahi thi toh itni pyari lag rahi thi ki mera dil hi nahi kiya aapko jagane ka. 
+                Bas yeh ek chota sa tohfa aapke din ko rangeen banane ke liye... <br><br>
+                <strong>I Love You, My Queen. 👑</strong>"
+            </p>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.9rem; color: var(--gold);">Today is going to be amazing, just like you!</p>
     </div>
 
     <script>
-        function createLips() {
-            const lip = document.createElement('div');
-            lip.classList.add('floater');
-            lip.innerText = '💋';
-            lip.style.left = Math.random() * 100 + 'vw';
-            lip.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            lip.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.body.appendChild(lip);
-            setTimeout(() => lip.remove(), 7000);
+        function openSurprise() {
+            // Hide box, show content
+            document.getElementById('box-container').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+
+            // Start Heart Rain
+            setInterval(createHeart, 300);
         }
 
-        setInterval(createLips, 1200);
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
 
-        function celebrate() {
-            alert("Anu: Maine sab ko Ludo mein hara diya! 🏆 Ab Party hogi! 🎉");
-            for (let i = 0; i < 120; i++) {
-                setTimeout(createConfetti, i * 10);
-                if(i % 5 === 0) createLips();
-            }
-        }
-
-        function createConfetti() {
-            const colors = ['#ff0040', '#ffffff', '#ffccd5', '#000000'];
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.top = '-10px';
-            document.body.appendChild(confetti);
-
-            const anim = confetti.animate([
-                { transform: 'translateY(0) rotate(0)', opacity: 1 },
-                { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-            ], {
-                duration: Math.random() * 3000 + 2000,
-                easing: 'ease-out'
-            });
-            anim.onfinish = () => confetti.remove();
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
         }
     </script>
 </body>
