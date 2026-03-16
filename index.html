@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Good Morning Anu Jaan ❤️</title>
+    <title>Itekaf Mubarak Anu Jaan ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;600&display=swap');
 
         body {
             margin: 0;
             padding: 0;
-            background: #000;
+            background: #001a1a;
             color: white;
             font-family: 'Poppins', sans-serif;
             height: 100vh;
@@ -18,7 +18,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background: radial-gradient(circle at center, #1a0505 0%, #000 100%);
+            background: radial-gradient(circle at center, #003333 0%, #000 100%);
         }
 
         #opener {
@@ -27,16 +27,15 @@
             transition: 0.5s;
         }
 
-        .gift-emoji {
-            font-size: 100px;
-            animation: bounce 2s infinite;
-            filter: drop-shadow(0 0 15px #ff4d6d);
+        .main-emoji {
+            font-size: 80px;
+            animation: glow 2s infinite alternate;
+            filter: drop-shadow(0 0 15px #ffd700);
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
+        @keyframes glow {
+            from { transform: scale(1); filter: drop-shadow(0 0 10px #ffd700); }
+            to { transform: scale(1.1); filter: drop-shadow(0 0 30px #ffd700); }
         }
 
         #content {
@@ -49,73 +48,79 @@
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: #ff4d6d;
+            font-size: 2.8rem;
+            color: #ffd700;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.05);
             padding: 25px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 181, 167, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
             backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
         .message {
             font-size: 1rem;
-            line-height: 1.6;
-            color: #ffe5e5;
+            line-height: 1.8;
+            color: #f0f0f0;
             font-weight: 300;
-            text-align: center;
         }
 
         .highlight {
-            color: #ffb5a7;
+            color: #ffd700;
             font-weight: 600;
             display: block;
             margin-top: 15px;
-            font-size: 1.15rem;
-            line-height: 1.5;
+            font-size: 1.1rem;
+            font-style: italic;
         }
 
         .floater {
             position: absolute;
             pointer-events: none;
             z-index: 1;
-            animation: moveUp 4s linear forwards;
+            animation: moveUp 5s linear forwards;
         }
 
         @keyframes moveUp {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .instruction {
+            color: #ffd700; 
+            letter-spacing: 1px; 
+            font-size: 0.9rem; 
+            margin-top: 20px; 
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
     <div id="opener" onclick="reveal()">
-        <div class="gift-emoji">🎁</div>
-        <p style="color: #ffb5a7; letter-spacing: 2px; font-size: 0.9rem; margin-top: 20px; font-weight: 600;">
-            Rabi ki Jaan Zara Box ko gussey me Kholna
+        <div class="main-emoji">🌙</div>
+        <p class="instruction">
+            Anu Jaan, Itekaf se pehle <br> is Moon par Click karein...
         </p>
     </div>
 
     <div id="content">
-        <h1>Anu Jaan... ☀️</h1>
+        <h1>Itekaf Mubarak... ✨</h1>
         <div class="card">
             <p class="message">
-                "Uth gaye aap? Meri Duniya mein aney ke liye shukriya mere Zindagi ko acha bananey ke liye shukriya. ✨<br><br>
-                Sone ke baad jab pehli baar aankh khulti hai na, toh dil bas tumhara hi chehra dhoondta hai. 
-                Kaash me tere pass hota tu tuje jhee bhar kar dekta phir office jata par koi nh wo din ab ziada dur nhi jab teri Morning mere Bahaoo mein hogi. <br><br>
+                "Meri pyari Guriya, Itekaf ka ye safar aapko Allah ke aur qareeb le jaye. 🤲<br><br>
+                Aap Allah se baatein karein, ibadat karein, aur sukoon payein. Beshak mere liye thoda mushkil hoga aapke bagair, par aapki kamyabi aur sukoon hi meri khushi hai. ✨<br><br>
                 <span class="highlight">
-                    I Love You Meri Guriya, Bhut dil kar rha hai tuje seney se laganey ka tuje pyar karney ka tuje dair sari muxhiyan deney ka. 🤗💋
+                    Duaon mein mujhe hamesha yaad rakhna. Allah aapki har dua qubool farmaye. I love you so much meri Jaan! ❤️
                 </span>
             </p>
         </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: #777;">Aapki smile hi mera din banati hai.</p>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #aaa;">Aapki ibadat mein hi meri barkat hai.</p>
     </div>
 
     <script>
@@ -124,12 +129,14 @@
             const content = document.getElementById('content');
             content.style.display = 'block';
             content.animate([
-                { opacity: 0, transform: 'scale(0.8)' },
-                { opacity: 1, transform: 'scale(1)' }
-            ], { duration: 1000, easing: 'ease-out' });
+                { opacity: 0, transform: 'translateY(20px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+            ], { duration: 1200, easing: 'ease-out' });
 
-            setInterval(() => createFloater('❤️'), 300);
-            setInterval(() => createFloater('💋'), 500);
+            // Floating elements: Stars and Moon
+            setInterval(() => createFloater('⭐'), 400);
+            setInterval(() => createFloater('✨'), 600);
+            setInterval(() => createFloater('🌙'), 1000);
         }
 
         function createFloater(symbol) {
@@ -137,10 +144,11 @@
             el.classList.add('floater');
             el.innerHTML = symbol;
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            el.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            el.style.opacity = Math.random();
             document.body.appendChild(el);
-            setTimeout(() => el.remove(), 4000);
+            setTimeout(() => el.remove(), 5000);
         }
     </script>
 </body>
