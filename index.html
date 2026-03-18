@@ -25,10 +25,8 @@
             align-items: center;
             overflow: hidden;
             perspective: 1500px;
-            transition: background 2s;
         }
 
-        /* Ambient Romantic Glow */
         .ambient-light {
             position: fixed;
             width: 100%;
@@ -39,103 +37,88 @@
         }
 
         @keyframes pulseGlow {
-            from { opacity: 0.6; }
-            to { opacity: 1; }
+            from { opacity: 0.5; }
+            to { opacity: 0.9; }
         }
 
-        /* --- 3D INTERACTIVE CARD --- */
         #main-container {
             text-align: center;
-            z-index: 10;
+            z-index: 10; /* Card kisses ke uper rahegi */
             transform-style: preserve-3d;
         }
 
         .card {
             display: none;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(20, 20, 20, 0.6);
             padding: 40px;
-            border-radius: 60px 0 60px 0; /* Romantic asymmetrical shape */
+            border-radius: 60px 0 60px 0;
             border: 2px solid rgba(255, 51, 102, 0.4);
-            backdrop-filter: blur(30px);
+            backdrop-filter: blur(20px);
             box-shadow: 0 0 50px rgba(255, 51, 102, 0.2);
             max-width: 450px;
             width: 85%;
-            transform: rotateY(-5deg);
-            animation: cardFloat 3s infinite ease-in-out;
-        }
-
-        @keyframes cardFloat {
-            0%, 100% { transform: translateY(0) rotateY(-5deg); }
-            50% { transform: translateY(-15px) rotateY(5deg); }
+            position: relative;
+            z-index: 20; /* Card hamesha front pe rahegi */
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             color: var(--primary);
             margin: 0;
-            text-shadow: 0 0 25px rgba(255, 51, 102, 0.6);
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
         }
 
         .romantic-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin: 25px 0;
-            font-style: italic;
-            color: #fff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            color: #eee;
         }
 
-        /* --- KISSES & FLOATING ELEMENTS --- */
+        /* Kisses will fall BEHIND the card or to the sides */
         .kiss-particle {
             position: absolute;
             pointer-events: none;
-            z-index: 100;
+            z-index: 5; /* Card ke peeche */
             animation: kissFall 4s linear forwards;
-            filter: drop-shadow(0 0 10px var(--primary));
         }
 
         @keyframes kissFall {
             0% { transform: translateY(-10vh) rotate(0deg) scale(0); opacity: 0; }
-            20% { opacity: 1; transform: translateY(10vh) rotate(20deg) scale(1.5); }
-            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
+            20% { opacity: 1; transform: translateY(10vh) rotate(20deg) scale(1.2); }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1); opacity: 0; }
         }
 
-        /* --- ROMANTIC BUTTON --- */
         .btn-love {
             background: linear-gradient(45deg, var(--primary), #b3002d);
             color: white;
             border: none;
-            padding: 18px 40px;
+            padding: 15px 35px;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.5);
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.4);
+            transition: 0.3s;
         }
 
-        .btn-love:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 40px var(--primary);
-        }
+        .btn-love:hover { transform: scale(1.05); }
 
-        /* --- INITIAL GIFT BOX --- */
         #intro {
             cursor: pointer;
-            transition: 1s;
+            text-align: center;
         }
 
         .floating-heart {
-            font-size: 150px;
+            font-size: 120px;
             animation: heartbeat 1.2s infinite;
-            filter: drop-shadow(0 0 40px var(--primary));
+            filter: drop-shadow(0 0 30px var(--primary));
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.1); }
         }
     </style>
 </head>
@@ -145,65 +128,71 @@
 
     <div id="intro" onclick="openSurprise()">
         <div class="floating-heart">❤️</div>
-        <h2 style="color: #fff; font-family: 'Dancing Script'; letter-spacing: 2px;">Tap to feel my love...</h2>
+        <h2 style="color: #fff; font-family: 'Dancing Script';">Tap to open, Anu Jaan...</h2>
     </div>
 
     <div id="main-container">
         <div class="card" id="card">
-            <div style="font-size: 50px; margin-bottom: 10px;">🌹🧸🎂</div>
+            <div style="font-size: 40px; margin-bottom: 10px;">🌹🧸🎂</div>
             <h1>Happy Birthday!</h1>
             <p class="romantic-text">
-                "Anu Jaan, Meri har dua aap se shuru ho kar aap par hi khatam hoti hai. 
-                Aap ke saath guzra har pal mere liye jannat hai. Allah humein hamesha aise hi saath rakhe."
+                "Anu Jaan, Aap ke saath guzra har pal mere liye jannat hai. Allah humein hamesha aise hi saath rakhe aur aapki har khwaish poori ho."
             </p>
-            <p style="font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--gold); margin-bottom: 30px;">
-                I Love You Forever, My Jaan! ❤️
+            <p style="font-family: 'Dancing Script'; font-size: 1.6rem; color: var(--gold); margin-bottom: 25px;">
+                I Love You Forever! ❤️
             </p>
-            <button class="btn-love" onclick="sendKisses()">Yahan Click Karein 💋</button>
+            <button class="btn-love" onclick="sendKisses()">Click for Kisses 💋</button>
         </div>
     </div>
 
     <script>
+        // Is baar function tabhi chalega jab button click hoga
         function openSurprise() {
-            const intro = document.getElementById('intro');
-            intro.style.opacity = '0';
-            intro.style.transform = 'scale(2) rotate(10deg)';
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('card').style.display = 'block';
             
-            setTimeout(() => {
-                intro.style.display = 'none';
-                const card = document.getElementById('card');
-                card.style.display = 'block';
-                // Trigger kiss rain automatically on open
-                sendKisses();
-                // Add secondary rain
-                setInterval(() => spawnElement('💖'), 2000);
-            }, 800);
+            // Shuruat mein thode se slow hearts background mein
+            setInterval(() => {
+                spawnElement('💖', false);
+            }, 1500);
         }
 
         function spawnElement(symbol, isKiss = false) {
             const el = document.createElement('div');
-            el.className = isKiss ? 'kiss-particle' : 'kiss-particle';
+            el.className = 'kiss-particle';
             el.innerHTML = symbol;
-            el.style.left = Math.random() * 95 + 'vw';
-            el.style.fontSize = (Math.random() * 25 + (isKiss ? 40 : 20)) + 'px';
+            
+            // Random position: left side ya right side (center se hat kar)
+            const randomSide = Math.random() > 0.5 ? Math.random() * 25 : 75 + Math.random() * 20;
+            el.style.left = randomSide + 'vw';
+            
+            el.style.fontSize = (Math.random() * 20 + (isKiss ? 35 : 20)) + 'px';
             el.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(el);
-            setTimeout(() => el.remove(), 4500);
+            
+            setTimeout(() => el.remove(), 4000);
         }
 
         function sendKisses() {
-            // Intense Kiss Rain
-            for(let i=0; i<40; i++) {
+            // Button click par kisses ka explosion
+            for(let i = 0; i < 40; i++) {
                 setTimeout(() => {
-                    spawnElement('💋', true);
-                    // Add some hearts in between
-                    if(i % 3 === 0) spawnElement('❤️');
+                    // Yahan hum symbols mix kar rahe hain
+                    const emoji = i % 2 === 0 ? '💋' : '❤️';
+                    
+                    const el = document.createElement('div');
+                    el.className = 'kiss-particle';
+                    el.innerHTML = emoji;
+                    
+                    // Poori screen par phel kar girenge
+                    el.style.left = Math.random() * 95 + 'vw';
+                    el.style.fontSize = (Math.random() * 20 + 30) + 'px';
+                    el.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 4000);
                 }, i * 100);
             }
-            
-            // Subtle change in background glow on click
-            document.querySelector('.ambient-light').style.background = 
-                "radial-gradient(circle at center, #800020 0%, #000 80%)";
         }
     </script>
 </body>
