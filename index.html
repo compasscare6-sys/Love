@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Itekaf Mubarak Anu Jaan ❤️</title>
+    <title>Happy Birthday Anu Jaan ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&family=Great+Vibes&display=swap');
 
         body {
             margin: 0;
             padding: 0;
-            background: #001a1a;
+            background: #0a0a0a;
             color: white;
             font-family: 'Poppins', sans-serif;
             height: 100vh;
@@ -18,109 +18,121 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background: radial-gradient(circle at center, #003333 0%, #000 100%);
+            background: radial-gradient(circle at center, #2d0036 0%, #000 100%);
         }
 
+        /* Initial Screen */
         #opener {
             text-align: center;
             cursor: pointer;
-            transition: 0.5s;
+            z-index: 100;
         }
 
-        .main-emoji {
-            font-size: 80px;
-            animation: glow 2s infinite alternate;
-            filter: drop-shadow(0 0 15px #ffd700);
+        .gift-box {
+            font-size: 100px;
+            animation: bounce 1.5s infinite;
+            filter: drop-shadow(0 0 20px #ff3366);
         }
 
-        @keyframes glow {
-            from { transform: scale(1); filter: drop-shadow(0 0 10px #ffd700); }
-            to { transform: scale(1.1); filter: drop-shadow(0 0 30px #ffd700); }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
         }
 
+        /* Main Content */
         #content {
             display: none;
-            width: 85%;
-            max-width: 450px;
+            width: 90%;
+            max-width: 500px;
             text-align: center;
             z-index: 10;
         }
 
         h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
-            color: #ffd700;
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #ff3366;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.6);
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            background: rgba(255, 255, 255, 0.07);
+            padding: 30px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
         }
 
         .message {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #f0f0f0;
-            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #fff;
         }
 
         .highlight {
-            color: #ffd700;
+            color: #ff3366;
             font-weight: 600;
             display: block;
             margin-top: 15px;
-            font-size: 1.1rem;
-            font-style: italic;
+            font-size: 1.3rem;
+            font-family: 'Dancing Script', cursive;
         }
 
+        /* Floating Animation */
         .floater {
             position: absolute;
             pointer-events: none;
-            z-index: 1;
-            animation: moveUp 5s linear forwards;
+            animation: floatUp 6s linear forwards;
         }
 
-        @keyframes moveUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        .instruction {
-            color: #ffd700; 
-            letter-spacing: 1px; 
-            font-size: 0.9rem; 
-            margin-top: 20px; 
-            font-weight: 600;
+        .btn-celebrate {
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+            transition: 0.3s;
         }
+
+        .btn-celebrate:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
 
     <div id="opener" onclick="reveal()">
-        <div class="main-emoji">🌙</div>
-        <p class="instruction">
-            Anu Jaan, Itekaf se pehle <br> is Moon par Click karein...
+        <div class="gift-box">🎁</div>
+        <p style="color: #ff3366; font-weight: 600; letter-spacing: 1px;">
+            Anu Jaan, Aapka Surprise Yahan Hai... <br> (Tap to Open)
         </p>
     </div>
 
     <div id="content">
-        <h1>Itekaf Mubarak... ✨</h1>
+        <h1 id="headline">Happy Birthday!</h1>
         <div class="card">
             <p class="message">
-                "Meri pyari Guriya, Itekaf ka ye safar aapko Allah ke aur qareeb le jaye. 🤲<br><br>
-                Aap Allah se baatein karein, ibadat karein, aur sukoon payein. Beshak mere liye thoda mushkil hoga aapke bagair, par aapki kamyabi aur sukoon hi meri khushi hai. ✨<br><br>
+                "Meri Humsafar, Meri Jaan... ✨<br><br>
+                Aaj ka din mere liye sab se khaas hai kyunki aaj ke din mere sukoon ka janam hua tha. Aap sirf meri wife nahi, meri poori duniya ho.<br><br>
+                Aapki muskurahat meri kamyabi hai, aur aapki khushi mera junoon. Allah kare ye saal aapki zindagi ka sab se haseen saal ho."
                 <span class="highlight">
-                    Duaon mein mujhe hamesha yaad rakhna. Allah aapki har dua qubool farmaye. I love you so much meri Jaan! ❤️
+                    I Love You Forever, Anu Jaan! ❤️
                 </span>
             </p>
         </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: #aaa;">Aapki ibadat mein hi meri barkat hai.</p>
+        <button class="btn-celebrate" onclick="extraLove()">Celebrate More! ✨</button>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #ff3366; opacity: 0.7;">Hamesha Tumhara, Hamesha Ke Liye.</p>
     </div>
 
     <script>
@@ -128,27 +140,43 @@
             document.getElementById('opener').style.display = 'none';
             const content = document.getElementById('content');
             content.style.display = 'block';
+            
+            // Text animation
             content.animate([
-                { opacity: 0, transform: 'translateY(20px)' },
-                { opacity: 1, transform: 'translateY(0)' }
-            ], { duration: 1200, easing: 'ease-out' });
+                { opacity: 0, transform: 'scale(0.8)' },
+                { opacity: 1, transform: 'scale(1)' }
+            ], { duration: 1000, easing: 'ease-out' });
 
-            // Floating elements: Stars and Moon
-            setInterval(() => createFloater('⭐'), 400);
-            setInterval(() => createFloater('✨'), 600);
-            setInterval(() => createFloater('🌙'), 1000);
+            // Start basic floating
+            startFloating();
         }
 
-        function createFloater(symbol) {
+        function createFloater(symbol, color = '') {
             const el = document.createElement('div');
             el.classList.add('floater');
             el.innerHTML = symbol;
             el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            el.style.fontSize = (Math.random() * 20 + 20) + 'px';
             el.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            el.style.opacity = Math.random();
+            if(color) el.style.color = color;
+            
             document.body.appendChild(el);
-            setTimeout(() => el.remove(), 5000);
+            setTimeout(() => el.remove(), 6000);
+        }
+
+        function startFloating() {
+            setInterval(() => createFloater('❤️'), 500);
+            setInterval(() => createFloater('🌸'), 800);
+            setInterval(() => createFloater('✨'), 1000);
+        }
+
+        function extraLove() {
+            // Change title for extra effect
+            document.getElementById('headline').innerHTML = "You are My Life! 💍";
+            // Burst of hearts
+            for(let i=0; i<20; i++) {
+                setTimeout(() => createFloater('💖'), i * 100);
+            }
         }
     </script>
 </body>
