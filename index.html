@@ -10,12 +10,13 @@
         :root {
             --primary: #ff3366;
             --gold: #ffd700;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at center, #2d0036 0%, #000 100%);
+            background: #050505;
             color: white;
             font-family: 'Poppins', sans-serif;
             height: 100vh;
@@ -23,215 +24,240 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            perspective: 1000px;
+            perspective: 1200px; /* Stronger 3D depth */
         }
 
-        /* --- 3D GIFT BOX --- */
-        #opener {
-            text-align: center;
-            z-index: 100;
-            transition: 0.8s ease-in-out;
+        /* Ambient Background */
+        .bg-glow {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 50%, #3d001f 0%, #000 80%);
+            z-index: -1;
         }
 
-        .gift-container {
-            width: 150px;
-            height: 150px;
+        /* --- 3D FLOATING CAKE (CSS ART) --- */
+        #cake-3d {
             position: relative;
+            width: 100px;
+            height: 100px;
             transform-style: preserve-3d;
-            animation: rotateGift 6s infinite linear;
-            cursor: pointer;
-            margin: 0 auto 30px;
+            transform: rotateX(-20deg) rotateY(20deg);
+            animation: floatCake 4s infinite ease-in-out;
+            margin-bottom: 50px;
         }
 
-        @keyframes rotateGift {
-            0% { transform: rotateY(0deg) rotateX(-10deg); }
-            100% { transform: rotateY(360deg) rotateX(-10deg); }
+        @keyframes floatCake {
+            0%, 100% { transform: translateY(0) rotateX(-20deg) rotateY(20deg); }
+            50% { transform: translateY(-20px) rotateX(-10deg) rotateY(40deg); }
         }
 
-        .side {
+        .cake-layer {
             position: absolute;
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 60px;
             background: var(--primary);
-            border: 2px solid #fff;
-            opacity: 0.9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 80px;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.5);
         }
 
-        .front  { transform: translateZ(75px); }
-        .back   { transform: rotateY(180deg) translateZ(75px); }
-        .left   { transform: rotateY(-90deg) translateZ(75px); }
-        .right  { transform: rotateY(90deg) translateZ(75px); }
-        .top    { transform: rotateX(90deg) translateZ(75px); background: #ff5e84; }
-        
-        .ribbon-v { position: absolute; width: 30px; height: 100%; background: var(--gold); left: 60px; z-index: 1; }
-        .ribbon-h { position: absolute; width: 100%; height: 30px; background: var(--gold); top: 60px; z-index: 1; }
+        .cake-top { transform: translateY(-20px); background: #ff5e84; display: flex; justify-content: center; align-items: center; font-size: 25px; }
+        .candle {
+            position: absolute;
+            width: 8px;
+            height: 30px;
+            background: var(--gold);
+            top: -45px;
+            border-radius: 5px;
+        }
+        .flame {
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background: orange;
+            top: -15px;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px orange;
+            animation: flicker 0.1s infinite;
+        }
 
-        /* --- MAIN CONTENT --- */
-        #content {
+        @keyframes flicker {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* --- INTERACTIVE CARD --- */
+        #main-card {
             display: none;
-            width: 90%;
-            max-width: 500px;
+            width: 85%;
+            max-width: 450px;
+            padding: 40px;
+            background: var(--glass);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(25px);
             text-align: center;
+            transform-style: preserve-3d;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
             z-index: 10;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 25px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 51, 102, 0.3);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-            transform: translateZ(50px);
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin: 10px 0;
-            text-shadow: 0 0 20px var(--primary);
+            font-size: 4rem;
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
-        /* --- CAKE & TEDDY --- */
-        .decorations {
-            display: flex;
-            justify-content: space-around;
+        .message-box {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 20px 0;
+            color: #eee;
+        }
+
+        .heart-3d {
             font-size: 50px;
-            margin-bottom: 15px;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+            filter: drop-shadow(0 0 10px var(--primary));
         }
 
-        .cake { animation: bounce 2s infinite; }
-        .teddy { animation: swing 3s infinite ease-in-out; }
-
-        @keyframes swing {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
+        @keyframes heartbeat {
+            0% { transform: scale(1) translateZ(0); }
+            15% { transform: scale(1.2) translateZ(50px); }
+            30% { transform: scale(1) translateZ(0); }
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        /* --- GIFT BOX TRIGGER --- */
+        #gift-trigger {
+            cursor: pointer;
+            text-align: center;
+            transition: 0.5s;
+        }
+
+        .box-3d {
+            font-size: 120px;
+            filter: drop-shadow(0 0 30px var(--primary));
+            animation: rotateBox 3s infinite linear;
+        }
+
+        @keyframes rotateBox {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
 
         /* --- FLOATING ELEMENTS --- */
         .floater {
             position: absolute;
             pointer-events: none;
-            animation: floatUp 5s linear forwards;
-            z-index: 1;
+            animation: fall 6s linear forwards;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg) scale(0.5); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(-20vh) rotate(360deg) scale(1.5); opacity: 0; }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        .btn-celebrate {
-            background: linear-gradient(45deg, var(--primary), #ff85a2);
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-weight: bold;
-            margin-top: 20px;
+        .btn-magic {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.4);
-            transition: 0.3s;
+            transition: 0.4s;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
-        .btn-celebrate:hover { transform: scale(1.1) rotate(-2deg); }
+        .btn-magic:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 30px var(--gold);
+        }
     </style>
 </head>
 <body>
 
-    <div id="opener" onclick="reveal()">
-        <div class="gift-container">
-            <div class="side front"><div class="ribbon-v"></div><div class="ribbon-h"></div></div>
-            <div class="side back"><div class="ribbon-v"></div><div class="ribbon-h"></div></div>
-            <div class="side left"><div class="ribbon-v"></div><div class="ribbon-h"></div></div>
-            <div class="side right"><div class="ribbon-v"></div><div class="ribbon-h"></div></div>
-            <div class="side top">🎀</div>
-        </div>
-        <p style="color: #ff3366; font-weight: 600; font-size: 1.2rem;">
-            Anu Jaan, Ek Surprise Hai... ✨<br>
-            <span style="font-size: 0.9rem; opacity: 0.8;">(Tap the 3D Box to Open)</span>
-        </p>
+    <div class="bg-glow"></div>
+
+    <div id="gift-trigger" onclick="unfold()">
+        <div class="box-3d">🎁</div>
+        <h2 style="color: var(--gold); font-family: 'Dancing Script';">Tap to Open My Heart...</h2>
     </div>
 
-    <div id="content">
-        <div class="decorations">
-            <span class="teddy">🧸</span>
-            <span class="cake">🎂</span>
-            <span class="teddy">🧸</span>
+    <div id="main-card">
+        <div id="cake-3d">
+            <div class="cake-layer"></div>
+            <div class="cake-layer cake-top">
+                <div class="candle"><div class="flame"></div></div>
+                🎂
+            </div>
         </div>
+
+        <h1 id="title">Happy Birthday!</h1>
         
-        <h1 id="headline">Happy Birthday Anu!</h1>
-        
-        <div class="card">
-            <p style="font-size: 1.1rem; line-height: 1.6;">
-                "Meri Humsafar, Meri Jaan... ✨<br><br>
-                Aap sirf meri wife nahi, mere dil ki dharkan ho. Allah aapko hamesha aise hi muskurata rakhe jaise aap aaj lag rahi hain."
-                <br>
-                <span style="color: var(--primary); font-family: 'Dancing Script'; font-size: 1.5rem; display: block; margin-top: 15px;">
-                    I Love You To The Moon and Back! ❤️
-                </span>
+        <div class="message-box">
+            <p>"Anu Jaan, Aap meri zindagi ki sabse haseen sachayi ho. Aaj ka din aapke naam, aur meri har saans aapke liye."</p>
+            <div class="heart-3d">❤️</div>
+            <p style="font-family: 'Dancing Script'; font-size: 1.6rem; color: var(--gold);">
+                Hamesha Ke Liye Tumhara...
             </p>
         </div>
 
-        <button class="btn-celebrate" onclick="extraMagic()">Baar Baar Din Ye Aaye! 🥂</button>
-        <p style="margin-top: 25px; font-size: 0.8rem; color: #ff3366;">Hamesha Tumhara, Hamesha Ke Liye.</p>
+        <button class="btn-magic" onclick="surpriseMode()">Make a Wish! ✨</button>
     </div>
 
     <script>
-        function reveal() {
-            document.getElementById('opener').style.transform = 'scale(0) rotate(720deg)';
+        function unfold() {
+            const trigger = document.getElementById('gift-trigger');
+            trigger.style.transform = 'translateZ(500px) rotateY(180deg)';
+            trigger.style.opacity = '0';
+            
             setTimeout(() => {
-                document.getElementById('opener').style.display = 'none';
-                const content = document.getElementById('content');
-                content.style.display = 'block';
-                content.animate([
-                    { opacity: 0, transform: 'translateZ(-500px) rotateX(90deg)' },
-                    { opacity: 1, transform: 'translateZ(0) rotateX(0deg)' }
-                ], { duration: 1000, easing: 'ease-out' });
+                trigger.style.display = 'none';
+                const card = document.getElementById('main-card');
+                card.style.display = 'block';
+                card.animate([
+                    { transform: 'scale(0.5) rotateX(90deg)', opacity: 0 },
+                    { transform: 'scale(1) rotateX(0deg)', opacity: 1 }
+                ], { duration: 1200, easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)' });
                 
-                startMagic();
-            }, 800);
+                startRain();
+            }, 600);
         }
 
-        function createFloater(symbol) {
+        function spawn(symbol) {
             const el = document.createElement('div');
             el.className = 'floater';
             el.innerHTML = symbol;
-            el.style.left = Math.random() * 90 + 'vw';
+            el.style.left = Math.random() * 100 + 'vw';
             el.style.fontSize = (Math.random() * 30 + 20) + 'px';
-            el.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(el);
-            setTimeout(() => el.remove(), 5000);
+            setTimeout(() => el.remove(), 6000);
         }
 
-        function startMagic() {
-            setInterval(() => createFloater('❤️'), 400);
-            setInterval(() => createFloater('💖'), 700);
-            setInterval(() => createFloater('✨'), 1000);
-            setInterval(() => createFloater('🧸'), 2000);
+        function startRain() {
+            setInterval(() => spawn('💖'), 400);
+            setInterval(() => spawn('✨'), 800);
+            setInterval(() => spawn('🧸'), 2500);
+            setInterval(() => spawn('💍'), 4000);
         }
 
-        function extraMagic() {
-            document.getElementById('headline').innerHTML = "You're My Everything! 💍";
-            // Burst effect
-            for(let i=0; i<30; i++) {
-                setTimeout(() => {
-                    createFloater(['❤️','🎂','🧸','✨','🌸'][Math.floor(Math.random()*5)]);
-                }, i * 100);
+        function surpriseMode() {
+            document.getElementById('title').innerText = "I Love You Anu!";
+            document.body.style.background = "radial-gradient(circle, #4d0026 0%, #000 100%)";
+            
+            // Explosion of love
+            for(let i=0; i<50; i++) {
+                setTimeout(() => spawn(['❤️','🌸','💎','🧸'][Math.floor(Math.random()*4)]), i * 50);
             }
         }
     </script>
