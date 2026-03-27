@@ -3,207 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Queen Anu ❤️</title>
+    <title>Anu Please Maan Jao! 🥺</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&family=Great+Vibes&display=swap');
-
-        :root {
-            --primary: #ff3366;
-            --gold: #ffd700;
-            --deep-red: #2d0010;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
 
         body {
             margin: 0;
-            padding: 0;
-            background: #000;
+            background: #1a1a1a;
             color: white;
             font-family: 'Poppins', sans-serif;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
             overflow: hidden;
-            perspective: 2000px;
-        }
-
-        .ambient-light {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, var(--deep-red) 0%, #000 90%);
-            z-index: -1;
-        }
-
-        /* --- INTRO HEART --- */
-        #intro {
-            cursor: pointer;
             text-align: center;
-            z-index: 50;
-            transition: 0.5s;
         }
 
-        .big-heart {
-            font-size: 130px;
-            filter: drop-shadow(0 0 40px var(--primary));
-            animation: pulse 1.2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        /* --- 3D CARD ENTRANCE --- */
-        #main-scene {
-            display: none;
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
-        }
-
-        .card-3d {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 40px;
-            border-radius: 40px;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            backdrop-filter: blur(25px);
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            max-width: 400px;
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #ff4d4d;
+            box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
             width: 85%;
-            text-align: center;
-            transform-style: preserve-3d;
-            
-            /* ENTRANCE ANIMATION: Ghoomta hua side se aayega */
-            animation: enter3D 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            max-width: 400px;
+            position: relative;
         }
 
-        @keyframes enter3D {
-            0% { 
-                transform: translateX(-150vw) rotateY(-720deg) rotateX(45deg) scale(0.5); 
-                opacity: 0;
-            }
-            100% { 
-                transform: translateX(0) rotateY(-10deg) rotateX(10deg) scale(1); 
-                opacity: 1;
-            }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ff4d4d; }
+        p { font-size: 1.1rem; }
+
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
         }
 
-        .card-3d h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin: 0;
-            transform: translateZ(60px);
-            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        .romantic-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin: 20px 0;
-            transform: translateZ(40px);
-            color: #fff;
-        }
-
-        /* --- BUTTON & KISSES --- */
-        .btn-love {
-            background: linear-gradient(45deg, var(--primary), #b3002d);
-            color: white;
+        button {
+            padding: 10px 25px;
+            border-radius: 25px;
             border: none;
-            padding: 15px 35px;
-            border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
-            transform: translateZ(80px);
-            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.4);
             transition: 0.3s;
         }
 
-        .btn-love:hover { transform: translateZ(100px) scale(1.1); }
-
-        .kiss {
+        #yesBtn { background: #4CAF50; color: white; }
+        
+        /* Funny Button */
+        #noBtn { 
+            background: #ff4d4d; 
+            color: white; 
             position: absolute;
-            pointer-events: none;
-            z-index: 100;
-            animation: kissFall 4s linear forwards;
-            filter: drop-shadow(0 0 15px var(--primary));
         }
 
-        @keyframes kissFall {
-            0% { transform: translateY(-10vh) translateZ(-200px) rotate(0deg) scale(0); opacity: 0; }
-            20% { opacity: 1; transform: translateY(10vh) scale(1.5); }
-            100% { transform: translateY(110vh) translateZ(300px) rotate(360deg) scale(1); opacity: 0; }
+        .success-msg {
+            display: none;
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .emoji { font-size: 50px; }
     </style>
 </head>
 <body>
 
-    <div class="ambient-light"></div>
+    <div class="container" id="mainBox">
+        <div id="askSection">
+            <div class="emoji">🥺👉👈</div>
+            <h1>Sorry Na Anu Jaan!</h1>
+            <p>Kal raat ke gusse ke liye kaan pakad ke sorry. Kya aapne mujhe maaf kiya?</p>
+            
+            <div class="btn-container">
+                <button id="yesBtn" onclick="maafKiya()">Haan, Maaf Kiya ❤️</button>
+                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Bilkul Nahi! 😡</button>
+            </div>
+        </div>
 
-    <div id="intro" onclick="triggerEntrance()">
-        <div class="big-heart">❤️</div>
-        <h2 style="color: #fff; font-family: 'Dancing Script'; letter-spacing: 2px;">Tap to feel my love, Anu...</h2>
-    </div>
-
-    <div id="main-scene">
-        <div class="card-3d" id="card">
-            <div style="font-size: 40px; transform: translateZ(50px);">🌹🧸🎂</div>
-            <h1>Happy Birthday!</h1>
-            <p class="romantic-text">
-                "Anu Jaan, Aap meri zindagi ki wo roshni ho jisne sab kuch haseen bana diya. Allah humein hamesha aise hi saath rakhe."
-            </p>
-            <p style="font-family: 'Dancing Script'; font-size: 1.8rem; color: var(--gold); transform: translateZ(60px);">
-                I Love You, My Everything! ❤️
-            </p>
-            <button class="btn-love" onclick="startKisses()">Receive My Kisses 💋</button>
+        <div id="successSection" class="success-msg">
+            <div class="emoji">🥳💃❤️</div>
+            <h1>Yaaaaay!</h1>
+            <p>I promise ab gussa nahi karunga (sirf thoda sa pyar karunga). Chalo ab jaldi se ek smile do! 😊</p>
+            <p style="color: #ffd700;">I Love You, My Queen! 👑</p>
         </div>
     </div>
 
     <script>
-        function triggerEntrance() {
-            // Heart ko gayab karo
-            document.getElementById('intro').style.transform = 'scale(0) rotate(360deg)';
-            document.getElementById('intro').style.opacity = '0';
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            // Button screen ke andar hi rahe isliye limits
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
             
-            setTimeout(() => {
-                document.getElementById('intro').style.display = 'none';
-                document.getElementById('main-scene').style.display = 'flex';
-                
-                // Entrance ke baad halka sa floating effect shuru karein
-                startFloatingCard();
-            }, 600);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
         }
 
-        function startFloatingCard() {
-            const card = document.getElementById('card');
-            // Mouse se card hilane wala effect (Sirf Desktop ke liye)
-            document.addEventListener('mousemove', (e) => {
-                let x = (window.innerWidth / 2 - e.pageX) / 25;
-                let y = (window.innerHeight / 2 - e.pageY) / 25;
-                card.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`;
-            });
-        }
-
-        function startKisses() {
-            // Button click par 40 kisses ka explosion
-            for(let i = 0; i < 40; i++) {
-                setTimeout(() => {
-                    const kiss = document.createElement('div');
-                    kiss.className = 'kiss';
-                    kiss.innerHTML = i % 2 === 0 ? '💋' : '❤️';
-                    
-                    kiss.style.left = Math.random() * 100 + 'vw';
-                    kiss.style.fontSize = (Math.random() * 20 + 30) + 'px';
-                    kiss.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    
-                    document.body.appendChild(kiss);
-                    setTimeout(() => kiss.remove(), 4000);
-                }, i * 100);
+        function maafKiya() {
+            document.getElementById('askSection').style.display = 'none';
+            document.getElementById('successSection').style.display = 'block';
+            document.getElementById('mainBox').style.borderColor = '#4CAF50';
+            
+            // Background me dil girane ke liye
+            for(let i=0; i<30; i++) {
+                createHeart();
             }
         }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-20px';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        // CSS for falling hearts
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fall {
+                to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
