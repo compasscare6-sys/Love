@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu Please Maan Jao! 🥺</title>
+    <title>Anu Maan Jao Na! 🥺</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
 
         body {
             margin: 0;
-            background: #1a1a1a;
+            background: #0f0f0f;
             color: white;
             font-family: 'Poppins', sans-serif;
             display: flex;
@@ -18,93 +18,109 @@
             height: 100vh;
             overflow: hidden;
             text-align: center;
+            touch-action: manipulation; /* Mobile zoom issues fix */
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 2px solid #ff4d4d;
-            box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 77, 77, 0.3);
             width: 85%;
-            max-width: 400px;
+            max-width: 350px;
             position: relative;
         }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ff4d4d; }
-        p { font-size: 1.1rem; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ff4d4d; margin-bottom: 10px; }
+        p { font-size: 1rem; color: #ddd; }
 
         .btn-container {
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            height: 50px;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            height: 150px; /* Space for moving button */
+            position: relative;
         }
 
         button {
-            padding: 10px 25px;
-            border-radius: 25px;
+            padding: 12px 30px;
+            border-radius: 50px;
             border: none;
             font-weight: bold;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.2s;
+            width: 200px;
         }
 
-        #yesBtn { background: #4CAF50; color: white; }
+        #yesBtn { 
+            background: linear-gradient(45deg, #4CAF50, #2E7D32); 
+            color: white; 
+            z-index: 10;
+        }
         
-        /* Funny Button */
         #noBtn { 
             background: #ff4d4d; 
             color: white; 
             position: absolute;
+            top: 70px; /* Initial position */
         }
 
         .success-msg {
             display: none;
-            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: heartPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes pop {
+        @keyframes heartPop {
             0% { transform: scale(0); }
             100% { transform: scale(1); }
         }
 
-        .emoji { font-size: 50px; }
+        .emoji { font-size: 45px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
     <div class="container" id="mainBox">
         <div id="askSection">
-            <div class="emoji">🥺👉👈</div>
-            <h1>Sorry Na Anu Jaan!</h1>
-            <p>Kal raat ke gusse ke liye kaan pakad ke sorry. Kya aapne mujhe maaf kiya?</p>
+            <div class="emoji">🥺🙏</div>
+            <h1>I'm Sorry, Anu!</h1>
+            <p>Maaf kar do na please? Ab gussa nahi karunga, promise! 🤞</p>
             
             <div class="btn-container">
                 <button id="yesBtn" onclick="maafKiya()">Haan, Maaf Kiya ❤️</button>
-                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Bilkul Nahi! 😡</button>
+                <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">Bilkul Nahi! 😡</button>
             </div>
         </div>
 
         <div id="successSection" class="success-msg">
-            <div class="emoji">🥳💃❤️</div>
-            <h1>Yaaaaay!</h1>
-            <p>I promise ab gussa nahi karunga (sirf thoda sa pyar karunga). Chalo ab jaldi se ek smile do! 😊</p>
-            <p style="color: #ffd700;">I Love You, My Queen! 👑</p>
+            <div class="emoji">🥰💖</div>
+            <h1>Love You, Anu!</h1>
+            <p>Zindagi mein sab milega, bas tera gussa nahi chahiye! Chalo ab muskura do. 😊</p>
+            <div style="font-size: 30px; margin-top: 15px;">🌹🍓✨</div>
         </div>
     </div>
 
     <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            // Button screen ke andar hi rahe isliye limits
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
             
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            // Mobile screen boundaries check
+            const padding = 50;
+            const maxWidth = window.innerWidth - btn.offsetWidth - padding;
+            const maxHeight = window.innerHeight - btn.offsetHeight - padding;
+            
+            // Random coordinates
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+
+            // Button ko screen ke kisi bhi kone mein phenk do
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
         }
 
         function maafKiya() {
@@ -112,30 +128,31 @@
             document.getElementById('successSection').style.display = 'block';
             document.getElementById('mainBox').style.borderColor = '#4CAF50';
             
-            // Background me dil girane ke liye
-            for(let i=0; i<30; i++) {
-                createHeart();
+            // Create celebration effects
+            for(let i=0; i<40; i++) {
+                setTimeout(createHeart, i * 100);
             }
         }
 
         function createHeart() {
             const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
+            heart.innerHTML = ['❤️', '💖', '✨', '🌸'][Math.floor(Math.random() * 4)];
             heart.style.position = 'fixed';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.top = '-20px';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.fontSize = Math.random() * 25 + 15 + 'px';
+            heart.style.zIndex = '1000';
             heart.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
             document.body.appendChild(heart);
             
-            setTimeout(() => heart.remove(), 5000);
+            setTimeout(() => heart.remove(), 4000);
         }
 
-        // CSS for falling hearts
         const style = document.createElement('style');
         style.innerHTML = `
             @keyframes fall {
-                to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
             }
         `;
         document.head.appendChild(style);
