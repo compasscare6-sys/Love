@@ -3,179 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Queen Anu</title>
+    <title>For My Universe, Anu</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
         body {
-            background: radial-gradient(circle, #4a141b 0%, #1a0a10 100%);
+            background-color: #1a1a1a; /* Dark Elegant Background */
+            color: white;
             font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Floating Hearts Animation Background */
+        .hearts-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .heart {
+            position: absolute;
+            list-style: none;
+            background: rgba(212, 175, 55, 0.15); /* Subtle Gold Hearts */
+            animation: animate Hearts 20s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+        /* Custom shapes for hearts (pseudo-elements) */
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: inherit;
+            border-radius: 50%;
+        }
+        .heart::before { top: -50%; left: 0; }
+        .heart::after { left: 50%; top: 0; }
+        
+        @keyframes animateHearts {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
-            color: white;
-        }
-
-        .container {
-            perspective: 1000px;
+            text-align: center;
+            position: relative;
             z-index: 10;
-            width: 90%;
-            max-width: 450px;
         }
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: #d4af37; /* Gold */
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            margin: 0;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+            to { text-shadow: 0 0 35px rgba(212, 175, 55, 0.9), 0 0 10px #fff; }
+        }
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            font-size: 1rem;
+            color: #fce4ec;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
 
-        .box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px 30px;
-            border-radius: 30px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        /* Scrapbook Section */
+        .scrapbook {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .memory-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+        .memory-item.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .photo-frame {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            transform: rotate(-3deg); /* Polaroid style */
+            transition: transform 0.3s;
+            max-width: 90%;
+        }
+        .photo-frame:hover { transform: rotate(0deg) scale(1.03); }
+        .memory-photo {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        .caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #f8bbd0;
+            margin-top: 25px;
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            line-height: 1.2;
         }
-
-        .queen-name {
-            font-family: 'Great Vibes', cursive;
-            color: #d4af37;
-            font-size: 4rem;
-            margin: 10px 0;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
-        /* Password Styling */
-        input#passInput {
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #d4af37;
-            color: #d4af37;
-            font-size: 2rem;
-            width: 80px;
+        
+        /* Final Message */
+        .final-message {
             text-align: center;
-            outline: none;
-            margin: 20px 0;
+            padding: 100px 20px;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 50px;
+            margin-top: 50px;
         }
 
-        .btn-gold {
-            background: linear-gradient(45deg, #d4af37, #fbd15e);
-            color: #1a0a10;
-            padding: 12px 40px;
-            border-radius: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            text-transform: uppercase;
-            transition: 0.4s;
-        }
-
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4); }
-
-        /* Memory Cards */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .memory-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .memory-card:hover {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: #d4af37;
-            transform: scale(1.02);
-        }
-
-        .memory-card h3 { color: #d4af37; margin: 0; font-size: 1.1rem; }
-        .memory-content { display: none; margin-top: 10px; font-size: 0.9rem; color: #fce4ec; font-style: italic; }
-
-        /* Surprise Section */
-        #surpriseSection { display: none; animation: fadeIn 1s ease-in; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Hearts background */
-        .heart-bg { position: fixed; color: rgba(212, 175, 55, 0.2); pointer-events: none; animation: float 10s infinite linear; }
-        @keyframes float { from { transform: translateY(100vh); } to { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
-    <div id="heartContainer"></div>
-
-    <div class="container">
-        <div class="box" id="lockScreen">
-            <h2 style="font-weight: 300; letter-spacing: 3px;">ROYAL VAULT</h2>
-            <p style="color: #f8bbd0;">Hamari life ka wo khaas number?</p>
-            <input type="number" id="passInput" placeholder="??">
-            <br>
-            <button class="btn-gold" onclick="unlock()">Unlock Love</button>
+    <div class="hearts-bg">
         </div>
 
-        <div class="box" id="surpriseSection">
-            <h1 class="queen-name">Anu</h1>
-            <p style="font-size: 0.9rem; letter-spacing: 1px;">Every moment with you is a blessing.</p>
-            
-            <div class="cards-grid">
-                <div class="memory-card" onclick="toggleCard(this)">
-                    <h3>✨ A Special Promise</h3>
-                    <p class="memory-content">Main hamesha aapka saath doonga, har mushkil mein aur har khushi mein. Aapki smile meri priority hai. ❤️</p>
-                </div>
-                <div class="memory-card" onclick="toggleCard(this)">
-                    <h3>👑 To My Queen</h3>
-                    <p class="memory-content">Aap sirf meri wife nahi ho, aap mere ghar ki raunak ho. Shukriya meri zindagi itni khoobsurat banane ke liye. 👸</p>
-                </div>
-                <div class="memory-card" onclick="toggleCard(this)">
-                    <h3>💌 A Message from Heart</h3>
-                    <p class="memory-content">Hamari choti choti khushiyan hi asli sukoon hain. Let's grow old together and keep smiling! ✨😊</p>
-                </div>
+    <div class="hero">
+        <div>
+            <p style="font-size: 1.2rem; color: #fce4ec; letter-spacing: 3px; text-transform: uppercase;">To My Dearest</p>
+            <h1 class="main-title">Anu</h1>
+            <p style="font-size: 1.1rem; margin-top: 20px; opacity: 0.8;">You are the melody to my heart's song.</p>
+        </div>
+        <div class="scroll-down">Scroll down to see our journey ↓</div>
+    </div>
+
+    <div class="scrapbook">
+        
+        <div class="memory-item">
+            <div class="photo-frame">
+                <img src="photo1.jpg" alt="Our Special Moment" class="memory-photo">
             </div>
-            
-            <p style="margin-top: 25px; font-size: 0.8rem; color: #d4af37;">(Click on cards to read messages)</p>
+            <p class="caption">Wohi muskurahat, jisne mera dil jeeta tha...</p>
         </div>
+
+        <div class="memory-item">
+            <div class="photo-frame" style="transform: rotate(3deg);">
+                <img src="photo2.jpg" alt="Another Memory" class="memory-photo">
+            </div>
+            <p class="caption">Har safar khoobsurat hai, jab aap saath hon.</p>
+        </div>
+
+        <div class="memory-item">
+            <div class="photo-frame">
+                <img src="photo3.jpg" alt="Treasured Memory" class="memory-photo">
+            </div>
+            <p class="caption">Aapke saath har din ek naya jashn hai.</p>
+        </div>
+
+        <div class="final-message memory-item">
+            <h2 style="font-family: 'Dancing Script', cursive; font-size: 3rem; color: #d4af37;">Mera Waada</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #fce4ec; font-style: italic;">
+                Main hamesha koshish karunga ke aapki aankhon mein sirff khushi ke aansu hon. Aap meri duniya ho, Anu, aur main aapko dher saara pyar karta hoon. Hamesha ke liye. ❤️
+            </p>
+        </div>
+
     </div>
 
     <script>
-        // Create falling hearts
-        for(let i=0; i<20; i++) {
-            let heart = document.createElement('div');
-            heart.className = 'heart-bg';
-            heart.innerHTML = '❤️';
+        // Generate Floating Hearts
+        const heartsContainer = document.querySelector('.hearts-bg');
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.width = heart.style.height = (Math.random() * 30 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
             heart.style.animationDelay = Math.random() * 5 + 's';
-            document.getElementById('heartContainer').appendChild(heart);
+            heartsContainer.appendChild(heart);
         }
 
-        function unlock() {
-            const pass = document.getElementById('passInput').value;
-            if(pass === "23") {
-                document.getElementById('lockScreen').style.display = 'none';
-                document.getElementById('surpriseSection').style.display = 'block';
-            } else {
-                alert("Only the Queen knows the code! 👑");
-            }
-        }
+        // Scroll Animation Logic
+        const memoryItems = document.querySelectorAll('.memory-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.2 }); // Trigger when 20% of item is visible
 
-        function toggleCard(el) {
-            const content = el.querySelector('.memory-content');
-            const allContents = document.querySelectorAll('.memory-content');
-            
-            // Hide others
-            allContents.forEach(c => { if(c !== content) c.style.display = 'none'; });
-            
-            // Toggle current
-            content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-        }
+        memoryItems.forEach(item => observer.observe(item));
     </script>
 </body>
 </html>
