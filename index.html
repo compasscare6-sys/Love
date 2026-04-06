@@ -5,73 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Queen Anu</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
         body {
-            background: #fce4ec;
-            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a0a10 0%, #4a141b 50%, #880e4f 100%);
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            color: white;
+        }
+
+        /* Floating Hearts Animation */
+        .hearts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
+        .heart { position: absolute; list-style: none; background: rgba(255, 255, 255, 0.1); animation: animate 20s linear infinite; bottom: -150px; }
+        .heart:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .heart:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .heart:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+
+        @keyframes animate {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
         }
 
         .box {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: rgba(20, 10, 15, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             text-align: center;
             width: 350px;
             z-index: 10;
+            border: 1px solid #d4af37;
+            backdrop-filter: blur(10px);
         }
 
-        h2 { color: #d81b60; margin-bottom: 20px; }
-        
+        .queen-name {
+            font-family: 'Great Vibes', cursive;
+            color: #d4af37;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
         input {
-            padding: 10px;
-            width: 80%;
-            border: 2px solid #f8bbd0;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            padding: 12px;
+            width: 70%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #d4af37;
+            border-radius: 25px;
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.5rem;
+            color: #d4af37;
+            outline: none;
         }
 
         .btn {
-            background: #d81b60;
-            color: white;
+            background: linear-gradient(45deg, #d4af37, #fbd15e);
+            color: #4a141b;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 35px;
+            border-radius: 30px;
             cursor: pointer;
+            font-weight: 600;
             transition: 0.3s;
         }
 
-        .btn:hover { background: #ad1457; transform: scale(1.05); }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
 
-        /* Hidden Sections */
-        #mainSurprise, .mood-buttons { display: none; }
+        #mainSurprise { display: none; }
 
         .mood-btn {
             display: block;
             width: 100%;
-            margin: 10px 0;
-            background: #f06292;
-            color: white;
-            border: none;
+            margin: 15px 0;
+            background: transparent;
+            color: #fce4ec;
+            border: 1px solid #f8bbd080;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: bold;
+            transition: 0.3s;
         }
+
+        .mood-btn:hover { border-color: #d4af37; color: #d4af37; background: rgba(212, 175, 55, 0.1); }
 
         #displayMessage {
             margin-top: 20px;
             padding: 15px;
-            background: #fff5f8;
-            border-left: 5px solid #d81b60;
-            color: #555;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: #f8bbd0;
             font-style: italic;
             display: none;
             animation: fadeIn 0.5s;
@@ -82,21 +110,25 @@
 </head>
 <body>
 
+    <div class="hearts">
+        <div class="heart"></div><div class="heart"></div>
+        <div class="heart"></div><div class="heart"></div>
+    </div>
+
     <div class="box" id="lockScreen">
-        <div style="font-size: 50px;">🔒</div>
-        <h2>Unlock Your Surprise</h2>
-        <p style="color: #888;">Enter your Birthday (DDMM)</p>
-        <input type="number" id="passInput" placeholder="e.g. 2303">
+        <div style="font-size: 50px; color: #d4af37;">🔐</div>
+        <h2 style="font-weight: 300; letter-spacing: 2px;">PRIVATE ACCESS</h2>
+        <p style="color: #f8bbd0; font-size: 0.9rem;">Enter your special number</p>
+        <input type="number" id="passInput" placeholder="??">
         <br>
-        <button class="btn" onclick="checkPass()">Unlock</button>
+        <button class="btn" onclick="checkPass()">Unlock Love</button>
     </div>
 
     <div class="box" id="mainSurprise">
-        <div style="font-size: 50px;">✨</div>
-        <h2>Hello, Queen Anu!</h2>
-        <p>Aapke liye kuch "Open When" gifts hain. Jab aapka dil kare, click karein:</p>
+        <h1 class="queen-name">Anu</h1>
+        <p style="color: #fce4ec; font-weight: 300;">You deserve the world's happiness.</p>
         
-        <div class="mood-buttons" style="display: block;">
+        <div style="margin-top: 20px;">
             <button class="mood-btn" onclick="showMessage('hug')">Open when you want a hug 🤗</button>
             <button class="mood-btn" onclick="showMessage('tired')">Open when you are tired ☕</button>
             <button class="mood-btn" onclick="showMessage('smile')">Open when you want to smile 😊</button>
@@ -108,27 +140,22 @@
     <script>
         function checkPass() {
             const pass = document.getElementById('passInput').value;
-            if(pass === "2303") {
+            // Password set to "23"
+            if(pass === "23") {
                 document.getElementById('lockScreen').style.display = 'none';
                 document.getElementById('mainSurprise').style.display = 'block';
             } else {
-                alert("Galat Password! Sochiye aapka sabse khaas din kaunsa hai?");
+                alert("Wrong Password! Try again, my Queen.");
             }
         }
 
         function showMessage(type) {
             const msgBox = document.getElementById('displayMessage');
             msgBox.style.display = 'block';
-            
             let message = "";
-            if(type === 'hug') {
-                message = "Main hamesha aapke saath hoon. Bas aankhein band karein aur mehsoos karein, mera sabse warm hug aapke liye! ❤️";
-            } else if(type === 'tired') {
-                message = "Aap din bhar itna kaam karti hain, thoda rest karein. Aaj ki chai/coffee meri taraf se! ☕✨";
-            } else if(type === 'smile') {
-                message = "Aapki hansi meri favourite cheez hai. Aap jaisi koi aur nahi hai, you are truly one in a million! ✨👑";
-            }
-            
+            if(type === 'hug') message = "“Aankhein band karein... Main hamesha aapke saath hoon. My warmest hug for you! ❤️”";
+            if(type === 'tired') message = "“Aapne din bhar bohot mehnat ki. Ab thoda sukoon karein, aaj ki shaam aapke naam. ✨☕”";
+            if(type === 'smile') message = "“Aapki hansi hi meri duniya hai. Hamesha aise hi muskurati rahein! 👑😊”";
             msgBox.innerText = message;
         }
     </script>
