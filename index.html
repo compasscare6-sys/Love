@@ -8,155 +8,173 @@
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
 
         body {
-            background: linear-gradient(135deg, #1a0a10 0%, #4a141b 50%, #880e4f 100%);
+            background: radial-gradient(circle, #4a141b 0%, #1a0a10 100%);
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            overflow-x: hidden;
             color: white;
         }
 
-        /* Floating Hearts Animation */
-        .hearts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
-        .heart { position: absolute; list-style: none; background: rgba(255, 255, 255, 0.1); animation: animate 20s linear infinite; bottom: -150px; }
-        .heart:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-        .heart:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-        .heart:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-        .heart:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-
-        @keyframes animate {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
-            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        .container {
+            perspective: 1000px;
+            z-index: 10;
+            width: 90%;
+            max-width: 450px;
         }
 
         .box {
-            background: rgba(20, 10, 15, 0.9);
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             text-align: center;
-            width: 350px;
-            z-index: 10;
-            border: 1px solid #d4af37;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
         .queen-name {
             font-family: 'Great Vibes', cursive;
             color: #d4af37;
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin: 10px 0;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
 
-        input {
-            padding: 12px;
-            width: 70%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #d4af37;
-            border-radius: 25px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-            color: #d4af37;
-            outline: none;
-        }
-
-        .btn {
-            background: linear-gradient(45deg, #d4af37, #fbd15e);
-            color: #4a141b;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
-
-        #mainSurprise { display: none; }
-
-        .mood-btn {
-            display: block;
-            width: 100%;
-            margin: 15px 0;
+        /* Password Styling */
+        input#passInput {
             background: transparent;
-            color: #fce4ec;
-            border: 1px solid #f8bbd080;
-            padding: 12px;
-            border-radius: 12px;
+            border: none;
+            border-bottom: 2px solid #d4af37;
+            color: #d4af37;
+            font-size: 2rem;
+            width: 80px;
+            text-align: center;
+            outline: none;
+            margin: 20px 0;
+        }
+
+        .btn-gold {
+            background: linear-gradient(45deg, #d4af37, #fbd15e);
+            color: #1a0a10;
+            padding: 12px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            text-transform: uppercase;
+            transition: 0.4s;
+        }
+
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4); }
+
+        /* Memory Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
             cursor: pointer;
             transition: 0.3s;
+            border: 1px solid transparent;
         }
 
-        .mood-btn:hover { border-color: #d4af37; color: #d4af37; background: rgba(212, 175, 55, 0.1); }
-
-        #displayMessage {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            color: #f8bbd0;
-            font-style: italic;
-            display: none;
-            animation: fadeIn 0.5s;
+        .memory-card:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+            transform: scale(1.02);
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .memory-card h3 { color: #d4af37; margin: 0; font-size: 1.1rem; }
+        .memory-content { display: none; margin-top: 10px; font-size: 0.9rem; color: #fce4ec; font-style: italic; }
+
+        /* Surprise Section */
+        #surpriseSection { display: none; animation: fadeIn 1s ease-in; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Hearts background */
+        .heart-bg { position: fixed; color: rgba(212, 175, 55, 0.2); pointer-events: none; animation: float 10s infinite linear; }
+        @keyframes float { from { transform: translateY(100vh); } to { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
-    <div class="hearts">
-        <div class="heart"></div><div class="heart"></div>
-        <div class="heart"></div><div class="heart"></div>
-    </div>
+    <div id="heartContainer"></div>
 
-    <div class="box" id="lockScreen">
-        <div style="font-size: 50px; color: #d4af37;">🔐</div>
-        <h2 style="font-weight: 300; letter-spacing: 2px;">PRIVATE ACCESS</h2>
-        <p style="color: #f8bbd0; font-size: 0.9rem;">Enter your special number</p>
-        <input type="number" id="passInput" placeholder="??">
-        <br>
-        <button class="btn" onclick="checkPass()">Unlock Love</button>
-    </div>
-
-    <div class="box" id="mainSurprise">
-        <h1 class="queen-name">Anu</h1>
-        <p style="color: #fce4ec; font-weight: 300;">You deserve the world's happiness.</p>
-        
-        <div style="margin-top: 20px;">
-            <button class="mood-btn" onclick="showMessage('hug')">Open when you want a hug 🤗</button>
-            <button class="mood-btn" onclick="showMessage('tired')">Open when you are tired ☕</button>
-            <button class="mood-btn" onclick="showMessage('smile')">Open when you want to smile 😊</button>
+    <div class="container">
+        <div class="box" id="lockScreen">
+            <h2 style="font-weight: 300; letter-spacing: 3px;">ROYAL VAULT</h2>
+            <p style="color: #f8bbd0;">Hamari life ka wo khaas number?</p>
+            <input type="number" id="passInput" placeholder="??">
+            <br>
+            <button class="btn-gold" onclick="unlock()">Unlock Love</button>
         </div>
 
-        <div id="displayMessage"></div>
+        <div class="box" id="surpriseSection">
+            <h1 class="queen-name">Anu</h1>
+            <p style="font-size: 0.9rem; letter-spacing: 1px;">Every moment with you is a blessing.</p>
+            
+            <div class="cards-grid">
+                <div class="memory-card" onclick="toggleCard(this)">
+                    <h3>✨ A Special Promise</h3>
+                    <p class="memory-content">Main hamesha aapka saath doonga, har mushkil mein aur har khushi mein. Aapki smile meri priority hai. ❤️</p>
+                </div>
+                <div class="memory-card" onclick="toggleCard(this)">
+                    <h3>👑 To My Queen</h3>
+                    <p class="memory-content">Aap sirf meri wife nahi ho, aap mere ghar ki raunak ho. Shukriya meri zindagi itni khoobsurat banane ke liye. 👸</p>
+                </div>
+                <div class="memory-card" onclick="toggleCard(this)">
+                    <h3>💌 A Message from Heart</h3>
+                    <p class="memory-content">Hamari choti choti khushiyan hi asli sukoon hain. Let's grow old together and keep smiling! ✨😊</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 25px; font-size: 0.8rem; color: #d4af37;">(Click on cards to read messages)</p>
+        </div>
     </div>
 
     <script>
-        function checkPass() {
+        // Create falling hearts
+        for(let i=0; i<20; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart-bg';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('heartContainer').appendChild(heart);
+        }
+
+        function unlock() {
             const pass = document.getElementById('passInput').value;
-            // Password set to "23"
             if(pass === "23") {
                 document.getElementById('lockScreen').style.display = 'none';
-                document.getElementById('mainSurprise').style.display = 'block';
+                document.getElementById('surpriseSection').style.display = 'block';
             } else {
-                alert("Wrong Password! Try again, my Queen.");
+                alert("Only the Queen knows the code! 👑");
             }
         }
 
-        function showMessage(type) {
-            const msgBox = document.getElementById('displayMessage');
-            msgBox.style.display = 'block';
-            let message = "";
-            if(type === 'hug') message = "“Aankhein band karein... Main hamesha aapke saath hoon. My warmest hug for you! ❤️”";
-            if(type === 'tired') message = "“Aapne din bhar bohot mehnat ki. Ab thoda sukoon karein, aaj ki shaam aapke naam. ✨☕”";
-            if(type === 'smile') message = "“Aapki hansi hi meri duniya hai. Hamesha aise hi muskurati rahein! 👑😊”";
-            msgBox.innerText = message;
+        function toggleCard(el) {
+            const content = el.querySelector('.memory-content');
+            const allContents = document.querySelectorAll('.memory-content');
+            
+            // Hide others
+            allContents.forEach(c => { if(c !== content) c.style.display = 'none'; });
+            
+            // Toggle current
+            content.style.display = (content.style.display === 'block') ? 'none' : 'block';
         }
     </script>
 </body>
