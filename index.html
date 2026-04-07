@@ -3,161 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu's Universe</title>
+    <title>Anu's Private Vault</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;500&display=swap');
 
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            overflow: hidden; background: #050505;
-            font-family: 'Poppins', sans-serif;
+        body {
+            margin: 0; padding: 0; height: 100vh;
+            background: radial-gradient(circle, #2c0b0e 0%, #0a0102 100%);
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Poppins', sans-serif; overflow: hidden;
+            color: #d4af37;
         }
 
-        canvas { display: block; }
-
-        /* Overlay Styling */
-        #overlay {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center; z-index: 100;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 40px; border-radius: 50%;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(10px);
-            transition: 1s opacity;
+        /* The Vault Door */
+        #vault-door {
+            width: 300px; height: 300px;
+            background: #1a1a1a;
+            border: 8px solid #d4af37;
+            border-radius: 50%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.2);
+            position: relative; z-index: 10;
+            transition: 1.5s all cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        .title {
-            font-family: 'Great Vibes', cursive;
-            color: #d4af37; font-size: 3.5rem; margin: 0;
-            text-shadow: 0 0 15px #d4af37;
+        .handle {
+            width: 150px; height: 150px;
+            border: 5px solid #d4af37;
+            border-radius: 50%;
+            position: absolute;
+            animation: rotateHandle 10s infinite linear;
         }
+
+        @keyframes rotateHandle { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         input {
             background: transparent; border: none;
-            border-bottom: 2px solid #d4af37; color: #fff;
-            width: 60px; font-size: 2rem; text-align: center;
-            margin: 20px 0; outline: none;
+            border-bottom: 2px solid #d4af37;
+            color: #fff; font-size: 2.5rem; width: 80px;
+            text-align: center; outline: none; z-index: 20;
+            font-family: 'Cinzel', serif;
         }
 
-        #message-box {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            display: none; text-align: center; z-index: 200;
-            width: 80%; max-width: 600px;
+        /* Success Reveal */
+        #secret-content {
+            position: absolute; display: none;
+            text-align: center; width: 80%; max-width: 500px;
+            animation: scaleUp 1s forwards;
         }
 
-        .typing-text {
-            color: #fce4ec; font-size: 1.5rem;
-            line-height: 1.8; text-shadow: 0 0 10px rgba(255,192,203,0.5);
+        @keyframes scaleUp { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .truth-card {
+            background: rgba(255, 255, 255, 0.05);
+            margin: 15px 0; padding: 20px;
+            border-radius: 15px; border-left: 4px solid #d4af37;
+            backdrop-filter: blur(10px);
+            opacity: 0; transform: translateX(-20px);
         }
 
-        .btn-magic {
-            background: transparent; color: #d4af37;
-            border: 1px solid #d4af37; padding: 10px 25px;
-            border-radius: 20px; cursor: pointer; margin-top: 20px;
-            transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;
+        .show-card { animation: slideIn 0.8s forwards; }
+
+        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+
+        .btn-unlock {
+            margin-top: 20px; background: #d4af37; color: #000;
+            border: none; padding: 10px 25px; border-radius: 20px;
+            font-weight: bold; cursor: pointer; z-index: 20;
         }
 
-        .btn-magic:hover { background: #d4af37; color: #000; }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas"></canvas>
-
-    <div id="overlay">
-        <h1 class="title">Anu</h1>
-        <p style="color: #888; font-size: 0.8rem; letter-spacing: 2px;">ENTER THE MAGIC KEY</p>
-        <input type="password" id="pass" maxlength="2" placeholder="??">
-        <br>
-        <button class="btn-magic" onclick="unlock()">Unlock</button>
+    <div id="vault-door">
+        <div class="handle"></div>
+        <h2 style="font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 3px;">ENTER PIN</h2>
+        <input type="password" id="pin" maxlength="2" placeholder="**">
+        <button class="btn-unlock" onclick="openVault()">OPEN SAFE</button>
     </div>
 
-    <div id="message-box">
-        <div class="typing-text" id="text"></div>
+    <div id="secret-content">
+        <h1 style="font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 30px;">MY 3 TRUTHS</h1>
+        
+        <div class="truth-card" id="t1">
+            <h3 style="margin: 0; color: #fff;">01. Meri Sabse Badi Khushi</h3>
+            <p>Wo din jab aap meri zindagi mein ayein. Aapke bagair sab kuch adhura hai.</p>
+        </div>
+
+        <div class="truth-card" id="t2">
+            <h3 style="margin: 0; color: #fff;">02. Mera Sabse Bada Sukoon</h3>
+            <p>Jab aap muskurati hain. Aapki hansi meri har thakan mita deti hai.</p>
+        </div>
+
+        <div class="truth-card" id="t3">
+            <h3 style="margin: 0; color: #fff;">03. Mera Sabse Bada Waada</h3>
+            <p>Main hamesha aapka saath doonga, chahe halaat kaise bhi hon. ❤️</p>
+        </div>
+        
+        <p style="margin-top: 30px; font-style: italic; color: #fce4ec;">You are the treasure of my life, Anu.</p>
     </div>
 
     <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        class Particle {
-            constructor(x, y) {
-                this.x = x; this.y = y;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 3 - 1.5;
-                this.speedY = Math.random() * 3 - 1.5;
-                this.color = `rgba(212, 175, 55, ${Math.random()})`;
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.size > 0.1) this.size -= 0.02;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function handleParticles() {
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                if (particles[i].size <= 0.1) {
-                    particles.splice(i, 1); i--;
-                }
-            }
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            for (let i = 0; i < 5; i++) particles.push(new Particle(e.x, e.y));
-        });
-
-        function animate() {
-            ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            handleParticles();
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // Unlock Logic
-        function unlock() {
-            const val = document.getElementById('pass').value;
-            if (val === "23") {
-                document.getElementById('overlay').style.opacity = '0';
+        function openVault() {
+            const pin = document.getElementById('pin').value;
+            if(pin === "23") {
+                const door = document.getElementById('vault-door');
+                door.style.transform = "scale(0) rotate(720deg)";
+                door.style.opacity = "0";
+                
                 setTimeout(() => {
-                    document.getElementById('overlay').style.display = 'none';
-                    startMessage();
+                    door.style.display = "none";
+                    document.getElementById('secret-content').style.display = "block";
+                    revealCards();
                 }, 1000);
             } else {
-                alert("Only my Queen knows the number...");
+                alert("ACCESS DENIED. Only the Queen can enter.");
             }
         }
 
-        function startMessage() {
-            const box = document.getElementById('message-box');
-            const textEl = document.getElementById('text');
-            box.style.display = 'block';
-            
-            const msg = "Iss puri kaaynat mein, mere liye sabse bada sitara aap ho. ✨\n\nMain lafzon mein nahi keh sakta ke aap mere liye kya ho. Bas hamesha mere saath rehna, kyunke meri har khushi aap se shuru hoti hai. ❤️\n\n- Yours Forever";
-            let i = 0;
-
-            function type() {
-                if (i < msg.length) {
-                    textEl.innerHTML += msg.charAt(i) === '\n' ? '<br>' : msg.charAt(i);
-                    i++;
-                    setTimeout(type, 50);
-                }
-            }
-            type();
+        function revealCards() {
+            setTimeout(() => document.getElementById('t1').classList.add('show-card'), 500);
+            setTimeout(() => document.getElementById('t2').classList.add('show-card'), 1500);
+            setTimeout(() => document.getElementById('t3').classList.add('show-card'), 2500);
         }
     </script>
 </body>
