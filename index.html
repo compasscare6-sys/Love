@@ -3,208 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Universe, Anu</title>
+    <title>Anu's Universe</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap');
 
-        body {
-            background-color: #1a1a1a; /* Dark Elegant Background */
-            color: white;
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; background: #050505;
             font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
         }
 
-        /* Floating Hearts Animation Background */
-        .hearts-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .heart {
-            position: absolute;
-            list-style: none;
-            background: rgba(212, 175, 55, 0.15); /* Subtle Gold Hearts */
-            animation: animate Hearts 20s linear infinite;
-            bottom: -150px;
-            border-radius: 50%;
-        }
-        /* Custom shapes for hearts (pseudo-elements) */
-        .heart::before, .heart::after {
-            content: '';
-            position: absolute;
-            width: 100%; height: 100%;
-            background: inherit;
-            border-radius: 50%;
-        }
-        .heart::before { top: -50%; left: 0; }
-        .heart::after { left: 50%; top: 0; }
-        
-        @keyframes animateHearts {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        canvas { display: block; }
+
+        /* Overlay Styling */
+        #overlay {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center; z-index: 100;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px; border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+            transition: 1s opacity;
         }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-        .main-title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 5rem;
-            color: #d4af37; /* Gold */
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-            margin: 0;
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
-        @keyframes titleGlow {
-            from { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
-            to { text-shadow: 0 0 35px rgba(212, 175, 55, 0.9), 0 0 10px #fff; }
-        }
-        .scroll-down {
-            position: absolute;
-            bottom: 30px;
-            font-size: 1rem;
-            color: #fce4ec;
-            opacity: 0.7;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
-
-        /* Scrapbook Section */
-        .scrapbook {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 50px 20px;
-            position: relative;
-            z-index: 10;
-        }
-        .memory-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 100px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
-        }
-        .memory-item.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .photo-frame {
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            transform: rotate(-3deg); /* Polaroid style */
-            transition: transform 0.3s;
-            max-width: 90%;
-        }
-        .photo-frame:hover { transform: rotate(0deg) scale(1.03); }
-        .memory-photo {
-            width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-        }
-        .caption {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
-            color: #f8bbd0;
-            margin-top: 25px;
-            text-align: center;
-            line-height: 1.2;
-        }
-        
-        /* Final Message */
-        .final-message {
-            text-align: center;
-            padding: 100px 20px;
-            background: rgba(212, 175, 55, 0.05);
-            border-radius: 50px;
-            margin-top: 50px;
+        .title {
+            font-family: 'Great Vibes', cursive;
+            color: #d4af37; font-size: 3.5rem; margin: 0;
+            text-shadow: 0 0 15px #d4af37;
         }
 
+        input {
+            background: transparent; border: none;
+            border-bottom: 2px solid #d4af37; color: #fff;
+            width: 60px; font-size: 2rem; text-align: center;
+            margin: 20px 0; outline: none;
+        }
+
+        #message-box {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            display: none; text-align: center; z-index: 200;
+            width: 80%; max-width: 600px;
+        }
+
+        .typing-text {
+            color: #fce4ec; font-size: 1.5rem;
+            line-height: 1.8; text-shadow: 0 0 10px rgba(255,192,203,0.5);
+        }
+
+        .btn-magic {
+            background: transparent; color: #d4af37;
+            border: 1px solid #d4af37; padding: 10px 25px;
+            border-radius: 20px; cursor: pointer; margin-top: 20px;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .btn-magic:hover { background: #d4af37; color: #000; }
     </style>
 </head>
 <body>
 
-    <div class="hearts-bg">
-        </div>
+    <canvas id="canvas"></canvas>
 
-    <div class="hero">
-        <div>
-            <p style="font-size: 1.2rem; color: #fce4ec; letter-spacing: 3px; text-transform: uppercase;">To My Dearest</p>
-            <h1 class="main-title">Anu</h1>
-            <p style="font-size: 1.1rem; margin-top: 20px; opacity: 0.8;">You are the melody to my heart's song.</p>
-        </div>
-        <div class="scroll-down">Scroll down to see our journey ↓</div>
+    <div id="overlay">
+        <h1 class="title">Anu</h1>
+        <p style="color: #888; font-size: 0.8rem; letter-spacing: 2px;">ENTER THE MAGIC KEY</p>
+        <input type="password" id="pass" maxlength="2" placeholder="??">
+        <br>
+        <button class="btn-magic" onclick="unlock()">Unlock</button>
     </div>
 
-    <div class="scrapbook">
-        
-        <div class="memory-item">
-            <div class="photo-frame">
-                <img src="photo1.jpg" alt="Our Special Moment" class="memory-photo">
-            </div>
-            <p class="caption">Wohi muskurahat, jisne mera dil jeeta tha...</p>
-        </div>
-
-        <div class="memory-item">
-            <div class="photo-frame" style="transform: rotate(3deg);">
-                <img src="photo2.jpg" alt="Another Memory" class="memory-photo">
-            </div>
-            <p class="caption">Har safar khoobsurat hai, jab aap saath hon.</p>
-        </div>
-
-        <div class="memory-item">
-            <div class="photo-frame">
-                <img src="photo3.jpg" alt="Treasured Memory" class="memory-photo">
-            </div>
-            <p class="caption">Aapke saath har din ek naya jashn hai.</p>
-        </div>
-
-        <div class="final-message memory-item">
-            <h2 style="font-family: 'Dancing Script', cursive; font-size: 3rem; color: #d4af37;">Mera Waada</h2>
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #fce4ec; font-style: italic;">
-                Main hamesha koshish karunga ke aapki aankhon mein sirff khushi ke aansu hon. Aap meri duniya ho, Anu, aur main aapko dher saara pyar karta hoon. Hamesha ke liye. ❤️
-            </p>
-        </div>
-
+    <div id="message-box">
+        <div class="typing-text" id="text"></div>
     </div>
 
     <script>
-        // Generate Floating Hearts
-        const heartsContainer = document.querySelector('.hearts-bg');
-        for (let i = 0; i < 25; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.width = heart.style.height = (Math.random() * 30 + 10) + 'px';
-            heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            heartsContainer.appendChild(heart);
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x; this.y = y;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = `rgba(212, 175, 55, ${Math.random()})`;
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.size > 0.1) this.size -= 0.02;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
-        // Scroll Animation Logic
-        const memoryItems = document.querySelectorAll('.memory-item');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
+        function handleParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].size <= 0.1) {
+                    particles.splice(i, 1); i--;
                 }
-            });
-        }, { threshold: 0.2 }); // Trigger when 20% of item is visible
+            }
+        }
 
-        memoryItems.forEach(item => observer.observe(item));
+        window.addEventListener('mousemove', (e) => {
+            for (let i = 0; i < 5; i++) particles.push(new Particle(e.x, e.y));
+        });
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            handleParticles();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Unlock Logic
+        function unlock() {
+            const val = document.getElementById('pass').value;
+            if (val === "23") {
+                document.getElementById('overlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('overlay').style.display = 'none';
+                    startMessage();
+                }, 1000);
+            } else {
+                alert("Only my Queen knows the number...");
+            }
+        }
+
+        function startMessage() {
+            const box = document.getElementById('message-box');
+            const textEl = document.getElementById('text');
+            box.style.display = 'block';
+            
+            const msg = "Iss puri kaaynat mein, mere liye sabse bada sitara aap ho. ✨\n\nMain lafzon mein nahi keh sakta ke aap mere liye kya ho. Bas hamesha mere saath rehna, kyunke meri har khushi aap se shuru hoti hai. ❤️\n\n- Yours Forever";
+            let i = 0;
+
+            function type() {
+                if (i < msg.length) {
+                    textEl.innerHTML += msg.charAt(i) === '\n' ? '<br>' : msg.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
     </script>
 </body>
 </html>
