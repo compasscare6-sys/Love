@@ -3,130 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu's Private Vault</title>
+    <title>For My Queen Anu</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap');
 
-        body {
-            margin: 0; padding: 0; height: 100vh;
-            background: radial-gradient(circle, #2c0b0e 0%, #0a0102 100%);
-            display: flex; justify-content: center; align-items: center;
-            font-family: 'Poppins', sans-serif; overflow: hidden;
-            color: #d4af37;
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background: #0a0a0a; overflow: hidden;
+            font-family: 'Poppins', sans-serif; color: white;
         }
 
-        /* The Vault Door */
-        #vault-door {
-            width: 300px; height: 300px;
-            background: #1a1a1a;
-            border: 8px solid #d4af37;
-            border-radius: 50%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.2);
-            position: relative; z-index: 10;
-            transition: 1.5s all cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        canvas { display: block; position: absolute; top: 0; left: 0; z-index: 1; }
+
+        /* Main Center Button */
+        #heart-trigger {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10; cursor: pointer; text-align: center;
+            transition: 0.5s;
         }
 
-        .handle {
-            width: 150px; height: 150px;
-            border: 5px solid #d4af37;
-            border-radius: 50%;
-            position: absolute;
-            animation: rotateHandle 10s infinite linear;
+        .main-heart {
+            font-size: 80px; color: #ff4757;
+            animation: pulse 1.5s infinite;
+            text-shadow: 0 0 20px #ff4757;
         }
 
-        @keyframes rotateHandle { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        input {
-            background: transparent; border: none;
-            border-bottom: 2px solid #d4af37;
-            color: #fff; font-size: 2.5rem; width: 80px;
-            text-align: center; outline: none; z-index: 20;
-            font-family: 'Cinzel', serif;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        /* Success Reveal */
-        #secret-content {
-            position: absolute; display: none;
-            text-align: center; width: 80%; max-width: 500px;
-            animation: scaleUp 1s forwards;
+        /* Message Overlay */
+        #story-overlay {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none; justify-content: center;
+            align-items: center; z-index: 20;
+            backdrop-filter: blur(8px);
         }
 
-        @keyframes scaleUp { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-        .truth-card {
-            background: rgba(255, 255, 255, 0.05);
-            margin: 15px 0; padding: 20px;
-            border-radius: 15px; border-left: 4px solid #d4af37;
-            backdrop-filter: blur(10px);
-            opacity: 0; transform: translateX(-20px);
+        .story-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem; color: #d4af37;
+            text-align: center; padding: 20px;
+            max-width: 80%; opacity: 0;
+            transition: 1.5s opacity ease;
         }
 
-        .show-card { animation: slideIn 0.8s forwards; }
+        .active-text { opacity: 1; }
 
-        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
-
-        .btn-unlock {
-            margin-top: 20px; background: #d4af37; color: #000;
-            border: none; padding: 10px 25px; border-radius: 20px;
-            font-weight: bold; cursor: pointer; z-index: 20;
+        .hint {
+            position: absolute; bottom: 30px; width: 100%;
+            text-align: center; color: rgba(255,255,255,0.4);
+            font-size: 0.8rem; letter-spacing: 2px; z-index: 5;
         }
-
     </style>
 </head>
 <body>
 
-    <div id="vault-door">
-        <div class="handle"></div>
-        <h2 style="font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 3px;">ENTER PIN</h2>
-        <input type="password" id="pin" maxlength="2" placeholder="**">
-        <button class="btn-unlock" onclick="openVault()">OPEN SAFE</button>
+    <canvas id="canvas"></canvas>
+
+    <div class="hint">TOUCH THE SCREEN & CLICK THE HEART</div>
+
+    <div id="heart-trigger" onclick="startJourney()">
+        <div class="main-heart">❤️</div>
+        <p style="color: #d4af37; letter-spacing: 2px; margin-top: 10px;">TAP FOR A SURPRISE</p>
     </div>
 
-    <div id="secret-content">
-        <h1 style="font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 30px;">MY 3 TRUTHS</h1>
-        
-        <div class="truth-card" id="t1">
-            <h3 style="margin: 0; color: #fff;">01. Meri Sabse Badi Khushi</h3>
-            <p>Wo din jab aap meri zindagi mein ayein. Aapke bagair sab kuch adhura hai.</p>
-        </div>
-
-        <div class="truth-card" id="t2">
-            <h3 style="margin: 0; color: #fff;">02. Mera Sabse Bada Sukoon</h3>
-            <p>Jab aap muskurati hain. Aapki hansi meri har thakan mita deti hai.</p>
-        </div>
-
-        <div class="truth-card" id="t3">
-            <h3 style="margin: 0; color: #fff;">03. Mera Sabse Bada Waada</h3>
-            <p>Main hamesha aapka saath doonga, chahe halaat kaise bhi hon. ❤️</p>
-        </div>
-        
-        <p style="margin-top: 30px; font-style: italic; color: #fce4ec;">You are the treasure of my life, Anu.</p>
+    <div id="story-overlay">
+        <div class="story-text" id="story-content"></div>
     </div>
 
     <script>
-        function openVault() {
-            const pin = document.getElementById('pin').value;
-            if(pin === "23") {
-                const door = document.getElementById('vault-door');
-                door.style.transform = "scale(0) rotate(720deg)";
-                door.style.opacity = "0";
-                
-                setTimeout(() => {
-                    door.style.display = "none";
-                    document.getElementById('secret-content').style.display = "block";
-                    revealCards();
-                }, 1000);
-            } else {
-                alert("ACCESS DENIED. Only the Queen can enter.");
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x; this.y = y;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = `hsl(${Math.random() * 360}, 70%, 70%)`;
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.size > 0.1) this.size -= 0.1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
             }
         }
 
-        function revealCards() {
-            setTimeout(() => document.getElementById('t1').classList.add('show-card'), 500);
-            setTimeout(() => document.getElementById('t2').classList.add('show-card'), 1500);
-            setTimeout(() => document.getElementById('t3').classList.add('show-card'), 2500);
+        window.addEventListener('mousemove', (e) => {
+            for (let i = 0; i < 3; i++) particles.push(new Particle(e.x, e.y));
+        });
+
+        window.addEventListener('touchstart', (e) => {
+            for (let i = 0; i < 10; i++) particles.push(new Particle(e.touches[0].clientX, e.touches[0].clientY));
+        });
+
+        function animate() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].size <= 0.1) {
+                    particles.splice(i, 1); i--;
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // The Journey Logic
+        const messages = [
+            "Anu, Aap meri zindagi ki sabse pyari haqeeqat ho...",
+            "Aapka mere saath hona hi meri sabse badi kamyabi hai.",
+            "Main har roz shukar karta hoon ke Allah ne humein milaya.",
+            "Aapki hansi meri har mushkil ko aasaan kar deti hai.",
+            "I Promise, main hamesha aapka saath doonga...",
+            "Hamesha ke liye, sirf aapka. ❤️"
+        ];
+
+        function startJourney() {
+            document.getElementById('heart-trigger').style.display = 'none';
+            const overlay = document.getElementById('story-overlay');
+            const content = document.getElementById('story-content');
+            overlay.style.display = 'flex';
+
+            let index = 0;
+            function showNext() {
+                if (index < messages.length) {
+                    content.classList.remove('active-text');
+                    setTimeout(() => {
+                        content.innerText = messages[index];
+                        content.classList.add('active-text');
+                        index++;
+                        setTimeout(showNext, 4000); // 4 seconds per message
+                    }, 1000);
+                } else {
+                    content.innerText = "I Love You, My Queen! ✨";
+                    content.classList.add('active-text');
+                }
+            }
+            showNext();
         }
     </script>
 </body>
