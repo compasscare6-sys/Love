@@ -3,125 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic for Anu</title>
+    <title>For My Queen Anu</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Poppins:wght@300&display=swap');
 
         body {
-            margin: 0; padding: 0; height: 100vh;
-            background: radial-gradient(circle, #1a0a10, #000);
-            display: flex; justify-content: center; align-items: center;
-            flex-direction: column; overflow: hidden;
-            color: white; font-family: 'Poppins', sans-serif;
+            background: #121212;
+            color: #d4af37; /* Royal Gold */
+            font-family: 'Special Elite', typewriter;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
 
-        /* The Flower Container */
-        #flower-stage {
-            cursor: pointer; position: relative;
-            width: 200px; height: 200px;
-            display: flex; justify-content: center; align-items: center;
+        #terminal {
+            width: 80%;
+            max-width: 600px;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.5rem;
         }
 
-        .heart-icon {
-            font-size: 100px; color: #ff4757;
-            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 0 10px #ff4757);
+        #cursor {
+            display: inline-block;
+            width: 10px;
+            height: 25px;
+            background: #d4af37;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
         }
 
-        /* After blooming effect */
-        .bloomed {
-            transform: scale(2.5) rotate(360deg);
-            opacity: 0;
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+        .btn-start {
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.5s;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 5px;
         }
 
-        #final-message {
-            position: absolute; text-align: center;
-            opacity: 0; transition: 2s opacity ease-in;
-            z-index: 10; width: 80%;
+        .btn-start:hover {
+            background: #d4af37;
+            color: #121212;
+            box-shadow: 0 0 20px #d4af37;
         }
 
-        .queen-text {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4rem; color: #d4af37;
-            margin: 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
-        }
-
-        .sub-text {
-            font-size: 1.2rem; color: #fce4ec;
-            margin-top: 20px; line-height: 1.6;
-        }
-
-        .hint {
-            position: absolute; bottom: 50px;
-            opacity: 0.6; letter-spacing: 2px;
-            animation: blink 2s infinite;
-        }
-
-        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+        #hidden-audio { display: none; }
     </style>
 </head>
 <body>
 
-    <div id="flower-stage" onclick="bloom()">
-        <div class="heart-icon" id="target">❤️</div>
+    <div id="start-container">
+        <button class="btn-start" onclick="startTyping()">CLICK TO READ MY HEART</button>
     </div>
 
-    <div id="final-message">
-        <h1 class="queen-text">Anu</h1>
-        <p class="sub-text">
-            Jaise ye dil khila hai, waise hi aapne meri zindagi ko rangon se bhar diya hai. <br>
-            Aap sirf meri wife nahi, meri poori kaaynat ho. ❤️
-        </p>
+    <div id="terminal" style="display: none;">
+        <span id="text-target"></span><span id="cursor"></span>
     </div>
-
-    <div class="hint" id="hint-text">TAP THE HEART TO BLOOM</div>
 
     <script>
-        let isBloomed = false;
+        const message = "Hello Anu...\n\nMaine bohot baar socha ke kya likhoon, par jab aapke baare mein sochta hoon toh lafz kam par jaate hain.\n\nMere liye sukoon ka matlab sirf aapki muskurahat hai. Shukriya meri life ka sabse khoobsurat hissa banne ke liye.\n\nI promise, main hamesha aapka saath doonga, bilkul waise hi jaise ye lafz abhi aapke liye likhe ja rahe hain...\n\nForever Yours. ❤️";
 
-        function bloom() {
-            if(isBloomed) return;
-            isBloomed = true;
+        function startTyping() {
+            document.getElementById('start-container').style.display = 'none';
+            document.getElementById('terminal').style.display = 'block';
+            
+            let i = 0;
+            const target = document.getElementById('text-target');
 
-            const target = document.getElementById('target');
-            const message = document.getElementById('final-message');
-            const hint = document.getElementById('hint-text');
-
-            // Animation
-            target.classList.add('bloomed');
-            hint.style.display = 'none';
-
-            setTimeout(() => {
-                target.style.display = 'none';
-                message.style.opacity = '1';
-                createSparkles();
-            }, 1000);
-        }
-
-        function createSparkles() {
-            for(let i=0; i<50; i++) {
-                let sparkle = document.createElement('div');
-                sparkle.style.position = 'absolute';
-                sparkle.style.width = '4px';
-                sparkle.style.height = '4px';
-                sparkle.style.background = '#d4af37';
-                sparkle.style.borderRadius = '50%';
-                sparkle.style.left = '50%';
-                sparkle.style.top = '50%';
-                
-                let destinationX = (Math.random() - 0.5) * window.innerWidth;
-                let destinationY = (Math.random() - 0.5) * window.innerHeight;
-
-                document.body.appendChild(sparkle);
-
-                sparkle.animate([
-                    { transform: 'translate(0, 0)', opacity: 1 },
-                    { transform: `translate(${destinationX}px, ${destinationY}px)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 2000 + 1000,
-                    easing: 'cubic-bezier(0, .9, .57, 1)'
-                }).onfinish = () => sparkle.remove();
+            function typeWriter() {
+                if (i < message.length) {
+                    let char = message.charAt(i);
+                    target.innerHTML += char === '\n' ? '<br>' : char;
+                    i++;
+                    
+                    // Typing speed: thoda random taake real lage
+                    let speed = char === ',' || char === '.' ? 500 : 70; 
+                    setTimeout(typeWriter, speed);
+                } else {
+                    document.getElementById('cursor').style.display = 'none';
+                }
             }
+            typeWriter();
         }
     </script>
 </body>
