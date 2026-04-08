@@ -3,162 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Queen Anu</title>
+    <title>Magic for Anu</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300&display=swap');
 
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #0a0a0a; overflow: hidden;
-            font-family: 'Poppins', sans-serif; color: white;
+        body {
+            margin: 0; padding: 0; height: 100vh;
+            background: radial-gradient(circle, #1a0a10, #000);
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column; overflow: hidden;
+            color: white; font-family: 'Poppins', sans-serif;
         }
 
-        canvas { display: block; position: absolute; top: 0; left: 0; z-index: 1; }
-
-        /* Main Center Button */
-        #heart-trigger {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10; cursor: pointer; text-align: center;
-            transition: 0.5s;
+        /* The Flower Container */
+        #flower-stage {
+            cursor: pointer; position: relative;
+            width: 200px; height: 200px;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .main-heart {
-            font-size: 80px; color: #ff4757;
-            animation: pulse 1.5s infinite;
-            text-shadow: 0 0 20px #ff4757;
+        .heart-icon {
+            font-size: 100px; color: #ff4757;
+            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 0 10px #ff4757);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        /* After blooming effect */
+        .bloomed {
+            transform: scale(2.5) rotate(360deg);
+            opacity: 0;
         }
 
-        /* Message Overlay */
-        #story-overlay {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            display: none; justify-content: center;
-            align-items: center; z-index: 20;
-            backdrop-filter: blur(8px);
+        #final-message {
+            position: absolute; text-align: center;
+            opacity: 0; transition: 2s opacity ease-in;
+            z-index: 10; width: 80%;
         }
 
-        .story-text {
+        .queen-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem; color: #d4af37;
-            text-align: center; padding: 20px;
-            max-width: 80%; opacity: 0;
-            transition: 1.5s opacity ease;
+            font-size: 4rem; color: #d4af37;
+            margin: 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
         }
 
-        .active-text { opacity: 1; }
+        .sub-text {
+            font-size: 1.2rem; color: #fce4ec;
+            margin-top: 20px; line-height: 1.6;
+        }
 
         .hint {
-            position: absolute; bottom: 30px; width: 100%;
-            text-align: center; color: rgba(255,255,255,0.4);
-            font-size: 0.8rem; letter-spacing: 2px; z-index: 5;
+            position: absolute; bottom: 50px;
+            opacity: 0.6; letter-spacing: 2px;
+            animation: blink 2s infinite;
         }
+
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas"></canvas>
-
-    <div class="hint">TOUCH THE SCREEN & CLICK THE HEART</div>
-
-    <div id="heart-trigger" onclick="startJourney()">
-        <div class="main-heart">❤️</div>
-        <p style="color: #d4af37; letter-spacing: 2px; margin-top: 10px;">TAP FOR A SURPRISE</p>
+    <div id="flower-stage" onclick="bloom()">
+        <div class="heart-icon" id="target">❤️</div>
     </div>
 
-    <div id="story-overlay">
-        <div class="story-text" id="story-content"></div>
+    <div id="final-message">
+        <h1 class="queen-text">Anu</h1>
+        <p class="sub-text">
+            Jaise ye dil khila hai, waise hi aapne meri zindagi ko rangon se bhar diya hai. <br>
+            Aap sirf meri wife nahi, meri poori kaaynat ho. ❤️
+        </p>
     </div>
+
+    <div class="hint" id="hint-text">TAP THE HEART TO BLOOM</div>
 
     <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        let isBloomed = false;
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function bloom() {
+            if(isBloomed) return;
+            isBloomed = true;
 
-        class Particle {
-            constructor(x, y) {
-                this.x = x; this.y = y;
-                this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 3 - 1.5;
-                this.speedY = Math.random() * 3 - 1.5;
-                this.color = `hsl(${Math.random() * 360}, 70%, 70%)`;
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.size > 0.1) this.size -= 0.1;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            const target = document.getElementById('target');
+            const message = document.getElementById('final-message');
+            const hint = document.getElementById('hint-text');
+
+            // Animation
+            target.classList.add('bloomed');
+            hint.style.display = 'none';
+
+            setTimeout(() => {
+                target.style.display = 'none';
+                message.style.opacity = '1';
+                createSparkles();
+            }, 1000);
         }
 
-        window.addEventListener('mousemove', (e) => {
-            for (let i = 0; i < 3; i++) particles.push(new Particle(e.x, e.y));
-        });
+        function createSparkles() {
+            for(let i=0; i<50; i++) {
+                let sparkle = document.createElement('div');
+                sparkle.style.position = 'absolute';
+                sparkle.style.width = '4px';
+                sparkle.style.height = '4px';
+                sparkle.style.background = '#d4af37';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.left = '50%';
+                sparkle.style.top = '50%';
+                
+                let destinationX = (Math.random() - 0.5) * window.innerWidth;
+                let destinationY = (Math.random() - 0.5) * window.innerHeight;
 
-        window.addEventListener('touchstart', (e) => {
-            for (let i = 0; i < 10; i++) particles.push(new Particle(e.touches[0].clientX, e.touches[0].clientY));
-        });
+                document.body.appendChild(sparkle);
 
-        function animate() {
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                if (particles[i].size <= 0.1) {
-                    particles.splice(i, 1); i--;
-                }
+                sparkle.animate([
+                    { transform: 'translate(0, 0)', opacity: 1 },
+                    { transform: `translate(${destinationX}px, ${destinationY}px)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)'
+                }).onfinish = () => sparkle.remove();
             }
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // The Journey Logic
-        const messages = [
-            "Anu, Aap meri zindagi ki sabse pyari haqeeqat ho...",
-            "Aapka mere saath hona hi meri sabse badi kamyabi hai.",
-            "Main har roz shukar karta hoon ke Allah ne humein milaya.",
-            "Aapki hansi meri har mushkil ko aasaan kar deti hai.",
-            "I Promise, main hamesha aapka saath doonga...",
-            "Hamesha ke liye, sirf aapka. ❤️"
-        ];
-
-        function startJourney() {
-            document.getElementById('heart-trigger').style.display = 'none';
-            const overlay = document.getElementById('story-overlay');
-            const content = document.getElementById('story-content');
-            overlay.style.display = 'flex';
-
-            let index = 0;
-            function showNext() {
-                if (index < messages.length) {
-                    content.classList.remove('active-text');
-                    setTimeout(() => {
-                        content.innerText = messages[index];
-                        content.classList.add('active-text');
-                        index++;
-                        setTimeout(showNext, 4000); // 4 seconds per message
-                    }, 1000);
-                } else {
-                    content.innerText = "I Love You, My Queen! ✨";
-                    content.classList.add('active-text');
-                }
-            }
-            showNext();
         }
     </script>
 </body>
