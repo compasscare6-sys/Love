@@ -48,7 +48,6 @@
         h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
         .message { font-size: 1.1rem; line-height: 1.8; color: #ffe6e6; margin: 25px 0; }
 
-        /* Floating Hearts Animation */
         .heart-particle {
             position: absolute; color: #ff3366; font-size: 15px;
             animation: fall 5s linear infinite; opacity: 0;
@@ -82,7 +81,7 @@
                 <span style="color: #ff3366; font-weight: 600; text-shadow: 0 0 10px #ff3366;">Aap sach mein meri "Jaan Ban Gaye" ho.</span>
             </p>
             <div style="font-size: 3rem; animation: pulse 2s infinite;">💑</div>
-            <p style="margin-top: 25px; font-size: 0.9rem; font-style: italic; opacity: 0.8;">Always Yours, Hasnain</p>
+            <p style="margin-top: 25px; font-size: 0.9rem; font-style: italic; opacity: 0.8;">Always Yours, Rabi</p>
         </div>
     </div>
 
@@ -94,10 +93,8 @@
             const startScreen = document.getElementById('start-screen');
             const content = document.getElementById('surprise-content');
 
-            // Play music
-            audio.play().catch(e => console.log("Audio focus needed"));
+            audio.play().catch(e => console.log("Music play failed"));
 
-            // Hide start screen
             startScreen.style.opacity = '0';
             startScreen.style.transform = 'scale(1.2)';
             
