@@ -1,120 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For My Love ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Life, Anu ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
-    overflow: hidden;
-}
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a; color: white;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
 
-h1 {
-    margin-top: 80px;
-    color: white;
-    font-size: 40px;
-}
+        /* Tap to Open Screen */
+        #start-screen {
+            position: fixed; width: 100%; height: 100%;
+            background: radial-gradient(circle, #2c0000, #000);
+            z-index: 100; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; cursor: pointer;
+            transition: 1s;
+        }
 
-p {
-    color: white;
-    font-size: 20px;
-}
+        .heart-icon {
+            font-size: 100px; color: #ff3366;
+            animation: pulse 1.5s infinite; filter: drop-shadow(0 0 20px #ff3366);
+        }
 
-button {
-    padding: 12px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    background: #ff4d6d;
-    color: white;
-    cursor: pointer;
-    margin-top: 20px;
-}
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.15);} 100% {transform: scale(1);} }
 
-button:hover {
-    background: #ff1e4d;
-}
+        /* Main Surprise Container */
+        #surprise-content {
+            display: none; text-align: center; opacity: 0;
+            width: 85%; max-width: 450px; transition: 2s;
+        }
 
-#message {
-    margin-top: 20px;
-    font-size: 22px;
-    font-weight: bold;
-}
+        .letter-box {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 45px 25px; border-radius: 30px;
+            border: 1px solid rgba(255, 51, 102, 0.4);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 40px rgba(255, 51, 102, 0.3);
+        }
 
-/* Floating hearts */
-.heart {
-    position: absolute;
-    color: red;
-    font-size: 20px;
-    animation: float 5s linear infinite;
-}
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
+        .message { font-size: 1.1rem; line-height: 1.8; color: #ffe6e6; margin: 25px 0; }
 
-@keyframes float {
-    0% {
-        transform: translateY(100vh);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-    }
-}
-</style>
+        /* Floating Hearts Animation */
+        .heart-particle {
+            position: absolute; color: #ff3366; font-size: 15px;
+            animation: fall 5s linear infinite; opacity: 0;
+        }
 
+        @keyframes fall {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+    </style>
 </head>
+<body onclick="startSurprise()">
 
-<body>
+    <audio id="loveSong" loop>
+        <source src="jaan.mp3" type="audio/mpeg">
+    </audio>
 
-<h1>Hi My Beautiful Wife ❤️</h1>
-<p>You are the best thing in my life 💖</p>
+    <div id="start-screen">
+        <div class="heart-icon">❤️</div>
+        <h3 style="margin-top: 30px; font-weight: 300; letter-spacing: 4px; color: #ffcccc;">CLICK TO OPEN</h3>
+        <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">A special gift for Anu</p>
+    </div>
 
-<button onclick="showLove()">Click for Surprise 😍</button>
+    <div id="surprise-content">
+        <div class="letter-box">
+            <h1>Hi Anu!</h1>
+            <p class="message">
+                Coaching se thak kar aayi ho na? Chalo ab sab bhool jao... <br><br>
+                Ye chota sa surprise sirf aapki smile ke liye hai. <br><br>
+                Aap meri zindagi ki sab se badi khushi ho, <br>
+                <span style="color: #ff3366; font-weight: 600; text-shadow: 0 0 10px #ff3366;">Aap sach mein meri "Jaan Ban Gaye" ho.</span>
+            </p>
+            <div style="font-size: 3rem; animation: pulse 2s infinite;">💑</div>
+            <p style="margin-top: 25px; font-size: 0.9rem; font-style: italic; opacity: 0.8;">Always Yours, Hasnain</p>
+        </div>
+    </div>
 
-<p id="message"></p>
+    <div id="heart-container"></div>
 
-<!-- Music -->
-<audio id="music" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-</audio>
+    <script>
+        function startSurprise() {
+            const audio = document.getElementById('loveSong');
+            const startScreen = document.getElementById('start-screen');
+            const content = document.getElementById('surprise-content');
 
-<script>
-const messages = [
-    "I love you more every day 💕",
-    "You are my happiness 😘",
-    "My life is beautiful because of you ❤️",
-    "You are my dream come true 🌹",
-    "Forever yours 💖"
-];
+            // Play music
+            audio.play().catch(e => console.log("Audio focus needed"));
 
-function showLove() {
-    let random = Math.floor(Math.random() * messages.length);
-    document.getElementById("message").innerHTML = messages[random];
+            // Hide start screen
+            startScreen.style.opacity = '0';
+            startScreen.style.transform = 'scale(1.2)';
+            
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                content.style.display = 'block';
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                    createHearts();
+                }, 100);
+            }, 800);
+        }
 
-    document.getElementById("music").play();
-
-    createHearts();
-}
-
-function createHearts() {
-    for (let i = 0; i < 20; i++) {
-        let heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
-    }
-}
-</script>
-
+        function createHearts() {
+            const container = document.getElementById('heart-container');
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.classList.add('heart-particle');
+                h.innerHTML = '❤️';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(h);
+                setTimeout(() => h.remove(), 5000);
+            }, 300);
+        }
+    </script>
 </body>
 </html>
