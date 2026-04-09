@@ -1,91 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For My Begum ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Life, Anu ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
-<style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #ff5f9e, #ff85c1);
-        font-family: Arial, sans-serif;
-    }
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a; color: white;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
 
-    .box {
-        background: white;
-        padding: 40px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        max-width: 400px;
-        width: 90%;
-    }
+        /* Tap to Open Screen */
+        #start-screen {
+            position: fixed; width: 100%; height: 100%;
+            background: radial-gradient(circle, #2c0000, #000);
+            z-index: 100; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; cursor: pointer;
+            transition: 1s;
+        }
 
-    h1 {
-        color: #ff3b7a;
-        margin-bottom: 20px;
-    }
+        .heart-icon {
+            font-size: 100px; color: #ff3366;
+            animation: pulse 1.5s infinite; filter: drop-shadow(0 0 20px #ff3366);
+        }
 
-    button {
-        padding: 12px 25px;
-        font-size: 16px;
-        margin: 10px;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.15);} 100% {transform: scale(1);} }
 
-    .yes {
-        background: #ff3b7a;
-        color: white;
-    }
+        /* Main Surprise Container */
+        #surprise-content {
+            display: none; text-align: center; opacity: 0;
+            width: 85%; max-width: 450px; transition: 2s;
+        }
 
-    .no {
-        background: #ccc;
-    }
+        .letter-box {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 45px 25px; border-radius: 30px;
+            border: 1px solid rgba(255, 51, 102, 0.4);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 40px rgba(255, 51, 102, 0.3);
+        }
 
-    button:hover {
-        transform: scale(1.1);
-    }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
+        .message { font-size: 1.1rem; line-height: 1.8; color: #ffe6e6; margin: 25px 0; }
 
-    .message {
-        font-size: 24px;
-        color: #ff3b7a;
-        margin-top: 20px;
-        font-weight: bold;
-    }
-</style>
+        .heart-particle {
+            position: absolute; color: #ff3366; font-size: 15px;
+            animation: fall 5s linear infinite; opacity: 0;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+    </style>
 </head>
+<body onclick="startSurprise()">
 
-<body>
+    <audio id="loveSong" loop>
+        <source src="jaan.mp3" type="audio/mpeg">
+    </audio>
 
-<div class="box">
-    <h1 id="question">Do You Love Me? ❤️</h1>
-
-    <div id="buttons">
-        <button class="yes" onclick="sayYes()">Yes</button>
-        <button class="no" onclick="sayNo()">No</button>
+    <div id="start-screen">
+        <div class="heart-icon">❤️</div>
+        <h3 style="margin-top: 30px; font-weight: 300; letter-spacing: 4px; color: #ffcccc;">CLICK TO OPEN</h3>
+        <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">A special gift for Anu</p>
     </div>
 
-    <div class="message" id="message"></div>
-</div>
+    <div id="surprise-content">
+        <div class="letter-box">
+            <h1>Hi Anu!</h1>
+            <p class="message">
+                Coaching se thak kar aayi ho na? Chalo ab sab bhool jao... <br><br>
+                Ye chota sa surprise sirf aapki smile ke liye hai. <br><br>
+                Aap meri zindagi ki sab se badi khushi ho, <br>
+                <span style="color: #ff3366; font-weight: 600; text-shadow: 0 0 10px #ff3366;">Aap sach mein meri "Jaan Ban Gaye" ho.</span>
+            </p>
+            <div style="font-size: 3rem; animation: pulse 2s infinite;">💑</div>
+            <p style="margin-top: 25px; font-size: 0.9rem; font-style: italic; opacity: 0.8;">Always Yours, Rabi</p>
+        </div>
+    </div>
 
-<script>
-    function sayNo() {
-        document.getElementById("message").innerText = "Begum Please Yes Kero 🥺❤️";
-    }
+    <div id="heart-container"></div>
 
-    function sayYes() {
-        document.getElementById("question").innerText = "";
-        document.getElementById("buttons").style.display = "none";
-        document.getElementById("message").innerText = "I LOVE YOU ANUSHA ❤️😍";
-    }
-</script>
+    <script>
+        function startSurprise() {
+            const audio = document.getElementById('loveSong');
+            const startScreen = document.getElementById('start-screen');
+            const content = document.getElementById('surprise-content');
 
+            audio.play().catch(e => console.log("Music play failed"));
+
+            startScreen.style.opacity = '0';
+            startScreen.style.transform = 'scale(1.2)';
+            
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                content.style.display = 'block';
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                    createHearts();
+                }, 100);
+            }, 800);
+        }
+
+        function createHearts() {
+            const container = document.getElementById('heart-container');
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.classList.add('heart-particle');
+                h.innerHTML = '❤️';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(h);
+                setTimeout(() => h.remove(), 5000);
+            }, 300);
+        }
+    </script>
 </body>
 </html>
