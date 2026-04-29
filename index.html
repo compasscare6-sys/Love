@@ -10,6 +10,7 @@
         body {
             margin: 0; height: 100vh; display: flex;
             justify-content: center; align-items: center;
+            background: #0f0c29; 
             background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f0c29);
             font-family: 'Poppins', sans-serif; overflow: hidden; color: white;
         }
@@ -30,7 +31,7 @@
             border: 3px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px 20px 70px 70px;
             position: relative; backdrop-filter: blur(8px);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
         }
 
         .jar-lid {
@@ -61,7 +62,7 @@
         #message-box.active { transform: translate(-50%, -50%) scale(1); }
 
         h2 { font-family: 'Dancing Script', cursive; color: #c2185b; font-size: 2.8rem; margin: 0; }
-        p { font-size: 1.1rem; line-height: 1.7; color: #444; margin: 20px 0; }
+        p { font-size: 1.1rem; line-height: 1.7; color: #444; margin: 20px 0; font-weight: 400; white-space: pre-line; }
         
         .next-btn {
             background: #c2185b; color: white; border: none;
@@ -74,9 +75,9 @@
 </head>
 <body onclick="openMessage()">
 
-    <!-- Audio Source (using your uploaded file) -->
+    <!-- Audio Source Matching Your Upload -->
     <audio id="bgMusic" loop>
-        <source src="song.mp3.mp3" type="audio/mpeg">
+        <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
     <div class="jar-container">
@@ -88,7 +89,7 @@
     </div>
 
     <div id="message-box">
-        <h2 id="title">Anu ❤️</h2>
+        <h2 id="title">Pyari Anu ❤️</h2>
         <p id="content">Loading your Duas...</p>
         <button class="next-btn" onclick="closeMessage(event)">Ameen ✨</button>
     </div>
@@ -96,10 +97,10 @@
     <script>
         const messages = [
             { t: "Meri Dua ❤️", c: "Allah aapko hamesha khush rakhe, har dukh se door rakhe aur aapki har jayez khwahish poori kare. Ameen." },
-            { t: "Hamesha Saath", c: "Allah hamara saath hamesha barkarar rakhe aur hamare rishte mein hamesha barkat ata farmaye. Ameen." },
+            { t: "Salamat Raho", c: "Aap meri zindagi ka noor ho. Allah hamara saath hamesha barkarar rakhe aur hamare ghar ko sukoon ka gehwara banaye. Ameen." },
             { t: "Birthday Wish", c: "Aj meri birthday hai, aur meri sabse badi dua yehi hai ke aap hamesha mere saath haste muskurate raho." },
-            { t: "Jaan Ban Gaye", c: "Aap sach mein meri zindagi ki har khushi ho. Aapke bina yeh 'Kaley' adhoora hai. ❤️" },
-            { t: "For My Queen", c: "Always Yours, \n Kala Paplat ✨" }
+            { t: "Jaan Ban Gaye", c: "Aap sach mein meri zindagi ki har khushi ho. Aapke bina 'Kaley' adhoora hai. ❤️" },
+            { t: "Hamesha Yours", c: "Always Yours, \n Kala Paplat ✨" }
         ];
 
         let index = 0;
@@ -115,7 +116,7 @@
         }
 
         function closeMessage(event) {
-            event.stopPropagation(); // Card band karte waqt dobara open na ho jaye
+            event.stopPropagation(); 
             const box = document.getElementById('message-box');
             box.classList.remove('active');
             
