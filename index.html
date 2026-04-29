@@ -3,122 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Life, Anu ❤️</title>
+    <title>A Special Jar for Anu ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap');
 
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background: #0a0a0a; color: white;
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
+        body {
+            margin: 0; height: 100vh; display: flex;
+            justify-content: center; align-items: center;
+            background: #0f0c29; 
+            background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29);
+            font-family: 'Poppins', sans-serif; overflow: hidden; color: white;
         }
 
-        /* Tap to Open Screen */
-        #start-screen {
-            position: fixed; width: 100%; height: 100%;
-            background: radial-gradient(circle, #2c0000, #000);
-            z-index: 100; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; cursor: pointer;
-            transition: 1s;
+        /* The Magic Jar */
+        .jar-container {
+            position: relative; cursor: pointer;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .heart-icon {
-            font-size: 100px; color: #ff3366;
-            animation: pulse 1.5s infinite; filter: drop-shadow(0 0 20px #ff3366);
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.15);} 100% {transform: scale(1);} }
-
-        /* Main Surprise Container */
-        #surprise-content {
-            display: none; text-align: center; opacity: 0;
-            width: 85%; max-width: 450px; transition: 2s;
+        .jar {
+            width: 150px; height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px 20px 80px 80px;
+            position: relative; backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
         }
 
-        .letter-box {
-            background: rgba(255, 255, 255, 0.07);
-            padding: 45px 25px; border-radius: 30px;
-            border: 1px solid rgba(255, 51, 102, 0.4);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 0 40px rgba(255, 51, 102, 0.3);
+        .jar::after { /* Jar Lid */
+            content: ''; position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%); width: 80px; height: 20px;
+            background: #8e44ad; border-radius: 5px;
         }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
-        .message { font-size: 1.1rem; line-height: 1.8; color: #ffe6e6; margin: 25px 0; }
-
-        .heart-particle {
-            position: absolute; color: #ff3366; font-size: 15px;
-            animation: fall 5s linear infinite; opacity: 0;
+        .lights { /* Glowing lights inside jar */
+            position: absolute; bottom: 20px; left: 50%;
+            transform: translateX(-50%); width: 100px; height: 100px;
+            background: radial-gradient(circle, #f1c40f, transparent);
+            filter: blur(15px); animation: glow 2s infinite alternate;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        @keyframes glow { from { opacity: 0.5; } to { opacity: 1; } }
+
+        /* Message Pop-up */
+        #message-box {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 80%; max-width: 400px;
+            background: white; color: #333;
+            padding: 30px; border-radius: 20px;
+            text-align: center; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
+
+        #message-box.active { transform: translate(-50%, -50%) scale(1); }
+
+        h2 { font-family: 'Dancing Script', cursive; color: #e91e63; font-size: 2.5rem; }
+        .tap-text { position: absolute; bottom: -50px; width: 100%; text-align: center; font-size: 0.8rem; letter-spacing: 2px; opacity: 0.7; }
+
     </style>
 </head>
-<body onclick="startSurprise()">
+<body>
 
-    <audio id="loveSong" loop>
-        <source src="jaan.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop>
+        <source src="song.mp3.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="start-screen">
-        <div class="heart-icon">❤️</div>
-        <h3 style="margin-top: 30px; font-weight: 300; letter-spacing: 4px; color: #ffcccc;">CLICK TO OPEN</h3>
-        <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">A special gift for Anu</p>
-    </div>
-
-    <div id="surprise-content">
-        <div class="letter-box">
-            <h1>Hi Anu!</h1>
-            <p class="message">
-                Coaching se thak kar aayi ho na? Chalo ab sab bhool jao... <br><br>
-                Ye chota sa surprise sirf aapki smile ke liye hai. <br><br>
-                Aap meri zindagi ki sab se badi khushi ho, <br>
-                <span style="color: #ff3366; font-weight: 600; text-shadow: 0 0 10px #ff3366;">Aap sach mein meri "Jaan Ban Gaye" ho.</span>
-            </p>
-            <div style="font-size: 3rem; animation: pulse 2s infinite;">💑</div>
-            <p style="margin-top: 25px; font-size: 0.9rem; font-style: italic; opacity: 0.8;">Always Yours, Rabi</p>
+    <div class="jar-container" onclick="openMessage()">
+        <div class="jar">
+            <div class="lights"></div>
         </div>
+        <div class="tap-text">TAP TO OPEN A MEMORY</div>
     </div>
 
-    <div id="heart-container"></div>
+    <div id="message-box">
+        <h2 id="title">Hi Anu! ❤️</h2>
+        <p id="content">Loading a sweet memory...</p>
+        <button onclick="closeMessage()" style="margin-top: 20px; padding: 10px 20px; border: none; background: #e91e63; color: white; border-radius: 50px; cursor: pointer;">Next Memory ✨</button>
+    </div>
 
     <script>
-        function startSurprise() {
-            const audio = document.getElementById('loveSong');
-            const startScreen = document.getElementById('start-screen');
-            const content = document.getElementById('surprise-content');
+        const messages = [
+            { t: "My World", c: "Anu, aapki smile meri sabse badi kamyabi hai. Coaching se aakar thak jati ho, par mere liye hamesha muskuraati ho." },
+            { t: "Hamesha Saath", c: "Aj meri birthday hai, par mera sabse bada gift toh aap hi ho. I'm so lucky to have you, Pabi." },
+            { t: "Sorry Section", c: "Agar kabhi mera gussa bura laga ho toh sorry, lekin pyaar hamesha sacha rahega. ❤️" },
+            { t: "Jaan Ban Gaye", c: "Aap sach mein meri zindagi ki har khushi ho. Bas aise hi hamesha mere saath rehna." }
+        ];
 
-            audio.play().catch(e => console.log("Music play failed"));
+        let index = 0;
 
-            startScreen.style.opacity = '0';
-            startScreen.style.transform = 'scale(1.2)';
-            
-            setTimeout(() => {
-                startScreen.style.display = 'none';
-                content.style.display = 'block';
-                setTimeout(() => {
-                    content.style.opacity = '1';
-                    createHearts();
-                }, 100);
-            }, 800);
+        function openMessage() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(e => console.log("Play blocked"));
+
+            const box = document.getElementById('message-box');
+            document.getElementById('title').innerText = messages[index].t;
+            document.getElementById('content').innerText = messages[index].c;
+            box.classList.add('active');
         }
 
-        function createHearts() {
-            const container = document.getElementById('heart-container');
-            setInterval(() => {
-                const h = document.createElement('div');
-                h.classList.add('heart-particle');
-                h.innerHTML = '❤️';
-                h.style.left = Math.random() * 100 + 'vw';
-                h.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                container.appendChild(h);
-                setTimeout(() => h.remove(), 5000);
-            }, 300);
+        function closeMessage() {
+            const box = document.getElementById('message-box');
+            box.classList.remove('active');
+            
+            // Move to next message
+            index = (index + 1) % messages.length;
+            
+            // Auto-reopen after a short delay for a "pop" effect
+            setTimeout(() => {
+                if(index !== 0) openMessage();
+            }, 600);
         }
     </script>
 </body>
