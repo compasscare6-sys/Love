@@ -3,27 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duas for My Anu ❤️</title>
+    <title>Anu, My Greatest Gift ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
         body {
             margin: 0; height: 100vh; display: flex;
             justify-content: center; align-items: center;
-            background: #0f0c29; 
             background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f0c29);
             font-family: 'Poppins', sans-serif; overflow: hidden; color: white;
         }
 
-        .jar-container {
-            position: relative; cursor: pointer;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
+        .jar-container { position: relative; cursor: pointer; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
 
         .jar {
             width: 140px; height: 190px;
@@ -31,28 +23,17 @@
             border: 3px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px 20px 70px 70px;
             position: relative; backdrop-filter: blur(8px);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
         }
 
-        .jar-lid {
-            position: absolute; top: -12px; left: 50%;
-            transform: translateX(-50%); width: 70px; height: 15px;
-            background: #c2185b; border-radius: 5px;
-        }
-
-        .glow {
-            position: absolute; bottom: 30px; left: 50%;
-            transform: translateX(-50%); width: 80px; height: 80px;
-            background: radial-gradient(circle, #ff4081, transparent);
-            filter: blur(20px); animation: blink 2s infinite alternate;
-        }
-
+        .jar-lid { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 70px; height: 15px; background: #c2185b; border-radius: 5px; }
+        .glow { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; background: radial-gradient(circle, #ff4081, transparent); filter: blur(20px); animation: blink 2s infinite alternate; }
         @keyframes blink { from { opacity: 0.4; } to { opacity: 1; } }
 
         #message-box {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 85%; max-width: 420px;
+            width: 88%; max-width: 450px;
             background: #fff; color: #333;
             padding: 35px 25px; border-radius: 25px;
             text-align: center; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -60,55 +41,44 @@
         }
 
         #message-box.active { transform: translate(-50%, -50%) scale(1); }
-
-        h2 { font-family: 'Dancing Script', cursive; color: #c2185b; font-size: 2.8rem; margin: 0; }
-        p { font-size: 1.1rem; line-height: 1.7; color: #444; margin: 20px 0; font-weight: 400; white-space: pre-line; }
-        
-        .next-btn {
-            background: #c2185b; color: white; border: none;
-            padding: 12px 25px; border-radius: 50px; cursor: pointer;
-            font-weight: 600; box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3);
-        }
-
+        h2 { font-family: 'Dancing Script', cursive; color: #c2185b; font-size: 2.5rem; margin: 0; }
+        p { font-size: 1rem; line-height: 1.8; color: #444; margin: 20px 0; font-weight: 400; }
+        .next-btn { background: #c2185b; color: white; border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: 600; }
         .tap-hint { position: absolute; bottom: -60px; width: 100%; text-align: center; color: #ff80ab; font-size: 0.75rem; letter-spacing: 3px; font-weight: 600; }
     </style>
 </head>
 <body onclick="openMessage()">
 
-    <!-- Audio Source Matching Your Upload -->
+    <!-- Using exact file name from your upload -->
     <audio id="bgMusic" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
     <div class="jar-container">
         <div class="jar-lid"></div>
-        <div class="jar">
-            <div class="glow"></div>
-        </div>
-        <div class="tap-hint">TAP TO OPEN DUAS ❤️</div>
+        <div class="jar"><div class="glow"></div></div>
+        <div class="tap-hint">TAP TO OPEN MY HEART ❤️</div>
     </div>
 
     <div id="message-box">
-        <h2 id="title">Pyari Anu ❤️</h2>
-        <p id="content">Loading your Duas...</p>
-        <button class="next-btn" onclick="closeMessage(event)">Ameen ✨</button>
+        <h2 id="title">Anu ❤️</h2>
+        <p id="content">Loading...</p>
+        <button class="next-btn" onclick="closeMessage(event)">Ameen / Agla Paighamaat ✨</button>
     </div>
 
     <script>
         const messages = [
-            { t: "Meri Dua ❤️", c: "Allah aapko hamesha khush rakhe, har dukh se door rakhe aur aapki har jayez khwahish poori kare. Ameen." },
-            { t: "Salamat Raho", c: "Aap meri zindagi ka noor ho. Allah hamara saath hamesha barkarar rakhe aur hamare ghar ko sukoon ka gehwara banaye. Ameen." },
-            { t: "Birthday Wish", c: "Aj meri birthday hai, aur meri sabse badi dua yehi hai ke aap hamesha mere saath haste muskurate raho." },
-            { t: "Jaan Ban Gaye", c: "Aap sach mein meri zindagi ki har khushi ho. Aapke bina 'Kaley' adhoora hai. ❤️" },
-            { t: "Hamesha Yours", c: "Always Yours, \n Kala Paplat ✨" }
+            { t: "My Best Gift ❤️", c: "Anu, aaj meri birthday hai, log toh tohfe maangte hain par mera sabse bada gift toh Allah ne mujhe pehle hi aapki soorat mein de diya hai. Aaj main yeh ikrar karta hoon ke maine hamesha ke liye apne dil par sirf aapka naam likh diya hai. Mere liye meri birthday ka jashn sirf aapki maujoodgi hai." },
+            { t: "Rooh Se Mohabbat ✨", c: "Kehte hain jism fani hai par rooh hamesha rehti hai. Mere is dil ko aapke chehre se zyada aapki rooh se mohabbat hai. Yeh sirf ek rishta nahi, balki do roohon ka milan hai. Meri dua hai ke Allah hamari roohon ko hamesha ke liye ek dusre ke saath baandh de, taake hum duniya aur akhirat dono mein saath rahein." },
+            { t: "Mera Sukoon 🤲", c: "Aap meri zindagi ka woh sukoon ho jiski talash har insan ko hoti hai. Meri har dua sirf aapke liye shuru hoti hai aur aap par hi khatam. Allah se bas yehi ilteja hai ke woh aapke raste ki har mushkil ko asaan kare aur aapko woh har khushi ata farmaye jiski aapne kabhi tamanna ki ho. Aap muskurati raho, bas mere liye itna hi kaafi hai." },
+            { t: "Jaan Ban Gaye 🤩", c: "Aap sach mein meri zindagi ki har khushi ho, meri har dharhkan mein bas aapka hi zikr hai. Mere dil ki har gali mein sirf aapki hi roshni hai. Sach toh yeh hai ke aapke bina yeh 'Kaley' adhoora hai, be-rang hai. Aapki mohabbat hi meri asli taqat hai aur aapki khushi hi meri zindagi ka maqsad." },
+            { t: "Forever Yours 💍", c: "Main aaj ke din aapse yeh waada karta hoon ke chahe waqt kaisa bhi ho, halat kaise bhi hon, main hamesha aapka haath mazbooti se thaame rakhunga. Aap meri malika ho aur main hamesha aapka khayal rakhunga.\n\n Always Yours,\n Kala Paplat ✨" }
         ];
 
         let index = 0;
-
         function openMessage() {
-            const audio = document.getElementById('bgMusic');
-            audio.play().catch(e => console.log("Audio needs interaction"));
-
+            // Song plays on the very first click
+            document.getElementById('bgMusic').play().catch(e => {});
             const box = document.getElementById('message-box');
             document.getElementById('title').innerText = messages[index].t;
             document.getElementById('content').innerText = messages[index].c;
@@ -116,15 +86,10 @@
         }
 
         function closeMessage(event) {
-            event.stopPropagation(); 
-            const box = document.getElementById('message-box');
-            box.classList.remove('active');
-            
+            event.stopPropagation(); // Prevents reopening immediately
+            document.getElementById('message-box').classList.remove('active');
             index = (index + 1) % messages.length;
-            
-            setTimeout(() => {
-                if(index !== 0) openMessage();
-            }, 600);
+            setTimeout(() => { if(index !== 0) openMessage(); }, 600);
         }
     </script>
 </body>
