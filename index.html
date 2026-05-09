@@ -2,123 +2,161 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Begum Jeee ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Januri ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Poppins:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #1a0a0a; overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
-            font-family: 'Poppins', sans-serif;
+            background: #000; font-family: 'Poppins', sans-serif;
+            overflow: hidden; touch-action: none;
         }
 
-        /* Royal Background */
-        .stars {
+        /* Hidden Content Layer */
+        #content-layer {
             position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #3d0000 0%, #050000 100%);
-            z-index: -1;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; background: #1a0505;
+            z-index: 1;
         }
 
-        /* Envelope Design */
-        .envelope-wrapper {
-            position: relative; cursor: pointer; transition: 0.5s;
+        .message h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
+        .message p { color: #fff; font-size: 1.1rem; margin-top: 10px; opacity: 0.8; }
+
+        /* Bouquet Section */
+        #vase-container { position: relative; margin-top: 40px; }
+        .vase { width: 100px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+        .flower {
+            position: absolute; font-size: 40px; bottom: 80px; left: 50%;
+            transform: translateX(-50%); animation: grow 0.5s ease-out forwards;
+        }
+        @keyframes grow { from { transform: translateX(-50%) scale(0); } to { transform: translateX(-50%) scale(1); } }
+
+        /* Magic Mirror Canvas */
+        #mirror-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; cursor: crosshair; transition: opacity 2s;
         }
 
-        .envelope {
-            position: relative; width: 280px; height: 180px;
-            background: #8b0000; border-radius: 0 0 10px 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        .instruction {
+            position: absolute; bottom: 10%; width: 100%; text-align: center;
+            color: #fff; z-index: 11; font-size: 0.9rem; letter-spacing: 2px;
+            pointer-events: none; text-shadow: 0 0 10px #000;
         }
-
-        .envelope::before {
-            content: ''; position: absolute; top: 0; width: 0; height: 0;
-            border-left: 140px solid transparent; border-right: 140px solid transparent;
-            border-top: 100px solid #a50000; transform-origin: top; transition: 0.5s; z-index: 5;
-        }
-
-        /* Letter Inside */
-        .letter {
-            position: absolute; bottom: 10px; left: 10px;
-            width: 260px; height: 160px; background: #fdf5e6;
-            border-radius: 5px; transition: 0.8s; z-index: 2;
-            padding: 20px; box-sizing: border-box; text-align: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        }
-
-        .letter h2 { font-family: 'Great Vibes', cursive; color: #8b0000; margin: 0; font-size: 2rem; }
-        .letter p { font-size: 0.9rem; color: #333; line-height: 1.5; margin-top: 10px; }
-
-        /* Animation when opened */
-        .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 0; }
-        .envelope-wrapper.open .letter { transform: translateY(-130px); height: 320px; z-index: 10; width: 300px; left: -10px; }
-
-        /* Falling Elements */
-        .rose { position: absolute; top: -50px; animation: fall 5s linear forwards; pointer-events: none; }
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
-
-        .tap-hint {
-            position: absolute; bottom: -60px; width: 100%; text-align: center;
-            color: #d4af37; font-size: 0.8rem; letter-spacing: 2px;
-            animation: blink 1.5s infinite;
-        }
-        @keyframes blink { 0%, 100% {opacity: 1;} 50% {opacity: 0.3;} }
     </style>
 </head>
 <body>
-
-    <div class="stars"></div>
 
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="envelope-wrapper" id="wrapper" onclick="openLetter()">
-        <div class="envelope"></div>
-        <div class="letter">
-            <h2>Sorry Januri ❤️</h2>
-            <p>Mera maqsad aapka dil dukhana kabhi nahi tha... <br><br>
-               Aap meri zindagi ho, meri Begum ho. <br>
-               <b>I Love You Begum Jeee</b> <br><br>
-               Kya apne "Kala Paplat" ko ek pyari si smile ke saath maaf karogi?
+    <div id="content-layer">
+        <div class="message">
+            <h1>I Love You Begum Jeee ❤️</h1>
+            <p>Sorry Januri... Aapki smile ke bina sab adhoora hai. <br>
+               <span style="font-size: 0.8rem;">(Ab Vase par tap karke mere guloab qubool karein)</span>
             </p>
-            <div style="font-size: 30px; margin-top: 10px;">💏💋</div>
         </div>
-        <div class="tap-hint">TAP TO OPEN THE ENVELOPE</div>
+
+        <div id="vase-container" onclick="addFlower()">
+            <svg class="vase" viewBox="0 0 100 120">
+                <path d="M30,120 Q50,130 70,120 L80,40 Q50,30 20,40 Z" fill="#d4af37" />
+            </svg>
+            <div id="flowers"></div>
+        </div>
+        
+        <p style="margin-top: 20px; color: #ff80ab; font-weight: 600;">Always Yours, Kala Paplat ✨</p>
     </div>
 
+    <canvas id="mirror-canvas"></canvas>
+    <div class="instruction" id="hint">SHEESHA SAAF KAREIN... ✨</div>
+
     <script>
-        function openLetter() {
-            // Play Music
-            document.getElementById('loveSong').play();
+        const canvas = document.getElementById('mirror-canvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let musicStarted = false;
 
-            // Open Animation
-            const wrapper = document.getElementById('wrapper');
-            wrapper.classList.add('open');
+        function initMirror() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
             
-            // Remove Tap Hint
-            document.querySelector('.tap-hint').style.display = 'none';
-
-            // Start Falling Roses
-            setInterval(createRose, 300);
+            // Mirror background (Blurred/Foggy effect)
+            ctx.fillStyle = '#888';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add some "fog" texture
+            for (let i = 0; i < 1000; i++) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.1})`;
+                ctx.beginPath();
+                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 50, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
-        function createRose() {
-            const rose = document.createElement('div');
-            rose.classList.add('rose');
-            const items = ['🌹', '❤️', '💋', '✨', '💖'];
-            rose.innerText = items[Math.floor(Math.random() * items.length)];
-            rose.style.left = Math.random() * 100 + "vw";
-            rose.style.fontSize = (Math.random() * 20 + 20) + "px";
-            rose.style.animationDuration = (Math.random() * 2 + 3) + "s";
-            document.body.appendChild(rose);
-
-            setTimeout(() => { rose.remove(); }, 5000);
+        function erase(x, y) {
+            if(!musicStarted) {
+                document.getElementById('loveSong').play();
+                musicStarted = true;
+                document.getElementById('hint').style.display = 'none';
+            }
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(x, y, 40, 0, Math.PI * 2);
+            ctx.fill();
         }
+
+        // Touch & Mouse Events for Mirror
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mousemove', (e) => { if(isDrawing) erase(e.clientX, e.clientY); });
+        
+        canvas.addEventListener('touchstart', (e) => { isDrawing = true; erase(e.touches[0].clientX, e.touches[0].clientY); });
+        canvas.addEventListener('touchmove', (e) => { if(isDrawing) erase(e.touches[0].clientX, e.touches[0].clientY); });
+
+        // Bouquet Logic
+        function addFlower() {
+            const container = document.getElementById('flowers');
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            const types = ['🌹', '🌷', '🌸', '🌺', '🌻'];
+            flower.innerText = types[Math.floor(Math.random() * types.length)];
+            
+            // Random position in vase
+            const randomX = (Math.random() * 80) - 40;
+            const randomY = (Math.random() * 60) - 30;
+            const randomRotate = (Math.random() * 40) - 20;
+            
+            flower.style.marginLeft = randomX + 'px';
+            flower.style.marginBottom = (80 + randomY) + 'px';
+            flower.style.transform = `translateX(-50%) rotate(${randomRotate}deg)`;
+            
+            container.appendChild(flower);
+            
+            // Kiss effect on click
+            createKiss(event.clientX, event.clientY);
+        }
+
+        function createKiss(x, y) {
+            const kiss = document.createElement('div');
+            kiss.innerText = '💋';
+            kiss.style.position = 'fixed';
+            kiss.style.left = x + 'px';
+            kiss.style.top = y + 'px';
+            kiss.style.fontSize = '24px';
+            kiss.style.transition = '2s';
+            kiss.style.pointerEvents = 'none';
+            document.body.appendChild(kiss);
+            setTimeout(() => {
+                kiss.style.transform = 'translateY(-100px)';
+                kiss.style.opacity = '0';
+                setTimeout(() => kiss.remove(), 2000);
+            }, 10);
+        }
+
+        window.onload = initMirror;
     </script>
 </body>
 </html>
