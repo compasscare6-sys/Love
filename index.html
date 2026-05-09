@@ -3,126 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I am Sorry Anu ❤️</title>
+    <title>For You Anu ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
-
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #000; overflow: hidden;
-            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Romantic Background Gradient */
-        .bg {
-            position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #4b0000 0%, #000 100%);
-            z-index: -1;
-        }
-
-        /* The Main Card */
-        #card {
-            text-align: center; color: white; z-index: 10;
-            padding: 30px; border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 51, 102, 0.3);
-            width: 85%; max-width: 400px;
-            box-shadow: 0 0 50px rgba(255, 51, 102, 0.2);
-            transition: 1s;
-        }
-
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
-        p { font-size: 1.1rem; margin: 20px 0; line-height: 1.6; letter-spacing: 0.5px; }
-
-        /* The Big Heart Button */
-        .heart-btn {
-            font-size: 50px; background: none; border: none;
-            cursor: pointer; animation: pulse 1.5s infinite;
-            filter: drop-shadow(0 0 10px #ff3366);
+        /* Pulsing Heart Center */
+        .main-heart {
+            font-size: 100px; cursor: pointer;
+            animation: pulse 1.5s infinite;
+            filter: drop-shadow(0 0 20px #ff3366);
+            transition: 0.5s;
+            z-index: 10;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            50% { transform: scale(1.3); }
             100% { transform: scale(1); }
         }
 
-        /* Floating Kiss Emojis */
-        .kiss {
-            position: absolute; font-size: 25px;
-            pointer-events: none; animation: fly 4s linear forwards;
-            z-index: 100;
+        /* Message Style */
+        #final-msg {
+            position: absolute; text-align: center; color: white;
+            opacity: 0; transition: 2s; z-index: 20;
+            pointer-events: none;
         }
 
-        @keyframes fly {
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ff3366; margin: 0; }
+        
+        /* Floating Elements */
+        .float-element {
+            position: absolute; bottom: -10%;
+            animation: floatUp 4s linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
 
-        .forgive-btn {
-            background: #ff3366; color: white; border: none;
-            padding: 12px 30px; border-radius: 50px;
-            font-weight: 600; cursor: pointer; margin-top: 20px;
-            transition: 0.3s;
+        .instruction {
+            position: absolute; bottom: 20%; color: rgba(255,255,255,0.4);
+            font-size: 0.8rem; letter-spacing: 2px;
         }
-        .forgive-btn:hover { background: #ff0044; transform: scale(1.1); }
-
     </style>
 </head>
-<body>
+<body onclick="activateLove()">
 
-    <div class="bg"></div>
-
-    <audio id="loveSong" loop>
+    <audio id="song" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="card">
-        <h1>I'm Sorry Anu ❤️</h1>
-        <p>Mera maqsad aapka dil dukhana nahi tha, <br> bas thodi na-samjhi ho gayi... <br><br>
-        Aap naraz hoti ho toh duniya suni lagti hai. <br>
-        <b>Kya apne "Kaley" ko maaf karogi?</b></p>
-        
-        <button class="heart-btn" onclick="startRomance()">❤️</button>
-        <br>
-        <small style="opacity: 0.6;">(Tap the heart to hear my heart)</small>
+    <div class="main-heart" id="heart">❤️</div>
+    
+    <div class="instruction" id="hint">TAP MY HEART</div>
+
+    <div id="final-msg">
+        <h1>Sorry Jaan... ❤️</h1>
+        <p style="font-style: italic; color: #ffcccc;">Ab maan jao na? <br> — Kaley</p>
     </div>
 
     <script>
-        function startRomance() {
+        function activateLove() {
             // Play Music
-            const audio = document.getElementById('loveSong');
-            audio.play();
+            document.getElementById('song').play();
 
-            // Change Text
-            const card = document.getElementById('card');
-            card.innerHTML = `
-                <h1 style="font-size: 4rem;">Thank You! 💋</h1>
-                <p style="font-size: 1.3rem;">Ab gussa khatam? <br> Ab jaldi se wo <b>Wali Kiss</b> chahiye mujhse! <br><br> 
-                I Love You Meri Jaan! ❤️</p>
-                <div style="font-size: 50px;">💏</div>
-                <p style="font-size: 0.8rem; font-style: italic;">Hamesha ke liye sirf aapka,<br><b>Kala Paplat</b></p>
-            `;
+            // Hide Heart & Hint
+            document.getElementById('heart').style.transform = 'scale(0)';
+            document.getElementById('hint').style.opacity = '0';
 
-            // Start Kiss Shower
-            setInterval(createKiss, 200);
+            // Show Message
+            setTimeout(() => {
+                document.getElementById('final-msg').style.opacity = '1';
+            }, 500);
+
+            // Start Particle Rain
+            setInterval(createFloatingElement, 150);
         }
 
-        function createKiss() {
-            const kiss = document.createElement('div');
-            kiss.classList.add('kiss');
-            const icons = ['💋', '❤️', '😘', '🌹'];
-            kiss.innerText = icons[Math.floor(Math.random() * icons.length)];
-            kiss.style.left = Math.random() * 100 + "vw";
-            kiss.style.top = "100vh";
-            kiss.style.duration = (Math.random() * 2 + 3) + "s";
-            document.body.appendChild(kiss);
+        function createFloatingElement() {
+            const el = document.createElement('div');
+            el.classList.add('float-element');
+            const items = ['💋', '❤️', '😘', '🌹', '💖'];
+            el.innerText = items[Math.floor(Math.random() * items.length)];
+            el.style.left = Math.random() * 100 + "vw";
+            el.style.fontSize = (Math.random() * 20 + 20) + "px";
+            el.style.duration = (Math.random() * 2 + 2) + "s";
+            document.body.appendChild(el);
 
-            setTimeout(() => {
-                kiss.remove();
-            }, 4000);
+            setTimeout(() => { el.remove(); }, 4000);
         }
     </script>
 </body>
