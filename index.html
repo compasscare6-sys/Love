@@ -13,7 +13,6 @@
             overflow: hidden; touch-action: none;
         }
 
-        /* Hidden Content Layer */
         #content-layer {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center;
@@ -21,28 +20,32 @@
             z-index: 1;
         }
 
-        .message h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
-        .message p { color: #fff; font-size: 1.1rem; margin-top: 10px; opacity: 0.8; }
+        .message h1 { font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: #ff3366; margin: 0; padding: 0 10px; }
+        .message p { color: #fff; font-size: 1rem; margin-top: 10px; opacity: 0.9; padding: 0 20px; }
 
-        /* Bouquet Section */
-        #vase-container { position: relative; margin-top: 40px; }
-        .vase { width: 100px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
-        .flower {
-            position: absolute; font-size: 40px; bottom: 80px; left: 50%;
-            transform: translateX(-50%); animation: grow 0.5s ease-out forwards;
+        #vase-container { 
+            position: relative; margin-top: 50px; 
+            cursor: pointer; z-index: 5; /* Z-index high rakha hai click ke liye */
+            padding: 20px;
         }
-        @keyframes grow { from { transform: translateX(-50%) scale(0); } to { transform: translateX(-50%) scale(1); } }
+        .vase { width: 100px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
+        
+        .flower {
+            position: absolute; font-size: 45px; bottom: 100px; left: 50%;
+            transform: translateX(-50%); animation: grow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: none;
+        }
+        @keyframes grow { from { transform: translateX(-50%) scale(0) rotate(-20deg); } to { transform: translateX(-50%) scale(1) rotate(0deg); } }
 
-        /* Magic Mirror Canvas */
         #mirror-canvas {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10; cursor: crosshair; transition: opacity 2s;
+            z-index: 10; cursor: crosshair;
         }
 
         .instruction {
-            position: absolute; bottom: 10%; width: 100%; text-align: center;
-            color: #fff; z-index: 11; font-size: 0.9rem; letter-spacing: 2px;
-            pointer-events: none; text-shadow: 0 0 10px #000;
+            position: absolute; bottom: 12%; width: 100%; text-align: center;
+            color: #fff; z-index: 11; font-size: 0.8rem; letter-spacing: 2px;
+            pointer-events: none; text-shadow: 0 0 10px #000; font-weight: 600;
         }
     </style>
 </head>
@@ -55,19 +58,19 @@
     <div id="content-layer">
         <div class="message">
             <h1>I Love You Begum Jeee ❤️</h1>
-            <p>Sorry Januri... Aapki smile ke bina sab adhoora hai. <br>
-               <span style="font-size: 0.8rem;">(Ab Vase par tap karke mere guloab qubool karein)</span>
-            </p>
+            <p>Sorry Januri... Aapki smile ke bina sab adhoora hai.<br>
+            <span style="color: #ff80ab;">(Guldan par click karke phool khilayein ✨)</span></p>
         </div>
 
-        <div id="vase-container" onclick="addFlower()">
+        <div id="vase-container" onclick="addFlower(event)">
             <svg class="vase" viewBox="0 0 100 120">
                 <path d="M30,120 Q50,130 70,120 L80,40 Q50,30 20,40 Z" fill="#d4af37" />
+                <path d="M25,45 Q50,35 75,45 L70,110 Q50,115 30,110 Z" fill="rgba(255,255,255,0.1)" />
             </svg>
             <div id="flowers"></div>
         </div>
         
-        <p style="margin-top: 20px; color: #ff80ab; font-weight: 600;">Always Yours, Kala Paplat ✨</p>
+        <p style="margin-top: 30px; color: #ff80ab; font-weight: 600; letter-spacing: 1px;">Always Yours, Kala Paplat ✨</p>
     </div>
 
     <canvas id="mirror-canvas"></canvas>
@@ -82,61 +85,66 @@
         function initMirror() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            
-            // Mirror background (Blurred/Foggy effect)
-            ctx.fillStyle = '#888';
+            ctx.fillStyle = '#666'; // Foggy Mirror color
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Add some "fog" texture
-            for (let i = 0; i < 1000; i++) {
-                ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.1})`;
+            // Texture for fog
+            for (let i = 0; i < 500; i++) {
+                ctx.fillStyle = `rgba(200, 200, 200, ${Math.random() * 0.2})`;
                 ctx.beginPath();
-                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 50, 0, Math.PI * 2);
+                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 40, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
         function erase(x, y) {
             if(!musicStarted) {
-                document.getElementById('loveSong').play();
+                document.getElementById('loveSong').play().catch(e => {});
                 musicStarted = true;
                 document.getElementById('hint').style.display = 'none';
             }
             ctx.globalCompositeOperation = 'destination-out';
             ctx.beginPath();
-            ctx.arc(x, y, 40, 0, Math.PI * 2);
+            ctx.arc(x, y, 60, 0, Math.PI * 2); // Brush size bada kar diya (60)
             ctx.fill();
+
+            // Agar 30% mirror saaf ho jaye toh canvas ko click-through kar do
+            canvas.style.pointerEvents = 'none';
+            setTimeout(() => { canvas.style.pointerEvents = 'auto'; }, 10); 
         }
 
-        // Touch & Mouse Events for Mirror
         canvas.addEventListener('mousedown', () => isDrawing = true);
-        canvas.addEventListener('mouseup', () => isDrawing = false);
+        window.addEventListener('mouseup', () => isDrawing = false);
         canvas.addEventListener('mousemove', (e) => { if(isDrawing) erase(e.clientX, e.clientY); });
         
-        canvas.addEventListener('touchstart', (e) => { isDrawing = true; erase(e.touches[0].clientX, e.touches[0].clientY); });
-        canvas.addEventListener('touchmove', (e) => { if(isDrawing) erase(e.touches[0].clientX, e.touches[0].clientY); });
+        canvas.addEventListener('touchstart', (e) => { 
+            isDrawing = true; 
+            erase(e.touches[0].clientX, e.touches[0].clientY); 
+        });
+        canvas.addEventListener('touchmove', (e) => { 
+            if(isDrawing) erase(e.touches[0].clientX, e.touches[0].clientY); 
+        });
 
-        // Bouquet Logic
-        function addFlower() {
+        function addFlower(e) {
+            // Audio check again just in case
+            document.getElementById('loveSong').play().catch(e => {});
+            
             const container = document.getElementById('flowers');
             const flower = document.createElement('div');
             flower.classList.add('flower');
-            const types = ['🌹', '🌷', '🌸', '🌺', '🌻'];
+            const types = ['🌹', '🌷', '🌸', '🌺', '🌻', '💐'];
             flower.innerText = types[Math.floor(Math.random() * types.length)];
             
-            // Random position in vase
-            const randomX = (Math.random() * 80) - 40;
-            const randomY = (Math.random() * 60) - 30;
-            const randomRotate = (Math.random() * 40) - 20;
+            const randomX = (Math.random() * 100) - 50;
+            const randomY = (Math.random() * 70) - 35;
+            const randomRotate = (Math.random() * 60) - 30;
             
             flower.style.marginLeft = randomX + 'px';
-            flower.style.marginBottom = (80 + randomY) + 'px';
+            flower.style.marginBottom = (100 + randomY) + 'px';
             flower.style.transform = `translateX(-50%) rotate(${randomRotate}deg)`;
             
             container.appendChild(flower);
-            
-            // Kiss effect on click
-            createKiss(event.clientX, event.clientY);
+            createKiss(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
         }
 
         function createKiss(x, y) {
@@ -145,18 +153,21 @@
             kiss.style.position = 'fixed';
             kiss.style.left = x + 'px';
             kiss.style.top = y + 'px';
-            kiss.style.fontSize = '24px';
-            kiss.style.transition = '2s';
+            kiss.style.fontSize = '30px';
+            kiss.style.zIndex = '100';
             kiss.style.pointerEvents = 'none';
+            kiss.style.transition = 'transform 1.5s, opacity 1.5s';
             document.body.appendChild(kiss);
+            
             setTimeout(() => {
-                kiss.style.transform = 'translateY(-100px)';
+                kiss.style.transform = `translate(${(Math.random()-0.5)*100}px, -150px) scale(1.5)`;
                 kiss.style.opacity = '0';
-                setTimeout(() => kiss.remove(), 2000);
-            }, 10);
+                setTimeout(() => kiss.remove(), 1500);
+            }, 50);
         }
 
         window.onload = initMirror;
+        window.onresize = initMirror;
     </script>
 </body>
 </html>
