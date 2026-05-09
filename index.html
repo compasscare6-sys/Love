@@ -9,43 +9,45 @@
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #000; font-family: 'Poppins', sans-serif;
+            background: #1a0505; font-family: 'Poppins', sans-serif;
             overflow: hidden; touch-action: none;
         }
 
         #content-layer {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; background: #1a0505;
+            align-items: center; text-align: center;
             z-index: 1;
         }
 
-        .message h1 { font-family: 'Great Vibes', cursive; font-size: 3.2rem; color: #ff3366; margin: 0; padding: 0 10px; }
-        .message p { color: #fff; font-size: 1rem; margin-top: 10px; opacity: 0.9; padding: 0 20px; }
+        .message h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
+        .message p { color: #fff; font-size: 1.1rem; margin-top: 10px; opacity: 0.9; }
 
         #vase-container { 
             position: relative; margin-top: 50px; 
-            cursor: pointer; z-index: 5; /* Z-index high rakha hai click ke liye */
-            padding: 20px;
+            cursor: pointer; 
+            z-index: 20; /* Sab se upar taake click lazmi ho */
+            padding: 40px; /* Click area bada kar diya */
         }
-        .vase { width: 100px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
+        
+        .vase { width: 120px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)); pointer-events: auto; }
         
         .flower {
-            position: absolute; font-size: 45px; bottom: 100px; left: 50%;
+            position: absolute; font-size: 50px; bottom: 120px; left: 50%;
             transform: translateX(-50%); animation: grow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             pointer-events: none;
         }
-        @keyframes grow { from { transform: translateX(-50%) scale(0) rotate(-20deg); } to { transform: translateX(-50%) scale(1) rotate(0deg); } }
+        @keyframes grow { from { transform: translateX(-50%) scale(0); } to { transform: translateX(-50%) scale(1); } }
 
         #mirror-canvas {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10; cursor: crosshair;
+            z-index: 10; pointer-events: auto;
         }
 
         .instruction {
             position: absolute; bottom: 12%; width: 100%; text-align: center;
-            color: #fff; z-index: 11; font-size: 0.8rem; letter-spacing: 2px;
-            pointer-events: none; text-shadow: 0 0 10px #000; font-weight: 600;
+            color: #fff; z-index: 15; font-size: 0.9rem; letter-spacing: 2px;
+            pointer-events: none; text-shadow: 0 0 10px #000;
         }
     </style>
 </head>
@@ -58,19 +60,19 @@
     <div id="content-layer">
         <div class="message">
             <h1>I Love You Begum Jeee ❤️</h1>
-            <p>Sorry Januri... Aapki smile ke bina sab adhoora hai.<br>
-            <span style="color: #ff80ab;">(Guldan par click karke phool khilayein ✨)</span></p>
+            <p>Sorry Januri... ❤️<br>
+            <span style="color: #ff80ab; font-size: 0.9rem;">(Ab Guldan par click karein ✨)</span></p>
         </div>
 
         <div id="vase-container" onclick="addFlower(event)">
             <svg class="vase" viewBox="0 0 100 120">
                 <path d="M30,120 Q50,130 70,120 L80,40 Q50,30 20,40 Z" fill="#d4af37" />
-                <path d="M25,45 Q50,35 75,45 L70,110 Q50,115 30,110 Z" fill="rgba(255,255,255,0.1)" />
+                <circle cx="50" cy="80" r="10" fill="rgba(255,255,255,0.2)" />
             </svg>
             <div id="flowers"></div>
         </div>
         
-        <p style="margin-top: 30px; color: #ff80ab; font-weight: 600; letter-spacing: 1px;">Always Yours, Kala Paplat ✨</p>
+        <p style="margin-top: 40px; color: #ff80ab; font-weight: 600;">Always Yours, Kala Paplat ✨</p>
     </div>
 
     <canvas id="mirror-canvas"></canvas>
@@ -85,14 +87,14 @@
         function initMirror() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            ctx.fillStyle = '#666'; // Foggy Mirror color
+            ctx.fillStyle = '#777'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Texture for fog
-            for (let i = 0; i < 500; i++) {
-                ctx.fillStyle = `rgba(200, 200, 200, ${Math.random() * 0.2})`;
+            // Fog effect
+            for (let i = 0; i < 400; i++) {
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.15})`;
                 ctx.beginPath();
-                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 40, 0, Math.PI * 2);
+                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 50, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
@@ -103,16 +105,14 @@
                 musicStarted = true;
                 document.getElementById('hint').style.display = 'none';
             }
+            
             ctx.globalCompositeOperation = 'destination-out';
             ctx.beginPath();
-            ctx.arc(x, y, 60, 0, Math.PI * 2); // Brush size bada kar diya (60)
+            ctx.arc(x, y, 100, 0, Math.PI * 2); // Brush Size ab 100 hai (Super Fast)
             ctx.fill();
-
-            // Agar 30% mirror saaf ho jaye toh canvas ko click-through kar do
-            canvas.style.pointerEvents = 'none';
-            setTimeout(() => { canvas.style.pointerEvents = 'auto'; }, 10); 
         }
 
+        // Mouse/Touch for Mirror
         canvas.addEventListener('mousedown', () => isDrawing = true);
         window.addEventListener('mouseup', () => isDrawing = false);
         canvas.addEventListener('mousemove', (e) => { if(isDrawing) erase(e.clientX, e.clientY); });
@@ -125,26 +125,28 @@
             if(isDrawing) erase(e.touches[0].clientX, e.touches[0].clientY); 
         });
 
+        // Bouquet Logic
         function addFlower(e) {
-            // Audio check again just in case
-            document.getElementById('loveSong').play().catch(e => {});
-            
             const container = document.getElementById('flowers');
             const flower = document.createElement('div');
             flower.classList.add('flower');
             const types = ['🌹', '🌷', '🌸', '🌺', '🌻', '💐'];
             flower.innerText = types[Math.floor(Math.random() * types.length)];
             
-            const randomX = (Math.random() * 100) - 50;
-            const randomY = (Math.random() * 70) - 35;
-            const randomRotate = (Math.random() * 60) - 30;
+            const randomX = (Math.random() * 120) - 60;
+            const randomY = (Math.random() * 80) - 40;
+            const rotate = (Math.random() * 50) - 25;
             
             flower.style.marginLeft = randomX + 'px';
-            flower.style.marginBottom = (100 + randomY) + 'px';
-            flower.style.transform = `translateX(-50%) rotate(${randomRotate}deg)`;
+            flower.style.marginBottom = (120 + randomY) + 'px';
+            flower.style.transform = `translateX(-50%) rotate(${rotate}deg)`;
             
             container.appendChild(flower);
-            createKiss(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
+            
+            // Kiss effect
+            const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            createKiss(clientX, clientY);
         }
 
         function createKiss(x, y) {
@@ -153,21 +155,20 @@
             kiss.style.position = 'fixed';
             kiss.style.left = x + 'px';
             kiss.style.top = y + 'px';
-            kiss.style.fontSize = '30px';
+            kiss.style.fontSize = '40px';
             kiss.style.zIndex = '100';
             kiss.style.pointerEvents = 'none';
-            kiss.style.transition = 'transform 1.5s, opacity 1.5s';
+            kiss.style.transition = 'all 1s ease-out';
             document.body.appendChild(kiss);
             
             setTimeout(() => {
-                kiss.style.transform = `translate(${(Math.random()-0.5)*100}px, -150px) scale(1.5)`;
+                kiss.style.transform = `translateY(-150px) scale(2)`;
                 kiss.style.opacity = '0';
-                setTimeout(() => kiss.remove(), 1500);
-            }, 50);
+                setTimeout(() => kiss.remove(), 1000);
+            }, 20);
         }
 
         window.onload = initMirror;
-        window.onresize = initMirror;
     </script>
 </body>
 </html>
