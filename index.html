@@ -3,178 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Januri ❤️</title>
+    <title>Good Morning Januri ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #1a0505; font-family: 'Poppins', sans-serif;
+            background: #0b132b; font-family: 'Poppins', sans-serif;
             overflow: hidden; touch-action: none;
         }
 
-        #content-layer {
+        /* Deep Night/Early Morning Sky Gradient */
+        .sky {
+            position: absolute; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, #0b132b 0%, #1c2541 50%, #3a506b 100%);
+            z-index: 1;
+        }
+
+        /* Twinkling Stars Background */
+        .stars {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(white, transparent 10%),
+                        radial-gradient(white, transparent 15%),
+                        radial-gradient(white, transparent 8%);
+            background-size: 200px 200px, 350px 350px, 150px 150px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.4; animation: twinkle 4s infinite alternate;
+            z-index: 2;
+        }
+
+        @keyframes twinkle { from { opacity: 0.2; } to { opacity: 0.5; } }
+
+        /* Romantic Message Layer */
+        .message-container {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; z-index: 1;
+            align-items: center; text-align: center; z-index: 5;
+            pointer-events: none; /* Allows clicks to pass through to sky */
         }
 
-        .message h1 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #ff3366; margin: 0; }
-        .message p { color: #fff; font-size: 1.1rem; margin-top: 10px; opacity: 0.9; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.8rem; color: #ffbd59; margin: 0; text-shadow: 0 0 15px rgba(255,189,89,0.6); }
+        p { color: #ffffff; font-size: 1.2rem; margin-top: 15px; letter-spacing: 1px; font-weight: 300; }
+        .sub-text { font-size: 0.85rem; color: #ff80ab; margin-top: 30px; animation: pulse 1.5s infinite; font-weight: 600; }
 
-        #vase-area { 
-            position: relative; margin-top: 50px; 
-            width: 150px; height: 150px;
-            display: flex; justify-content: center; align-items: flex-end;
-        }
-        
-        .vase-img { width: 100px; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5)); z-index: 2; }
-        
-        .flower {
-            position: absolute; font-size: 50px; bottom: 80px;
-            animation: grow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            pointer-events: none; z-index: 1;
-        }
-        @keyframes grow { from { transform: scale(0) rotate(-20deg); } to { transform: scale(1) rotate(0deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* Canvas needs to stay on top for erasing but pass clicks once cleaned */
-        #mirror-canvas {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10;
+        /* Floating Lantern Animation */
+        .lantern {
+            position: absolute; pointer-events: none; z-index: 3;
+            font-size: 45px; filter: drop-shadow(0 0 15px #ffbd59);
+            animation: floatUp 6s linear forwards;
         }
 
-        .instruction {
-            position: absolute; bottom: 12%; width: 100%; text-align: center;
-            color: #fff; z-index: 15; font-size: 0.9rem; letter-spacing: 2px;
-            pointer-events: none; text-shadow: 0 0 10px #000;
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.6) translateX(0); opacity: 0; }
+            10% { opacity: 1; transform: translateY(90vh) scale(1) translateX(5px); }
+            50% { transform: translateY(50vh) scale(0.9) translateX(-15px); }
+            100% { transform: translateY(-15vh) scale(0.5) translateX(10px); opacity: 0; }
         }
     </style>
 </head>
-<body onclick="handleGlobalClick(event)" ontouchstart="handleGlobalClick(event)">
+<body onclick="launchLantern(event)" ontouchstart="launchLantern(event)">
+
+    <div class="sky"></div>
+    <div class="stars"></div>
 
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="content-layer">
-        <div class="message">
-            <h1>I Love You Begum Jeee ❤️</h1>
-            <p>Sorry Januri... ❤️<br>
-            <span style="color: #ff80ab; font-size: 0.9rem;">(Screen par tap karke phool khilayein ✨)</span></p>
-        </div>
-
-        <div id="vase-area">
-            <svg class="vase-img" viewBox="0 0 100 120">
-                <path d="M30,120 Q50,130 70,120 L80,40 Q50,30 20,40 Z" fill="#d4af37" />
-            </svg>
-            <div id="flowers-container"></div>
-        </div>
-        
-        <p style="margin-top: 40px; color: #ff80ab; font-weight: 600;">Always Yours, Kala Paplat ✨</p>
+    <div class="message-container">
+        <h1>Good Morning Januri ❤️</h1>
+        <p>I Love You Begum Jeee</p>
+        <div class="sub-text">TAP ANYWHERE ON THE SKY ✨</div>
     </div>
 
-    <canvas id="mirror-canvas"></canvas>
-    <div class="instruction" id="hint">SHEESHA SAAF KAREIN... ✨</div>
-
     <script>
-        const canvas = document.getElementById('mirror-canvas');
-        const ctx = canvas.getContext('2d');
-        let isDrawing = false;
         let musicStarted = false;
-        let cleanedEnough = false;
 
-        function initMirror() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            ctx.fillStyle = '#777'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            for (let i = 0; i < 400; i++) {
-                ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.15})`;
-                ctx.beginPath();
-                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, Math.random() * 50, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function erase(x, y) {
-            if(!musicStarted) {
+        function launchLantern(e) {
+            // Play song on very first touch
+            if (!musicStarted) {
                 document.getElementById('loveSong').play().catch(e => {});
                 musicStarted = true;
-                document.getElementById('hint').style.display = 'none';
+                document.querySelector('.sub-text').innerText = "Har tap aapki subah ko roshan karega... ✨";
             }
-            
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(x, y, 120, 0, Math.PI * 2); // Bigger brush
-            ctx.fill();
-            
-            cleanedEnough = true; 
-        }
 
-        // Mirror Interaction
-        canvas.addEventListener('mousedown', (e) => { isDrawing = true; erase(e.clientX, e.clientY); });
-        window.addEventListener('mouseup', () => isDrawing = false);
-        canvas.addEventListener('mousemove', (e) => { if(isDrawing) erase(e.clientX, e.clientY); });
-        
-        canvas.addEventListener('touchstart', (e) => { 
-            isDrawing = true; 
-            erase(e.touches[0].clientX, e.touches[0].clientY); 
-        });
-        canvas.addEventListener('touchmove', (e) => { 
-            if(isDrawing) erase(e.touches[0].clientX, e.touches[0].clientY); 
-        });
+            // Get click/touch positions
+            let clickX = e.clientX || (e.touches ? e.touches[0].clientX : window.innerWidth / 2);
+            
+            // Create Lantern element
+            const lantern = document.createElement('div');
+            lantern.classList.add('lantern');
+            
+            // Lantern emoji with a warm glowing lamp look
+            lantern.innerText = '🏮'; 
+            
+            // Set starting position horizontally based on click, or slight random variance
+            let variance = (Math.random() - 0.5) * 40;
+            lantern.style.left = (clickX + variance) + 'px';
+            lantern.style.bottom = '-50px';
+            
+            // Add a slight random duration so each lantern moves naturally
+            let randomDuration = 5 + Math.random() * 3;
+            lantern.style.animationDuration = randomDuration + 's';
+            
+            document.body.appendChild(lantern);
 
-        // Global Click Handler (Vase fix)
-        function handleGlobalClick(e) {
-            // Agar mirror saaf hona shuru ho gaya hai, toh phool khilao
-            if(cleanedEnough) {
-                addFlower();
-                
-                const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-                const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-                if(x > 0) createKiss(x, y);
-            }
-        }
-
-        function addFlower() {
-            const container = document.getElementById('flowers-container');
-            const flower = document.createElement('div');
-            flower.classList.add('flower');
-            const types = ['🌹', '🌷', '🌸', '🌺', '🌻', '💐'];
-            flower.innerText = types[Math.floor(Math.random() * types.length)];
-            
-            const randomX = (Math.random() * 100) - 50;
-            const randomY = (Math.random() * 60) - 30;
-            const rotate = (Math.random() * 40) - 20;
-            
-            flower.style.left = `calc(50% + ${randomX}px)`;
-            flower.style.bottom = (80 + randomY) + 'px';
-            flower.style.transform = `rotate(${rotate}deg)`;
-            
-            container.appendChild(flower);
-        }
-
-        function createKiss(x, y) {
-            const kiss = document.createElement('div');
-            kiss.innerText = '💋';
-            kiss.style.position = 'fixed';
-            kiss.style.left = x + 'px';
-            kiss.style.top = y + 'px';
-            kiss.style.fontSize = '40px';
-            kiss.style.zIndex = '100';
-            kiss.style.pointerEvents = 'none';
-            kiss.style.transition = 'all 1s ease-out';
-            document.body.appendChild(kiss);
-            
+            // Remove lantern after animation ends to keep page clean
             setTimeout(() => {
-                kiss.style.transform = `translateY(-150px) scale(2)`;
-                kiss.style.opacity = '0';
-                setTimeout(() => kiss.remove(), 1000);
-            }, 20);
+                lantern.remove();
+            }, randomDuration * 1000);
         }
-
-        window.onload = initMirror;
     </script>
 </body>
 </html>
