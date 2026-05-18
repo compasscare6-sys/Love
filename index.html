@@ -5,115 +5,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Good Morning Januri ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #0b132b; font-family: 'Poppins', sans-serif;
+            background: #040613; font-family: 'Poppins', sans-serif;
             overflow: hidden; touch-action: none;
+            perspective: 800px; /* Activates 3D space across the screen */
         }
 
-        /* Deep Night/Early Morning Sky Gradient */
-        .sky {
+        /* Deep Cosmic Backdrop */
+        .sky-base {
             position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #0b132b 0%, #1c2541 50%, #3a506b 100%);
+            background: linear-gradient(to bottom, #03050a 0%, #0a1128 50%, #1c2541 100%);
             z-index: 1;
         }
 
-        /* Twinkling Stars Background */
-        .stars {
+        /* 3D Flight Container */
+        .universe-container {
             position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(white, transparent 10%),
-                        radial-gradient(white, transparent 15%),
-                        radial-gradient(white, transparent 8%);
-            background-size: 200px 200px, 350px 350px, 150px 150px;
-            background-position: 0 0, 40px 60px, 130px 270px;
-            opacity: 0.4; animation: twinkle 4s infinite alternate;
+            transform-style: preserve-3d;
             z-index: 2;
+            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        @keyframes twinkle { from { opacity: 0.2; } to { opacity: 0.5; } }
+        /* Layer 1: Distant Stars (Slow/Deep) */
+        .stars-layer {
+            position: absolute; width: 200%; height: 200%;
+            top: -50%; left: -50%;
+            background: radial-gradient(white, transparent 12%),
+                        radial-gradient(white, transparent 15%);
+            background-size: 300px 300px, 200px 200px;
+            opacity: 0.3;
+            transform: translateZ(-400px); /* Pushed deep into background */
+            pointer-events: none;
+        }
 
-        /* Romantic Message Layer */
-        .message-container {
+        /* Layer 2: 3D Floating Clouds/Fog */
+        .clouds-layer {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 80%, rgba(58, 80, 107, 0.25) 0%, transparent 60%);
+            transform: translateZ(-200px) scale(2);
+            bottom: -20%; pointer-events: none;
+        }
+
+        /* Elegant Floating Typography */
+        .ui-overlay {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; z-index: 5;
-            pointer-events: none; /* Allows clicks to pass through to sky */
+            align-items: center; text-align: center; z-index: 10;
+            pointer-events: none;
         }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.8rem; color: #ffbd59; margin: 0; text-shadow: 0 0 15px rgba(255,189,89,0.6); }
-        p { color: #ffffff; font-size: 1.2rem; margin-top: 15px; letter-spacing: 1px; font-weight: 300; }
-        .sub-text { font-size: 0.85rem; color: #ff80ab; margin-top: 30px; animation: pulse 1.5s infinite; font-weight: 600; }
+        h1 { 
+            font-family: 'Dancing Script', cursive; font-size: 3.8rem; color: #ffbd59; margin: 0; 
+            filter: drop-shadow(0 0 25px rgba(255,189,89,0.8));
+            animation: floatingText 4s ease-in-out infinite alternate;
+        }
+        p { color: #ffffff; font-size: 1.2rem; margin-top: 15px; font-weight: 300; opacity: 0.95; text-shadow: 0 2px 15px rgba(0,0,0,0.6); }
+        .hint-text { font-size: 0.8rem; color: #ff80ab; margin-top: 50px; animation: pulse 1.5s infinite; font-weight: 600; letter-spacing: 3px; }
 
-        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        @keyframes floatingText { from { transform: translateY(0px); } to { transform: translateY(-15px); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-        /* Floating Lantern Animation */
-        .lantern {
-            position: absolute; pointer-events: none; z-index: 3;
-            font-size: 45px; filter: drop-shadow(0 0 15px #ffbd59);
-            animation: floatUp 6s linear forwards;
+        /* Cinematic 3D Lanterns */
+        .lantern-3d {
+            position: absolute; pointer-events: none;
+            filter: drop-shadow(0 0 25px #ff9e00) drop-shadow(0 0 8px #ff3366);
+            font-size: 45px;
+            animation: cinematicFly 8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+            transform-style: preserve-3d;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(105vh) scale(0.6) translateX(0); opacity: 0; }
-            10% { opacity: 1; transform: translateY(90vh) scale(1) translateX(5px); }
-            50% { transform: translateY(50vh) scale(0.9) translateX(-15px); }
-            100% { transform: translateY(-15vh) scale(0.5) translateX(10px); opacity: 0; }
+        @keyframes cinematicFly {
+            0% {
+                transform: translate3d(var(--startX), 110vh, -600px) scale(0.3);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+                transform: translate3d(var(--midX), 70vh, -300px) scale(1);
+            }
+            50% {
+                transform: translate3d(var(--endX), 30vh, 50px) scale(1.6);
+            }
+            85% {
+                opacity: 1;
+            }
+            100% {
+                /* Breaks past the camera into 3D space */
+                transform: translate3d(var(--exitX), -20vh, 400px) scale(3);
+                opacity: 0;
+            }
         }
     </style>
 </head>
-<body onclick="launchLantern(event)" ontouchstart="launchLantern(event)">
+<body onclick="triggerFlight(event)" ontouchstart="triggerFlight(event)">
 
-    <div class="sky"></div>
-    <div class="stars"></div>
+    <div class="sky-base"></div>
+
+    <div class="universe-container" id="universe">
+        <div class="stars-layer"></div>
+        <div class="clouds-layer"></div>
+    </div>
 
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="message-container">
+    <div class="ui-overlay">
         <h1>Good Morning Januri ❤️</h1>
         <p>I Love You Begum Jeee</p>
-        <div class="sub-text">TAP ANYWHERE ON THE SKY ✨</div>
+        <div class="hint-text">TAP TO FLY INTO THE HORIZON ✨</div>
     </div>
 
     <script>
         let musicStarted = false;
+        const universe = document.getElementById('universe');
+        let currentZ = 0;
 
-        function launchLantern(e) {
-            // Play song on very first touch
+        function triggerFlight(e) {
+            // Play audio instantly on touch
             if (!musicStarted) {
-                document.getElementById('loveSong').play().catch(e => {});
+                document.getElementById('loveSong').play().catch(err => {});
                 musicStarted = true;
-                document.querySelector('.sub-text').innerText = "Har tap aapki subah ko roshan karega... ✨";
+                document.querySelector('.hint-text').innerText = "Kainaat aapka swagat kar rahi hai... 🌌";
             }
 
-            // Get click/touch positions
-            let clickX = e.clientX || (e.touches ? e.touches[0].clientX : window.innerWidth / 2);
+            // 1. Warp/Forward Camera Animation (Moves the whole universe slightly forward)
+            currentZ += 25; 
+            universe.style.transform = `translateZ(${currentZ}px) rotateX(2deg)`;
             
-            // Create Lantern element
-            const lantern = document.createElement('div');
-            lantern.classList.add('lantern');
-            
-            // Lantern emoji with a warm glowing lamp look
-            lantern.innerText = '🏮'; 
-            
-            // Set starting position horizontally based on click, or slight random variance
-            let variance = (Math.random() - 0.5) * 40;
-            lantern.style.left = (clickX + variance) + 'px';
-            lantern.style.bottom = '-50px';
-            
-            // Add a slight random duration so each lantern moves naturally
-            let randomDuration = 5 + Math.random() * 3;
-            lantern.style.animationDuration = randomDuration + 's';
-            
-            document.body.appendChild(lantern);
-
-            // Remove lantern after animation ends to keep page clean
+            // Bring camera back slightly for dynamic bounce feel
             setTimeout(() => {
-                lantern.remove();
-            }, randomDuration * 1000);
+                universe.style.transform = `translateZ(${currentZ - 10}px) rotateX(0deg)`;
+            }, 300);
+
+            // 2. Generate 3D Cinematic Lantern
+            let clickX = e.clientX || (e.touches ? e.touches[0].clientX : window.innerWidth / 2);
+            createLantern3D(clickX);
+        }
+
+        function createLantern3D(baseX) {
+            const lantern = document.createElement('div');
+            lantern.classList.add('lantern-3d');
+            
+            // Random element selector for visual premium style
+            const pool = ['🏮', '✨', '💖', '🏮'];
+            lantern.innerText = pool[Math.floor(Math.random() * pool.length)];
+
+            // Setup dynamic 3D paths using CSS Variables
+            let startX = baseX - (window.innerWidth / 2); // Center offset
+            let drift = (Math.random() - 0.5) * 250;     // Side motion variance
+            
+            lantern.style.setProperty('--startX', `${startX}px`);
+            lantern.style.setProperty('--midX', `${startX + drift * 0.3}px`);
+            lantern.style.setProperty('--endX', `${startX + drift * 0.8}px`);
+            lantern.style.setProperty('--exitX', `${startX + drift * 1.5}px`);
+
+            // Inject random sizes & flight speeds for parallax layer feel
+            let randomSpeed = 6 + Math.random() * 4;
+            lantern.style.animationDuration = randomSpeed + 's';
+            lantern.style.left = '50%'; // Pivot from screen center
+            
+            universe.appendChild(lantern);
+
+            // Clean DOM memory
+            setTimeout(() => { lantern.remove(); }, randomSpeed * 1000);
         }
     </script>
 </body>
