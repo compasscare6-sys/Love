@@ -3,182 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Januri ❤️</title>
+    <title>For My Anna ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #03050d; font-family: 'Poppins', sans-serif;
+            background: #050101; font-family: 'Poppins', sans-serif;
             overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
         }
 
-        /* Magical Sky Backgroud */
-        .universe {
+        /* Romantic Dark Aura Background */
+        .aura-bg {
             position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #02040a 0%, #0b112c 60%, #151f3d 100%);
+            background: radial-gradient(circle at center, #220307 0%, #050101 100%);
             z-index: 1;
         }
 
-        /* Twinkling Star Field Layer */
-        .star-field {
-            position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(white, transparent 10%), radial-gradient(white, transparent 15%);
-            background-size: 200px 200px, 140px 140px;
-            opacity: 0.3; z-index: 2;
-        }
-
-        /* The Grand Star Constellation (Pure CSS - No Math Bugs) */
-        .heart-constellation {
-            position: absolute; top: 38%; left: 50%;
+        /* Heartbeat Line Canvas Area */
+        .heartbeat-box {
+            position: absolute; top: 35%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 180px; height: 180px; z-index: 3;
-            opacity: 0; transition: opacity 2s ease;
+            width: 100%; max-width: 500px; height: 150px; z-index: 3;
+            display: flex; justify-content: center; align-items: center;
         }
-        .heart-constellation.show { opacity: 1; }
 
-        .constellation-heart-shape {
-            width: 100%; height: 100%;
-            background: #ff3366;
-            clip-path: path('M12,5 C12,1.5 8.5,0 4.5,0 C1.5,0 0,2 0,5 C0,10 7,16 12,21 C17,16 24,10 24,5 C24,2 22.5,0 19.5,0 C15.5,0 12,1.5 12,5 Z');
-            transform: scale(7.5); transform-origin: top left;
-            opacity: 0.15;
-            filter: drop-shadow(0 0 20px #ff3366);
-            animation: pulseGlow 2s infinite alternate;
+        /* Animated Pulsating Heart (Pure CSS 3D Glow) */
+        .big-heart {
+            width: 80px; height: 80px; background: #ff1c4b;
+            position: relative; transform: rotate(-45deg) scale(1);
+            display: none; /* Shows after heartbeat animation */
+            box-shadow: 0 0 40px #ff1c4b, 0 0 80px #ff1c4b;
         }
-        @keyframes pulseGlow { from { opacity: 0.1; filter: drop-shadow(0 0 10px #ff3366); } to { opacity: 0.25; filter: drop-shadow(0 0 30px #ff3366); } }
+        .big-heart:before, .big-heart:after {
+            content: ""; width: 80px; height: 80px;
+            background: #ff1c4b; border-radius: 50%;
+            position: absolute;
+        }
+        .big-heart:before { top: -40px; left: 0; }
+        .big-heart:after { top: 0; left: 40px; }
 
-        /* Multi-Slide Content Handler */
-        .text-box {
+        .pulse-active {
+            display: block;
+            animation: beat 1s infinite alternate cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        @keyframes beat {
+            0% { transform: rotate(-45deg) scale(0.95); filter: drop-shadow(0 0 20px #ff1c4b); }
+            100% { transform: rotate(-45deg) scale(1.15); filter: drop-shadow(0 0 50px #ff1c4b); }
+        }
+
+        /* Multi-Slide Automatic Content */
+        .text-stream {
             position: absolute; bottom: 12%; width: 90%; left: 50%;
             transform: translateX(-50%); text-align: center; z-index: 10;
-            height: 220px; display: flex; justify-content: center; align-items: center;
+            height: 250px; display: flex; justify-content: center; align-items: center;
         }
 
         .slide {
             position: absolute; width: 100%; opacity: 0;
-            transform: translateY(15px); transition: all 1.2s ease-in-out;
+            transform: translateY(20px); transition: all 1.5s ease-in-out;
             pointer-events: none;
         }
         .slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
         h1 {
             font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ffbd59;
-            margin: 0 0 15px 0; text-shadow: 0 0 15px rgba(255,189,89,0.7);
+            margin: 0 0 15px 0; text-shadow: 0 0 20px rgba(255,189,89,0.8);
         }
-        p { font-size: 1.15rem; line-height: 1.7; font-weight: 300; margin: 0; text-shadow: 0 2px 8px #000; }
-        .highlight { color: #ff3366; font-weight: 600; }
+        p { font-size: 1.25rem; line-height: 1.8; font-weight: 300; margin: 0; text-shadow: 0 2px 10px #000; }
+        .highlight { color: #ff1c4b; font-weight: 600; text-shadow: 0 0 15px rgba(255,28,75,0.4); }
 
-        /* Floating Light Lanterns */
-        .lantern {
-            position: absolute; bottom: -60px; pointer-events: none; z-index: 4;
-            filter: drop-shadow(0 0 15px #ff9e00) drop-shadow(0 0 5px #ff3366);
-            animation: goUp 7s linear forwards;
+        /* Automatic Falling Elements (Roses & Hearts) */
+        .particle {
+            position: absolute; top: -50px; pointer-events: none; z-index: 4;
+            animation: fallDown 6s linear forwards;
         }
-        @keyframes goUp {
-            0% { transform: translateY(0) scale(0.6); opacity: 0; }
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
             15% { opacity: 0.8; }
             90% { opacity: 0.8; }
-            100% { transform: translateY(-115vh) scale(1.2) translateX(30px); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1.2) translateX(30px); opacity: 0; }
         }
 
-        /* 100% Solid Tap-to-Enter Screen */
-        #welcome-gate {
+        /* Stable Tap Gate (Browser Music Policy Solution) */
+        #gate-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #040611; z-index: 100;
+            background: #050101; z-index: 100;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; cursor: pointer;
         }
-        .gate-btn {
-            font-family: 'Dancing Script', cursive; font-size: 3.2rem; color: #ffbd59;
-            animation: floatText 2s infinite alternate ease-in-out;
-            filter: drop-shadow(0 0 10px #ffbd59);
+        .gate-title {
+            font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ffbd59;
+            animation: floatGlow 2s infinite alternate ease-in-out;
+            filter: drop-shadow(0 0 15px #ffbd59);
         }
-        .gate-sub { font-size: 0.8rem; color: #ff80ab; letter-spacing: 3px; margin-top: 20px; font-weight: 600; }
-        @keyframes floatText { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+        .gate-sub { font-size: 0.85rem; color: #ff1c4b; letter-spacing: 3px; margin-top: 20px; font-weight: 600; }
+        @keyframes floatGlow { from { transform: translateY(0); } to { transform: translateY(-10px); } }
     </style>
 </head>
 <body>
 
-    <div id="welcome-gate" onclick="unlockLoveExperience()">
-        <div class="gate-btn">For My Januri... ❤️</div>
-        <div class="gate-sub">TAP TO OPEN YOUR UNIVERSE ✨</div>
+    <div id="gate-screen" onclick="startLoveBeat()">
+        <div class="gate-title">For My Anna... ❤️</div>
+        <div class="gate-sub">TAP TO FEEL MY HEARTBEAT ✨</div>
     </div>
 
-    <div class="universe">
-        <div class="star-field"></div>
+    <div class="aura-bg"></div>
+
+    <audio id="bgSong" loop>
+        <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="heartbeat-box" id="heart-zone">
+        <svg id="pulse-line" width="400" height="150" viewBox="0 0 400 150" style="width:100%; height:100%;">
+            <path d="M0,75 L120,75 L130,40 L140,110 L150,20 L160,130 L170,60 L180,85 L190,75 L400,75" 
+                  fill="none" stroke="#ffbd59" stroke-width="3" stroke-linecap="round"
+                  stroke-dasharray="1000" stroke-dashoffset="1000"
+                  style="animation: drawPulse 2.5s ease-in-out forwards; filter: drop-shadow(0 0 8px #ffbd59);" />
+        </svg>
+        <style>
+            @keyframes drawPulse { to { stroke-dashoffset: 0; } }
+        </style>
         
-        <div class="heart-constellation" id="constellation">
-            <div class="constellation-heart-shape"></div>
+        <div class="big-heart" id="pulsing-heart"></div>
+    </div>
+
+    <div class="text-stream">
+        <div class="slide active" id="st1">
+            <h1>Dhadkan... 💓</h1>
+            <p>"Yeh dil sirf aapke liye dhadakta hai... 💓"</p>
         </div>
-
-        <audio id="bgSong" loop>
-            <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
-        </audio>
-
-        <div class="text-box">
-            <div class="slide active" id="s1">
-                <h1>Good Morning Januri ❤️</h1>
-                <p>My Love, My Life, My Jaan!<br>I’m so so lucky to have you. 💖</p>
-            </div>
-            <div class="slide" id="s2">
-                <h1>Meri Begum Jeee ❤️</h1>
-                <p>Main yeh ikrar karta hoon ke maine hamesha ke liye apne dil par <span class="highlight">sirf aapka naam</span> likh diya hai. 🌹</p>
-            </div>
-            <div class="slide" id="s3">
-                <h1>Hamesha Saath... 🔐</h1>
-                <p>Chahe waqt kaisa bhi ho, halat kaise bhi hon, main hamesha aapka haath mazbooti se thaame rakhunga.<br><span class="highlight">I Love You Begum Jeee! 💋</span></p>
-            </div>
-            <div class="slide" id="s4">
-                <h1>Hamesha K Liye... ✨</h1>
-                <p>"Mere dil ko aapki rooh se mohabbat hai.<br>
-                <span class="highlight">My Baby, Anna, My Greatest Gift.</span><br>
-                Insha'Allah hum duniya aur akhirat mein saath rahenge. Ameen."<br><br>
-                <span style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ffbd59;">— Tera Pabi ❤️</span></p>
-            </div>
+        <div class="slide" id="st2">
+            <h1>Mera Sub Kuch ❤️</h1>
+            <p>"Ap hoo tu sub kuch acha hai Begum"</p>
+        </div>
+        <div class="slide" id="st3">
+            <h1>My Life ✨</h1>
+            <p>"My Baby, Anna, My Greatest Gift...<br><span class="highlight">I Love You Begum Jeee.</span>"</p>
+        </div>
+        <div class="slide" id="st4">
+            <h1>Ek Waada... 🔐</h1>
+            <p>"Insha'Allah hum duniya aur akhirat mein saath rahenge.<br>
+            <span class="highlight">Yeh tera Pabi khe rha hai tujse</span>"</p>
         </div>
     </div>
 
     <script>
-        let currentActive = 1;
-        const maxSlides = 4;
+        let currentSlide = 1;
+        const totalSlides = 4;
 
-        function unlockLoveExperience() {
-            // 1. Remove Cover Instantly
-            document.getElementById('welcome-gate').style.display = 'none';
+        function startLoveBeat() {
+            // 1. Hide Gate Screen
+            document.getElementById('gate-screen').style.display = 'none';
             
-            // 2. Play Audio 
-            const song = document.getElementById('bgSong');
-            song.play().catch(err => console.log("Audio target bypass success"));
+            // 2. Play Romantic Song
+            document.getElementById('bgSong').play().catch(e => console.log("Bypass sound policy"));
 
-            // 3. Reveal Glowing Center Constellation
-            document.getElementById('constellation').classList.add('show');
+            // 3. Heartbeat Line to Dhadakta Dil Transformation
+            setTimeout(() => {
+                // Hide line and show pulsating heart after 2.3 seconds
+                document.getElementById('pulse-line').style.display = 'none';
+                document.getElementById('pulsing-heart').classList.add('pulse-active');
+            }, 2300);
 
-            // 4. Fire Loop Engines
-            setInterval(autoRunSlides, 6000); // Transitions exactly every 6 seconds
-            setInterval(autoSpawnLanterns, 450); // Fluid continuous flow
+            // 4. Run Automatic Slide Engines (Transitions every 6 seconds)
+            setInterval(runAutomaticSlides, 6000);
+
+            // 5. Automatic Falling Roses & Hearts Rain
+            setInterval(autoRainParticles, 400);
         }
 
-        function autoRunSlides() {
-            document.getElementById(`s${currentActive}`).classList.remove('active');
-            currentActive = (currentActive % maxSlides) + 1;
-            document.getElementById(`s${currentActive}`).classList.add('active');
+        function runAutomaticSlides() {
+            document.getElementById(`st${currentSlide}`).classList.remove('active');
+            currentSlide = (currentSlide % totalSlides) + 1;
+            document.getElementById(`st${currentActive = currentSlide}`).classList.add('active');
         }
 
-        function autoSpawnLanterns() {
-            const types = ['🏮', '❤️', '✨', '💖', '💋'];
-            const lantern = document.createElement('div');
-            lantern.classList.add('lantern');
-            lantern.innerText = types[Math.floor(Math.random() * types.length)];
+        function autoRainParticles() {
+            const pool = ['🌹', '❤️', '💋', '💖', '🌹'];
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.innerText = pool[Math.floor(Math.random() * pool.length)];
             
-            lantern.style.left = Math.random() * 100 + 'vw';
-            lantern.style.fontSize = (Math.random() * 20 + 22) + 'px';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.fontSize = (Math.random() * 20 + 20) + 'px';
             
-            let speed = 6 + Math.random() * 3;
-            lantern.style.animationDuration = speed + 's';
+            let fallSpeed = 5 + Math.random() * 3;
+            particle.style.animationDuration = fallSpeed + 's';
             
-            document.body.appendChild(lantern);
-            setTimeout(() => { lantern.remove(); }, speed * 1000);
+            document.body.appendChild(particle);
+            setTimeout(() => { particle.remove(); }, fallSpeed * 1000);
         }
     </script>
 </body>
