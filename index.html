@@ -3,236 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Anna ❤️</title>
+    <title>For My Anusha ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #050101; font-family: 'Poppins', sans-serif;
+            background: #0b0512; font-family: 'Poppins', sans-serif;
             overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
         }
 
-        /* Romantic Dark Aura Background */
+        /* Deep Violet/Pink Magical Aura Background */
         .aura-bg {
             position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #220307 0%, #050101 100%);
+            background: radial-gradient(circle at center, #2e0827 0%, #12031a 50%, #05010a 100%);
             z-index: 1;
         }
 
-        /* Heartbeat Box */
-        .heartbeat-box {
-            position: absolute; top: 32%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%; max-width: 500px; height: 150px; z-index: 3;
+        /* Ambient Glowing Orbs for Deep Space/Aura Feel */
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.2;
+            animation: driftOrbs 10s infinite alternate ease-in-out;
+        }
+        .orb-1 { width: 300px; height: 300px; background: #ff1c4b; top: 10%; left: -10%; }
+        .orb-2 { width: 250px; height: 250px; background: #ffbd59; bottom: 10%; right: -10%; animation-delay: -3s; }
+        @keyframes driftOrbs { from { transform: translate(0, 0); } to { transform: translate(30px, 40px); } }
+
+        /* 3D Scene Wrapper */
+        .scene-3d {
+            position: absolute; width: 100%; height: 100%;
             display: flex; justify-content: center; align-items: center;
+            perspective: 1000px; z-index: 5;
         }
 
-        /* Animated Pulsating Heart */
-        .big-heart {
-            width: 80px; height: 80px; background: #ff1c4b;
-            position: relative; transform: rotate(-45deg) scale(1);
-            display: none;
-            box-shadow: 0 0 40px #ff1c4b, 0 0 80px #ff1c4b;
-        }
-        .big-heart:before, .big-heart:after {
-            content: ""; width: 80px; height: 80px;
-            background: #ff1c4b; border-radius: 50%;
-            position: absolute;
-        }
-        .big-heart:before { top: -40px; left: 0; }
-        .big-heart:after { top: 0; left: 40px; }
-
-        .pulse-active {
-            display: block;
-            animation: beat 1s infinite alternate cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        @keyframes beat {
-            0% { transform: rotate(-45deg) scale(0.95); filter: drop-shadow(0 0 20px #ff1c4b); }
-            100% { transform: rotate(-45deg) scale(1.15); filter: drop-shadow(0 0 50px #ff1c4b); }
+        /* Elegant Floating 3D Polaroid Frame */
+        .polaroid-frame {
+            width: 88%; max-width: 350px; height: 420px;
+            background: #fff; border-radius: 4px;
+            padding: 18px 18px 50px 18px; box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 5px 15px rgba(0,0,0,0.4);
+            transform-style: preserve-3d;
+            animation: polaroidFloat 5s infinite alternate ease-in-out;
+            display: flex; flex-direction: column; justify-content: center;
+            background-image: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* Automated Text Stream Box */
-        .text-stream {
-            position: absolute; bottom: 10%; width: 90%; left: 50%;
-            transform: translateX(-50%); text-align: center; z-index: 10;
-            height: 240px; display: flex; justify-content: center; align-items: center;
-            pointer-events: none;
+        @keyframes polaroidFloat {
+            0% { transform: rotateY(-3deg) rotateX(5deg) translateY(0px) rotateZ(-1deg); }
+            100% { transform: rotateY(4deg) rotateX(-3deg) translateY(-15px) rotateZ(1deg); }
         }
 
+        /* The Content Area Inside the Polaroid */
+        .polaroid-inner {
+            position: relative; width: 100%; height: 100%;
+            background: #0f0714; border-radius: 2px;
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+        }
+
+        /* Slides Handler */
         .slide {
-            position: absolute; width: 100%; opacity: 0;
-            transform: translateY(20px); transition: all 1.5s ease-in-out;
+            position: absolute; width: 88%; text-align: center; opacity: 0;
+            transform: scale(0.9) translateY(10px); transition: all 1.2s ease-in-out;
         }
-        .slide.active { opacity: 1; transform: translateY(0); }
+        .slide.active { opacity: 1; transform: scale(1) translateY(0); }
 
+        /* Shahi & Beautiful Typography */
         h1 {
-            font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ffbd59;
-            margin: 0 0 15px 0; text-shadow: 0 0 20px rgba(255,189,89,0.8);
+            font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ffbd59;
+            margin: 0 0 15px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
-        p { font-size: 1.25rem; line-height: 1.8; font-weight: 300; margin: 0; text-shadow: 0 2px 10px #000; }
-        .highlight { color: #ff1c4b; font-weight: 600; text-shadow: 0 0 15px rgba(255,28,75,0.4); }
-
-        /* Interactive Stress Buster Bubbles */
-        .bubble {
-            position: absolute; bottom: -60px; background: rgba(255, 189, 89, 0.1);
-            border: 1px solid rgba(255, 189, 89, 0.4); border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            cursor: pointer; z-index: 5; box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
-            animation: floatUp 8s linear forwards;
-            color: transparent; font-size: 0.85rem; font-weight: 600;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.8); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-115vh) scale(1.1) translateX(20px); opacity: 0; }
-        }
-        .bubble.popped {
-            animation: popEffect 0.3s forwards ease-out;
-            background: transparent; border-color: transparent;
-            color: #ffbd59; font-size: 1.1rem; text-shadow: 0 0 10px #ffbd59;
-            font-family: 'Dancing Script', cursive;
-        }
-        @keyframes popEffect {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.4); opacity: 0; }
+        p { font-size: 1rem; line-height: 1.6; font-weight: 300; margin: 0; color: #f2e6ff; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
+        .highlight { color: #ff4071; font-weight: 500; }
+        .signature {
+            font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #ffbd59;
+            margin-top: 15px; display: block;
         }
 
-        /* Falling Roses Background */
-        .rose-particle {
-            position: absolute; top: -50px; pointer-events: none; z-index: 2;
-            animation: fallDown 7s linear forwards;
+        /* Gentle Sparkles Overlay */
+        .sparkle {
+            position: absolute; background: rgba(255,255,255,0.7); border-radius: 50%;
+            pointer-events: none; z-index: 2; animation: fadeSparkle 4s linear forwards;
         }
-        @keyframes fallDown {
-            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
-            15% { opacity: 0.6; }
-            100% { transform: translateY(110vh) rotate(360deg) scale(1); opacity: 0; }
-        }
+        @keyframes fadeSparkle { 0% { transform: scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.5) translateY(-50px); opacity: 0; } }
 
-        /* Gate Screen */
-        #gate-screen {
+        /* Pure Gate Cover */
+        #gate-lock {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #050101; z-index: 100;
+            background: #050208; z-index: 100;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; cursor: pointer;
         }
-        .gate-title {
-            font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #ffbd59;
-            animation: floatGlow 2s infinite alternate ease-in-out;
-            filter: drop-shadow(0 0 15px #ffbd59);
+        .gate-text {
+            font-family: 'Dancing Script', cursive; font-size: 3.2rem; color: #ffbd59;
+            animation: pulseGlow 2s infinite alternate; filter: drop-shadow(0 0 10px #ffbd59);
         }
-        .gate-sub { font-size: 0.85rem; color: #ff1c4b; letter-spacing: 3px; margin-top: 20px; font-weight: 600; }
-        @keyframes floatGlow { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+        .gate-sub { font-size: 0.8rem; color: #ff4071; letter-spacing: 3px; margin-top: 15px; font-weight: 600; }
+        @keyframes pulseGlow { from { transform: scale(0.96); opacity: 0.8; } to { transform: scale(1.04); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="gate-screen" onclick="startLoveBeat()">
-        <div class="gate-title">For My Anna... ❤️</div>
-        <div class="gate-sub">TAP TO FEEL MY HEARTBEAT ✨</div>
+    <div id="gate-lock" onclick="openPolaroidAlbum()">
+        <div class="gate-text">For My Anna... ❤️</div>
+        <div class="gate-sub">TAP TO OPEN YOUR ALBUM ✨</div>
     </div>
 
-    <div class="aura-bg"></div>
+    <div class="aura-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
 
-    <audio id="bgSong" loop>
+    <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="heartbeat-box">
-        <svg id="pulse-line" width="400" height="150" viewBox="0 0 400 150" style="width:100%; height:100%;">
-            <path d="M0,75 L120,75 L130,40 L140,110 L150,20 L160,130 L170,60 L180,85 L190,75 L400,75" 
-                  fill="none" stroke="#ffbd59" stroke-width="3" stroke-linecap="round"
-                  stroke-dasharray="1000" stroke-dashoffset="1000"
-                  style="animation: drawPulse 2.5s ease-in-out forwards; filter: drop-shadow(0 0 8px #ffbd59);" />
-        </svg>
-        <div class="big-heart" id="pulsing-heart"></div>
-    </div>
+    <div class="scene-3d">
+        <div class="polaroid-frame">
+            <div class="polaroid-inner">
+                
+                <div class="slide active" id="sl1">
+                    <h1>Dhadkan... 💓</h1>
+                    <p>"Good Morning World Best Wifey💓"</p>
+                </div>
 
-    <div class="text-stream">
-        <div class="slide active" id="st1">
-            <h1>Dhadkan... 💓</h1>
-            <p>"Yeh dil sirf aapke liye dhadakta hai... 💓"</p>
-        </div>
-        <div class="slide" id="st2">
-            <h1>Mera Sub Kuch ❤️</h1>
-            <p>"Ap hoo tu sub kuch acha hai Begum"</p>
-        </div>
-        <div class="slide" id="st3">
-            <h1>My Life ✨</h1>
-            <p>"My Baby, Anna, My Greatest Gift...<br><span class="highlight">I Love You Begum Jeee.</span>"</p>
-        </div>
-        <div class="slide" id="st4">
-            <h1>Ek Waada... 🔐</h1>
-            <p>"Insha'Allah hum duniya aur akhirat mein saath rahenge.<br>
-            <span class="highlight">Yeh tera Pabi khe rha hai tujse</span>"</p>
+                <div class="slide" id="sl2">
+                    <h1>Mera Jahaan ❤️</h1>
+                    <p>"You are my everything my entire World Baby❤️"</p>
+                </div>
+
+                <div class="slide" id="sl3">
+                    <h1>My Blessing ✨</h1>
+                    <p>"I am very lucky to have you in my life you make my life beautiful."<br><br>
+                    <span class="highlight">I Love You Meri Jaaan , Mera Bacha , Meri Zindagi , Meri Dharkan. ✨</span></p>
+                </div>
+
+                <div class="slide" id="sl4">
+                    <h1>Hamesha K Liye... 🔐</h1>
+                    <p style="font-size: 0.78rem; line-height: 1.5; text-align: justify;">
+                        "Muje tujse kal bhi pyar tha aj bhi hai or hamesha rahyegha or yeh tere kala paplat tuj par fida hai tuj par jaan warta hai meri DUA hai meri ANNA ko meri umer lag jaiiii hamesha khush rahyee or kabhi koi takleef na aney duu uski zindagi mein bs mein or meri Anusha sukoon se Life spend karey."
+                    </p>
+                    <span class="signature">— Tera nafarman Miya "Rabi Dadani"</span>
+                </div>
+
+            </div>
         </div>
     </div>
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = 4;
-        const compliments = ["Meri Jaan ✨", "Smile Please 😊", "Sakoon ❤️", "My Queen 👑", "Relax... 🥰", "Love You 💋"];
+        let currentIdx = 1;
+        const totalIdx = 4;
 
-        function startLoveBeat() {
-            document.getElementById('gate-screen').style.display = 'none';
-            document.getElementById('bgSong').play().catch(e => console.log("Audio target loaded"));
+        function openPolaroidAlbum() {
+            // 1. Hide Welcome Gate
+            document.getElementById('gate-lock').style.display = 'none';
 
-            setTimeout(() => {
-                document.getElementById('pulse-line').style.display = 'none';
-                document.getElementById('pulsing-heart').classList.add('pulse-active');
-            }, 2300);
+            // 2. Play Audio Track
+            document.getElementById('loveSong').play().catch(e => console.log("Audio focus established"));
 
-            setInterval(runAutomaticSlides, 6000);
-            setInterval(autoRainRoses, 600);
-            setInterval(spawnStressBubbles, 1200); // Stress busting mechanism
+            // 3. Start Auto Slide Interval (Changes smoothly every 7 seconds for relaxing pace)
+            setInterval(autoFlipSlides, 7000);
+
+            // 4. Start Soft Ambient Sparkles
+            setInterval(spawnSoftSparkles, 800);
         }
 
-        function runAutomaticSlides() {
-            document.getElementById(`st${currentSlide}`).classList.remove('active');
-            currentSlide = (currentSlide % totalSlides) + 1;
-            document.getElementById(`st${currentSlide}`).classList.add('active');
+        function autoFlipSlides() {
+            document.getElementById(`sl${currentIdx}`).classList.remove('active');
+            currentIdx = (currentIdx % totalIdx) + 1;
+            document.getElementById(`sl${currentIdx}`).classList.add('active');
         }
 
-        function autoRainRoses() {
-            const roses = ['🌹', '❤️', '💖'];
-            const p = document.createElement('div');
-            p.classList.add('rose-particle');
-            p.innerText = roses[Math.floor(Math.random() * roses.length)];
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.fontSize = (Math.random() * 15 + 18) + 'px';
-            let speed = 5 + Math.random() * 3;
-            p.style.animationDuration = speed + 's';
-            document.body.appendChild(p);
-            setTimeout(() => { p.remove(); }, speed * 1000);
-        }
-
-        function spawnStressBubbles() {
-            const b = document.createElement('div');
-            b.classList.add('bubble');
+        function spawnSoftSparkles() {
+            const sp = document.createElement('div');
+            sp.classList.add('sparkle');
             
-            // Setup size and random placement
-            let size = Math.random() * 30 + 50;
-            b.style.width = size + 'px';
-            b.style.height = size + 'px';
-            b.style.left = Math.random() * 90 + 'vw';
+            let size = Math.random() * 4 + 2;
+            sp.style.width = size + 'px';
+            sp.style.height = size + 'px';
+            sp.style.left = Math.random() * 100 + 'vw';
+            sp.style.top = Math.random() * 80 + 20 + 'vh';
             
-            // Pick a secret comforting text
-            b.innerText = compliments[Math.floor(Math.random() * compliments.length)];
-            
-            // Click/Touch event to pop stress away
-            const popHandler = function() {
-                if(!b.classList.contains('popped')) {
-                    b.classList.add('popped');
-                    setTimeout(() => { b.remove(); }, 300);
-                }
-            };
-            b.addEventListener('click', popHandler);
-            b.addEventListener('touchstart', popHandler);
-
-            document.body.appendChild(b);
-            // Clean memory if not popped
-            setTimeout(() => { if(b) b.remove(); }, 8000);
+            document.body.appendChild(sp);
+            setTimeout(() => { sp.remove(); }, 4000);
         }
     </script>
 </body>
