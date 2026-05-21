@@ -20,19 +20,19 @@
             z-index: 1;
         }
 
-        /* Heartbeat Line Canvas Area */
+        /* Heartbeat Box */
         .heartbeat-box {
-            position: absolute; top: 35%; left: 50%;
+            position: absolute; top: 32%; left: 50%;
             transform: translate(-50%, -50%);
             width: 100%; max-width: 500px; height: 150px; z-index: 3;
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* Animated Pulsating Heart (Pure CSS 3D Glow) */
+        /* Animated Pulsating Heart */
         .big-heart {
             width: 80px; height: 80px; background: #ff1c4b;
             position: relative; transform: rotate(-45deg) scale(1);
-            display: none; /* Shows after heartbeat animation */
+            display: none;
             box-shadow: 0 0 40px #ff1c4b, 0 0 80px #ff1c4b;
         }
         .big-heart:before, .big-heart:after {
@@ -52,19 +52,19 @@
             100% { transform: rotate(-45deg) scale(1.15); filter: drop-shadow(0 0 50px #ff1c4b); }
         }
 
-        /* Multi-Slide Automatic Content */
+        /* Automated Text Stream Box */
         .text-stream {
-            position: absolute; bottom: 12%; width: 90%; left: 50%;
+            position: absolute; bottom: 10%; width: 90%; left: 50%;
             transform: translateX(-50%); text-align: center; z-index: 10;
-            height: 250px; display: flex; justify-content: center; align-items: center;
+            height: 240px; display: flex; justify-content: center; align-items: center;
+            pointer-events: none;
         }
 
         .slide {
             position: absolute; width: 100%; opacity: 0;
             transform: translateY(20px); transition: all 1.5s ease-in-out;
-            pointer-events: none;
         }
-        .slide.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .slide.active { opacity: 1; transform: translateY(0); }
 
         h1 {
             font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ffbd59;
@@ -73,19 +73,44 @@
         p { font-size: 1.25rem; line-height: 1.8; font-weight: 300; margin: 0; text-shadow: 0 2px 10px #000; }
         .highlight { color: #ff1c4b; font-weight: 600; text-shadow: 0 0 15px rgba(255,28,75,0.4); }
 
-        /* Automatic Falling Elements (Roses & Hearts) */
-        .particle {
-            position: absolute; top: -50px; pointer-events: none; z-index: 4;
-            animation: fallDown 6s linear forwards;
+        /* Interactive Stress Buster Bubbles */
+        .bubble {
+            position: absolute; bottom: -60px; background: rgba(255, 189, 89, 0.1);
+            border: 1px solid rgba(255, 189, 89, 0.4); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; z-index: 5; box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+            animation: floatUp 8s linear forwards;
+            color: transparent; font-size: 0.85rem; font-weight: 600;
         }
-        @keyframes fallDown {
-            0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
-            15% { opacity: 0.8; }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            10% { opacity: 0.8; }
             90% { opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(360deg) scale(1.2) translateX(30px); opacity: 0; }
+            100% { transform: translateY(-115vh) scale(1.1) translateX(20px); opacity: 0; }
+        }
+        .bubble.popped {
+            animation: popEffect 0.3s forwards ease-out;
+            background: transparent; border-color: transparent;
+            color: #ffbd59; font-size: 1.1rem; text-shadow: 0 0 10px #ffbd59;
+            font-family: 'Dancing Script', cursive;
+        }
+        @keyframes popEffect {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
         }
 
-        /* Stable Tap Gate (Browser Music Policy Solution) */
+        /* Falling Roses Background */
+        .rose-particle {
+            position: absolute; top: -50px; pointer-events: none; z-index: 2;
+            animation: fallDown 7s linear forwards;
+        }
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+            15% { opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1); opacity: 0; }
+        }
+
+        /* Gate Screen */
         #gate-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #050101; z-index: 100;
@@ -114,17 +139,13 @@
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="heartbeat-box" id="heart-zone">
+    <div class="heartbeat-box">
         <svg id="pulse-line" width="400" height="150" viewBox="0 0 400 150" style="width:100%; height:100%;">
             <path d="M0,75 L120,75 L130,40 L140,110 L150,20 L160,130 L170,60 L180,85 L190,75 L400,75" 
                   fill="none" stroke="#ffbd59" stroke-width="3" stroke-linecap="round"
                   stroke-dasharray="1000" stroke-dashoffset="1000"
                   style="animation: drawPulse 2.5s ease-in-out forwards; filter: drop-shadow(0 0 8px #ffbd59);" />
         </svg>
-        <style>
-            @keyframes drawPulse { to { stroke-dashoffset: 0; } }
-        </style>
-        
         <div class="big-heart" id="pulsing-heart"></div>
     </div>
 
@@ -151,48 +172,67 @@
     <script>
         let currentSlide = 1;
         const totalSlides = 4;
+        const compliments = ["Meri Jaan ✨", "Smile Please 😊", "Sakoon ❤️", "My Queen 👑", "Relax... 🥰", "Love You 💋"];
 
         function startLoveBeat() {
-            // 1. Hide Gate Screen
             document.getElementById('gate-screen').style.display = 'none';
-            
-            // 2. Play Romantic Song
-            document.getElementById('bgSong').play().catch(e => console.log("Bypass sound policy"));
+            document.getElementById('bgSong').play().catch(e => console.log("Audio target loaded"));
 
-            // 3. Heartbeat Line to Dhadakta Dil Transformation
             setTimeout(() => {
-                // Hide line and show pulsating heart after 2.3 seconds
                 document.getElementById('pulse-line').style.display = 'none';
                 document.getElementById('pulsing-heart').classList.add('pulse-active');
             }, 2300);
 
-            // 4. Run Automatic Slide Engines (Transitions every 6 seconds)
             setInterval(runAutomaticSlides, 6000);
-
-            // 5. Automatic Falling Roses & Hearts Rain
-            setInterval(autoRainParticles, 400);
+            setInterval(autoRainRoses, 600);
+            setInterval(spawnStressBubbles, 1200); // Stress busting mechanism
         }
 
         function runAutomaticSlides() {
             document.getElementById(`st${currentSlide}`).classList.remove('active');
             currentSlide = (currentSlide % totalSlides) + 1;
-            document.getElementById(`st${currentActive = currentSlide}`).classList.add('active');
+            document.getElementById(`st${currentSlide}`).classList.add('active');
         }
 
-        function autoRainParticles() {
-            const pool = ['🌹', '❤️', '💋', '💖', '🌹'];
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.innerText = pool[Math.floor(Math.random() * pool.length)];
+        function autoRainRoses() {
+            const roses = ['🌹', '❤️', '💖'];
+            const p = document.createElement('div');
+            p.classList.add('rose-particle');
+            p.innerText = roses[Math.floor(Math.random() * roses.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 15 + 18) + 'px';
+            let speed = 5 + Math.random() * 3;
+            p.style.animationDuration = speed + 's';
+            document.body.appendChild(p);
+            setTimeout(() => { p.remove(); }, speed * 1000);
+        }
+
+        function spawnStressBubbles() {
+            const b = document.createElement('div');
+            b.classList.add('bubble');
             
-            particle.style.left = Math.random() * 100 + 'vw';
-            particle.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            // Setup size and random placement
+            let size = Math.random() * 30 + 50;
+            b.style.width = size + 'px';
+            b.style.height = size + 'px';
+            b.style.left = Math.random() * 90 + 'vw';
             
-            let fallSpeed = 5 + Math.random() * 3;
-            particle.style.animationDuration = fallSpeed + 's';
+            // Pick a secret comforting text
+            b.innerText = compliments[Math.floor(Math.random() * compliments.length)];
             
-            document.body.appendChild(particle);
-            setTimeout(() => { particle.remove(); }, fallSpeed * 1000);
+            // Click/Touch event to pop stress away
+            const popHandler = function() {
+                if(!b.classList.contains('popped')) {
+                    b.classList.add('popped');
+                    setTimeout(() => { b.remove(); }, 300);
+                }
+            };
+            b.addEventListener('click', popHandler);
+            b.addEventListener('touchstart', popHandler);
+
+            document.body.appendChild(b);
+            // Clean memory if not popped
+            setTimeout(() => { if(b) b.remove(); }, 8000);
         }
     </script>
 </body>
