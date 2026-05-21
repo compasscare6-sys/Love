@@ -62,7 +62,7 @@
             box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
         }
 
-        /* Faster Slides Handler Transition */
+        /* Smooth Transition Handler */
         .slide {
             position: absolute; width: 88%; text-align: center; opacity: 0;
             transform: scale(0.92) translateY(10px); transition: all 0.7s ease-in-out;
@@ -77,7 +77,7 @@
         p { font-size: 0.95rem; line-height: 1.6; font-weight: 300; margin: 0; color: #f2e6ff; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
         .highlight { color: #ff4071; font-weight: 500; }
         .signature {
-            font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #ffbd59;
+            font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #ffbd59;
             margin-top: 12px; display: block;
         }
 
@@ -88,7 +88,7 @@
         }
         @keyframes fadeSparkle { 0% { transform: scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.5) translateY(-60px); opacity: 0; } }
 
-        /* Updated Gate Cover with Fresh Romantic Wording */
+        /* Welcome Screen Cover */
         #gate-lock {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #050208; z-index: 100;
@@ -154,16 +154,32 @@
     <script>
         let currentIdx = 1;
         const totalIdx = 4;
+        let slideTimeout;
 
         function openPolaroidAlbum() {
             document.getElementById('gate-lock').style.display = 'none';
-            document.getElementById('loveSong').play().catch(e => console.log("Audio track initialized"));
+            document.getElementById('loveSong').play().catch(e => console.log("Audio ready"));
 
-            // Faster Slide Interval: Changes exactly every 5.5 seconds
-            setInterval(autoFlipSlides, 3500);
+            // Dynamic Custom Timing Loop start kiya
+            manageSmartSlides();
 
             // Ambient Sparkles Flow
             setInterval(spawnSoftSparkles, 600);
+        }
+
+        function manageSmartSlides() {
+            // Check current active slide index and assign unique timers
+            let currentTimer = 5000; // Normal Slides (1, 2, 3) = 5 seconds
+
+            if (currentIdx === 4) {
+                currentTimer = 15000; // Last Long Slide (4) = 15 seconds to read
+            }
+
+            // Execute switch after the custom time frame expires
+            slideTimeout = setTimeout(() => {
+                autoFlipSlides();
+                manageSmartSlides(); // Recalculate time for next slide dynamically
+            }, currentTimer);
         }
 
         function autoFlipSlides() {
