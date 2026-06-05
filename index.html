@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Anusha ❤️</title>
+    <title>Good Morning My Anusha ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght@300;400;500&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
@@ -20,12 +20,12 @@
             z-index: 1;
         }
 
-        /* Ambient Glowing Orbs */
+        /* Ambient Glowing Orbs for a Fresh Morning Soft Feel */
         .orb {
-            position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.2;
+            position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.22;
             animation: driftOrbs 10s infinite alternate ease-in-out;
         }
-        .orb-1 { width: 300px; height: 300px; background: #ff1c4b; top: 10%; left: -10%; }
+        .orb-1 { width: 300px; height: 300px; background: #ff4071; top: 10%; left: -10%; }
         .orb-2 { width: 250px; height: 250px; background: #ffbd59; bottom: 10%; right: -10%; animation-delay: -3s; }
         @keyframes driftOrbs { from { transform: translate(0, 0); } to { transform: translate(30px, 40px); } }
 
@@ -77,8 +77,8 @@
         p { font-size: 0.95rem; line-height: 1.6; font-weight: 300; margin: 0; color: #f2e6ff; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
         .highlight { color: #ff4071; font-weight: 500; }
         .signature {
-            font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #ffbd59;
-            margin-top: 12px; display: block;
+            font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #ffbd59;
+            margin-top: 15px; display: block;
         }
 
         /* Gentle Sparkles Overlay */
@@ -88,7 +88,7 @@
         }
         @keyframes fadeSparkle { 0% { transform: scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(1.5) translateY(-60px); opacity: 0; } }
 
-        /* Welcome Screen Cover */
+        /* Refreshed Morning Gate Cover */
         #gate-lock {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #050208; z-index: 100;
@@ -96,18 +96,20 @@
             text-align: center; cursor: pointer;
         }
         .gate-text {
-            font-family: 'Dancing Script', cursive; font-size: 3.8rem; color: #ffbd59;
+            font-family: 'Dancing Script', cursive; font-size: 3.3rem; color: #ffbd59;
             animation: pulseGlow 1.8s infinite alternate ease-in-out; filter: drop-shadow(0 0 15px #ffbd59);
+            line-height: 1.3; padding: 0 15px;
         }
-        .gate-sub { font-size: 0.8rem; color: #ff4071; letter-spacing: 4px; margin-top: 20px; font-weight: 600; }
-        @keyframes pulseGlow { from { transform: scale(0.95); opacity: 0.7; } to { transform: scale(1.05); opacity: 1; } }
+        .gate-sub { font-size: 0.8rem; color: #ff4071; letter-spacing: 4px; margin-top: 25px; font-weight: 600; }
+        @keyframes pulseGlow { from { transform: scale(0.96); opacity: 0.7; } to { transform: scale(1.04); opacity: 1; } }
     </style>
 </head>
 <body>
 
+    <!-- REFRESHED MORNING ENTRY SCREEN -->
     <div id="gate-lock" onclick="openPolaroidAlbum()">
-        <div class="gate-text">Sukoon... ✨</div>
-        <div class="gate-sub">TAP TO ENTER MY HEART ❤️</div>
+        <div class="gate-text">Good Morning, Meri Jaan... ☀️</div>
+        <div class="gate-sub">TAP TO OPEN YOUR SUNSHINE ✨</div>
     </div>
 
     <div class="aura-bg">
@@ -115,6 +117,7 @@
         <div class="orb orb-2"></div>
     </div>
 
+    <!-- Background Track -->
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
@@ -123,28 +126,32 @@
         <div class="polaroid-frame">
             <div class="polaroid-inner">
                 
+                <!-- Slide 1 -->
                 <div class="slide active" id="sl1">
                     <h1>Dhadkan... 💓</h1>
                     <p>"Good Morning World Best Wifey💓"</p>
                 </div>
 
+                <!-- Slide 2 -->
                 <div class="slide" id="sl2">
                     <h1>Mera Jahaan ❤️</h1>
                     <p>"You are my everything my entire World Baby❤️"</p>
                 </div>
 
+                <!-- Slide 3 -->
                 <div class="slide" id="sl3">
                     <h1>My Blessing ✨</h1>
                     <p>"I am very lucky to have you in my life you make my life beautiful."<br><br>
                     <span class="highlight">I Love You Meri Jaaan , Mera Bacha , Meri Zindagi , Meri Dharkan. ✨</span></p>
                 </div>
 
+                <!-- Slide 4 (Updated with New Sweet Wording & 15s Timing) -->
                 <div class="slide" id="sl4">
                     <h1>Hamesha K Liye... 🔐</h1>
-                    <p style="font-size: 0.75rem; line-height: 1.45; text-align: justify;">
-                        "Muje tujse kal bhi pyar tha aj bhi hai or hamesha rahyegha or yeh tere kala paplat tuj par fida hai tuj par jaan warta hai meri DUA hai meri ANNA ko meri umer lag jaiiii hamesha khush rahyee or kabhi koi takleef na aney duu uski zindagi mein bs mein or meri Anusha sukoon se Life spend karey."
+                    <p style="font-size: 0.75rem; line-height: 1.5; text-align: justify;">
+                        "Muje tujse kal bhi pyar tha aj bhi hai or hamesha rahyegha or yeh tere Miya tuj par fida hai tuj par jaan warta hai meri DUA hai meri ANNA ko meri umer lag jaiiii hamesha khush rahyee or kabhi koi takleef na aney duu uski zindagi mein bs mein or meri Anusha sukoon se Life spend karey."
                     </p>
-                    <span class="signature">— Tera nafarman Miya "Rabi Dadani"</span>
+                    <span class="signature">— Tera Miya "Rabi Dadani"</span>
                 </div>
 
             </div>
@@ -160,7 +167,7 @@
             document.getElementById('gate-lock').style.display = 'none';
             document.getElementById('loveSong').play().catch(e => console.log("Audio ready"));
 
-            // Dynamic Custom Timing Loop start kiya
+            // Dynamic Custom Timing Loop
             manageSmartSlides();
 
             // Ambient Sparkles Flow
@@ -168,17 +175,15 @@
         }
 
         function manageSmartSlides() {
-            // Check current active slide index and assign unique timers
-            let currentTimer = 5000; // Normal Slides (1, 2, 3) = 5 seconds
+            let currentTimer = 5000; // Slide 1, 2, 3 = 5 seconds
 
             if (currentIdx === 4) {
-                currentTimer = 15000; // Last Long Slide (4) = 15 seconds to read
+                currentTimer = 15000; // Slide 4 = 15 seconds for easy reading
             }
 
-            // Execute switch after the custom time frame expires
             slideTimeout = setTimeout(() => {
                 autoFlipSlides();
-                manageSmartSlides(); // Recalculate time for next slide dynamically
+                manageSmartSlides(); 
             }, currentTimer);
         }
 
