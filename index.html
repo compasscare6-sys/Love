@@ -3,338 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Good Morning My Anusha ❤️</title>
+    <title>Hamesha Aap Ke Sath, Meri Anusha ❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght=300;400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght=300;400;500;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #06020b; font-family: 'Poppins', sans-serif;
+            background: #0b040d; font-family: 'Poppins', sans-serif;
             overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
-            user-select: none; -webkit-user-select: none;
         }
 
-        /* Ambient Liquid Background */
-        .glass-universe {
+        /* Warm Golden and Royal Pink Supportive Aura */
+        .support-universe {
             position: absolute; width: 100%; height: 100%;
-            background: #06020b; z-index: 1;
+            background: radial-gradient(circle at center, #23081b 0%, #0d030e 70%, #050106 100%);
+            z-index: 1;
         }
-        .liquid-orb {
-            position: absolute; border-radius: 50%; filter: blur(50px); opacity: 0.35;
-            mix-blend-mode: screen;
-        }
-        .orb-rose { width: 280px; height: 280px; background: #ff2a6d; top: 20%; left: 15%; animation: floatRose 8s infinite alternate ease-in-out; }
-        .orb-gold { width: 320px; height: 320px; background: #05ae8b; bottom: 15%; right: 10%; animation: floatGold 10s infinite alternate ease-in-out; }
-        @keyframes floatRose { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 50px) scale(1.2); } }
-        @keyframes floatGold { 0% { transform: translate(0, 0) scale(1.1); } 100% { transform: translate(-50px, -40px) scale(0.9); } }
 
-        /* Main Center Glass Card Stage */
-        .scene-container {
+        /* Continuous Calming Pulse Effect */
+        .aura-pulse {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(255, 189, 89, 0.12) 0%, transparent 65%);
+            z-index: 2;
+            animation: calmingPulse 4s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+        @keyframes calmingPulse {
+            from { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+            to { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+
+        /* Main Glass Card Concept */
+        .main-stage {
             position: absolute; width: 100%; height: 100%;
             display: flex; justify-content: center; align-items: center;
-            z-index: 5; padding: 15px; box-sizing: border-box;
+            z-index: 5; padding: 20px; box-sizing: border-box;
         }
-        .glass-card {
-            width: 100%; max-width: 360px; height: 450px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.09);
-            box-shadow: 0 25px 45px rgba(0,0,0,0.5);
-            padding: 25px; box-sizing: border-box;
+
+        .luxury-card {
+            width: 100%; max-width: 360px; height: 480px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,255,255,0.01);
+            padding: 30px 25px; box-sizing: border-box;
             display: flex; flex-direction: column; justify-content: center;
             position: relative; overflow: hidden;
         }
 
-        /* Slides Typography Inside Glass */
+        /* Smooth Cinematic Content Fades */
         .slide {
             position: absolute; width: 86%; left: 7%; text-align: center; opacity: 0;
-            transform: translateY(15px); filter: blur(3px);
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out, filter 0.8s ease-in-out;
+            transform: translateY(10px); filter: blur(4px);
+            transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out, filter 1s ease-in-out;
         }
         .slide.active { opacity: 1; transform: translateY(0); filter: blur(0px); }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ffbd59; margin: 0 0 15px 0; text-shadow: 0 0 15px rgba(255,189,89,0.3); }
-        p { font-size: 1.05rem; line-height: 1.65; font-weight: 300; margin: 0; color: #f5edff; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
-        .highlight { color: #ff4071; font-weight: 500; }
-        .signature { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #ffbd59; margin-top: 15px; display: block; }
-
-        .glass-star {
-            position: absolute; background: #fff; border-radius: 50%;
-            pointer-events: none; z-index: 2; animation: starUp 4s ease-in forwards; opacity: 0;
+        /* Elegant Shahi Typography */
+        h1 {
+            font-family: 'Dancing Script', cursive; font-size: 2.4rem; color: #ffbd59;
+            margin: 0 0 15px 0; text-shadow: 0 0 15px rgba(255,189,89,0.3);
         }
-        @keyframes starUp { 0% { transform: translateY(20px) scale(0); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(-60px) scale(1); opacity: 0; } }
+        p { 
+            font-size: 1.05rem; line-height: 1.7; font-weight: 300; margin: 0; 
+            color: #f7efff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+        }
+        .highlight { 
+            color: #ff4071; font-weight: 500; 
+            text-shadow: 0 0 10px rgba(255,64,113,0.3);
+        }
+        .signature {
+            font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #ffbd59;
+            margin-top: 20px; display: block; text-shadow: 0 0 10px rgba(255,189,89,0.2);
+        }
 
-        /* BRAND NEW PUZZLE GATE INTERFACE (Mehnat Screen) */
-        #puzzle-gate {
+        /* Calm Floating Stars */
+        .ambient-star {
+            position: absolute; background: #ffbd59; border-radius: 50%;
+            pointer-events: none; z-index: 3; animation: floatUp 5s linear forwards; opacity: 0;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(30px) scale(0); opacity: 0; }
+            30% { opacity: 0.4; }
+            100% { transform: translateY(-70px) scale(1); opacity: 0; }
+        }
+
+        /* Simple Royal Welcome Gate */
+        #welcome-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 100; background: #07030d;
-            display: flex; flex-direction: column; justify-content: space-between;
-            align-items: center; padding: 40px 20px; box-sizing: border-box;
-        }
-        .puzzle-header { text-align: center; }
-        .puzzle-title { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: #ffbd59; text-shadow: 0 0 15px rgba(255,189,89,0.6); }
-        .puzzle-hint { font-size: 0.8rem; color: #ff4071; letter-spacing: 1px; margin-top: 10px; font-weight: 400; text-transform: uppercase; }
-        
-        /* Interactive Maze Canvas Area */
-        .maze-container {
-            position: relative; width: 100%; max-width: 340px; height: 380px;
-            background: rgba(255, 255, 255, 0.02); border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden;
-        }
-        #maze-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-        /* Floating Interactive Nodes */
-        .heart-node {
-            position: absolute; width: 55px; height: 55px;
+            background: #060208; z-index: 100;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-size: 0.7rem; font-weight: 600; border-radius: 50%;
-            box-shadow: 0 0 20px rgba(255,64,113,0.6); transform: translate(-50%, -50%);
-            transition: transform 0.1s ease;
+            text-align: center; cursor: pointer;
         }
-        #start-heart {
-            background: #ff4071; left: 50px; top: 60px; cursor: grab; z-index: 105;
+        .gate-title {
+            font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ffbd59;
+            animation: pulseText 1.8s infinite alternate ease-in-out; filter: drop-shadow(0 0 12px #ffbd59);
+            padding: 0 20px;
         }
-        #end-heart {
-            background: #ffbd59; right: 20px; bottom: 30px; box-shadow: 0 0 20px rgba(255,189,89,0.5); z-index: 102;
-        }
-        .heart-shape { font-size: 1.2rem; margin-bottom: -2px; }
+        .gate-btn { font-size: 0.8rem; color: #ff4071; letter-spacing: 3px; margin-top: 30px; font-weight: 600; }
+        @keyframes pulseText { from { transform: scale(0.97); opacity: 0.8; } to { transform: scale(1.03); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <!-- BRAND NEW INTERACTIVE PUZZLE SCREEN -->
-    <div id="puzzle-gate">
-        <div class="puzzle-header">
-            <div class="puzzle-title">Good Morning, Meri Jaan... ☀️</div>
-            <div class="puzzle-hint">Miya ke Dil ko Biwi ke Dil tak pahuchao ✨<br>(Drag Rabi to Anusha)</div>
-        </div>
-
-        <div class="maze-container">
-            <canvas id="maze-canvas"></canvas>
-            
-            <!-- Draggable Source Node -->
-            <div id="start-heart" class="heart-node">
-                <span class="heart-shape">❤️</span>
-                <span>Rabi</span>
-            </div>
-
-            <!-- Target Destination Node -->
-            <div id="end-heart" class="heart-node">
-                <span class="heart-shape">❤️</span>
-                <span>Anusha</span>
-            </div>
-        </div>
-        
-        <div style="opacity: 0.4; font-size: 0.7rem; letter-spacing: 1px;">Sath Rehna Hamesha 🔐</div>
+    <!-- REFRESHED COMFORTING ENTRY SCREEN -->
+    <div id="welcome-gate" onclick="unlockSupportExperience()">
+        <div class="gate-title">Meri Jaan, Anusha... ❤️</div>
+        <div class="gate-btn">TAP TO OPEN MY HEART ✨</div>
     </div>
 
-    <!-- Background Space Layers -->
-    <div class="glass-universe">
-        <div class="liquid-orb orb-rose"></div>
-        <div class="liquid-orb orb-gold"></div>
-    </div>
+    <div class="support-universe"></div>
+    <div class="aura-pulse"></div>
 
-    <!-- Main Visual Content Stage -->
-    <div class="scene-container">
-        <div class="glass-card">
-            <!-- Slide 1 -->
-            <div class="slide active" id="sl1">
-                <h1>Dhadkan... 💓</h1>
-                <p>"Good Morning World Best Wifey💓"</p>
-            </div>
-            <!-- Slide 2 -->
-            <div class="slide" id="sl2">
-                <h1>Mera Jahaan ❤️</h1>
-                <p>"You are my everything my entire World Baby❤️"</p>
-            </div>
-            <!-- Slide 3 -->
-            <div class="slide" id="sl3">
-                <h1>My Blessing ✨</h1>
-                <p>"I am very lucky to have you in my life you make my life beautiful."<br><br>
-                <span class="highlight">I Love You Meri Jaaan , Mera Bacha , Meri Zindagi , Meri Dharkan. ✨</span></p>
-            </div>
-            <!-- Slide 4 (15s Long Custom Timing Hold) -->
-            <div class="slide" id="sl4">
-                <h1>Hamesha K Liye... 🔐</h1>
-                <p style="font-size: 0.76rem; line-height: 1.5; text-align: justify; color: #fdfaff;">
-                    "Muje tujse kal bhi pyar tha aj bhi hai or hamesha rahyegha or yeh tere Miya tuj par fida hai tuj par jaan warta hai meri DUA hai meri ANNA ko meri umer lag jaiiii hamesha khush rahyee or kabhi koi takleef na aney duu uski zindagi mein bs mein or meri Anusha sukoon se Life spend karey."
-                </p>
-                <span class="signature">— Tera Miya "Rabi Dadani"</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Audio Engine Track -->
+    <!-- Background Audio Track -->
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- Main Visual Stage -->
+    <div class="main-stage">
+        <div class="luxury-card">
+            
+            <!-- Slide 1 -->
+            <div class="slide active" id="sl1">
+                <h1>Mera Saaya... 🔐</h1>
+                <p>"Anusha, tum kabhi bhi akeli nahi ho. Main har qadam, har dum, aur har ek lamhey tumhare sath moojood huun."</p>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide" id="sl2">
+                <h1>Mera Yaqeen ❤️</h1>
+                <p>"Hamara pyar sacha hai, aur jab hum sath hain toh koi bhi mushkil badi nahi hai. Mera har pal sirf tumhare liye hai."</p>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide" id="sl3">
+                <h1>Ek Chota Sa Hausla ✨</h1>
+                <p>"Aapko thodi si himmat karni hogi jaan, apne andar wo taqat lekar aao jo hamare rishte ko hamesha ke liye mukammal kar de."</p>
+            </div>
+
+            <!-- Slide 4 (15 Seconds Hold for Ultimate Motivation) -->
+            <div class="slide" id="sl4">
+                <h1>Aapka Miya... 👑</h1>
+                <p style="font-size: 0.82rem; line-height: 1.6; text-align: justify; color: #fdfaff;">
+                    "Meri jaan, thodi si himmat karo aur apne ghar mein meri aur apni baat rakhne ki koshish karo. Apni Ammi (Sasuma) ko poore yaqeen se hamare baare mein batao. Kisi baat se darna mat, tumhara yeh Rabi hamesha tumhare peeche ek mazboot deewar ki tarah khada hai. Tum kadam badhao, baqi sab main sambhal loonga."
+                </p>
+                <span class="signature">— Hamesha Tumhara, Mendhak</span>
+            </div>
+
+        </div>
+    </div>
 
     <script>
         let currentIdx = 1;
         const totalIdx = 4;
         let slideTimeout;
-        let isAudioStarted = false;
 
-        const canvas = document.getElementById('maze-canvas');
-        const ctx = canvas.getContext('2d');
-        const startHeart = document.getElementById('start-heart');
-        const endHeart = document.getElementById('end-heart');
-        const puzzleGate = document.getElementById('puzzle-gate');
+        function unlockSupportExperience() {
+            document.getElementById('welcome-gate').style.display = 'none';
+            document.getElementById('loveSong').play().catch(e => console.log("Audio play bypass"));
 
-        let isDragging = false;
-        let pathPoints = [];
+            // Start Timing Engine
+            manageSmartSlides();
 
-        // Set static puzzle path positions inside the container box
-        function initPuzzle() {
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
-
-            // Pre-defined windy road points connecting top-left to bottom-right
-            pathPoints = [
-                {x: 50, y: 60},
-                {x: 140, y: 60},
-                {x: 140, y: 160},
-                {x: 260, y: 160},
-                {x: 260, y: 260},
-                {x: 100, y: 260},
-                {x: 100, y: 340},
-                {x: canvas.width - 50, y: 340}
-            ];
-
-            // Set fixed visual rendering positions for the HTML nodes dynamically
-            endHeart.style.left = (canvas.width - 50) + 'px';
-            endHeart.style.top = '340px';
-
-            drawTrack();
+            // Run Soft Gentle Golden Stars Floating upwards inside card
+            setInterval(spawnAmbientStars, 500);
         }
 
-        function drawTrack() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw Background Soft Road Glow Guide
-            ctx.beginPath();
-            ctx.moveTo(pathPoints[0].x, pathPoints[0].y);
-            for(let i=1; i<pathPoints.length; i++) {
-                ctx.lineTo(pathPoints[i].x, pathPoints[i].y);
-            }
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-            ctx.lineWidth = 32;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.stroke();
-
-            // Draw Inner Interactive Safe Core Path Line
-            ctx.beginPath();
-            ctx.moveTo(pathPoints[0].x, pathPoints[0].y);
-            for(let i=1; i<pathPoints.length; i++) {
-                ctx.lineTo(pathPoints[i].x, pathPoints[i].y);
-            }
-            ctx.strokeStyle = '#ff4071';
-            ctx.lineWidth = 6;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = '#ff4071';
-            ctx.stroke();
-            ctx.shadowBlur = 0; // reset
-        }
-
-        // Drag Management Core Logic
-        function handleStart(e) {
-            isDragging = true;
-            if(!isAudioStarted) {
-                document.getElementById('loveSong').play().catch(err => console.log('Bypass'));
-                isAudioStarted = true;
-            }
-        }
-
-        function handleMove(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-
-            const rect = canvas.getBoundingClientRect();
-            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-            let mouseX = clientX - rect.left;
-            let mouseY = clientY - rect.top;
-
-            // Restrict bounds check within container boundaries
-            if(mouseX < 0 || mouseX > canvas.width || mouseY < 0 || mouseY > canvas.height) return;
-
-            // Validation Engine: Ensure user is dragging near the valid glowing path lines
-            let onPath = isPointNearPath(mouseX, mouseY);
-            
-            if (!onPath) {
-                // Sent back to home start position if they stray off track (Sweet Morning Tang Element)
-                isDragging = false;
-                startHeart.style.left = '50px';
-                startHeart.style.top = '60px';
-                return;
-            }
-
-            // Update draggable heart node position live
-            startHeart.style.left = mouseX + 'px';
-            startHeart.style.top = mouseY + 'px';
-
-            // Check if user reached Destination Target (Anusha Heart)
-            let destX = canvas.width - 50;
-            let destY = 340;
-            let distToTarget = Math.hypot(mouseX - destX, mouseY - destY);
-
-            if (distToTarget < 30) {
-                isDragging = false;
-                unlockAlbumSuccess();
-            }
-        }
-
-        function handleEnd() { isDragging = false; }
-
-        function isPointNearPath(x, y) {
-            // Check distance to segment vectors for security verification
-            for (let i = 0; i < pathPoints.length - 1; i++) {
-                let dist = distToSegment({x: x, y: y}, pathPoints[i], pathPoints[i+1]);
-                if (dist < 26) return true; // 26px padding allowance for sleepy thumbs
-            }
-            return false;
-        }
-
-        function distToSegment(p, v, w) {
-            let l2 = Math.pow(v.x - w.x, 2) + Math.pow(v.y - w.y, 2);
-            if (l2 == 0) return Math.hypot(p.x - v.x, p.y - v.y);
-            let t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
-            t = Math.max(0, Math.min(1, t));
-            return Math.hypot(p.x - (v.x + t * (w.x - v.x)), p.y - (v.y + t * (w.y - v.y)));
-        }
-
-        function unlockAlbumSuccess() {
-            puzzleGate.style.transition = 'all 1s cubic-bezier(0.1, 1, 0.1, 1)';
-            puzzleGate.style.opacity = '0';
-            puzzleGate.style.transform = 'scale(1.15)';
-            
-            setTimeout(() => {
-                puzzleGate.remove();
-                manageSmartSlides();
-                setInterval(spawnGlassStars, 500);
-            }, 1000);
-        }
-
-        // Attach Multi-Platform Interaction Event Handlers
-        startHeart.addEventListener('mousedown', handleStart);
-        window.addEventListener('mousemove', handleMove);
-        window.addEventListener('mouseup', handleEnd);
-
-        startHeart.addEventListener('touchstart', handleStart);
-        window.addEventListener('touchmove', handleMove, { passive: false });
-        window.addEventListener('touchend', handleEnd);
-
-        window.onload = initPuzzle;
-
-        // Album Carousel Core Loop
         function manageSmartSlides() {
-            let currentTimer = 5000;
-            if (currentIdx === 4) currentTimer = 15000;
+            let currentTimer = 5000; // Slide 1, 2, 3 = 5 seconds each
+
+            if (currentIdx === 4) {
+                currentTimer = 15000; // Final Long Motivation Slide 4 = 15 seconds to soak in the courage
+            }
 
             slideTimeout = setTimeout(() => {
                 autoFlipSlides();
@@ -348,20 +191,20 @@
             document.getElementById(`sl${currentIdx}`).classList.add('active');
         }
 
-        function spawnGlassStars() {
-            const card = document.querySelector('.glass-card');
+        function spawnAmbientStars() {
+            const card = document.querySelector('.luxury-card');
             if(!card) return;
             const star = document.createElement('div');
-            star.classList.add('glass-star');
+            star.classList.add('ambient-star');
             
             let size = Math.random() * 3 + 2;
             star.style.width = size + 'px';
             star.style.height = size + 'px';
             star.style.left = Math.random() * 80 + 10 + '%';
-            star.style.top = Math.random() * 40 + 50 + '%';
+            star.style.top = Math.random() * 30 + 60 + '%';
             
             card.appendChild(star);
-            setTimeout(() => { star.remove(); }, 4000);
+            setTimeout(() => { star.remove(); }, 5000);
         }
     </script>
 </body>
