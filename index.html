@@ -3,294 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mendhak's Love Snake Game! 🐸❤️</title>
+    <title>Anusha's Heart Puzzle 🧩❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght=400;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: #0d0415; font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #1b0722 0%, #07020d 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
             user-select: none; -webkit-user-select: none;
         }
 
-        /* GAME STAGE LAYER */
-        #game-stage {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 100; background: radial-gradient(circle at center, #220b30 0%, #0d0415 100%);
-            display: flex; flex-direction: column; align-items: center;
-            touch-action: none;
-        }
-        .game-header { text-align: center; margin-top: 25px; z-index: 105; }
-        .game-title { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: #ffbd59; text-shadow: 0 0 15px rgba(255,189,89,0.5); }
-        .game-instruction { font-size: 0.75rem; color: #ff4071; letter-spacing: 2px; font-weight: 500; text-transform: uppercase; margin-top: 3px; }
-        
-        .score-board {
-            font-size: 1.3rem; font-weight: 600; color: #fff;
-            background: rgba(255, 255, 255, 0.08); padding: 4px 18px;
-            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); margin-top: 10px;
-        }
+        .header { text-align: center; margin-bottom: 25px; padding: 0 15px; z-index: 10; }
+        .title { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: #ffbd59; text-shadow: 0 0 10px rgba(255,189,89,0.5); margin: 0; }
+        .hint { font-size: 0.9rem; color: #ff4071; letter-spacing: 0.5px; margin-top: 8px; font-weight: 600; text-shadow: 0 0 5px rgba(255,64,113,0.3); }
 
-        #game-box {
-            position: relative; margin-top: 20px;
-            border: 2px solid rgba(255, 64, 113, 0.4);
+        /* PUZZLE BOARD STYLING */
+        #puzzle-container {
+            width: 325px; height: 325px;
             background: rgba(255, 255, 255, 0.02);
-            box-shadow: 0 0 20px rgba(255, 64, 113, 0.15);
-            border-radius: 12px;
-            overflow: hidden;
+            border-radius: 16px; border: 2px solid rgba(255, 64, 113, 0.4);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr); gap: 6px; padding: 6px; box-sizing: border-box;
+            position: relative;
         }
-        #game-canvas { display: block; }
 
-        /* REWARD LAYER */
-        #reward-stage {
+        .tile {
+            background: linear-gradient(135deg, #ff4071, #9e143b);
+            color: #fff; font-size: 1.8rem; font-weight: bold;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border-radius: 12px; cursor: pointer;
+            box-shadow: inset 0 0 12px rgba(255,255,255,0.25), 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.12s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        /* Tiny heart graphic on tiles to match theme */
+        .tile::after {
+            content: "❤️"; font-size: 0.65rem; opacity: 0.4; margin-top: 2px;
+        }
+
+        .tile.empty { background: transparent; box-shadow: none; cursor: default; }
+        .tile.empty::after { content: ""; }
+
+        /* REWARD CELEBRATION OVERLAY */
+        #win-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 5; background: radial-gradient(circle, #330821, #0c0414);
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; transform: scale(0.9); transition: all 1s cubic-bezier(0.1, 1, 0.1, 1);
-            pointer-events: none; padding: 20px; box-sizing: border-box;
+            background: radial-gradient(circle, #33061f 0%, #07020d 100%);
+            z-index: 200; display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transform: scale(0.85);
+            transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 24px; box-sizing: border-box;
         }
-        #reward-stage.reveal { opacity: 1; transform: scale(1); pointer-events: auto; }
+        #win-screen.reveal { opacity: 1; pointer-events: auto; transform: scale(1); }
 
-        .glass-card {
-            width: 100%; max-width: 350px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 45px rgba(0,0,0,0.6);
-            padding: 30px 20px; box-sizing: border-box; text-align: center;
+        .love-message {
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2.5rem; 
+            text-align: center;
+            color: #ffbd59; 
+            text-shadow: 0 0 20px rgba(255, 189, 89, 0.9), 0 0 40px rgba(255, 64, 113, 0.7);
+            line-height: 1.4; 
+            animation: pulse 1.4s infinite alternate ease-in-out;
+            max-width: 95%;
+            word-wrap: break-word;
         }
 
-        .love-message h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: #ffbd59; margin: 0 0 15px 0; text-shadow: 0 0 10px rgba(255,189,89,0.3); }
-        .love-message p { font-size: 1.1rem; line-height: 1.6; font-weight: 300; margin: 0 0 20px 0; color: #f5edff; }
-        .big-kiss { font-size: 1.5rem; color: #ff4071; font-weight: 600; display: block; animation: pulse 1s infinite alternate; }
-
-        @keyframes pulse { from { transform: scale(0.96); } to { transform: scale(1.05); } }
+        @keyframes pulse { from { transform: scale(0.95); } to { transform: scale(1.05); } }
     </style>
 </head>
 <body>
 
-    <!-- GAMEPLAY AREA -->
-    <div id="game-stage">
-        <div class="game-header">
-            <div class="game-title">Mendhak's Love Journey 🐸</div>
-            <div class="game-instruction">Screen par swipe karke direction badlein ✨</div>
-            <center><div class="score-board">Score: <span id="score-val">0</span> / 50</div></center>
-        </div>
-        <div id="game-box">
-            <canvas id="game-canvas"></canvas>
+    <div class="header">
+        <div class="title">Brain Challenge 🧠</div>
+        <div class="hint">"Heart ki is picture ko sahi jodo jaan"</div>
+    </div>
+
+    <!-- 3x3 Sliding Board -->
+    <div id="puzzle-container"></div>
+
+    <!-- Custom Victory Mega Message Screen -->
+    <div id="win-screen">
+        <div class="love-message">
+            "I Love You Meri Jaan Umaahhhh Umaaaaahhh You are the best Proud of you baby you are very special for me Guriya" 💋❤️
         </div>
     </div>
 
-    <!-- REWARD WIN SCREEN -->
-    <div id="reward-stage">
-        <div class="glass-card">
-            <div class="love-message">
-                <h1>Jeet Gae Meri Jaan! 👑</h1>
-                <p>"Aap ne Mendhak ka dil dher saari chummiyon se bhar diya! Meri pyaari Anusha, aap meri zindagi ka sab se haseen tohfa ho."</p>
-                <span class="big-kiss">Umaahhhh Umaaaaahhh ❤️💋</span>
-            </div>
-        </div>
-    </div>
-
+    <!-- Background Audio Trigger -->
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const canvas = document.getElementById('game-canvas');
-        const ctx = canvas.getContext('2d');
-
-        // Dynamic Grid setup responsive for mobile screen sizes
-        const boxSize = 24; 
-        const cols = Math.floor(Math.min(window.innerWidth - 40, 360) / boxSize);
-        const rows = cols; // Square grid layout
+        // Mathematical representation of target order 1-8
+        const winningCombination = ["1", "2", "3", "4", "5", "6", "7", "8", ""];
+        let currentLayout = [...winningCombination];
         
-        canvas.width = cols * boxSize;
-        canvas.height = rows * boxSize;
-
-        let score = 0;
-        let gameActive = true;
+        const container = document.getElementById('puzzle-container');
         let isAudioPlaying = false;
 
-        // Snake init (Head is Frog, body elements follow)
-        let snake = [
-            { x: 3, y: 3 },
-            { x: 2, y: 3 },
-            { x: 1, y: 3 }
-        ];
-
-        let d = "RIGHT"; // Direction tracker
-        let food = getRandomFoodPos();
-        const foodTypes = ['💋', '💝', '🎁', '🍓'];
-        let currentFoodChar = foodTypes[0];
-
-        // Confetti logic
-        let confetti = [];
-
-        function getRandomFoodPos() {
-            return {
-                x: Math.floor(Math.random() * cols),
-                y: Math.floor(Math.random() * rows)
-            };
-        }
-
-        // Handle Touch / Swipe Controls beautifully for Mobile Users
-        let touchStartX = 0;
-        let touchStartY = 0;
-
-        window.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        window.addEventListener('touchmove', e => {
-            if (!touchStartX || !touchStartY) return;
-
-            let diffX = touchStartX - e.touches[0].clientX;
-            let diffY = touchStartY - e.touches[0].clientY;
-
-            // Determine primary axis of swipe movement
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (diffX > 0 && d !== "RIGHT") d = "LEFT";
-                else if (diffX < 0 && d !== "LEFT") d = "RIGHT";
-            } else {
-                if (diffY > 0 && d !== "DOWN") d = "UP";
-                else if (diffY < 0 && d !== "UP") d = "DOWN";
-            }
-            touchStartX = 0;
-            touchStartY = 0;
-
-            // Trigger audio on first interaction seamlessly
-            if (!isAudioPlaying) {
-                document.getElementById('loveSong').play().catch(e => console.log('Audio activated'));
-                isAudioPlaying = true;
-            }
-        }, { passive: true });
-
-        // Desktop keyboard arrow backups
-        window.addEventListener('keydown', e => {
-            if (e.key === "ArrowLeft" && d !== "RIGHT") d = "LEFT";
-            else if (e.key === "ArrowUp" && d !== "DOWN") d = "UP";
-            else if (e.key === "ArrowRight" && d !== "LEFT") d = "RIGHT";
-            else if (e.key === "ArrowDown" && d !== "UP") d = "DOWN";
-            
-            if (!isAudioPlaying) {
-                document.getElementById('loveSong').play().catch(e => console.log('Audio activated'));
-                isAudioPlaying = true;
-            }
-        });
-
-        function gameLoop() {
-            if (!gameActive) {
-                // Keep rendering confetti running inside reward background screen
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < confetti.length; i++) {
-                    let p = confetti[i];
-                    p.y += p.speed;
-                    p.x += Math.sin(p.angle) * 0.8;
-                    ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    if (p.y > canvas.height) p.y = -10;
-                }
-                setTimeout(gameLoop, 1000 / 30);
-                return;
-            }
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 1. Move Snake Head position
-            let snakeX = snake[0].x;
-            let snakeY = snake[0].y;
-
-            if (d === "LEFT") snakeX--;
-            if (d === "UP") snakeY--;
-            if (d === "RIGHT") snakeX++;
-            if (d === "DOWN") snakeY++;
-
-            // Smart Infinite borders wrapper (So bhabhi never gets frustrated by hitting wall!)
-            if (snakeX < 0) snakeX = cols - 1;
-            if (snakeX >= cols) snakeX = 0;
-            if (snakeY < 0) snakeY = rows - 1;
-            if (snakeY >= rows) snakeY = 0;
-
-            let newHead = { x: snakeX, y: snakeY };
-
-            // 2. Check Eating mechanism
-            if (snakeX === food.x && snakeY === food.y) {
-                score += 10;
-                document.getElementById('score-val').innerText = score;
-                food = getRandomFoodPos();
-                currentFoodChar = foodTypes[Math.floor(Math.random() * foodTypes.length)];
+        // Shuffle loop ensuring logic remains strictly solvable
+        function shufflePuzzle() {
+            for (let i = 0; i < 120; i++) {
+                const emptyIdx = currentLayout.indexOf("");
+                const validMoves = getValidMoves(emptyIdx);
+                const randomMove = validMoves[Math.floor(Math.random() * validMoves.length)];
                 
-                if (score >= 50) {
-                    gameActive = false;
-                    initConfetti();
-                    endGameAndReveal();
-                }
-            } else {
-                snake.pop(); // Remove tail segment if not feeding
+                // Swap places
+                currentLayout[emptyIdx] = currentLayout[randomMove];
+                currentLayout[randomMove] = "";
             }
+        }
 
-            snake.unshift(newHead);
+        function getValidMoves(idx) {
+            const moves = [];
+            const row = Math.floor(idx / 3);
+            const col = idx % 3;
 
-            // 3. Render Food
-            ctx.font = `${boxSize - 4}px Arial`;
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(currentFoodChar, food.x * boxSize + boxSize/2, food.y * boxSize + boxSize/2);
+            if (row > 0) moves.push(idx - 3); // Move tile down into empty slot
+            if (row < 2) moves.push(idx + 3); // Move tile up into empty slot
+            if (col > 0) moves.push(idx - 1); // Move tile right into empty slot
+            if (col < 2) moves.push(idx + 1); // Move tile left into empty slot
+            return moves;
+        }
 
-            // 4. Render Snake Body segments
-            for (let i = 0; i < snake.length; i++) {
-                if (i === 0) {
-                    // Head is always a cute frog 
-                    ctx.fillText('🐸', snake[i].x * boxSize + boxSize/2, snake[i].y * boxSize + boxSize/2);
+        function renderBoard() {
+            container.innerHTML = "";
+            currentLayout.forEach((item, index) => {
+                const tile = document.createElement('div');
+                tile.classList.add('tile');
+                if (item === "") {
+                    tile.classList.add('empty');
                 } else {
-                    // Following body parts are little hearts
-                    ctx.font = `${boxSize - 6}px Arial`;
-                    ctx.fillText('❤️', snake[i].x * boxSize + boxSize/2, snake[i].y * boxSize + boxSize/2);
+                    tile.innerText = item;
+                    tile.addEventListener('click', () => handleTileClick(index));
+                    tile.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        handleTileClick(index);
+                    });
+                }
+                container.appendChild(tile);
+            });
+        }
+
+        function handleTileClick(idx) {
+            const emptyIdx = currentLayout.indexOf("");
+            const validMoves = getValidMoves(emptyIdx);
+
+            if (validMoves.includes(idx)) {
+                if (!isAudioPlaying) {
+                    document.getElementById('loveSong').play().catch(err => console.log("Music running"));
+                    isAudioPlaying = true;
+                }
+
+                // Move calculation
+                currentLayout[emptyIdx] = currentLayout[idx];
+                currentLayout[idx] = "";
+                renderBoard();
+
+                checkWinCondition();
+            }
+        }
+
+        function checkWinCondition() {
+            let isWon = true;
+            for (let i = 0; i < winningCombination.length; i++) {
+                if (currentLayout[i] !== winningCombination[i]) {
+                    isWon = false;
+                    break;
                 }
             }
-
-            setTimeout(gameLoop, 150); // Speed factor loop frequency
-        }
-
-        function initConfetti() {
-            const colors = ['#ff4071', '#ffbd59', '#ff8da9', '#ffffff'];
-            for (let i = 0; i < 60; i++) {
-                confetti.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 4 + 3,
-                    speed: Math.random() * 2 + 1.5,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    angle: Math.random() * 5
-                });
+            if (isWon) {
+                setTimeout(() => {
+                    document.getElementById('win-screen').classList.add('reveal');
+                }, 400);
             }
         }
 
-        function endGameAndReveal() {
-            const stage = document.getElementById('game-stage');
-            document.getElementById('reward-stage').appendChild(canvas);
-            canvas.style.position = 'absolute';
-            canvas.style.top = '0';
-            canvas.style.left = '0';
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            canvas.style.opacity = '0.3';
-
-            stage.style.transition = 'opacity 0.8s ease-out';
-            stage.style.opacity = '0';
-            
-            setTimeout(() => {
-                stage.remove();
-                document.getElementById('reward-stage').classList.add('reveal');
-            }, 800);
-        }
-
-        // Boot system up
-        gameLoop();
+        // Run setup
+        shufflePuzzle();
+        renderBoard();
     </script>
 </body>
 </html>
