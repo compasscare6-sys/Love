@@ -3,190 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Anusha's Heart Puzzle 🧩❤️</title>
+    <title>Anusha's Memory Match Game 🧠❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght=400;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1b0722 0%, #07020d 100%);
+            background: radial-gradient(circle at center, #1c0524 0%, #08020d 100%);
             font-family: 'Poppins', sans-serif;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
             user-select: none; -webkit-user-select: none;
         }
 
-        .header { text-align: center; margin-bottom: 25px; padding: 0 15px; z-index: 10; }
-        .title { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: #ffbd59; text-shadow: 0 0 10px rgba(255,189,89,0.5); margin: 0; }
-        .hint { font-size: 0.9rem; color: #ff4071; letter-spacing: 0.5px; margin-top: 8px; font-weight: 600; text-shadow: 0 0 5px rgba(255,64,113,0.3); }
+        .header { text-align: center; margin-bottom: 20px; padding: 0 15px; z-index: 10; }
+        .title { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: #ffbd59; text-shadow: 0 0 12px rgba(255,189,89,0.5); margin: 0; }
+        .hint { font-size: 0.85rem; color: #ff4071; letter-spacing: 1px; margin-top: 5px; text-transform: uppercase; font-weight: 600; }
 
-        /* PUZZLE BOARD STYLING */
-        #puzzle-container {
-            width: 325px; height: 325px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px; border: 2px solid rgba(255, 64, 113, 0.4);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr); gap: 6px; padding: 6px; box-sizing: border-box;
+        /* MEMORY GRID STYLING */
+        #game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            width: 320px;
+            max-width: 95%;
+            perspective: 1000px;
+            z-index: 10;
+        }
+
+        /* CARD OUTER BOX */
+        .card {
+            height: 95px;
             position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
-        .tile {
-            background: linear-gradient(135deg, #ff4071, #9e143b);
-            color: #fff; font-size: 1.8rem; font-weight: bold;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border-radius: 12px; cursor: pointer;
-            box-shadow: inset 0 0 12px rgba(255,255,255,0.25), 0 4px 8px rgba(0,0,0,0.3);
-            transition: transform 0.12s ease;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-            position: relative;
+        .card.flipped {
+            transform: rotateY(180deg);
         }
 
-        /* Tiny heart graphic on tiles to match theme */
-        .tile::after {
-            content: "❤️"; font-size: 0.65rem; opacity: 0.4; margin-top: 2px;
+        /* CARD FACES */
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
-        .tile.empty { background: transparent; box-shadow: none; cursor: default; }
-        .tile.empty::after { content: ""; }
+        /* Card Back (Default look facing the user) */
+        .card-back {
+            background: linear-gradient(135deg, #a81c43, #ff4071);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.3);
+        }
+        .card-back::before {
+            content: "❤️";
+            font-size: 1.6rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
 
-        /* REWARD CELEBRATION OVERLAY */
-        #win-screen {
+        /* Card Front (Revealed Emoji) */
+        .card-front {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(255, 189, 89, 0.4);
+            font-size: 2.3rem;
+            transform: rotateY(180deg);
+        }
+
+        /* Hide cards when matched smoothly */
+        .card.matched {
+            transform: rotateY(180deg) scale(0);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+
+        /* REWARD WIN OVERLAY SCREEN */
+        #win-stage {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, #33061f 0%, #07020d 100%);
+            background: radial-gradient(circle, #380722 0%, #08020d 100%);
             z-index: 200; display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transform: scale(0.85);
             transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 24px; box-sizing: border-box;
+            padding: 25px; box-sizing: border-box;
         }
-        #win-screen.reveal { opacity: 1; pointer-events: auto; transform: scale(1); }
+        #win-stage.reveal { opacity: 1; pointer-events: auto; transform: scale(1); }
 
         .love-message {
             font-family: 'Dancing Script', cursive; 
-            font-size: 2.5rem; 
+            font-size: 2.6rem; 
             text-align: center;
             color: #ffbd59; 
             text-shadow: 0 0 20px rgba(255, 189, 89, 0.9), 0 0 40px rgba(255, 64, 113, 0.7);
             line-height: 1.4; 
-            animation: pulse 1.4s infinite alternate ease-in-out;
+            animation: heartPulse 1.4s infinite alternate ease-in-out;
             max-width: 95%;
-            word-wrap: break-word;
         }
 
-        @keyframes pulse { from { transform: scale(0.95); } to { transform: scale(1.05); } }
+        @keyframes heartPulse { from { transform: scale(0.96); } to { transform: scale(1.04); } }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="title">Brain Challenge 🧠</div>
-        <div class="hint">"Heart ki is picture ko sahi jodo jaan"</div>
+        <div class="title">Memory Match 🧠</div>
+        <div class="hint">Cards flip karo aur same pairs dhoondo jaan!</div>
     </div>
 
-    <!-- 3x3 Sliding Board -->
-    <div id="puzzle-container"></div>
+    <!-- 3x4 Grid for 12 Cards -->
+    <div id="game-grid"></div>
 
-    <!-- Custom Victory Mega Message Screen -->
-    <div id="win-screen">
+    <!-- Naya Romantic Reward Screen -->
+    <div id="win-stage">
         <div class="love-message">
-            "I Love You Meri Jaan Umaahhhh Umaaaaahhh You are the best Proud of you baby you are very special for me Guriya" 💋❤️
+            "bhut parliya urdu mere Jaan thora rest time ab or thora MIya key sath Romance time janu I Kiss You Umaaahh Umaaahhh" 💋❤️
         </div>
     </div>
 
-    <!-- Background Audio Trigger -->
+    <!-- Background Music Audio Trigger -->
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Mathematical representation of target order 1-8
-        const winningCombination = ["1", "2", "3", "4", "5", "6", "7", "8", ""];
-        let currentLayout = [...winningCombination];
-        
-        const container = document.getElementById('puzzle-container');
+        const emojis = ['🐸', '💋', '👑', '🧸', '🍫', '💝', '🐸', '💋', '👑', '🧸', '🍫', '💝'];
+        let flippedCards = [];
+        let matchedPairsCount = 0;
+        let lockGrid = false;
         let isAudioPlaying = false;
 
-        // Shuffle loop ensuring logic remains strictly solvable
-        function shufflePuzzle() {
-            for (let i = 0; i < 120; i++) {
-                const emptyIdx = currentLayout.indexOf("");
-                const validMoves = getValidMoves(emptyIdx);
-                const randomMove = validMoves[Math.floor(Math.random() * validMoves.length)];
-                
-                // Swap places
-                currentLayout[emptyIdx] = currentLayout[randomMove];
-                currentLayout[randomMove] = "";
+        const gridContainer = document.getElementById('game-grid');
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
+            return array;
         }
 
-        function getValidMoves(idx) {
-            const moves = [];
-            const row = Math.floor(idx / 3);
-            const col = idx % 3;
+        function buildGameBoard() {
+            const shuffledEmojis = shuffle(emojis);
+            gridContainer.innerHTML = '';
 
-            if (row > 0) moves.push(idx - 3); // Move tile down into empty slot
-            if (row < 2) moves.push(idx + 3); // Move tile up into empty slot
-            if (col > 0) moves.push(idx - 1); // Move tile right into empty slot
-            if (col < 2) moves.push(idx + 1); // Move tile left into empty slot
-            return moves;
-        }
+            shuffledEmojis.forEach((emoji) => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.emoji = emoji;
 
-        function renderBoard() {
-            container.innerHTML = "";
-            currentLayout.forEach((item, index) => {
-                const tile = document.createElement('div');
-                tile.classList.add('tile');
-                if (item === "") {
-                    tile.classList.add('empty');
-                } else {
-                    tile.innerText = item;
-                    tile.addEventListener('click', () => handleTileClick(index));
-                    tile.addEventListener('touchstart', (e) => {
-                        e.preventDefault();
-                        handleTileClick(index);
-                    });
-                }
-                container.appendChild(tile);
+                const backFace = document.createElement('div');
+                backFace.classList.add('card-face', 'card-back');
+
+                const frontFace = document.createElement('div');
+                frontFace.classList.add('card-face', 'card-front'); frontFace.innerText = emoji;
+
+                card.appendChild(backFace);
+                card.appendChild(frontFace);
+
+                card.addEventListener('click', flipCard);
+                card.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    flipCard.call(card);
+                });
+
+                gridContainer.appendChild(card);
             });
         }
 
-        function handleTileClick(idx) {
-            const emptyIdx = currentLayout.indexOf("");
-            const validMoves = getValidMoves(emptyIdx);
+        function flipCard() {
+            if (lockGrid) return;
+            if (this === flippedCards[0]) return;
 
-            if (validMoves.includes(idx)) {
-                if (!isAudioPlaying) {
-                    document.getElementById('loveSong').play().catch(err => console.log("Music running"));
-                    isAudioPlaying = true;
-                }
+            if (!isAudioPlaying) {
+                document.getElementById('loveSong').play().catch(e => console.log("Music bypass active"));
+                isAudioPlaying = true;
+            }
 
-                // Move calculation
-                currentLayout[emptyIdx] = currentLayout[idx];
-                currentLayout[idx] = "";
-                renderBoard();
+            this.classList.add('flipped');
+            flippedCards.push(this);
 
-                checkWinCondition();
+            if (flippedCards.length === 2) {
+                evaluateMatch();
             }
         }
 
-        function checkWinCondition() {
-            let isWon = true;
-            for (let i = 0; i < winningCombination.length; i++) {
-                if (currentLayout[i] !== winningCombination[i]) {
-                    isWon = false;
-                    break;
-                }
-            }
-            if (isWon) {
-                setTimeout(() => {
-                    document.getElementById('win-screen').classList.add('reveal');
-                }, 400);
+        function evaluateMatch() {
+            lockGrid = true;
+            let isMatch = flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji;
+
+            if (isMatch) {
+                disableMatchedCards();
+            } else {
+                unflipMisalignedCards();
             }
         }
 
-        // Run setup
-        shufflePuzzle();
-        renderBoard();
+        function disableMatchedCards() {
+            setTimeout(() => {
+                flippedCards[0].classList.add('matched');
+                flippedCards[1].classList.add('matched');
+                
+                matchedPairsCount++;
+                resetTurnTracker();
+
+                if (matchedPairsCount === 6) {
+                    triggerVictoryScreen();
+                }
+            }, 500);
+        }
+
+        function unflipMisalignedCards() {
+            setTimeout(() => {
+                flippedCards[0].classList.remove('flipped');
+                flippedCards[1].classList.remove('flipped');
+                resetTurnTracker();
+            }, 800);
+        }
+
+        function resetTurnTracker() {
+            flippedCards = [];
+            lockGrid = false;
+        }
+
+        function triggerVictoryScreen() {
+            setTimeout(() => {
+                document.getElementById('win-stage').classList.add('reveal');
+            }, 600);
+        }
+
+        buildGameBoard();
     </script>
 </body>
 </html>
