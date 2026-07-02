@@ -3,324 +3,706 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Anu's Royal Doll Makeover 👑✨</title>
+    <title>👑 Anu's Royal Doll Makeover</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Poppins:wght@400;500;600;700&display=swap');
 
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #2e1136 0%, #0c0410 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 30% 20%, #1e0a2a 0%, #0b0410 100%);
             font-family: 'Poppins', sans-serif;
-            display: flex; flex-direction: column; align-items: center;
-            overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
-            user-select: none; -webkit-user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+            padding: 10px;
         }
 
-        .game-header { text-align: center; margin-top: 15px; padding: 0 10px; z-index: 10; }
-        .game-title { font-family: 'Cinzel', serif; font-size: 1.6rem; color: #ffbd59; letter-spacing: 2px; margin: 0; text-shadow: 0 0 10px rgba(255,189,89,0.4); }
-        .game-subtitle { font-size: 0.8rem; color: #ff6ea7; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* MAIN GAMEPLAY PLAYGROUND */
-        .playground {
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-            width: 100%; max-width: 400px; height: calc(100% - 80px); padding-bottom: 15px; box-sizing: border-box;
+        .game-wrapper {
+            max-width: 420px;
+            width: 100%;
+            height: 100vh;
+            max-height: 780px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0 18px;
+            position: relative;
         }
 
-        /* DIGITAL VECTOR DOLL CONTAINER */
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            padding: 0 12px;
+        }
+        .header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ffbd59, #ff8cbe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 189, 89, 0.2);
+            letter-spacing: 2px;
+        }
+        .header p {
+            font-size: 0.8rem;
+            color: #ffa0c8;
+            letter-spacing: 2px;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-top: -2px;
+        }
+
+        /* ===== DOLL STAGE ===== */
+        .doll-stage {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin: 5px 0;
+        }
+
         .doll-container {
-            width: 200px; height: 260px; position: relative; margin-top: 10px;
-            display: flex; align-items: center; justify-content: center;
+            width: 220px;
+            height: 290px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+            transition: all 0.3s;
         }
 
-        /* SVG DOLL COMPONENTS */
-        .doll-body { width: 110px; height: auto; position: absolute; bottom: 10px; z-index: 2; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); }
-        .doll-hair { width: 140px; position: absolute; top: 12px; z-index: 4; transition: all 0.3s ease; }
-        .doll-eyes { width: 45px; position: absolute; top: 62px; z-index: 5; }
-        .doll-blush { width: 65px; position: absolute; top: 68px; z-index: 5; transition: fill 0.3s ease; }
-        .doll-lips { width: 22px; position: absolute; top: 82px; z-index: 6; transition: fill 0.3s ease; }
-        .doll-dress { width: 135px; position: absolute; bottom: -2px; z-index: 3; transition: all 0.3s ease; }
-        .doll-accessory { width: 70px; position: absolute; top: -5px; z-index: 7; transition: all 0.3s ease; display: none; }
+        /* Base doll silhouette (realistic shape) */
+        .doll-base {
+            width: 120px;
+            height: auto;
+            position: absolute;
+            bottom: 10px;
+            z-index: 2;
+        }
 
-        /* INTERACTIVE CONTROL DASHBOARD */
+        /* ===== LAYERED SVG COMPONENTS ===== */
+        .doll-layer {
+            position: absolute;
+            bottom: 10px;
+            z-index: 3;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .doll-hair {
+            z-index: 4;
+            bottom: 40px;
+            width: 140px;
+            transition: all 0.5s ease;
+        }
+        .doll-eyes {
+            z-index: 5;
+            bottom: 90px;
+            width: 48px;
+        }
+        .doll-blush {
+            z-index: 5;
+            bottom: 95px;
+            width: 70px;
+            opacity: 0.65;
+        }
+        .doll-lips {
+            z-index: 6;
+            bottom: 105px;
+            width: 24px;
+        }
+        .doll-dress {
+            z-index: 3;
+            bottom: 8px;
+            width: 140px;
+            display: none;
+        }
+        .doll-accessory {
+            z-index: 7;
+            bottom: 145px;
+            width: 80px;
+            display: none;
+            transition: all 0.4s ease;
+        }
+
+        /* ===== DASHBOARD ===== */
         .dashboard {
-            width: 90%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px; border: 1.5px solid rgba(255, 110, 167, 0.3); padding: 15px; box-sizing: border-box;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 110, 167, 0.2);
+            padding: 16px 14px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
-        /* NAVIGATION TABS */
-        .nav-tabs { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
-        .tab-btn { background: none; border: none; color: rgba(255,255,255,0.5); font-weight: 600; font-size: 0.85rem; cursor: pointer; padding: 4px 8px; transition: color 0.3s; }
-        .tab-btn.active { color: #ffbd59; border-bottom: 2px solid #ffbd59; text-shadow: 0 0 8px rgba(255,189,89,0.4); }
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 8px;
+        }
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 6px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+        .tab-btn.active {
+            color: #ffbd59;
+            background: rgba(255, 189, 89, 0.08);
+            box-shadow: inset 0 0 20px rgba(255, 189, 89, 0.05);
+        }
 
-        /* OPTIONS PANEL */
-        .options-panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; max-height: 110px; overflow-y: auto; }
-        .options-panel.active { display: grid; }
+        .panel {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-height: 100px;
+            overflow-y: auto;
+            padding: 2px 0;
+        }
+        .panel.active {
+            display: grid;
+        }
 
         .item-card {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-            padding: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.25s;
         }
-        .item-card:active { transform: scale(0.92); }
-        .item-card.selected { border-color: #ff6ea7; background: rgba(255, 110, 167, 0.15); box-shadow: 0 0 10px rgba(255,110,167,0.3); }
-        .item-preview { font-size: 1.5rem; margin-bottom: 2px; }
-        .item-label { font-size: 0.65rem; color: rgba(255,255,255,0.7); font-weight: 500; text-align: center; }
+        .item-card:active {
+            transform: scale(0.92);
+        }
+        .item-card.selected {
+            border-color: #ff6ea7;
+            background: rgba(255, 110, 167, 0.12);
+            box-shadow: 0 0 20px rgba(255, 110, 167, 0.15);
+        }
+        .item-preview {
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+        .item-label {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            text-align: center;
+            margin-top: 2px;
+        }
 
-        /* ACTION REVEAL BUTTON */
+        /* ===== REVEAL BUTTON ===== */
         .reveal-btn {
-            width: 100%; margin-top: 15px; background: linear-gradient(135deg, #ff4071, #a81c43);
-            border: none; border-radius: 12px; color: white; padding: 10px; font-weight: 600;
-            font-size: 0.9rem; cursor: pointer; box-shadow: 0 5px 15px rgba(255,64,113,0.3);
-            transition: all 0.3s; display: none;
+            width: 100%;
+            margin-top: 14px;
+            background: linear-gradient(135deg, #ff4071, #b81a4a);
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            padding: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 64, 113, 0.35);
+            transition: all 0.3s;
+            display: none;
+            text-transform: uppercase;
         }
-        .reveal-btn.visible { display: block; animation: bounce 2s infinite; }
-
-        /* CELEBRATION FINAL OVERLAY SCREEN */
-        #celebration-stage {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #270619 0%, #06020b 100%);
-            z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: all 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
-            padding: 20px; box-sizing: border-box;
-        }
-        #celebration-stage.reveal { opacity: 1; pointer-events: auto; }
-
-        .final-display-box { display: flex; justify-content: center; align-items: center; height: 260px; margin-bottom: 25px; transform: scale(0.9); transition: transform 1.5s ease 0.5s; }
-        #celebration-stage.reveal .final-display-box { transform: scale(1.15); }
-
-        /* PREMIUM MAGICAL ROMANTIC FONTS DESIGN */
-        .romantic-card {
-            background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(255, 189, 89, 0.3);
-            border-radius: 24px; padding: 25px; max-width: 90%; text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        }
-        .romantic-text {
-            font-family: 'Great Vibes', cursive; font-size: 2.7rem; color: #ffbd59;
-            line-height: 1.3; margin: 0; text-shadow: 0 0 15px rgba(255, 189, 89, 0.8), 0 0 30px rgba(255, 64, 113, 0.5);
-            animation: textPulse 1.5s infinite alternate ease-in-out;
+        .reveal-btn.visible {
+            display: block;
+            animation: pulseGlow 2s infinite;
         }
 
-        @keyframes textPulse { from { transform: scale(0.98); } to { transform: scale(1.02); } }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } 60% { transform: translateY(-3px); } }
+        @keyframes pulseGlow {
+            0%,
+            100% {
+                box-shadow: 0 8px 25px rgba(255, 64, 113, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 40px rgba(255, 64, 113, 0.6);
+            }
+        }
+
+        /* ===== CELEBRATION OVERLAY ===== */
+        #celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1e0a2a, #05010a);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            padding: 20px;
+        }
+        #celebration.reveal {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .final-doll-box {
+            transform: scale(0.7);
+            transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 20px 50px rgba(255, 189, 89, 0.2));
+        }
+        #celebration.reveal .final-doll-box {
+            transform: scale(1.1);
+        }
+
+        .romantic-message {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 189, 89, 0.2);
+            border-radius: 30px;
+            padding: 28px 22px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        .romantic-message h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.6rem;
+            color: #ffbd59;
+            text-shadow: 0 0 30px rgba(255, 189, 89, 0.5), 0 0 60px rgba(255, 64, 113, 0.3);
+            line-height: 1.3;
+            animation: shimmer 2s infinite alternate;
+        }
+        @keyframes shimmer {
+            0% {
+                text-shadow: 0 0 20px rgba(255, 189, 89, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 50px rgba(255, 189, 89, 0.8), 0 0 80px rgba(255, 64, 113, 0.4);
+            }
+        }
+
+        /* scrollbar */
+        .panel::-webkit-scrollbar {
+            width: 3px;
+        }
+        .panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 110, 167, 0.4);
+            border-radius: 10px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-height: 700px) {
+            .doll-container {
+                width: 180px;
+                height: 240px;
+            }
+            .doll-base {
+                width: 100px;
+            }
+            .doll-hair {
+                width: 120px;
+                bottom: 32px;
+            }
+            .doll-eyes {
+                width: 40px;
+                bottom: 72px;
+            }
+            .doll-blush {
+                width: 58px;
+                bottom: 76px;
+            }
+            .doll-lips {
+                width: 20px;
+                bottom: 84px;
+            }
+            .doll-dress {
+                width: 118px;
+            }
+            .doll-accessory {
+                width: 64px;
+                bottom: 118px;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            .dashboard {
+                padding: 12px 10px;
+            }
+            .panel {
+                max-height: 80px;
+            }
+            .item-preview {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .doll-container {
+                width: 150px;
+                height: 200px;
+            }
+            .doll-base {
+                width: 85px;
+            }
+            .doll-hair {
+                width: 100px;
+                bottom: 26px;
+            }
+            .doll-eyes {
+                width: 34px;
+                bottom: 60px;
+            }
+            .doll-blush {
+                width: 48px;
+                bottom: 64px;
+            }
+            .doll-lips {
+                width: 16px;
+                bottom: 70px;
+            }
+            .doll-dress {
+                width: 100px;
+                bottom: 4px;
+            }
+            .doll-accessory {
+                width: 54px;
+                bottom: 100px;
+            }
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .header p {
+                font-size: 0.65rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="game-header">
-        <div class="game-title">Anu's Studio 👑</div>
-        <div class="game-subtitle">Doll ko ready karo meri jaan!</div>
-    </div>
+    <div class="game-wrapper">
 
-    <div class="playground">
-        <!-- LIVE INTERACTIVE DOLL INTERFACE -->
-        <div class="doll-container" id="main-doll-frame">
-            <!-- Doll Base Silhouette SVG -->
-            <svg class="doll-body" viewBox="0 0 100 200">
-                <path d="M50,30 C60,30 65,38 65,48 C65,58 58,66 50,66 C42,66 35,58 35,48 C35,38 40,30 50,30 Z" fill="#ffd1bd"/>
-                <path d="M46,65 L54,65 L53,75 L47,75 Z" fill="#ffd1bd"/>
-                <path d="M30,85 C35,75 65,75 70,85 L72,130 C72,135 65,140 50,140 C35,140 28,135 28,130 Z" fill="#ffd1bd"/>
-                <path d="M32,85 L22,125 C20,130 25,133 28,128 L32,95 Z" fill="#ffd1bd"/>
-                <path d="M68,85 L78,125 C80,130 75,133 72,128 L68,95 Z" fill="#ffd1bd"/>
-                <path d="M38,140 L42,190 C43,195 48,195 48,190 L46,140 Z" fill="#e0b29f"/>
-                <path d="M62,140 L58,190 C57,195 52,195 52,190 L54,140 Z" fill="#e0b29f"/>
-            </svg>
-
-            <!-- Custom Reactive Hair Canvas Vector -->
-            <svg class="doll-hair" id="hair-svg" viewBox="0 0 120 120">
-                <path id="hair-path" d="M30,60 C25,20 95,20 90,60 C85,25 35,25 30,60 Z" fill="#4a3728"/>
-            </svg>
-
-            <!-- Eyes Graphic -->
-            <svg class="doll-eyes" viewBox="0 0 50 20">
-                <circle cx="16" cy="10" r="3.5" fill="#231f20"/><circle cx="16" cy="9" r="1" fill="#fff"/>
-                <circle cx="34" cy="10" r="3.5" fill="#231f20"/><circle cx="34" cy="9" r="1" fill="#fff"/>
-            </svg>
-
-            <!-- Blush Path Layer -->
-            <svg class="doll-blush" viewBox="0 0 70 20">
-                <ellipse id="blush-l" cx="12" cy="10" rx="6" ry="3" fill="none" opacity="0.6"/>
-                <ellipse id="blush-r" cx="58" cy="10" rx="6" ry="3" fill="none" opacity="0.6"/>
-            </svg>
-
-            <!-- Reactive Lips Vector -->
-            <svg class="doll-lips" viewBox="0 0 30 15">
-                <path id="lips-path" d="M5,7 C10,4 15,6 15,6 C15,6 20,4 25,7 C20,11 10,11 5,7 Z" fill="#f0718f"/>
-            </svg>
-
-            <!-- Reactive Dynamic Wardrobe Vector -->
-            <svg class="doll-dress" id="dress-svg" viewBox="0 0 120 100" style="display:none;">
-                <path id="dress-path" d="M35,10 L85,10 L105,95 L15,95 Z" fill="#ff6ea7"/>
-            </svg>
-
-            <!-- Reactive Crown/Accessory Layer -->
-            <svg class="doll-accessory" id="acc-svg" viewBox="0 0 80 50">
-                <path d="M15,40 L25,15 L40,28 L55,15 L65,40 Z" fill="#ffbd59" stroke="#fff" stroke-width="1"/>
-            </svg>
+        <!-- HEADER -->
+        <div class="header">
+            <h1>👑 Anu's Studio</h1>
+            <p>✨ Apni Doll Ko Ready Karo ✨</p>
         </div>
 
-        <!-- STYLED WORKSPACE MODULES -->
+        <!-- DOLL STAGE -->
+        <div class="doll-stage">
+            <div class="doll-container" id="dollContainer">
+
+                <!-- Base Body -->
+                <svg class="doll-base" viewBox="0 0 100 200">
+                    <path d="M50,28 C62,28 68,36 68,48 C68,60 60,68 50,68 C40,68 32,60 32,48 C32,36 38,28 50,28 Z" fill="#fad9c1"/>
+                    <path d="M46,67 L54,67 L53,78 L47,78 Z" fill="#fad9c1"/>
+                    <path d="M28,88 C34,76 66,76 72,88 L74,135 C74,140 66,146 50,146 C34,146 26,140 26,135 Z" fill="#fad9c1"/>
+                    <path d="M30,88 L20,130 C18,135 24,138 27,133 L31,98 Z" fill="#fad9c1"/>
+                    <path d="M70,88 L80,130 C82,135 76,138 73,133 L69,98 Z" fill="#fad9c1"/>
+                    <path d="M38,145 L42,196 C43,200 48,200 48,196 L46,145 Z" fill="#deb39e"/>
+                    <path d="M62,145 L58,196 C57,200 52,200 52,196 L54,145 Z" fill="#deb39e"/>
+                    <path d="M44,78 L56,78 L55,88 L45,88 Z" fill="#f0c8b0"/>
+                </svg>
+
+                <!-- Hair -->
+                <svg class="doll-layer doll-hair" id="hairSvg" viewBox="0 0 140 140">
+                    <path id="hairPath" d="M30,65 C22,15 118,15 110,65 C103,28 37,28 30,65 Z" fill="#4a2c1a"/>
+                </svg>
+
+                <!-- Eyes -->
+                <svg class="doll-layer doll-eyes" viewBox="0 0 48 20">
+                    <circle cx="16" cy="10" r="4.5" fill="#1a1a1a"/>
+                    <circle cx="16" cy="8.5" r="1.5" fill="#fff"/>
+                    <circle cx="32" cy="10" r="4.5" fill="#1a1a1a"/>
+                    <circle cx="32" cy="8.5" r="1.5" fill="#fff"/>
+                </svg>
+
+                <!-- Blush -->
+                <svg class="doll-layer doll-blush" viewBox="0 0 72 20">
+                    <ellipse id="blushL" cx="12" cy="10" rx="8" ry="4" fill="#ff8caa" opacity="0.5"/>
+                    <ellipse id="blushR" cx="60" cy="10" rx="8" ry="4" fill="#ff8caa" opacity="0.5"/>
+                </svg>
+
+                <!-- Lips -->
+                <svg class="doll-layer doll-lips" viewBox="0 0 28 16">
+                    <path id="lipsPath" d="M4,8 C10,4 16,6 16,6 C16,6 22,4 28,8 C22,14 10,14 4,8 Z" fill="#e85a7a"/>
+                </svg>
+
+                <!-- Dress -->
+                <svg class="doll-layer doll-dress" id="dressSvg" viewBox="0 0 140 110">
+                    <path id="dressPath" d="M38,12 L102,12 L130,108 L10,108 Z" fill="#ff6ea7"/>
+                </svg>
+
+                <!-- Accessory (Crown/Tiara) -->
+                <svg class="doll-layer doll-accessory" id="accSvg" viewBox="0 0 80 50">
+                    <path d="M10,38 L20,10 L40,28 L60,10 L70,38 L40,48 Z" fill="#ffbd59" stroke="#fff" stroke-width="1.5"/>
+                    <circle cx="40" cy="22" r="4" fill="#ff4d8a"/>
+                    <circle cx="22" cy="18" r="2.5" fill="#ff4d8a"/>
+                    <circle cx="58" cy="18" r="2.5" fill="#ff4d8a"/>
+                </svg>
+
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
         <div class="dashboard">
-            <div class="nav-tabs">
-                <div class="tab-btn active" onclick="switchTab('hair')">💇‍♀️ Hair</div>
-                <div class="tab-btn" onclick="switchTab('makeup')">💄 Makeup</div>
-                <div class="tab-btn" onclick="switchTab('dress')">👗 Wardrobe</div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="hair">💇‍♀️ Hair</button>
+                <button class="tab-btn" data-tab="makeup">💄 Makeup</button>
+                <button class="tab-btn" data-tab="dress">👗 Dress</button>
             </div>
 
             <!-- HAIR PANEL -->
-            <div class="options-panel active" id="panel-hair">
-                <div class="item-card" onclick="applyHair('princess', '#ffd36e', this)">
-                    <span class="item-preview">👱‍♀️</span><span class="item-label">Gold Braid</span>
+            <div class="panel active" id="panel-hair">
+                <div class="item-card" data-category="hair" onclick="applyHair('golden', '#e8b84b', this)">
+                    <span class="item-preview">👱‍♀️</span><span class="item-label">Golden Waves</span>
                 </div>
-                <div class="item-card" onclick="applyHair('curls', '#ff69b4', this)">
-                    <span class="item-preview">👩‍🎤</span><span class="item-label">Pink Curls</span>
+                <div class="item-card" data-category="hair" onclick="applyHair('pink', '#ff6bb5', this)">
+                    <span class="item-preview">🌸</span><span class="item-label">Pink Dream</span>
                 </div>
-                <div class="item-card" onclick="applyHair('classic', '#3a2312', this)">
-                    <span class="item-preview">👩</span><span class="item-label">Brunette</span>
+                <div class="item-card" data-category="hair" onclick="applyHair('brunette', '#3d2415', this)">
+                    <span class="item-preview">👩</span><span class="item-label">Chocolate</span>
                 </div>
-                <div class="item-card" onclick="applyHair('royal', '#8a2be2', this)">
-                    <span class="item-preview">🧝‍♀️</span><span class="item-label">Purple Flow</span>
+                <div class="item-card" data-category="hair" onclick="applyHair('royal', '#7b3fbf', this)">
+                    <span class="item-preview">💜</span><span class="item-label">Royal Violet</span>
                 </div>
             </div>
 
             <!-- MAKEUP PANEL -->
-            <div class="options-panel" id="panel-makeup">
-                <div class="item-card" onclick="applyMakeup('#e60026', '#ffb6c1', this)">
-                    <span class="item-preview">❤️</span><span class="item-label">Ruby Glow</span>
+            <div class="panel" id="panel-makeup">
+                <div class="item-card" data-category="makeup" onclick="applyMakeup('#d42a4a', '#ff8caa', this)">
+                    <span class="item-preview">❤️</span><span class="item-label">Ruby Rose</span>
                 </div>
-                <div class="item-card" onclick="applyMakeup('#ff69b4', '#ffc0cb', this)">
+                <div class="item-card" data-category="makeup" onclick="applyMakeup('#ff3b7a', '#ffb3c6', this)">
                     <span class="item-preview">💖</span><span class="item-label">Barbie Pink</span>
                 </div>
-                <div class="item-card" onclick="applyMakeup('#ff4500', '#ffa07a', this)">
-                    <span class="item-preview">🧡</span><span class="item-label">Coral Soft</span>
+                <div class="item-card" data-category="makeup" onclick="applyMakeup('#ff6b35', '#ffb08c', this)">
+                    <span class="item-preview">🧡</span><span class="item-label">Coral Sun</span>
                 </div>
-                <div class="item-card" onclick="applyMakeup('#b03060', '#db7093', this)">
-                    <span class="item-preview">💜</span><span class="item-label">Velvet Wine</span>
+                <div class="item-card" data-category="makeup" onclick="applyMakeup('#8b1a4a', '#c96a8b', this)">
+                    <span class="item-preview">🍷</span><span class="item-label">Velvet Wine</span>
                 </div>
             </div>
 
-            <!-- WARDROBE PANEL -->
-            <div class="options-panel" id="panel-dress">
-                <div class="item-card" onclick="applyDress('gown', '#ff3366', true, this)">
-                    <span class="item-preview">💃</span><span class="item-label">Royal Gown</span>
+            <!-- DRESS PANEL -->
+            <div class="panel" id="panel-dress">
+                <div class="item-card" data-category="dress" onclick="applyDress('gown', '#e8436e', true, this)">
+                    <span class="item-preview">👗</span><span class="item-label">Royal Gown</span>
                 </div>
-                <div class="item-card" onclick="applyDress('fairy', '#4ce6ff', true, this)">
-                    <span class="item-preview">🧚‍♀️</span><span class="item-label">Fairy Dress</span>
+                <div class="item-card" data-category="dress" onclick="applyDress('fairy', '#4dd0e1', true, this)">
+                    <span class="item-preview">🧚</span><span class="item-label">Fairy Dress</span>
                 </div>
-                <div class="item-card" onclick="applyDress('party', '#ffbd59', false, this)">
+                <div class="item-card" data-category="dress" onclick="applyDress('glitter', '#f5c842', false, this)">
                     <span class="item-preview">✨</span><span class="item-label">Glitter Gold</span>
                 </div>
-                <div class="item-card" onclick="applyDress('queen', '#9b51e0', true, this)">
-                    <span class="item-preview">👑</span><span class="item-label">Empress Set</span>
+                <div class="item-card" data-category="dress" onclick="applyDress('queen', '#9b4dca', true, this)">
+                    <span class="item-preview">👑</span><span class="item-label">Empress</span>
                 </div>
             </div>
 
-            <button class="reveal-btn" id="finish-btn" onclick="triggerLoveReveal()">Reveal My Gorgeous Look! ✨</button>
+            <button class="reveal-btn" id="revealBtn" onclick="celebrate()">✨ Reveal My Gorgeous Look ✨</button>
+        </div>
+
+    </div>
+
+    <!-- CELEBRATION OVERLAY -->
+    <div id="celebration">
+        <div class="final-doll-box" id="finalDollBox"></div>
+        <div class="romantic-message">
+            <h2>
+                "Duniya Ki Sab Se Pyaari Doll Bhi <br>
+                Meri Anu Ke Aage Kuch Nahi Hai! 🥺❤️ <br>
+                I Love You Meri Jaan! I Missed You Baby"
+            </h2>
         </div>
     </div>
 
-    <!-- MEGA CELEBRATION SURPRISE STAGE -->
-    <div id="celebration-stage">
-        <div class="final-display-box" id="final-doll-dump"></div>
-        <div class="romantic-card">
-            <p class="romantic-text">
-                "Duniya Ki Sab Se Pyaari Doll Bhi Meri Anu Ke Aage Kuch Nahi Hai! 🥺❤️ I Love You Meri Jaan! I Missed You Baby"
-            </p>
-        </div>
-    </div>
-
-    <!-- Background Music Loop Stream -->
-    <audio id="loveSong" loop>
+    <audio id="bgMusic" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        let tracksRunning = false;
-        let setupCounters = { hair: false, makeup: false, dress: false };
+        let musicPlaying = false;
+        let selections = { hair: false, makeup: false, dress: false };
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.options-panel').forEach(panel => panel.classList.remove('active'));
-            
-            event.currentTarget.classList.add('active');
-            document.getElementById(`panel-${tabName}`).classList.add('active');
-        }
+        // ---- TAB SWITCHING ----
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const tab = this.dataset.tab;
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(`panel-${tab}`).classList.add('active');
+            });
+        });
 
+        // ---- PLAY MUSIC ----
         function playMusic() {
-            if (!tracksRunning) {
-                document.getElementById('loveSong').play().catch(e => console.log("Audio kickstart bypass"));
-                tracksRunning = true;
+            if (!musicPlaying) {
+                const audio = document.getElementById('bgMusic');
+                audio.play().catch(() => {});
+                musicPlaying = true;
             }
         }
 
-        function applyHair(style, color, element) {
+        // ---- HAIR ----
+        function applyHair(style, color, el) {
             playMusic();
-            const path = document.getElementById('hair-path');
-            
-            if(style === 'princess') {
-                path.setAttribute('d', 'M30,55 C10,5 110,5 90,55 C80,75 95,115 85,115 C75,115 75,65 50,65 C25,65 20,115 15,115 C5,115 20,75 30,55 Z');
-            } else if(style === 'curls') {
-                path.setAttribute('d', 'M20,50 C5,20 35,-5 60,10 C85,-5 115,20 100,50 C115,70 100,95 85,85 C60,105 35,85 20,50 Z');
-            } else if(style === 'classic') {
-                path.setAttribute('d', 'M30,60 C25,15 95,15 90,60 C85,25 35,25 30,60 Z');
-            } else if(style === 'royal') {
-                path.setAttribute('d', 'M25,50 C25,10 95,10 95,50 C105,80 115,115 95,115 C80,100 85,60 50,60 C15,60 20,100 5,115 C-15,115 -5,80 25,50 Z');
+            const path = document.getElementById('hairPath');
+            let d;
+            switch (style) {
+                case 'golden':
+                    d = 'M28,62 C18,8 122,8 112,62 C104,22 36,22 28,62 Z';
+                    break;
+                case 'pink':
+                    d = 'M22,55 C8,12 132,12 118,55 C110,80 128,125 110,125 C95,108 100,60 70,60 C40,60 40,108 30,125 C12,125 30,80 22,55 Z';
+                    break;
+                case 'brunette':
+                    d = 'M30,65 C22,15 118,15 110,65 C103,28 37,28 30,65 Z';
+                    break;
+                case 'royal':
+                    d = 'M24,58 C20,6 120,6 116,58 C108,92 132,130 108,130 C90,115 95,62 70,62 C45,62 45,115 32,130 C8,130 28,92 24,58 Z';
+                    break;
+                default:
+                    d = 'M30,65 C22,15 118,15 110,65 C103,28 37,28 30,65 Z';
             }
-            
+            path.setAttribute('d', d);
             path.setAttribute('fill', color);
-            markSelected(element, 'hair');
+            markSelected(el, 'hair');
         }
 
-        function applyMakeup(lipColor, blushColor, element) {
+        // ---- MAKEUP ----
+        function applyMakeup(lipColor, blushColor, el) {
             playMusic();
-            document.getElementById('lips-path').setAttribute('fill', lipColor);
-            document.getElementById('blush-l').setAttribute('fill', blushColor);
-            document.getElementById('blush-r').setAttribute('fill', blushColor);
-            markSelected(element, 'makeup');
+            document.getElementById('lipsPath').setAttribute('fill', lipColor);
+            document.getElementById('blushL').setAttribute('fill', blushColor);
+            document.getElementById('blushR').setAttribute('fill', blushColor);
+            markSelected(el, 'makeup');
         }
 
-        function applyDress(type, color, wantsCrown, element) {
+        // ---- DRESS ----
+        function applyDress(type, color, crown, el) {
             playMusic();
-            const dressSvg = document.getElementById('dress-svg');
-            const dressPath = document.getElementById('dress-path');
-            const acc = document.getElementById('acc-svg');
+            const dressSvg = document.getElementById('dressSvg');
+            const dressPath = document.getElementById('dressPath');
+            const accSvg = document.getElementById('accSvg');
 
             dressSvg.style.display = 'block';
+            let d;
+            switch (type) {
+                case 'gown':
+                    d = 'M38,12 L102,12 L135,108 L5,108 Z';
+                    break;
+                case 'fairy':
+                    d = 'M38,10 L102,10 L120,55 L135,108 L70,85 L5,108 L20,55 Z';
+                    break;
+                case 'glitter':
+                    d = 'M38,14 L102,14 L122,100 L18,100 Z';
+                    break;
+                case 'queen':
+                    d = 'M34,10 L106,10 L130,105 L10,105 Z';
+                    break;
+                default:
+                    d = 'M38,12 L102,12 L130,108 L10,108 Z';
+            }
+            dressPath.setAttribute('d', d);
             dressPath.setAttribute('fill', color);
 
-            if(type === 'gown') {
-                dressPath.setAttribute('d', 'M35,12 L85,12 L115,100 L5,100 Z');
-            } else if(type === 'fairy') {
-                dressPath.setAttribute('d', 'M35,10 L85,10 L100,50 L115,95 L50,80 L5,95 L20,50 Z');
-            } else {
-                dressPath.setAttribute('d', 'M35,10 L85,10 L105,85 L15,85 Z');
-            }
-
-            acc.style.display = wantsCrown ? 'block' : 'none';
-            markSelected(element, 'dress');
+            accSvg.style.display = crown ? 'block' : 'none';
+            markSelected(el, 'dress');
         }
 
-        function markSelected(element, category) {
-            const currentPanel = element.parentElement;
-            currentPanel.querySelectorAll('.item-card').forEach(card => card.classList.remove('selected'));
-            element.classList.add('selected');
-            
-            setupCounters[category] = true;
-            if(setupCounters.hair && setupCounters.makeup && setupCounters.dress) {
-                document.getElementById('finish-btn').classList.add('visible');
+        // ---- SELECTION TRACKER ----
+        function markSelected(el, category) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('.item-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selections[category] = true;
+
+            if (selections.hair && selections.makeup && selections.dress) {
+                document.getElementById('revealBtn').classList.add('visible');
             }
         }
 
-        function triggerLoveReveal() {
-            // Transfer cloned beautifully designed doll structure safely to final viewport
-            const dollFrame = document.getElementById('main-doll-frame');
-            const clone = dollFrame.cloneNode(true);
-            clone.id = "final-doll-rendered";
-            document.getElementById('final-doll-dump').appendChild(clone);
+        // ---- CELEBRATION ----
+        function celebrate() {
+            const container = document.getElementById('dollContainer');
+            const clone = container.cloneNode(true);
+            clone.id = 'finalClone';
+            const box = document.getElementById('finalDollBox');
+            box.innerHTML = '';
+            box.appendChild(clone);
 
-            // Pop celebration overlay stage smooth reveal
-            document.getElementById('celebration-stage').classList.add('reveal');
+            // adjust scale inside celebration
+            const finalContainer = box.querySelector('.doll-container');
+            if (finalContainer) {
+                finalContainer.style.width = '220px';
+                finalContainer.style.height = '290px';
+            }
+
+            document.getElementById('celebration').classList.add('reveal');
+
+            // play music loud
+            const audio = document.getElementById('bgMusic');
+            audio.volume = 0.8;
+            audio.play().catch(() => {});
         }
+
+        // ---- AUTO DEMO HINT (optional) ----
+        // Pre-select first items to show demo quickly? No, let user play.
+        // But we can preselect nothing — user must choose.
+        // However, to make it engaging, we can auto-apply a default look on load?
+        window.addEventListener('load', function() {
+            // subtle: apply default hair, makeup, dress so doll looks nice from start
+            // but not mark as selected, so user can still customize
+            const hairPath = document.getElementById('hairPath');
+            hairPath.setAttribute('d', 'M30,65 C22,15 118,15 110,65 C103,28 37,28 30,65 Z');
+            hairPath.setAttribute('fill', '#4a2c1a');
+
+            document.getElementById('lipsPath').setAttribute('fill', '#e85a7a');
+            document.getElementById('blushL').setAttribute('fill', '#ff8caa');
+            document.getElementById('blushR').setAttribute('fill', '#ff8caa');
+
+            // dress default off — user must choose
+            // But we can show dress as hidden initially.
+            document.getElementById('dressSvg').style.display = 'none';
+            document.getElementById('accSvg').style.display = 'none';
+        });
     </script>
 </body>
 </html>
