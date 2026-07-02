@@ -7,8 +7,8 @@
     <style>
         :root {
             --primary-bg: #e0f2fe; /* Soft Pastel Blue */
-            --accent-pink: #fbcfe8; /* Soft Pastel Pink for romantic touch */
-            --text-dark: #1e3a8a; /* Deep blue for readable text */
+            --accent-pink: #fbcfe8; /* Soft Pastel Pink */
+            --text-dark: #1e3a8a;
             --card-bg: rgba(255, 255, 255, 0.85);
             --grid-selected: #93c5fd;
             --grid-found: #f472b6;
@@ -31,7 +31,6 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -57,7 +56,6 @@
             color: var(--text-dark);
             margin-bottom: 10px;
             font-size: 24px;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
 
         .subtitle {
@@ -67,7 +65,6 @@
             font-style: italic;
         }
 
-        /* Word List Styling */
         .word-list {
             display: flex;
             flex-wrap: wrap;
@@ -87,7 +84,6 @@
             font-size: 13px;
             color: var(--text-dark);
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
             border: 1px solid #dbeafe;
         }
 
@@ -95,11 +91,9 @@
             text-decoration: line-through;
             background: var(--grid-found);
             color: white;
-            transform: scale(0.9);
             opacity: 0.7;
         }
 
-        /* Grid Styling */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
@@ -107,7 +101,6 @@
             margin: 0 auto 20px auto;
             max-width: 400px;
             user-select: none;
-            -webkit-user-select: none;
         }
 
         .grid-cell {
@@ -122,12 +115,7 @@
             border-radius: 6px;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-            transition: background-color 0.2s, transform 0.1s;
             border: 1px solid #eff6ff;
-        }
-
-        .grid-cell:active {
-            transform: scale(0.9);
         }
 
         .grid-cell.selected {
@@ -138,29 +126,8 @@
         .grid-cell.found-cell {
             background-color: #fbcfe8;
             color: #be185d;
-            animation: pulse 0.3s ease-in-out;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        /* Floating Hearts Decor */
-        .heart-decor {
-            position: absolute;
-            font-size: 20px;
-            opacity: 0.2;
-            animation: floatUpDown 3s ease-in-out infinite;
-        }
-
-        @keyframes floatUpDown {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Success Popup */
         .modal {
             display: none;
             position: fixed;
@@ -173,36 +140,20 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
         }
 
         .modal-content {
-            background: linear-gradient(135deg, #ffffff, #f0fdf4);
+            background: white;
             padding: 40px 30px;
             border-radius: 24px;
             max-width: 450px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             border: 3px solid #f472b6;
-            transform: scale(0.7);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
         }
 
         .modal.show {
             display: flex;
-        }
-
-        .modal.show .modal-content {
-            transform: scale(1);
-        }
-
-        .modal h2 {
-            color: #db2777;
-            font-size: 28px;
-            margin-bottom: 15px;
         }
 
         .love-message {
@@ -222,13 +173,6 @@
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .close-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
         }
     </style>
 </head>
@@ -237,11 +181,6 @@
     <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
 
     <div class="game-container">
-        <span class="heart-decor" style="top:10px; left:15px; animation-delay: 0s;">❤️</span>
-        <span class="heart-decor" style="top:15px; right:15px; animation-delay: 0.5s;">💖</span>
-        <span class="heart-decor" style="bottom:15px; left:20px; animation-delay: 1s;">✨</span>
-        <span class="heart-decor" style="bottom:10px; right:20px; animation-delay: 1.5s;">💗</span>
-
         <h1>Find the Hidden Words! 🔍</h1>
         <p class="subtitle">Meri pyaari wifey ke liye ek chota sa cute puzzle...</p>
 
@@ -255,7 +194,7 @@
         <div class="modal-content">
             <h2>🎉 Celebration Time! 🎉</h2>
             <div style="font-size: 50px; margin-bottom: 15px;">👑❤️</div>
-            <p class="love-message" id="message-text">
+            <p class="love-message">
                 Wah Meri Jaan Ap tu Kamal hooo sub solve karliya Bethreen Mere Pyari Begum Sahiba ki tu baat hee alag hai Love You Januri Umaaah Umaaah 💋
             </p>
             <button class="close-btn" onclick="closeModal()">You Won My Heart! Forever Always</button>
@@ -269,13 +208,31 @@
             "CHOTIANU": "Choti Anu", "LALI": "Lali", "MENDHAK": "Mendhak", "WIFEY": "Wifey"
         };
 
-        const gridHeight = 10;
-        const gridWidth = 10;
-        let grid = Array(gridHeight).fill(null).map(() => Array(gridWidth).fill(''));
-        let foundWords = [];
-        let selectedCells = [];
+        // Static 10x10 Grid where everything is perfectly placed and checked
+        const staticGrid = [
+            ['A','N','U','S','H','A','X','X','X','X'],
+            ['G','U','R','I','Y','A','X','X','X','X'],
+            ['J','A','A','N','X','X','X','X','X','X'],
+            ['Z','I','N','D','A','G','I','X','X','X'],
+            ['C','H','O','T','I','A','N','U','X','X'],
+            ['L','A','L','I','X','X','X','X','X','X'],
+            ['M','E','N','D','H','A','K','X','X','X'],
+            ['W','I','F','E','Y','X','X','X','X','X'],
+            ['X','X','X','X','X','X','X','X','X','X'],
+            ['X','X','X','X','X','X','X','X','X','X']
+        ];
 
-        // Initialize Word List UI
+        // Fill 'X' with random non-interfering letters
+        const filler = "BJKOPQRSTUVW";
+        for(let r=0; r<10; r++) {
+            for(let c=0; c<10; c++) {
+                if(staticGrid[r][c] === 'X') {
+                    staticGrid[r][c] = filler[Math.floor(Math.random() * filler.length)];
+                }
+            }
+        }
+
+        // Initialize List
         const listContainer = document.getElementById('word-list-container');
         originalWords.forEach(word => {
             const span = document.createElement('span');
@@ -285,41 +242,16 @@
             listContainer.appendChild(span);
         });
 
-        // Fixed smart placement for words so they fit perfectly in 10x10 grid
-        const placements = [
-            { word: "ANUSHA", r: 0, c: 1, dr: 0, dc: 1 },
-            { word: "GURIYA", r: 2, c: 2, dr: 1, dc: 0 },
-            { word: "JAAN", r: 8, c: 5, dr: 0, dc: 1 },
-            { word: "ZINDAGI", r: 1, c: 9, dr: 1, dc: 0 },
-            { word: "CHOTIANU", r: 9, c: 0, dr: 0, dc: 1 },
-            { word: "LALI", r: 4, c: 4, dr: 0, dc: 1 },
-            { word: "MENDHAK", r: 6, c: 1, dr: 0, dc: 1 },
-            { word: "WIFEY", r: 1, c: 0, dr: 1, dc: 1 }
-        ];
+        let foundWords = [];
+        let selectedCells = [];
 
-        placements.forEach(p => {
-            for(let i=0; i<p.word.length; i++) {
-                grid[p.r + p.dr*i][p.c + p.dc*i] = p.word[i];
-            }
-        });
-
-        // Filler
-        const filler = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        for(let r=0; r<gridHeight; r++) {
-            for(let c=0; c<gridWidth; c++) {
-                if(grid[r][c] === '') {
-                    grid[r][c] = filler[Math.floor(Math.random() * filler.length)];
-                }
-            }
-        }
-
-        // Render Grid UI
+        // Render Grid
         const gridElement = document.getElementById('grid');
-        for(let r=0; r<gridHeight; r++) {
-            for(let c=0; c<gridWidth; c++) {
+        for(let r=0; r<10; r++) {
+            for(let c=0; c<10; c++) {
                 const cell = document.createElement('div');
                 cell.className = 'grid-cell';
-                cell.innerText = grid[r][c];
+                cell.innerText = staticGrid[r][c];
                 cell.addEventListener('click', () => handleCellClick(r, c, cell));
                 gridElement.appendChild(cell);
             }
@@ -336,7 +268,7 @@
                 }
             } else {
                 cellElement.classList.add('selected');
-                selectedCells.push({ r, c, letter: grid[r][c], element: cellElement });
+                selectedCells.push({ r, c, letter: staticGrid[r][c], element: cellElement });
                 checkCurrentSelection();
             }
         }
@@ -364,7 +296,7 @@
             }
         }
 
-        // Confetti Effect
+        // Confetti
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confetti = [];
