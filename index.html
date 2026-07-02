@@ -1,539 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Anu's Royal Doll Makeover 👑✨</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Anu's Royal Doll Makeover 👑✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap');
 
-  * { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    -webkit-tap-highlight-color: transparent; 
-    user-select: none; 
-    -webkit-user-select: none; 
-  }
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #2e1136 0%, #0c0410 100%);
+            font-family: 'Poppins', sans-serif;
+            display: flex; flex-direction: column; align-items: center;
+            overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
+            user-select: none; -webkit-user-select: none;
+        }
 
-  body {
-    width: 100%; 
-    min-height: 100vh;
-    background: radial-gradient(circle at 50% 20%, #201130 0%, #08040d 80%);
-    font-family: 'Poppins', sans-serif; 
-    color: #fff;
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    overflow: hidden; 
-    padding: 12px;
-  }
+        .game-header { text-align: center; margin-top: 15px; padding: 0 10px; z-index: 10; }
+        .game-title { font-family: 'Cinzel', serif; font-size: 1.6rem; color: #ffbd59; letter-spacing: 2px; margin: 0; text-shadow: 0 0 10px rgba(255,189,89,0.4); }
+        .game-subtitle { font-size: 0.8rem; color: #ff6ea7; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
 
-  .wrap {
-    max-width: 410px; 
-    width: 100%; 
-    height: 100vh; 
-    max-height: 820px;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: space-between;
-    padding: 12px 0; 
-    position: relative;
-  }
+        /* MAIN GAMEPLAY PLAYGROUND */
+        .playground {
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            width: 100%; max-width: 400px; height: calc(100% - 80px); padding-bottom: 15px; box-sizing: border-box;
+        }
 
-  .header { 
-    text-align: center; 
-    margin-bottom: 5px;
-  }
-  .header h1 {
-    font-family: 'Cinzel', serif; 
-    font-size: 1.6rem; 
-    letter-spacing: 2px;
-    background: linear-gradient(135deg, #ffe0a3, #ff9ebb);
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(255,224,163,0.15);
-  }
-  .header p { 
-    font-size: 0.72rem; 
-    color: #ffaecf; 
-    letter-spacing: 2px; 
-    text-transform: uppercase; 
-    margin-top: 4px;
-    opacity: 0.8;
-  }
+        /* DIGITAL VECTOR DOLL CONTAINER */
+        .doll-container {
+            width: 200px; height: 260px; position: relative; margin-top: 10px;
+            display: flex; align-items: center; justify-content: center;
+        }
 
-  /* ---------- STAGE ---------- */
-  .stage { 
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    position: relative; 
-    flex-grow: 1;
-    margin: 10px 0;
-  }
-  .stage::before {
-    content: ''; 
-    position: absolute; 
-    width: 250px; 
-    height: 250px; 
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 110, 167, 0.12) 0%, rgba(0,0,0,0) 70%);
-    z-index: 0;
-    pointer-events: none;
-  }
-  
-  .sparkle { 
-    position: absolute; 
-    font-size: 1.1rem; 
-    opacity: 0; 
-    pointer-events: none; 
-    animation: sparkleFloat 3.5s ease-in-out infinite; 
-  }
-  @keyframes sparkleFloat {
-    0% { opacity: 0; transform: translateY(15px) scale(0.6) rotate(0deg); }
-    50% { opacity: 0.9; transform: translateY(-15px) scale(1) rotate(180deg); }
-    100% { opacity: 0; transform: translateY(-35px) scale(0.6) rotate(360deg); }
-  }
+        /* SVG DOLL COMPONENTS */
+        .doll-body { width: 110px; height: auto; position: absolute; bottom: 10px; z-index: 2; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); }
+        .doll-hair { width: 140px; position: absolute; top: 12px; z-index: 4; transition: all 0.3s ease; }
+        .doll-eyes { width: 45px; position: absolute; top: 62px; z-index: 5; }
+        .doll-blush { width: 65px; position: absolute; top: 68px; z-index: 5; transition: fill 0.3s ease; }
+        .doll-lips { width: 22px; position: absolute; top: 82px; z-index: 6; transition: fill 0.3s ease; }
+        .doll-dress { width: 135px; position: absolute; bottom: -2px; z-index: 3; transition: all 0.3s ease; }
+        .doll-accessory { width: 70px; position: absolute; top: -5px; z-index: 7; transition: all 0.3s ease; display: none; }
 
-  .doll-holder { 
-    width: 210px; 
-    height: 300px; 
-    position: relative; 
-    z-index: 1; 
-    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.65));
-    transition: transform 0.3s ease;
-  }
-  .doll-holder svg { 
-    position: absolute; 
-    left: 0; 
-    top: 0; 
-    width: 100%; 
-    height: 100%; 
-    overflow: visible; 
-  }
-  
-  #layer-dress, #layer-acc { 
-    display: none; 
-    animation: fadeInDress 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  @keyframes fadeInDress {
-    from { opacity: 0; transform: scale(0.97); }
-    to { opacity: 1; transform: scale(1); }
-  }
+        /* INTERACTIVE CONTROL DASHBOARD */
+        .dashboard {
+            width: 90%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px; border: 1.5px solid rgba(255, 110, 167, 0.3); padding: 15px; box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
 
-  /* ---------- DASHBOARD (GLASSMORPHISM) ---------- */
-  .dashboard {
-    width: 100%; 
-    background: rgba(255, 255, 255, 0.03); 
-    backdrop-filter: blur(25px); 
-    -webkit-backdrop-filter: blur(25px);
-    border-radius: 24px; 
-    border: 1px solid rgba(255, 255, 255, 0.09); 
-    padding: 12px 12px 14px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.45), inset 0 1px 1px rgba(255,255,255,0.1);
-  }
+        /* NAVIGATION TABS */
+        .nav-tabs { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .tab-btn { background: none; border: none; color: rgba(255,255,255,0.5); font-weight: 600; font-size: 0.85rem; cursor: pointer; padding: 4px 8px; transition: color 0.3s; }
+        .tab-btn.active { color: #ffbd59; border-bottom: 2px solid #ffbd59; text-shadow: 0 0 8px rgba(255,189,89,0.4); }
 
-  .tabs { 
-    display: flex; 
-    gap: 6px; 
-    margin-bottom: 12px; 
-    background: rgba(0, 0, 0, 0.2);
-    padding: 4px;
-    border-radius: 14px;
-  }
-  
-  .tab-btn {
-    flex: 1; 
-    background: transparent; 
-    border: none; 
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 500; 
-    font-size: 0.75rem; 
-    padding: 8px 0; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .tab-btn.active { 
-    color: #fff; 
-    background: linear-gradient(135deg, rgba(255, 110, 167, 0.25), rgba(255, 207, 122, 0.15)); 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-weight: 600;
-  }
+        /* OPTIONS PANEL */
+        .options-panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; max-height: 110px; overflow-y: auto; }
+        .options-panel.active { display: grid; }
 
-  .panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .panel.active { display: grid; }
+        .item-card {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+            padding: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .item-card:active { transform: scale(0.92); }
+        .item-card.selected { border-color: #ff6ea7; background: rgba(255, 110, 167, 0.15); box-shadow: 0 0 10px rgba(255,110,167,0.3); }
+        .item-preview { font-size: 1.5rem; margin-bottom: 2px; }
+        .item-label { font-size: 0.65rem; color: rgba(255,255,255,0.7); font-weight: 500; text-align: center; }
 
-  .item-card {
-    background: rgba(255, 255, 255, 0.02); 
-    border: 1px solid rgba(255, 255, 255, 0.05); 
-    border-radius: 14px;
-    padding: 10px 4px; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    cursor: pointer; 
-    transition: all 0.25s ease;
-  }
-  .item-card:hover { background: rgba(255,255,255,0.05); }
-  .item-card:active { transform: scale(0.92); }
-  
-  .item-card.selected { 
-    border-color: #ff6ea7; 
-    background: rgba(255, 110, 167, 0.12); 
-    box-shadow: 0 0 14px rgba(255, 110, 167, 0.2); 
-  }
-  
-  .swatch { 
-    width: 28px; 
-    height: 28px; 
-    border-radius: 50%; 
-    margin-bottom: 6px; 
-    box-shadow: inset 0 -3px 6px rgba(0,0,0,0.3), 0 0 0 2px rgba(255,255,255,0.2); 
-    transition: transform 0.2s;
-  }
-  .item-card.selected .swatch { transform: scale(1.08); box-shadow: inset 0 -3px 6px rgba(0,0,0,0.3), 0 0 0 2.5px #ff6ea7; }
-  
-  .item-label { font-size: 0.58rem; color: rgba(255,255,255,0.7); text-align: center; font-weight: 400; letter-spacing: 0.3px; }
+        /* ACTION REVEAL BUTTON */
+        .reveal-btn {
+            width: 100%; margin-top: 15px; background: linear-gradient(135deg, #ff4071, #a81c43);
+            border: none; border-radius: 12px; color: white; padding: 10px; font-weight: 600;
+            font-size: 0.9rem; cursor: pointer; box-shadow: 0 5px 15px rgba(255,64,113,0.3);
+            transition: all 0.3s; display: none;
+        }
+        .reveal-btn.visible { display: block; animation: bounce 2s infinite; }
 
-  .reveal-btn {
-    width: 100%; 
-    margin-top: 12px; 
-    background: linear-gradient(135deg, #ff4f86, #b81a4a); 
-    border: none; 
-    border-radius: 14px;
-    color: #fff; 
-    padding: 12px; 
-    font-weight: 600; 
-    font-size: 0.82rem; 
-    letter-spacing: 1.5px; 
-    text-transform: uppercase;
-    cursor: pointer; 
-    display: none; 
-    box-shadow: 0 6px 20px rgba(255, 79, 134, 0.3);
-    transition: all 0.3s;
-  }
-  .reveal-btn.visible { display: block; animation: pulseGlow 2s infinite; }
-  @keyframes pulseGlow { 0%,100% { transform: scale(1); box-shadow: 0 6px 20px rgba(255, 79, 134, 0.35); } 50% { transform: scale(1.02); box-shadow: 0 6px 30px rgba(255, 79, 134, 0.6); } }
+        /* CELEBRATION FINAL OVERLAY SCREEN */
+        #celebration-stage {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #270619 0%, #06020b 100%);
+            z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: all 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+            padding: 20px; box-sizing: border-box;
+        }
+        #celebration-stage.reveal { opacity: 1; pointer-events: auto; }
 
-  /* ---------- CELEBRATION OVERLAY ---------- */
-  #celebration {
-    position: fixed; 
-    inset: 0; 
-    background: radial-gradient(circle at center, #1c0b26 0%, #040108 100%);
-    z-index: 999; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center;
-    opacity: 0; 
-    pointer-events: none; 
-    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
-    padding: 20px;
-  }
-  #celebration.reveal { opacity: 1; pointer-events: auto; }
-  
-  .final-box { 
-    width: 210px; 
-    height: 300px; 
-    position: relative; 
-    transform: scale(0.8); 
-    transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s; 
-    margin-bottom: 25px; 
-  }
-  #celebration.reveal .final-box { transform: scale(1.1); }
+        .final-display-box { display: flex; justify-content: center; align-items: center; height: 260px; margin-bottom: 25px; transform: scale(0.9); transition: transform 1.5s ease 0.5s; }
+        #celebration-stage.reveal .final-display-box { transform: scale(1.15); }
 
-  .romantic-card {
-    background: rgba(255, 255, 255, 0.03); 
-    border: 1px solid rgba(255, 207, 122, 0.25); 
-    border-radius: 24px;
-    padding: 24px 20px; 
-    max-width: 360px; 
-    width: 95%;
-    text-align: center; 
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    animation: floatingCard 4s ease-in-out infinite alternate;
-  }
-  @keyframes floatingCard { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+        /* PREMIUM MAGICAL ROMANTIC FONTS DESIGN */
+        .romantic-card {
+            background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(255, 189, 89, 0.3);
+            border-radius: 24px; padding: 25px; max-width: 90%; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .romantic-text {
+            font-family: 'Great Vibes', cursive; font-size: 2.7rem; color: #ffbd59;
+            line-height: 1.3; margin: 0; text-shadow: 0 0 15px rgba(255, 189, 89, 0.8), 0 0 30px rgba(255, 64, 113, 0.5);
+            animation: textPulse 1.5s infinite alternate ease-in-out;
+        }
 
-  .romantic-card p {
-    font-family: 'Great Vibes', cursive; 
-    font-size: 1.85rem; 
-    color: #ffcf7a; 
-    line-height: 1.4;
-    text-shadow: 0 0 15px rgba(255,207,122,0.5);
-  }
-
-  .confetti { position: absolute; top: -10px; border-radius: 50%; opacity: 0.85; animation: fall linear forwards; }
-  @keyframes fall { to { transform: translateY(105vh) rotate(720deg); opacity: 0; } }
-
-  @media (max-height: 720px) {
-    .doll-holder, .final-box { width: 175px; height: 250px; }
-    .header h1 { font-size: 1.35rem; }
-    .romantic-card { padding: 18px 16px; }
-    .romantic-card p { font-size: 1.6rem; }
-  }
-</style>
+        @keyframes textPulse { from { transform: scale(0.98); } to { transform: scale(1.02); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } 60% { transform: translateY(-3px); } }
+    </style>
 </head>
 <body>
 
-<div class="wrap">
-  <div class="header">
-    <h1>👑 Anu's Studio</h1>
-    <p>Apni Doll Ko Ready Karo</p>
-  </div>
-
-  <div class="stage">
-    <span class="sparkle" style="left:12%; top:15%; animation-delay:0s;">✨</span>
-    <span class="sparkle" style="right:14%; top:30%; animation-delay:1.2s;">💫</span>
-    <span class="sparkle" style="left:20%; bottom:15%; animation-delay:2.4s;">⭐</span>
-
-    <div class="doll-holder" id="dollHolder">
-      <!-- BODY -->
-      <svg viewBox="0 0 220 320">
-        <defs>
-          <radialGradient id="skinGrad" cx="40%" cy="30%" r="80%">
-            <stop offset="0%" stop-color="#ffe3cf"/>
-            <stop offset="100%" stop-color="#f0b899"/>
-          </radialGradient>
-          <linearGradient id="skinShade" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#f7c9ab"/>
-            <stop offset="100%" stop-color="#e0a487"/>
-          </linearGradient>
-        </defs>
-        <path d="M100,118 L120,118 L118,138 L102,138 Z" fill="url(#skinShade)"/>
-        <ellipse cx="110" cy="88" rx="34" ry="38" fill="url(#skinGrad)"/>
-        <ellipse cx="76" cy="90" rx="6" ry="9" fill="url(#skinGrad)"/>
-        <ellipse cx="144" cy="90" rx="6" ry="9" fill="url(#skinGrad)"/>
-        <path d="M70,150 C70,135 150,135 150,150 L160,230 C160,240 145,248 110,248 C75,248 60,240 60,230 Z" fill="url(#skinShade)"/>
-        <path d="M66,155 L36,225 C33,232 42,237 47,231 L72,168 Z" fill="url(#skinGrad)"/>
-        <path d="M154,155 L184,225 C187,232 178,237 173,231 L148,168 Z" fill="url(#skinGrad)"/>
-        <path d="M84,246 L80,308 C79,314 92,315 94,309 L100,246 Z" fill="#e6ab8c"/>
-        <path d="M136,246 L140,308 C141,314 128,315 126,309 L120,246 Z" fill="#e6ab8c"/>
-      </svg>
-
-      <!-- FACE FEATURES -->
-      <svg viewBox="0 0 220 320">
-        <path id="browL" d="M86,74 C92,70 100,70 105,73" stroke="#3a2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-        <path id="browR" d="M115,73 C120,70 128,70 134,74" stroke="#3a2415" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-        <g>
-          <circle cx="95" cy="87" r="5" fill="#2b1810"/>
-          <circle cx="93.5" cy="85.5" r="1.5" fill="#fff"/>
-          <path d="M87,81 C90,77 100,77 103,81" stroke="#2b1810" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        </g>
-        <g>
-          <circle cx="125" cy="87" r="5" fill="#2b1810"/>
-          <circle cx="123.5" cy="85.5" r="1.5" fill="#fff"/>
-          <path d="M117,81 C120,77 130,77 133,81" stroke="#2b1810" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        </g>
-        <path d="M110,90 C111,96 112,100 108,102" stroke="#d99a7c" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-      </svg>
-
-      <!-- BLUSH -->
-      <svg viewBox="0 0 220 320">
-        <ellipse id="blushL" cx="88" cy="103" rx="10" ry="6" fill="#ff8caa" opacity="0.55"/>
-        <ellipse id="blushR" cx="132" cy="103" rx="10" ry="6" fill="#ff8caa" opacity="0.55"/>
-      </svg>
-
-      <!-- LIPS -->
-      <svg viewBox="0 0 220 320">
-        <path id="lipsPath" d="M98,110 C104,106 116,106 122,110 C116,116 104,116 98,110 Z" fill="#e85a7a"/>
-        <path d="M100,109.5 C105,107.5 115,107.5 120,109.5" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" fill="none"/>
-      </svg>
-
-      <!-- HAIR -->
-      <svg viewBox="0 0 220 320" id="hairSvg">
-        <defs>
-          <linearGradient id="hairGradTop" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#5a3c22"/>
-            <stop offset="100%" stop-color="#2f1c10"/>
-          </linearGradient>
-        </defs>
-        <path id="hairBack" d="M75,95 C60,150 65,190 80,205 L82,140 Z" fill="url(#hairGradTop)"/>
-        <path id="hairBack2" d="M145,95 C160,150 155,190 140,205 L138,140 Z" fill="url(#hairGradTop)"/>
-        <path id="hairFront" d="M76,90 C68,45 152,45 144,90 C140,60 80,60 76,90 Z" fill="url(#hairGradTop)"/>
-      </svg>
-
-      <!-- DRESS -->
-      <svg viewBox="0 0 220 320" id="layer-dress">
-        <defs>
-          <linearGradient id="dressGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop id="dressStop1" offset="0%" stop-color="#ff6ea7"/>
-            <stop id="dressStop2" offset="100%" stop-color="#c22a63"/>
-          </linearGradient>
-        </defs>
-        <path id="dressPath" d="M78,148 C78,135 142,135 142,148 L172,270 C172,282 150,292 110,292 C70,292 48,282 48,270 Z" fill="url(#dressGrad)"/>
-        <path id="dressFold1" d="M95,155 L88,270" stroke="rgba(0,0,0,0.12)" stroke-width="2.5" fill="none"/>
-        <path id="dressFold2" d="M110,150 L110,275" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none"/>
-        <path id="dressFold3" d="M125,155 L132,270" stroke="rgba(0,0,0,0.12)" stroke-width="2.5" fill="none"/>
-      </svg>
-
-      <!-- CROWN -->
-      <svg viewBox="0 0 220 320" id="layer-acc">
-        <path d="M84,58 L94,32 L110,50 L126,32 L136,58 Z" fill="#ffd76a" stroke="#fff8e0" stroke-width="1.2"/>
-        <circle cx="110" cy="42" r="4" fill="#ff4d8a"/>
-        <circle cx="92" cy="50" r="2.5" fill="#7fd8ff"/>
-        <circle cx="128" cy="50" r="2.5" fill="#7fd8ff"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="dashboard">
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="hair">💇‍♀️ Hair</button>
-      <button class="tab-btn" data-tab="makeup">💄 Makeup</button>
-      <button class="tab-btn" data-tab="dress">👗 Dress</button>
+    <div class="game-header">
+        <div class="game-title">Anu's Studio 👑</div>
+        <div class="game-subtitle">Doll ko ready karo meri jaan!</div>
     </div>
 
-    <div class="panel active" id="panel-hair">
-      <div class="item-card" onclick="applyHair('#e8b84b', this)"><span class="swatch" style="background:#e8b84b"></span><span class="item-label">Golden</span></div>
-      <div class="item-card" onclick="applyHair('#ff6bb5', this)"><span class="swatch" style="background:#ff6bb5"></span><span class="item-label">Pink</span></div>
-      <div class="item-card" onclick="applyHair('#3d2415', this)"><span class="swatch" style="background:#3d2415"></span><span class="item-label">Chocolate</span></div>
-      <div class="item-card" onclick="applyHair('#7b3fbf', this)"><span class="swatch" style="background:#7b3fbf"></span><span class="item-label">Violet</span></div>
+    <div class="playground">
+        <!-- LIVE INTERACTIVE DOLL INTERFACE -->
+        <div class="doll-container" id="main-doll-frame">
+            <!-- Doll Base Silhouette SVG -->
+            <svg class="doll-body" viewBox="0 0 100 200">
+                <path d="M50,30 C60,30 65,38 65,48 C65,58 58,66 50,66 C42,66 35,58 35,48 C35,38 40,30 50,30 Z" fill="#ffd1bd"/>
+                <path d="M46,65 L54,65 L53,75 L47,75 Z" fill="#ffd1bd"/>
+                <path d="M30,85 C35,75 65,75 70,85 L72,130 C72,135 65,140 50,140 C35,140 28,135 28,130 Z" fill="#ffd1bd"/>
+                <path d="M32,85 L22,125 C20,130 25,133 28,128 L32,95 Z" fill="#ffd1bd"/>
+                <path d="M68,85 L78,125 C80,130 75,133 72,128 L68,95 Z" fill="#ffd1bd"/>
+                <path d="M38,140 L42,190 C43,195 48,195 48,190 L46,140 Z" fill="#e0b29f"/>
+                <path d="M62,140 L58,190 C57,195 52,195 52,190 L54,140 Z" fill="#e0b29f"/>
+            </svg>
+
+            <!-- Custom Reactive Hair Canvas Vector -->
+            <svg class="doll-hair" id="hair-svg" viewBox="0 0 120 120">
+                <path id="hair-path" d="M30,60 C25,20 95,20 90,60 C85,25 35,25 30,60 Z" fill="#4a3728"/>
+            </svg>
+
+            <!-- Eyes Graphic -->
+            <svg class="doll-eyes" viewBox="0 0 50 20">
+                <circle cx="16" cy="10" r="3.5" fill="#231f20"/><circle cx="16" cy="9" r="1" fill="#fff"/>
+                <circle cx="34" cy="10" r="3.5" fill="#231f20"/><circle cx="34" cy="9" r="1" fill="#fff"/>
+            </svg>
+
+            <!-- Blush Path Layer -->
+            <svg class="doll-blush" viewBox="0 0 70 20">
+                <ellipse id="blush-l" cx="12" cy="10" rx="6" ry="3" fill="none" opacity="0.6"/>
+                <ellipse id="blush-r" cx="58" cy="10" rx="6" ry="3" fill="none" opacity="0.6"/>
+            </svg>
+
+            <!-- Reactive Lips Vector -->
+            <svg class="doll-lips" viewBox="0 0 30 15">
+                <path id="lips-path" d="M5,7 C10,4 15,6 15,6 C15,6 20,4 25,7 C20,11 10,11 5,7 Z" fill="#f0718f"/>
+            </svg>
+
+            <!-- Reactive Dynamic Wardrobe Vector -->
+            <svg class="doll-dress" id="dress-svg" viewBox="0 0 120 100" style="display:none;">
+                <path id="dress-path" d="M35,10 L85,10 L105,95 L15,95 Z" fill="#ff6ea7"/>
+            </svg>
+
+            <!-- Reactive Crown/Accessory Layer -->
+            <svg class="doll-accessory" id="acc-svg" viewBox="0 0 80 50">
+                <path d="M15,40 L25,15 L40,28 L55,15 L65,40 Z" fill="#ffbd59" stroke="#fff" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <!-- STYLED WORKSPACE MODULES -->
+        <div class="dashboard">
+            <div class="nav-tabs">
+                <div class="tab-btn active" onclick="switchTab('hair')">💇‍♀️ Hair</div>
+                <div class="tab-btn" onclick="switchTab('makeup')">💄 Makeup</div>
+                <div class="tab-btn" onclick="switchTab('dress')">👗 Wardrobe</div>
+            </div>
+
+            <!-- HAIR PANEL -->
+            <div class="options-panel active" id="panel-hair">
+                <div class="item-card" onclick="applyHair('princess', '#ffd36e', this)">
+                    <span class="item-preview">👱‍♀️</span><span class="item-label">Gold Braid</span>
+                </div>
+                <div class="item-card" onclick="applyHair('curls', '#ff69b4', this)">
+                    <span class="item-preview">👩‍🎤</span><span class="item-label">Pink Curls</span>
+                </div>
+                <div class="item-card" onclick="applyHair('classic', '#3a2312', this)">
+                    <span class="item-preview">👩</span><span class="item-label">Brunette</span>
+                </div>
+                <div class="item-card" onclick="applyHair('royal', '#8a2be2', this)">
+                    <span class="item-preview">🧝‍♀️</span><span class="item-label">Purple Flow</span>
+                </div>
+            </div>
+
+            <!-- MAKEUP PANEL -->
+            <div class="options-panel" id="panel-makeup">
+                <div class="item-card" onclick="applyMakeup('#e60026', '#ffb6c1', this)">
+                    <span class="item-preview">❤️</span><span class="item-label">Ruby Glow</span>
+                </div>
+                <div class="item-card" onclick="applyMakeup('#ff69b4', '#ffc0cb', this)">
+                    <span class="item-preview">💖</span><span class="item-label">Barbie Pink</span>
+                </div>
+                <div class="item-card" onclick="applyMakeup('#ff4500', '#ffa07a', this)">
+                    <span class="item-preview">🧡</span><span class="item-label">Coral Soft</span>
+                </div>
+                <div class="item-card" onclick="applyMakeup('#b03060', '#db7093', this)">
+                    <span class="item-preview">💜</span><span class="item-label">Velvet Wine</span>
+                </div>
+            </div>
+
+            <!-- WARDROBE PANEL -->
+            <div class="options-panel" id="panel-dress">
+                <div class="item-card" onclick="applyDress('gown', '#ff3366', true, this)">
+                    <span class="item-preview">💃</span><span class="item-label">Royal Gown</span>
+                </div>
+                <div class="item-card" onclick="applyDress('fairy', '#4ce6ff', true, this)">
+                    <span class="item-preview">🧚‍♀️</span><span class="item-label">Fairy Dress</span>
+                </div>
+                <div class="item-card" onclick="applyDress('party', '#ffbd59', false, this)">
+                    <span class="item-preview">✨</span><span class="item-label">Glitter Gold</span>
+                </div>
+                <div class="item-card" onclick="applyDress('queen', '#9b51e0', true, this)">
+                    <span class="item-preview">👑</span><span class="item-label">Empress Set</span>
+                </div>
+            </div>
+
+            <button class="reveal-btn" id="finish-btn" onclick="triggerLoveReveal()">Reveal My Gorgeous Look! ✨</button>
+        </div>
     </div>
 
-    <div class="panel" id="panel-makeup">
-      <div class="item-card" onclick="applyMakeup('#d42a4a','#ff8caa', this)"><span class="swatch" style="background:#d42a4a"></span><span class="item-label">Ruby Rose</span></div>
-      <div class="item-card" onclick="applyMakeup('#ff3b7a','#ffb3c6', this)"><span class="swatch" style="background:#ff3b7a"></span><span class="item-label">Barbie Pink</span></div>
-      <div class="item-card" onclick="applyMakeup('#ff6b35','#ffb08c', this)"><span class="swatch" style="background:#ff6b35"></span><span class="item-label">Coral Sun</span></div>
-      <div class="item-card" onclick="applyMakeup('#8b1a4a','#c96a8b', this)"><span class="swatch" style="background:#8b1a4a"></span><span class="item-label">Velvet Wine</span></div>
+    <!-- MEGA CELEBRATION SURPRISE STAGE -->
+    <div id="celebration-stage">
+        <div class="final-display-box" id="final-doll-dump"></div>
+        <div class="romantic-card">
+            <p class="romantic-text">
+                "Duniya Ki Sab Se Pyaari Doll Bhi Meri Anu Ke Aage Kuch Nahi Hai! 🥺❤️ I Love You Meri Jaan! I Missed You Baby"
+            </p>
+        </div>
     </div>
 
-    <div class="panel" id="panel-dress">
-      <div class="item-card" onclick="applyDress('#ff6ea7','#c22a63', true, this)"><span class="swatch" style="background:#ff6ea7"></span><span class="item-label">Royal Gown</span></div>
-      <div class="item-card" onclick="applyDress('#4dd0e1','#1a7d8a', true, this)"><span class="swatch" style="background:#4dd0e1"></span><span class="item-label">Fairy Blue</span></div>
-      <div class="item-card" onclick="applyDress('#ffd76a','#c8930f', false, this)"><span class="swatch" style="background:#ffd76a"></span><span class="item-label">Gold Glitter</span></div>
-      <div class="item-card" onclick="applyDress('#b06fe0','#5f2a8a', true, this)"><span class="swatch" style="background:#b06fe0"></span><span class="item-label">Empress</span></div>
-    </div>
+    <!-- Background Music Loop Stream -->
+    <audio id="loveSong" loop>
+        <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
+    </audio>
 
-    <button class="reveal-btn" id="revealBtn" onclick="celebrate()">✨ Reveal My Gorgeous Look ✨</button>
-  </div>
-</div>
+    <script>
+        let tracksRunning = false;
+        let setupCounters = { hair: false, makeup: false, dress: false };
 
-<div id="celebration">
-  <div class="final-box" id="finalBox"></div>
-  <div class="romantic-card">
-    <p>"Duniya Ki Sab Se Pyaari Doll Bhi<br>Meri Anu Ke Aage Kuch Nahi Hai! 🥺❤️<br>I Love You Meri Jaan!<br>I Missed You Baby"</p>
-  </div>
-</div>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.options-panel').forEach(panel => panel.classList.remove('active'));
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById(`panel-${tabName}`).classList.add('active');
+        }
 
-<!-- Fixed Double Extension .mp3.mp3 to clean .mp3 format -->
-<audio id="bgMusic" loop>
-  <source src="Jaan Ban Gaye - Khuda Haafiz.mp3" type="audio/mpeg">
-</audio>
+        function playMusic() {
+            if (!tracksRunning) {
+                document.getElementById('loveSong').play().catch(e => console.log("Audio kickstart bypass"));
+                tracksRunning = true;
+            }
+        }
 
-<script>
-let musicPlaying = false;
-let selections = { hair: false, makeup: false, dress: false };
+        function applyHair(style, color, element) {
+            playMusic();
+            const path = document.getElementById('hair-path');
+            
+            if(style === 'princess') {
+                path.setAttribute('d', 'M30,55 C10,5 110,5 90,55 C80,75 95,115 85,115 C75,115 75,65 50,65 C25,65 20,115 15,115 C5,115 20,75 30,55 Z');
+            } else if(style === 'curls') {
+                path.setAttribute('d', 'M20,50 C5,20 35,-5 60,10 C85,-5 115,20 100,50 C115,70 100,95 85,85 C60,105 35,85 20,50 Z');
+            } else if(style === 'classic') {
+                path.setAttribute('d', 'M30,60 C25,15 95,15 90,60 C85,25 35,25 30,60 Z');
+            } else if(style === 'royal') {
+                path.setAttribute('d', 'M25,50 C25,10 95,10 95,50 C105,80 115,115 95,115 C80,100 85,60 50,60 C15,60 20,100 5,115 C-15,115 -5,80 25,50 Z');
+            }
+            
+            path.setAttribute('fill', color);
+            markSelected(element, 'hair');
+        }
 
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('panel-' + this.dataset.tab).classList.add('active');
-  });
-});
+        function applyMakeup(lipColor, blushColor, element) {
+            playMusic();
+            document.getElementById('lips-path').setAttribute('fill', lipColor);
+            document.getElementById('blush-l').setAttribute('fill', blushColor);
+            document.getElementById('blush-r').setAttribute('fill', blushColor);
+            markSelected(element, 'makeup');
+        }
 
-function playMusic() {
-  if(!musicPlaying) {
-    const audio = document.getElementById('bgMusic');
-    audio.volume = 0.5; // Starts smooth
-    audio.play().catch(() => {});
-    musicPlaying = true;
-  }
-}
+        function applyDress(type, color, wantsCrown, element) {
+            playMusic();
+            const dressSvg = document.getElementById('dress-svg');
+            const dressPath = document.getElementById('dress-path');
+            const acc = document.getElementById('acc-svg');
 
-function shade(hex, amt) {
-  let c = hex.replace('#','');
-  let num = parseInt(c, 16);
-  let r = Math.max(0, (num >> 16) + amt);
-  let g = Math.max(0, ((num >> 8) & 0xff) + amt);
-  let b = Math.max(0, (num & 0xff) + amt);
-  return '#' + ((1 << 24) + (Math.min(255, r) << 16) + (Math.min(255, g) << 8) + Math.min(255, b)).toString(16).slice(1);
-}
+            dressSvg.style.display = 'block';
+            dressPath.setAttribute('fill', color);
 
-function applyHair(color, el) {
-  playMusic();
-  const grad = document.querySelector('#hairSvg linearGradient stop:first-child');
-  const grad2 = document.querySelector('#hairSvg linearGradient stop:last-child');
-  grad.setAttribute('stop-color', color);
-  grad2.setAttribute('stop-color', shade(color, -60));
-  markSelected(el, 'hair');
-}
+            if(type === 'gown') {
+                dressPath.setAttribute('d', 'M35,12 L85,12 L115,100 L5,100 Z');
+            } else if(type === 'fairy') {
+                dressPath.setAttribute('d', 'M35,10 L85,10 L100,50 L115,95 L50,80 L5,95 L20,50 Z');
+            } else {
+                dressPath.setAttribute('d', 'M35,10 L85,10 L105,85 L15,85 Z');
+            }
 
-function applyMakeup(lip, blush, el) {
-  playMusic();
-  document.getElementById('lipsPath').setAttribute('fill', lip);
-  document.getElementById('blushL').setAttribute('fill', blush);
-  document.getElementById('blushR').setAttribute('fill', blush);
-  markSelected(el, 'makeup');
-}
+            acc.style.display = wantsCrown ? 'block' : 'none';
+            markSelected(element, 'dress');
+        }
 
-function applyDress(color1, color2, crown, el) {
-  playMusic();
-  document.getElementById('layer-dress').style.display = 'block';
-  document.getElementById('dressStop1').setAttribute('stop-color', color1);
-  document.getElementById('dressStop2').setAttribute('stop-color', color2);
-  document.getElementById('layer-acc').style.display = crown ? 'block' : 'none';
-  markSelected(el, 'dress');
-}
+        function markSelected(element, category) {
+            const currentPanel = element.parentElement;
+            currentPanel.querySelectorAll('.item-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            setupCounters[category] = true;
+            if(setupCounters.hair && setupCounters.makeup && setupCounters.dress) {
+                document.getElementById('finish-btn').classList.add('visible');
+            }
+        }
 
-function markSelected(el, cat) {
-  el.parentElement.querySelectorAll('.item-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  selections[cat] = true;
-  if(selections.hair && selections.makeup && selections.dress) {
-    document.getElementById('revealBtn').classList.add('visible');
-  }
-}
+        function triggerLoveReveal() {
+            // Transfer cloned beautifully designed doll structure safely to final viewport
+            const dollFrame = document.getElementById('main-doll-frame');
+            const clone = dollFrame.cloneNode(true);
+            clone.id = "final-doll-rendered";
+            document.getElementById('final-doll-dump').appendChild(clone);
 
-function spawnConfetti() {
-  const colors = ['#ffd76a', '#ff6ea7', '#7fd8ff', '#b06fe0', '#ffffff', '#ffccd5'];
-  const container = document.getElementById('celebration');
-  for(let i = 0; i < 75; i++) {
-    const c = document.createElement('div');
-    c.className = 'confetti';
-    c.style.left = Math.random() * 100 + 'vw';
-    const size = (4 + Math.random() * 5) + 'px';
-    c.style.width = size;
-    c.style.height = size;
-    c.style.background = colors[Math.floor(Math.random() * colors.length)];
-    c.style.animationDuration = (2 + Math.random() * 2.5) + 's';
-    c.style.animationDelay = (Math.random() * 0.5) + 's';
-    container.appendChild(c);
-    setTimeout(() => c.remove(), 5000);
-  }
-}
-
-function celebrate() {
-  const holder = document.getElementById('dollHolder');
-  const clone = holder.cloneNode(true);
-  clone.id = 'finalClone';
-  clone.style.width = '100%';
-  clone.style.height = '100%';
-  const box = document.getElementById('finalBox');
-  box.innerHTML = '';
-  box.appendChild(clone);
-
-  document.getElementById('celebration').classList.add('reveal');
-  spawnConfetti();
-
-  const audio = document.getElementById('bgMusic');
-  audio.volume = 0.85;
-  audio.play().catch(() => {});
-}
-
-window.addEventListener('load', function() {
-  document.querySelector('#hairSvg linearGradient stop:first-child').setAttribute('stop-color', '#5a3c22');
-  document.querySelector('#hairSvg linearGradient stop:last-child').setAttribute('stop-color', '#2f1c10');
-});
-</script>
+            // Pop celebration overlay stage smooth reveal
+            document.getElementById('celebration-stage').classList.add('reveal');
+        }
+    </script>
 </body>
 </html>
