@@ -3,245 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Anusha's Memory Match Game 🧠❤️</title>
+    <title>Anu's Royal Doll Makeover 👑✨</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Poppins:wght=400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap');
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1c0524 0%, #08020d 100%);
+            background: radial-gradient(circle at center, #2e1136 0%, #0c0410 100%);
             font-family: 'Poppins', sans-serif;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            display: flex; flex-direction: column; align-items: center;
             overflow: hidden; color: #fff; -webkit-tap-highlight-color: transparent;
             user-select: none; -webkit-user-select: none;
         }
 
-        .header { text-align: center; margin-bottom: 20px; padding: 0 15px; z-index: 10; }
-        .title { font-family: 'Dancing Script', cursive; font-size: 2.6rem; color: #ffbd59; text-shadow: 0 0 12px rgba(255,189,89,0.5); margin: 0; }
-        .hint { font-size: 0.85rem; color: #ff4071; letter-spacing: 1px; margin-top: 5px; text-transform: uppercase; font-weight: 600; }
+        .game-header { text-align: center; margin-top: 15px; padding: 0 10px; z-index: 10; }
+        .game-title { font-family: 'Cinzel', serif; font-size: 1.6rem; color: #ffbd59; letter-spacing: 2px; margin: 0; text-shadow: 0 0 10px rgba(255,189,89,0.4); }
+        .game-subtitle { font-size: 0.8rem; color: #ff6ea7; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* MEMORY GRID STYLING */
-        #game-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            width: 320px;
-            max-width: 95%;
-            perspective: 1000px;
-            z-index: 10;
+        /* MAIN GAMEPLAY PLAYGROUND */
+        .playground {
+            display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+            width: 100%; max-width: 400px; height: calc(100% - 80px); padding-bottom: 15px; box-sizing: border-box;
         }
 
-        /* CARD OUTER BOX */
-        .card {
-            height: 95px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
+        /* DIGITAL VECTOR DOLL CONTAINER */
+        .doll-container {
+            width: 200px; height: 260px; position: relative; margin-top: 10px;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .card.flipped {
-            transform: rotateY(180deg);
+        /* SVG DOLL COMPONENTS */
+        .doll-body { width: 110px; height: auto; position: absolute; bottom: 10px; z-index: 2; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); }
+        .doll-hair { width: 140px; position: absolute; top: 12px; z-index: 4; transition: all 0.3s ease; }
+        .doll-eyes { width: 45px; position: absolute; top: 62px; z-index: 5; }
+        .doll-blush { width: 65px; position: absolute; top: 68px; z-index: 5; transition: fill 0.3s ease; }
+        .doll-lips { width: 22px; position: absolute; top: 82px; z-index: 6; transition: fill 0.3s ease; }
+        .doll-dress { width: 135px; position: absolute; bottom: -2px; z-index: 3; transition: all 0.3s ease; }
+        .doll-accessory { width: 70px; position: absolute; top: -5px; z-index: 7; transition: all 0.3s ease; display: none; }
+
+        /* INTERACTIVE CONTROL DASHBOARD */
+        .dashboard {
+            width: 90%; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px; border: 1.5px solid rgba(255, 110, 167, 0.3); padding: 15px; box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        /* CARD FACES */
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
+        /* NAVIGATION TABS */
+        .nav-tabs { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .tab-btn { background: none; border: none; color: rgba(255,255,255,0.5); font-weight: 600; font-size: 0.85rem; cursor: pointer; padding: 4px 8px; transition: color 0.3s; }
+        .tab-btn.active { color: #ffbd59; border-bottom: 2px solid #ffbd59; text-shadow: 0 0 8px rgba(255,189,89,0.4); }
 
-        /* Card Back (Default look facing the user) */
-        .card-back {
-            background: linear-gradient(135deg, #a81c43, #ff4071);
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            box-shadow: inset 0 0 15px rgba(255,255,255,0.3);
-        }
-        .card-back::before {
-            content: "❤️";
-            font-size: 1.6rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
+        /* OPTIONS PANEL */
+        .options-panel { display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; max-height: 110px; overflow-y: auto; }
+        .options-panel.active { display: grid; }
 
-        /* Card Front (Revealed Emoji) */
-        .card-front {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1.5px solid rgba(255, 189, 89, 0.4);
-            font-size: 2.3rem;
-            transform: rotateY(180deg);
+        .item-card {
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+            padding: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s ease;
         }
+        .item-card:active { transform: scale(0.92); }
+        .item-card.selected { border-color: #ff6ea7; background: rgba(255, 110, 167, 0.15); box-shadow: 0 0 10px rgba(255,110,167,0.3); }
+        .item-preview { font-size: 1.5rem; margin-bottom: 2px; }
+        .item-label { font-size: 0.65rem; color: rgba(255,255,255,0.7); font-weight: 500; text-align: center; }
 
-        /* Hide cards when matched smoothly */
-        .card.matched {
-            transform: rotateY(180deg) scale(0);
-            opacity: 0;
-            pointer-events: none;
-            transition: transform 0.6s ease, opacity 0.6s ease;
+        /* ACTION REVEAL BUTTON */
+        .reveal-btn {
+            width: 100%; margin-top: 15px; background: linear-gradient(135deg, #ff4071, #a81c43);
+            border: none; border-radius: 12px; color: white; padding: 10px; font-weight: 600;
+            font-size: 0.9rem; cursor: pointer; box-shadow: 0 5px 15px rgba(255,64,113,0.3);
+            transition: all 0.3s; display: none;
         }
+        .reveal-btn.visible { display: block; animation: bounce 2s infinite; }
 
-        /* REWARD WIN OVERLAY SCREEN */
-        #win-stage {
+        /* CELEBRATION FINAL OVERLAY SCREEN */
+        #celebration-stage {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, #380722 0%, #08020d 100%);
-            z-index: 200; display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transform: scale(0.85);
-            transition: all 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 25px; box-sizing: border-box;
+            background: radial-gradient(circle at center, #270619 0%, #06020b 100%);
+            z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: all 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+            padding: 20px; box-sizing: border-box;
         }
-        #win-stage.reveal { opacity: 1; pointer-events: auto; transform: scale(1); }
+        #celebration-stage.reveal { opacity: 1; pointer-events: auto; }
 
-        .love-message {
-            font-family: 'Dancing Script', cursive; 
-            font-size: 2.6rem; 
-            text-align: center;
-            color: #ffbd59; 
-            text-shadow: 0 0 20px rgba(255, 189, 89, 0.9), 0 0 40px rgba(255, 64, 113, 0.7);
-            line-height: 1.4; 
-            animation: heartPulse 1.4s infinite alternate ease-in-out;
-            max-width: 95%;
+        .final-display-box { display: flex; justify-content: center; align-items: center; height: 260px; margin-bottom: 25px; transform: scale(0.9); transition: transform 1.5s ease 0.5s; }
+        #celebration-stage.reveal .final-display-box { transform: scale(1.15); }
+
+        /* PREMIUM MAGICAL ROMANTIC FONTS DESIGN */
+        .romantic-card {
+            background: rgba(255, 255, 255, 0.03); border: 1.5px solid rgba(255, 189, 89, 0.3);
+            border-radius: 24px; padding: 25px; max-width: 90%; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .romantic-text {
+            font-family: 'Great Vibes', cursive; font-size: 2.7rem; color: #ffbd59;
+            line-height: 1.3; margin: 0; text-shadow: 0 0 15px rgba(255, 189, 89, 0.8), 0 0 30px rgba(255, 64, 113, 0.5);
+            animation: textPulse 1.5s infinite alternate ease-in-out;
         }
 
-        @keyframes heartPulse { from { transform: scale(0.96); } to { transform: scale(1.04); } }
+        @keyframes textPulse { from { transform: scale(0.98); } to { transform: scale(1.02); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } 60% { transform: translateY(-3px); } }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="title">Memory Match 🧠</div>
-        <div class="hint">Cards flip karo aur same pairs dhoondo jaan!</div>
+    <div class="game-header">
+        <div class="game-title">Anu's Studio 👑</div>
+        <div class="game-subtitle">Doll ko ready karo meri jaan!</div>
     </div>
 
-    <!-- 3x4 Grid for 12 Cards -->
-    <div id="game-grid"></div>
+    <div class="playground">
+        <!-- LIVE INTERACTIVE DOLL INTERFACE -->
+        <div class="doll-container" id="main-doll-frame">
+            <!-- Doll Base Silhouette SVG -->
+            <svg class="doll-body" viewBox="0 0 100 200">
+                <path d="M50,30 C60,30 65,38 65,48 C65,58 58,66 50,66 C42,66 35,58 35,48 C35,38 40,30 50,30 Z" fill="#ffd1bd"/>
+                <path d="M46,65 L54,65 L53,75 L47,75 Z" fill="#ffd1bd"/>
+                <path d="M30,85 C35,75 65,75 70,85 L72,130 C72,135 65,140 50,140 C35,140 28,135 28,130 Z" fill="#ffd1bd"/>
+                <path d="M32,85 L22,125 C20,130 25,133 28,128 L32,95 Z" fill="#ffd1bd"/>
+                <path d="M68,85 L78,125 C80,130 75,133 72,128 L68,95 Z" fill="#ffd1bd"/>
+                <path d="M38,140 L42,190 C43,195 48,195 48,190 L46,140 Z" fill="#e0b29f"/>
+                <path d="M62,140 L58,190 C57,195 52,195 52,190 L54,140 Z" fill="#e0b29f"/>
+            </svg>
 
-    <!-- Naya Romantic Reward Screen -->
-    <div id="win-stage">
-        <div class="love-message">
-            "bhut parliya urdu mere Jaan thora rest time ab or thora MIya key sath Romance time janu I Kiss You Umaaahh Umaaahhh" 💋❤️
+            <!-- Custom Reactive Hair Canvas Vector -->
+            <svg class="doll-hair" id="hair-svg" viewBox="0 0 120 120">
+                <path id="hair-path" d="M30,60 C25,20 95,20 90,60 C85,25 35,25 30,60 Z" fill="#4a3728"/>
+            </svg>
+
+            <!-- Eyes Graphic -->
+            <svg class="doll-eyes" viewBox="0 0 50 20">
+                <circle cx="16" cy="10" r="3.5" fill="#231f20"/><circle cx="16" cy="9" r="1" fill="#fff"/>
+                <circle cx="34" cy="10" r="3.5" fill="#231f20"/><circle cx="34" cy="9" r="1" fill="#fff"/>
+            </svg>
+
+            <!-- Blush Path Layer -->
+            <svg class="doll-blush" viewBox="0 0 70 20">
+                <ellipse id="blush-l" cx="12" cy="10" rx="6" ry="3" fill="none" opacity="0.6"/>
+                <ellipse id="blush-r" cx="58" cy="10" rx="6" ry="3" fill="none" opacity="0.6"/>
+            </svg>
+
+            <!-- Reactive Lips Vector -->
+            <svg class="doll-lips" viewBox="0 0 30 15">
+                <path id="lips-path" d="M5,7 C10,4 15,6 15,6 C15,6 20,4 25,7 C20,11 10,11 5,7 Z" fill="#f0718f"/>
+            </svg>
+
+            <!-- Reactive Dynamic Wardrobe Vector -->
+            <svg class="doll-dress" id="dress-svg" viewBox="0 0 120 100" style="display:none;">
+                <path id="dress-path" d="M35,10 L85,10 L105,95 L15,95 Z" fill="#ff6ea7"/>
+            </svg>
+
+            <!-- Reactive Crown/Accessory Layer -->
+            <svg class="doll-accessory" id="acc-svg" viewBox="0 0 80 50">
+                <path d="M15,40 L25,15 L40,28 L55,15 L65,40 Z" fill="#ffbd59" stroke="#fff" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <!-- STYLED WORKSPACE MODULES -->
+        <div class="dashboard">
+            <div class="nav-tabs">
+                <div class="tab-btn active" onclick="switchTab('hair')">💇‍♀️ Hair</div>
+                <div class="tab-btn" onclick="switchTab('makeup')">💄 Makeup</div>
+                <div class="tab-btn" onclick="switchTab('dress')">👗 Wardrobe</div>
+            </div>
+
+            <!-- HAIR PANEL -->
+            <div class="options-panel active" id="panel-hair">
+                <div class="item-card" onclick="applyHair('princess', '#ffd36e', this)">
+                    <span class="item-preview">👱‍♀️</span><span class="item-label">Gold Braid</span>
+                </div>
+                <div class="item-card" onclick="applyHair('curls', '#ff69b4', this)">
+                    <span class="item-preview">👩‍🎤</span><span class="item-label">Pink Curls</span>
+                </div>
+                <div class="item-card" onclick="applyHair('classic', '#3a2312', this)">
+                    <span class="item-preview">👩</span><span class="item-label">Brunette</span>
+                </div>
+                <div class="item-card" onclick="applyHair('royal', '#8a2be2', this)">
+                    <span class="item-preview">🧝‍♀️</span><span class="item-label">Purple Flow</span>
+                </div>
+            </div>
+
+            <!-- MAKEUP PANEL -->
+            <div class="options-panel" id="panel-makeup">
+                <div class="item-card" onclick="applyMakeup('#e60026', '#ffb6c1', this)">
+                    <span class="item-preview">❤️</span><span class="item-label">Ruby Glow</span>
+                </div>
+                <div class="item-card" onclick="applyMakeup('#ff69b4', '#ffc0cb', this)">
+                    <span class="item-preview">💖</span><span class="item-label">Barbie Pink</span>
+                </div>
+                <div class="item-card" onclick="applyMakeup('#ff4500', '#ffa07a', this)">
+                    <span class="item-preview">🧡</span><span class="item-label">Coral Soft</span>
+                </div>
+                <div class="item-card" onclick="applyMakeup('#b03060', '#db7093', this)">
+                    <span class="item-preview">💜</span><span class="item-label">Velvet Wine</span>
+                </div>
+            </div>
+
+            <!-- WARDROBE PANEL -->
+            <div class="options-panel" id="panel-dress">
+                <div class="item-card" onclick="applyDress('gown', '#ff3366', true, this)">
+                    <span class="item-preview">💃</span><span class="item-label">Royal Gown</span>
+                </div>
+                <div class="item-card" onclick="applyDress('fairy', '#4ce6ff', true, this)">
+                    <span class="item-preview">🧚‍♀️</span><span class="item-label">Fairy Dress</span>
+                </div>
+                <div class="item-card" onclick="applyDress('party', '#ffbd59', false, this)">
+                    <span class="item-preview">✨</span><span class="item-label">Glitter Gold</span>
+                </div>
+                <div class="item-card" onclick="applyDress('queen', '#9b51e0', true, this)">
+                    <span class="item-preview">👑</span><span class="item-label">Empress Set</span>
+                </div>
+            </div>
+
+            <button class="reveal-btn" id="finish-btn" onclick="triggerLoveReveal()">Reveal My Gorgeous Look! ✨</button>
         </div>
     </div>
 
-    <!-- Background Music Audio Trigger -->
+    <!-- MEGA CELEBRATION SURPRISE STAGE -->
+    <div id="celebration-stage">
+        <div class="final-display-box" id="final-doll-dump"></div>
+        <div class="romantic-card">
+            <p class="romantic-text">
+                "Duniya Ki Sab Se Pyaari Doll Bhi Meri Anu Ke Aage Kuch Nahi Hai! 🥺❤️ I Love You Meri Jaan! I Missed You Baby"
+            </p>
+        </div>
+    </div>
+
+    <!-- Background Music Loop Stream -->
     <audio id="loveSong" loop>
         <source src="Jaan Ban Gaye - Khuda Haafiz.mp3.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const emojis = ['🐸', '💋', '👑', '🧸', '🍫', '💝', '🐸', '💋', '👑', '🧸', '🍫', '💝'];
-        let flippedCards = [];
-        let matchedPairsCount = 0;
-        let lockGrid = false;
-        let isAudioPlaying = false;
+        let tracksRunning = false;
+        let setupCounters = { hair: false, makeup: false, dress: false };
 
-        const gridContainer = document.getElementById('game-grid');
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.options-panel').forEach(panel => panel.classList.remove('active'));
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById(`panel-${tabName}`).classList.add('active');
         }
 
-        function buildGameBoard() {
-            const shuffledEmojis = shuffle(emojis);
-            gridContainer.innerHTML = '';
-
-            shuffledEmojis.forEach((emoji) => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.dataset.emoji = emoji;
-
-                const backFace = document.createElement('div');
-                backFace.classList.add('card-face', 'card-back');
-
-                const frontFace = document.createElement('div');
-                frontFace.classList.add('card-face', 'card-front'); frontFace.innerText = emoji;
-
-                card.appendChild(backFace);
-                card.appendChild(frontFace);
-
-                card.addEventListener('click', flipCard);
-                card.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                    flipCard.call(card);
-                });
-
-                gridContainer.appendChild(card);
-            });
-        }
-
-        function flipCard() {
-            if (lockGrid) return;
-            if (this === flippedCards[0]) return;
-
-            if (!isAudioPlaying) {
-                document.getElementById('loveSong').play().catch(e => console.log("Music bypass active"));
-                isAudioPlaying = true;
-            }
-
-            this.classList.add('flipped');
-            flippedCards.push(this);
-
-            if (flippedCards.length === 2) {
-                evaluateMatch();
+        function playMusic() {
+            if (!tracksRunning) {
+                document.getElementById('loveSong').play().catch(e => console.log("Audio kickstart bypass"));
+                tracksRunning = true;
             }
         }
 
-        function evaluateMatch() {
-            lockGrid = true;
-            let isMatch = flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji;
+        function applyHair(style, color, element) {
+            playMusic();
+            const path = document.getElementById('hair-path');
+            
+            if(style === 'princess') {
+                path.setAttribute('d', 'M30,55 C10,5 110,5 90,55 C80,75 95,115 85,115 C75,115 75,65 50,65 C25,65 20,115 15,115 C5,115 20,75 30,55 Z');
+            } else if(style === 'curls') {
+                path.setAttribute('d', 'M20,50 C5,20 35,-5 60,10 C85,-5 115,20 100,50 C115,70 100,95 85,85 C60,105 35,85 20,50 Z');
+            } else if(style === 'classic') {
+                path.setAttribute('d', 'M30,60 C25,15 95,15 90,60 C85,25 35,25 30,60 Z');
+            } else if(style === 'royal') {
+                path.setAttribute('d', 'M25,50 C25,10 95,10 95,50 C105,80 115,115 95,115 C80,100 85,60 50,60 C15,60 20,100 5,115 C-15,115 -5,80 25,50 Z');
+            }
+            
+            path.setAttribute('fill', color);
+            markSelected(element, 'hair');
+        }
 
-            if (isMatch) {
-                disableMatchedCards();
+        function applyMakeup(lipColor, blushColor, element) {
+            playMusic();
+            document.getElementById('lips-path').setAttribute('fill', lipColor);
+            document.getElementById('blush-l').setAttribute('fill', blushColor);
+            document.getElementById('blush-r').setAttribute('fill', blushColor);
+            markSelected(element, 'makeup');
+        }
+
+        function applyDress(type, color, wantsCrown, element) {
+            playMusic();
+            const dressSvg = document.getElementById('dress-svg');
+            const dressPath = document.getElementById('dress-path');
+            const acc = document.getElementById('acc-svg');
+
+            dressSvg.style.display = 'block';
+            dressPath.setAttribute('fill', color);
+
+            if(type === 'gown') {
+                dressPath.setAttribute('d', 'M35,12 L85,12 L115,100 L5,100 Z');
+            } else if(type === 'fairy') {
+                dressPath.setAttribute('d', 'M35,10 L85,10 L100,50 L115,95 L50,80 L5,95 L20,50 Z');
             } else {
-                unflipMisalignedCards();
+                dressPath.setAttribute('d', 'M35,10 L85,10 L105,85 L15,85 Z');
+            }
+
+            acc.style.display = wantsCrown ? 'block' : 'none';
+            markSelected(element, 'dress');
+        }
+
+        function markSelected(element, category) {
+            const currentPanel = element.parentElement;
+            currentPanel.querySelectorAll('.item-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            setupCounters[category] = true;
+            if(setupCounters.hair && setupCounters.makeup && setupCounters.dress) {
+                document.getElementById('finish-btn').classList.add('visible');
             }
         }
 
-        function disableMatchedCards() {
-            setTimeout(() => {
-                flippedCards[0].classList.add('matched');
-                flippedCards[1].classList.add('matched');
-                
-                matchedPairsCount++;
-                resetTurnTracker();
+        function triggerLoveReveal() {
+            // Transfer cloned beautifully designed doll structure safely to final viewport
+            const dollFrame = document.getElementById('main-doll-frame');
+            const clone = dollFrame.cloneNode(true);
+            clone.id = "final-doll-rendered";
+            document.getElementById('final-doll-dump').appendChild(clone);
 
-                if (matchedPairsCount === 6) {
-                    triggerVictoryScreen();
-                }
-            }, 500);
+            // Pop celebration overlay stage smooth reveal
+            document.getElementById('celebration-stage').classList.add('reveal');
         }
-
-        function unflipMisalignedCards() {
-            setTimeout(() => {
-                flippedCards[0].classList.remove('flipped');
-                flippedCards[1].classList.remove('flipped');
-                resetTurnTracker();
-            }, 800);
-        }
-
-        function resetTurnTracker() {
-            flippedCards = [];
-            lockGrid = false;
-        }
-
-        function triggerVictoryScreen() {
-            setTimeout(() => {
-                document.getElementById('win-stage').classList.add('reveal');
-            }, 600);
-        }
-
-        buildGameBoard();
     </script>
 </body>
 </html>
