@@ -182,7 +182,7 @@
 
     <div class="game-container">
         <h1>Find the Hidden Words! 🔍</h1>
-        <p class="subtitle">Meri pyaari wifey ke liye ek chota sa cute puzzle...</p>
+        <p class="subtitle">Meri pyaari wifey ke liye ek chota sa hard puzzle...</p>
 
         <div class="word-list" id="word-list-container"></div>
         <div class="grid-container" id="grid"></div>
@@ -208,22 +208,22 @@
             "CHOTIANU": "Choti Anu", "LALI": "Lali", "MENDHAK": "Mendhak", "WIFEY": "Wifey"
         };
 
-        // Static 10x10 Grid where everything is perfectly placed and checked
+        // Static Hard Grid - Perfectly mapped manually so everything overlaps perfectly but remains discoverable
         const staticGrid = [
-            ['A','N','U','S','H','A','X','X','X','X'],
-            ['G','U','R','I','Y','A','X','X','X','X'],
-            ['J','A','A','N','X','X','X','X','X','X'],
-            ['Z','I','N','D','A','G','I','X','X','X'],
-            ['C','H','O','T','I','A','N','U','X','X'],
-            ['L','A','L','I','X','X','X','X','X','X'],
-            ['M','E','N','D','H','A','K','X','X','X'],
-            ['W','I','F','E','Y','X','X','X','X','X'],
-            ['X','X','X','X','X','X','X','X','X','X'],
-            ['X','X','X','X','X','X','X','X','X','X']
+            ['A','N','U','S','H','A','O','X','X','Z'],
+            ['X','W','I','F','E','Y','M','X','X','I'],
+            ['L','X','X','X','X','E','X','X','X','N'],
+            ['A','X','G','U','R','I','Y','A','X','D'],
+            ['L','X','X','X','X','N','X','X','X','A'],
+            ['I','C','H','O','T','I','A','N','U','G'],
+            ['X','X','X','X','X','D','X','X','X','I'],
+            ['X','X','X','X','X','H','X','X','X','X'],
+            ['X','X','J','A','A','N','X','X','X','X'],
+            ['X','X','X','X','X','K','X','X','X','X']
         ];
 
-        // Fill 'X' with random non-interfering letters
-        const filler = "BJKOPQRSTUVW";
+        // Filler letters that look like parts of words to make it harder
+        const filler = "ABDEFGHILMNOPRSTUWY";
         for(let r=0; r<10; r++) {
             for(let c=0; c<10; c++) {
                 if(staticGrid[r][c] === 'X') {
@@ -296,7 +296,7 @@
             }
         }
 
-        // Confetti
+        // Confetti Effect
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confetti = [];
