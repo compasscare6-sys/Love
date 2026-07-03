@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Search Challenge - Pro Mode</title>
+    <title>Word Search Challenge - Extreme Pro Mode</title>
     <style>
         :root {
             --primary-bg: #e0f2fe;
@@ -181,7 +181,7 @@
 
     <div class="game-container">
         <h1>Find the Hidden Words! 🔍</h1>
-        <p class="subtitle">Bari Grid, Bada Challenge! Dhoond kar dikhayein Begum Sahiba... 😎</p>
+        <p class="subtitle">Ultimate Pro Mode! Words are horizontal, vertical, diagonal, and backwards! 🔥</p>
 
         <div class="word-list" id="word-list-container"></div>
         <div class="grid-container" id="grid"></div>
@@ -191,12 +191,12 @@
 
     <div class="modal" id="success-modal">
         <div class="modal-content">
-            <h2>🎉 Brilliant Job! 🎉</h2>
-            <div style="font-size: 50px; margin-bottom: 15px;">👑❤️</div>
+            <h2>🎉 UNBELIEVABLE CRACK! 🎉</h2>
+            <div style="font-size: 50px; margin-bottom: 15px;">👑🏆❤️</div>
             <p class="love-message">
                 Wah Meri Jaan Ap tu Kamal hooo sub solve karliya Bethreen Mere Pyari Begum Sahiba ki tu baat hee alag hai Love You Januri Umaaah Umaaah 💋
             </p>
-            <button class="close-btn" onclick="closeModal()">You Won My Heart! Forever Always</button>
+            <button class="close-btn" onclick="closeModal()">You Mastered the Pro Mode! Forever Yours</button>
         </div>
     </div>
 
@@ -207,31 +207,48 @@
             "HUG": "Hug 🤗", "JANU": "Janu", "DHAKAN": "Dhakan 🍳"
         };
 
-        // 100% FIXED 12x12 HANDMADE GRID - Zero Mix-up Guaranteed
+        // 12x12 EXTREME PRO HARD MODE MATRIX (Hand-Mapped Directions)
         const staticGrid = [
-            ['Q','W','E','R','T','Y','U','I','O','P','A','S'], // Row 1
-            ['D','F','G','H','J','K','L','Z','X','C','V','B'], // Row 2
-            ['K','I','S','S','M','N','O','P','Q','R','S','T'], // Row 3 -> KISS (1-4)
-            ['U','V','W','X','Y','Z','A','B','C','D','E','F'], // Row 4
-            ['G','H','J','K','L','M','A','N','N','A','P','Q'], // Row 5 -> ANNA (7-10) Reverse order set horizontally in list check
-            ['R','S','T','U','V','W','X','Y','Z','A','B','C'], // Row 6
-            ['D','H','A','K','A','N','D','E','F','G','H','I'], // Row 7 -> DHAKAN (1-6)
-            ['J','K','L','M','N','O','P','Q','R','S','T','U'], // Row 8
-            ['V','W','X','Y','Z','B','E','G','U','M','A','B'], // Row 9 -> BEGUM (6-10)
-            ['C','D','E','F','G','H','I','J','K','L','M','N'], // Row 10
+            ['K','X','R','A','B','I','W','P','Q','R','S','B'], // Row 1
+            ['M','I','Y','Z','W','P','Q','R','S','T','E','U'], // Row 2
+            ['O','P','S','X','Y','Z','A','B','C','G','E','M'], // Row 3
+            ['D','F','G','S','J','K','L','Z','U','C','V','B'], // Row 4
+            ['U','V','W','X','K','Z','A','H','C','D','E','F'], // Row 5
+            ['G','H','J','K','L','A','N','N','A','P','Q','R'], // Row 6
+            ['R','S','T','U','V','W','X','Y','Z','A','B','C'], // Row 7
+            ['D','H','A','K','A','N','D','E','F','G','H','I'], // Row 8
+            ['J','K','L','M','N','O','P','Q','R','S','T','U'], // Row 9
+            ['U','N','A','J','Z','X','C','V','B','N','M','K'], // Row 10
             ['O','P','Q','R','S','T','U','V','W','X','Y','Z'], // Row 11
             ['A','B','C','D','E','F','G','H','J','K','L','M']  // Row 12
         ];
 
-        // Injecting remaining words strictly in non-overlapping dedicated lines
-        // 1. RABI -> Row 1, Columns 5-8 (Indices 4 to 7)
-        staticGrid[0][4] = 'R'; staticGrid[0][5] = 'A'; staticGrid[0][6] = 'B'; staticGrid[0][7] = 'I';
+        // MANUAL INJECTION KEY MAP (Preventing any overlap clashes):
+        
+        // 1. BEGUM -> Diagonal (Tircha Top-Left to Bottom-Right)
+        // Row 1 Col 12 ('B') -> Row 2 Col 11 ('E') -> Row 3 Col 10 ('G') -> Row 4 Col 9 ('U') -> Row 5 Col 8 ('M')
+        staticGrid[0][11] = 'B'; staticGrid[1][10] = 'E'; staticGrid[2][9] = 'G'; staticGrid[3][8] = 'U'; staticGrid[4][7] = 'M';
 
-        // 2. JANU -> Row 11, Columns 2-5 (Indices 1 to 4)
-        staticGrid[10][1] = 'J'; staticGrid[10][2] = 'A'; staticGrid[10][3] = 'N'; staticGrid[10][4] = 'U';
+        // 2. KISS -> Diagonal (Tircha Top-Left to Bottom-Right)
+        // Row 1 Col 1 ('K') -> Row 2 Col 2 ('I') -> Row 3 Col 3 ('S') -> Row 4 Col 4 ('S')
+        staticGrid[0][0] = 'K'; staticGrid[1][1] = 'I'; staticGrid[2][2] = 'S'; staticGrid[3][3] = 'S';
 
-        // 3. HUG -> Row 12, Columns 6-8 (Indices 5 to 7)
-        staticGrid[11][5] = 'H'; staticGrid[11][6] = 'U'; staticGrid[11][7] = 'G';
+        // 3. RABI -> Horizontal Standard (Row 1, Columns 3 to 6)
+        staticGrid[0][2] = 'R'; staticGrid[0][3] = 'A'; staticGrid[0][4] = 'B'; staticGrid[0][5] = 'I';
+
+        // 4. ANNA -> Horizontal Standard (Row 6, Columns 6 to 9)
+        staticGrid[5][5] = 'A'; staticGrid[5][6] = 'N'; staticGrid[5][7] = 'N'; staticGrid[5][8] = 'A';
+
+        // 5. DHAKAN -> Horizontal Standard (Row 8, Columns 1 to 6)
+        staticGrid[7][0] = 'D'; staticGrid[7][1] = 'H'; staticGrid[7][2] = 'A'; staticGrid[7][3] = 'K'; staticGrid[7][4] = 'A'; staticGrid[7][5] = 'N';
+
+        // 6. JANU -> Reverse Horizontal (Right to Left on Row 10, Columns 1 to 4)
+        // Letters look like: U, N, A, J -> Selecting in order J -> A -> N -> U will trigger it.
+        staticGrid[9][0] = 'U'; staticGrid[9][1] = 'N'; staticGrid[9][2] = 'A'; staticGrid[9][3] = 'J';
+
+        // 7. HUG -> Reverse Vertical (Neeche se Upar on Column 1, Rows 3 to 5)
+        // Row 5 Col 1 ('H') -> Row 4 Col 1 ('U') -> Row 3 Col 1 ('G')
+        staticGrid[4][0] = 'H'; staticGrid[3][0] = 'U'; staticGrid[2][0] = 'G';
 
         // Initialize List
         const listContainer = document.getElementById('word-list-container');
