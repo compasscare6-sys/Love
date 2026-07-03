@@ -206,9 +206,9 @@
     <script>
         const questData = [
             {
-                riddle: "Main aapka sacha rishta huun, aapki izzat huun, aur aapke dil par raj karne wali aapki sabse badi upadhi huun. Batao main kaun huun?",
-                answer: "BEGUM",
-                hint: "Suniye... Aap meri kya lagti hain? (5 Letters)"
+                riddle: "Main aapka sacha rishta huun, aapka hamsafar huun, aur aapke dil par raj karne wala aapka apna kaun huun? Batao main kaun huun?",
+                answer: "MIYA",
+                hint: "Aapka mere sath kya rishta hai? Main aapka kya lagta huun? (4 Letters)"
             },
             {
                 riddle: "Jab gussa aati hai toh aap mujhe yeh bolti hain, kitchen ka ek tool bhi huun, lekin phir bhi aap mujhse pyaar karti hain. Batao main kaun huun?",
@@ -226,9 +226,9 @@
                 hint: "Pyaar se gale lagana! (3 Letters)"
             },
             {
-                riddle: "Main aapka sabse pehla aur sabse pyaari nishaani wala naam huun, aapke aane se meri poori dunya badal gayi. Mera poora naam kya hai?",
-                answer: "ANNA",
-                hint: "Aapka short name nahi, aapka cute nickname click karein! (4 Letters)"
+                riddle: "Main aapka sabse pasandida, sweet aur cute naam huun jo aap mujhe pyaar se bulati hain. Batao main kaun huun?",
+                answer: "LALI",
+                hint: "Aap mujhe pyaar se kya bulati hain? Yaad karein! (4 Letters)"
             }
         ];
 
@@ -271,6 +271,7 @@
             } else {
                 const errorDisplay = document.getElementById('error-display');
                 errorDisplay.style.display = 'block';
+                errorDisplay.style.color = '#ef4444';
                 errorDisplay.innerText = "Galat jawab! Thoda aur sochiye Begum Sahiba... 🍳";
             }
         }
