@@ -204,7 +204,6 @@
     </div>
 
     <script>
-        // 100% FIXED BACKEND ENGINE - DATA SECURED
         const questData = [
             {
                 riddle: "Main aapka sacha rishta huun, aapka hamsafar huun, aur aapke dil par raj karne wala aapka apna kaun huun? Batao main kaun huun?",
