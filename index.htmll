@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Search for My Queen</title>
+    <title>The Ultimate Queen's Quest 👑</title>
     <style>
         :root {
-            --primary-bg: #e0f2fe; /* Soft Pastel Blue */
-            --accent-pink: #fbcfe8; /* Soft Pastel Pink */
-            --text-dark: #1e3a8a;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --grid-selected: #93c5fd;
-            --grid-found: #f472b6;
+            --bg-gradient: linear-gradient(135deg, #fef08a, #fbcfe8, #e0f2fe);
+            --text-main: #1e3a8a;
+            --accent-pink: #ec4899;
         }
 
         * {
@@ -22,326 +19,271 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--primary-bg), #fef08a, var(--accent-pink));
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: var(--bg-gradient);
+            background-size: 300% 300%;
+            animation: moveBG 20s ease infinite;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
         }
 
-        @keyframes gradientBG {
+        @keyframes moveBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .game-container {
-            background: var(--card-bg);
+        .quest-container {
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 550px;
             width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 3px solid white;
             text-align: center;
-            border: 2px solid white;
-            position: relative;
         }
 
         h1 {
-            color: var(--text-dark);
+            color: var(--text-main);
+            font-size: 26px;
             margin-bottom: 10px;
-            font-size: 24px;
         }
 
-        .subtitle {
-            color: #4b5563;
-            font-size: 14px;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .word-list {
+        .progress-bar {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 12px;
+            justify-content: space-between;
+            margin: 20px 0;
+            background: #e2e8f0;
+            border-radius: 10px;
+            padding: 4px;
+            position: relative;
         }
 
-        .word-item {
+        .progress-step {
+            width: 30px;
+            height: 30px;
             background: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--text-dark);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid #dbeafe;
-        }
-
-        .word-item.found {
-            text-decoration: line-through;
-            background: var(--grid-found);
-            color: white;
-            opacity: 0.7;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 5px;
-            margin: 0 auto 20px auto;
-            max-width: 400px;
-            user-select: none;
-        }
-
-        .grid-cell {
-            aspect-ratio: 1;
-            background: white;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 16px;
-            color: #1e40af;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-            border: 1px solid #eff6ff;
+            font-size: 14px;
+            color: #64748b;
+            transition: all 0.4s ease;
+            z-index: 2;
         }
 
-        .grid-cell.selected {
-            background-color: var(--grid-selected);
-            color: #1e3a8a;
+        .progress-step.active {
+            background: var(--accent-pink);
+            color: white;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
         }
 
-        .grid-cell.found-cell {
-            background-color: #fbcfe8;
-            color: #be185d;
+        .progress-step.completed {
+            background: #10b981;
+            color: white;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+        .riddle-card {
+            margin-top: 20px;
+            min-height: 200px;
         }
 
-        .modal-content {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 24px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            border: 3px solid #f472b6;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .love-message {
-            font-size: 20px;
-            color: #1e3a8a;
+        .riddle-text {
+            font-size: 18px;
+            color: #334155;
             line-height: 1.6;
+            font-style: italic;
             margin-bottom: 25px;
             font-weight: 600;
         }
 
-        .close-btn {
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px 20px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+            text-transform: uppercase;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-pink);
+        }
+
+        .btn-submit {
             background: linear-gradient(135deg, #ec4899, #f43f5e);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 35px;
             font-size: 16px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.95);
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .success-screen {
+            display: none;
+        }
+
+        .hint-btn {
+            background: none;
+            border: none;
+            color: #0284c7;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+            margin-top: 10px;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
+    <div class="quest-container">
+        <div id="game-view">
+            <h1>The Ultimate Love Riddle Quest 👑</h1>
+            <p style="color: #64748b; font-size: 14px;">Ek ghante ka challenge! Har paheli ka sahi jawab hi agla rasta kholega...</p>
 
-    <div class="game-container">
-        <h1>Find the Hidden Words! 🔍</h1>
-        <p class="subtitle">Meri pyaari wifey ke liye ek chota sa hard puzzle...</p>
+            <div class="progress-bar">
+                <div class="progress-step active" id="step-0">1</div>
+                <div class="progress-step" id="step-1">2</div>
+                <div class="progress-step" id="step-2">3</div>
+                <div class="progress-step" id="step-3">4</div>
+                <div class="progress-step" id="step-4">5</div>
+            </div>
 
-        <div class="word-list" id="word-list-container"></div>
-        <div class="grid-container" id="grid"></div>
-        
-        <p style="font-size: 12px; color: #6b7280;">Click letters one by one in order to form a word!</p>
-    </div>
+            <div class="riddle-card">
+                <p class="riddle-text" id="riddle-display">Loading riddle...</p>
+                
+                <div class="input-group">
+                    <input type="text" id="answer-input" placeholder="Type your answer here..." autocomplete="off">
+                </div>
+                
+                <button class="btn-submit" onclick="checkAnswer()">Unlock Next Stage 🔓</button>
+                <br>
+                <button class="hint-btn" onclick="showHint()">Need a hint?</button>
+                <p class="error-msg" id="error-display">Galat jawab! Dimaag lagayein Begum Sahiba... 🍳</p>
+            </div>
+        </div>
 
-    <div class="modal" id="success-modal">
-        <div class="modal-content">
-            <h2>🎉 Celebration Time! 🎉</h2>
-            <div style="font-size: 50px; margin-bottom: 15px;">👑❤️</div>
-            <p class="love-message">
-                Wah Meri Jaan Ap tu Kamal hooo sub solve karliya Bethreen Mere Pyari Begum Sahiba ki tu baat hee alag hai Love You Januri Umaaah Umaaah 💋
+        <div id="success-view" class="success-screen">
+            <h2 style="color: #10b981; font-size: 28px; margin-bottom: 15px;">🎉 Quest Completed! 🎉</h2>
+            <div style="font-size: 60px; margin-bottom: 20px;">🏆👑❤️</div>
+            <p style="font-size: 20px; color: #1e3a8a; line-height: 1.6; font-weight: 600; margin-bottom: 25px;">
+                Wah Meri Jaan! Aapne Extreme Hard Level ko poora crack kar liya! You truly know everything. Mere dil ki asli malika aap hi ho! Love You Forever Always! 💋
             </p>
-            <button class="close-btn" onclick="closeModal()">You Won My Heart! Forever Always</button>
+            <div style="color: #ec4899; font-size: 18px; font-weight: bold;">Umaaah! 🤗❤️</div>
         </div>
     </div>
 
     <script>
-        const originalWords = ["ANUSHA", "GURIYA", "JAAN", "ZINDAGI", "CHOTIANU", "LALI", "MENDHAK", "WIFEY"];
-        const displayWords = {
-            "ANUSHA": "Anusha", "GURIYA": "Guriya", "JAAN": "Jaan", "ZINDAGI": "Zindagi",
-            "CHOTIANU": "Choti Anu", "LALI": "Lali", "MENDHAK": "Mendhak", "WIFEY": "Wifey"
-        };
-
-        // FULLY FIXED HANDMADE GRID - Isme ab ratti barabar bhi mistake nahi hai.
-        const staticGrid = [
-            ['A','N','U','S','H','A','K','B','P','Z'], // Row 1
-            ['L','W','I','F','E','Y','R','O','T','I'], // Row 2
-            ['A','K','Q','S','V','T','M','P','W','N'], // Row 3
-            ['L','B','G','U','R','I','Y','A','D','D'], // Row 4
-            ['I','O','P','L','R','F','H','K','J','A'], // Row 5
-            ['C','H','O','T','I','A','N','U','S','G'], // Row 6
-            ['R','T','Y','U','B','N','M','O','P','I'], // Row 7
-            ['E','W','Q','A','S','D','F','G','H','J'], // Row 8
-            ['M','E','N','D','H','A','K','K','L','M'], // Row 9
-            ['J','A','A','N','B','V','C','X','Z','W']  // Row 10
+        const questData = [
+            {
+                riddle: "Main aapka sacha rishta huun, aapki izzat huun, aur aapke dil par raj karne wali aapki sabse badi upadhi huun. Batao main kaun huun?",
+                answer: "BEGUM",
+                hint: "Suniye... Aap meri kya lagti hain? (5 Letters)"
+            },
+            {
+                riddle: "Jab gussa aati hai toh aap mujhe yeh bolti hain, kitchen ka ek tool bhi huun, lekin phir bhi aap mujhse pyaar karti hain. Batao main kaun huun?",
+                answer: "DHAKAN",
+                hint: "Aap mujhe pyaar se kya bulati hain jab main ajeeb baatein karta huun? (6 Letters)"
+            },
+            {
+                riddle: "Bina bolay pyaar jatane ka tareeqa huun, honton se honton ka ek chota sa tohfa huun. Batao main kaun huun?",
+                answer: "KISS",
+                hint: "Jo aapko mujhse chahiye hota hai! (4 Letters)"
+            },
+            {
+                riddle: "Gale se laga kar sukoon dene wali jhappi huun, gusse ko thanda karne wali ek jadoo ki jhappi huun. Batao main kaun huun?",
+                answer: "HUG",
+                hint: "Pyaar se gale lagana! (3 Letters)"
+            },
+            {
+                riddle: "Main aapka sabse pehla aur sabse pyaari nishaani wala naam huun, aapke aane se meri poori dunya badal gayi. Mera poora naam kya hai?",
+                answer: "ANNA",
+                hint: "Aapka short name nahi, aapka cute nickname click karein! (4 Letters)"
+            }
         ];
 
-        // Initialize List
-        const listContainer = document.getElementById('word-list-container');
-        originalWords.forEach(word => {
-            const span = document.createElement('span');
-            span.className = 'word-item';
-            span.id = `word-${word}`;
-            span.innerText = displayWords[word];
-            listContainer.appendChild(span);
-        });
+        let currentStage = 0;
 
-        let foundWords = [];
-        let selectedCells = [];
-
-        // Render Grid
-        const gridElement = document.getElementById('grid');
-        for(let r=0; r<10; r++) {
-            for(let c=0; c<10; c++) {
-                const cell = document.createElement('div');
-                cell.className = 'grid-cell';
-                cell.innerText = staticGrid[r][c];
-                cell.addEventListener('click', () => handleCellClick(r, c, cell));
-                gridElement.appendChild(cell);
+        function loadStage() {
+            if (currentStage >= questData.length) {
+                document.getElementById('game-view').style.display = 'none';
+                document.getElementById('success-view').style.display = 'block';
+                return;
             }
-        }
 
-        function handleCellClick(r, c, cellElement) {
-            const index = selectedCells.findIndex(cell => cell.r === r && cell.c === c);
-            if (index !== -1) {
-                if(index === selectedCells.length - 1) {
-                    cellElement.classList.remove('selected');
-                    selectedCells.pop();
+            document.getElementById('riddle-display').innerText = questData[currentStage].riddle;
+            document.getElementById('answer-input').value = "";
+            document.getElementById('error-display').style.display = 'none';
+
+            // Update Progress Bar
+            for (let i = 0; i < questData.length; i++) {
+                const step = document.getElementById(`step-${i}`);
+                if (i < currentStage) {
+                    step.className = "progress-step completed";
+                    step.innerText = "✓";
+                } else if (i === currentStage) {
+                    step.className = "progress-step active";
+                    step.innerText = i + 1;
                 } else {
-                    resetSelection();
+                    step.className = "progress-step";
+                    step.innerText = i + 1;
                 }
+            }
+        }
+
+        function checkAnswer() {
+            const inputVal = document.getElementById('answer-input').value.trim().toUpperCase();
+            const correctAns = questData[currentStage].answer;
+
+            if (inputVal === correctAns) {
+                currentStage++;
+                loadStage();
             } else {
-                cellElement.classList.add('selected');
-                selectedCells.push({ r, c, letter: staticGrid[r][c], element: cellElement });
-                checkCurrentSelection();
+                const errorDisplay = document.getElementById('error-display');
+                errorDisplay.style.display = 'block';
+                errorDisplay.innerText = "Galat jawab! Thoda aur sochiye Begum Sahiba... 🍳";
             }
         }
 
-        function resetSelection() {
-            selectedCells.forEach(cell => cell.element.classList.remove('selected'));
-            selectedCells = [];
+        function showHint() {
+            const errorDisplay = document.getElementById('error-display');
+            errorDisplay.style.display = 'block';
+            errorDisplay.style.color = '#0284c7';
+            errorDisplay.innerText = "Hint: " + questData[currentStage].hint;
         }
 
-        function checkCurrentSelection() {
-            const currentString = selectedCells.map(c => c.letter).join('');
-            if (originalWords.includes(currentString) && !foundWords.includes(currentString)) {
-                foundWords.push(currentString);
-                document.getElementById(`word-${currentString}`).classList.add('found');
-                selectedCells.forEach(cell => {
-                    cell.element.classList.remove('selected');
-                    cell.element.classList.add('found-cell');
-                });
-                selectedCells = [];
-                if (foundWords.length === originalWords.length) {
-                    setTimeout(triggerWin, 500);
-                }
-            } else if (currentString.length >= 9) {
-                resetSelection();
-            }
-        }
-
-        // Confetti Effect
-        const canvas = document.getElementById('confetti-canvas');
-        const ctx = canvas.getContext('2d');
-        let confetti = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        function createConfetti() {
-            const colors = ['#f472b6', '#93c5fd', '#fef08a', '#c084fc', '#6ee7b7'];
-            for(let i=0; i<150; i++) {
-                confetti.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height - canvas.height,
-                    r: Math.random() * 6 + 4,
-                    d: Math.random() * canvas.height,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    tilt: Math.random() * 10 - 5,
-                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
-                    tiltAngle: 0
-                });
-            }
-        }
-
-        function drawConfetti() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let animationActive = false;
-            confetti.forEach((p, index) => {
-                p.tiltAngle += p.tiltAngleIncremental;
-                p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
-                p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
-                if (p.y <= canvas.height) animationActive = true;
-
-                ctx.beginPath();
-                ctx.lineWidth = p.r;
-                ctx.strokeStyle = p.color;
-                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
-                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-                ctx.stroke();
-            });
-            if (animationActive) requestAnimationFrame(drawConfetti);
-        }
-
-        function triggerWin() {
-            createConfetti();
-            drawConfetti();
-            document.getElementById('success-modal').classList.add('show');
-        }
-
-        function closeModal() {
-            document.getElementById('success-modal').classList.remove('show');
-        }
+        // Start game
+        loadStage();
     </script>
 </body>
 </html>
