@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ultimate Queen's Quest 👑</title>
+    <title>The Love Wordle Quest 🧭</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #fef08a, #fbcfe8, #e0f2fe);
-            --text-main: #1e3a8a;
-            --accent-pink: #ec4899;
+            --bg-gradient: linear-gradient(135deg, #e0f2fe, #fef08a, #fbcfe8);
+            --correct-color: #10b981;
+            --present-color: #eab308;
+            --absent-color: #64748b;
+            --text-dark: #1e3a8a;
         }
 
         * {
@@ -26,7 +28,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         @keyframes moveBG {
@@ -35,255 +37,309 @@
             100% { background-position: 0% 50%; }
         }
 
-        .quest-container {
-            background: rgba(255, 255, 255, 0.9);
+        .game-container {
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 35px;
-            max-width: 550px;
+            padding: 25px;
+            max-width: 500px;
             width: 100%;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 3px solid white;
+            border: 2px solid white;
             text-align: center;
         }
 
         h1 {
-            color: var(--text-main);
-            font-size: 26px;
-            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 24px;
+            margin-bottom: 5px;
         }
 
-        .progress-bar {
+        .clue-box {
+            background: rgba(254, 240, 138, 0.4);
+            border-left: 4px solid #eab308;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px 12px 12px 4px;
+            font-size: 15px;
+            color: #334155;
+            font-weight: 600;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .wordle-grid {
             display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-            background: #e2e8f0;
-            border-radius: 10px;
-            padding: 4px;
-            position: relative;
+            flex-direction: column;
+            gap: 5px;
+            margin: 20px auto;
+            width: max-content;
         }
 
-        .progress-step {
-            width: 30px;
-            height: 30px;
-            background: white;
-            border-radius: 50%;
+        .wordle-row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .wordle-cell {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: #64748b;
-            transition: all 0.4s ease;
-            z-index: 2;
+            text-transform: uppercase;
+            color: #1e293b;
+            background: white;
+            transition: all 0.3s ease;
         }
 
-        .progress-step.active {
-            background: var(--accent-pink);
-            color: white;
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
-        }
-
-        .progress-step.completed {
-            background: #10b981;
+        .wordle-cell.correct {
+            background-color: var(--correct-color);
+            border-color: var(--correct-color);
             color: white;
         }
 
-        .riddle-card {
-            margin-top: 20px;
-            min-height: 200px;
+        .wordle-cell.present {
+            background-color: var(--present-color);
+            border-color: var(--present-color);
+            color: white;
         }
 
-        .riddle-text {
-            font-size: 18px;
-            color: #334155;
-            line-height: 1.6;
-            font-style: italic;
-            margin-bottom: 25px;
-            font-weight: 600;
+        .wordle-cell.absent {
+            background-color: var(--absent-color);
+            border-color: var(--absent-color);
+            color: white;
         }
 
-        .input-group {
-            margin-bottom: 20px;
+        .keyboard-input-group {
+            margin-top: 15px;
         }
 
         input[type="text"] {
-            width: 80%;
-            padding: 12px 20px;
+            width: 70%;
+            padding: 10px 15px;
             border: 2px solid #cbd5e1;
             border-radius: 50px;
             font-size: 16px;
             text-align: center;
             outline: none;
-            transition: border-color 0.3s;
             text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         input[type="text"]:focus {
-            border-color: var(--accent-pink);
+            border-color: #ec4899;
         }
 
-        .btn-submit {
+        .btn-guess {
             background: linear-gradient(135deg, #ec4899, #f43f5e);
             color: white;
             border: none;
-            padding: 12px 35px;
-            font-size: 16px;
+            padding: 10px 25px;
+            font-size: 15px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-            transition: transform 0.2s;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.2);
         }
 
-        .btn-submit:active {
-            transform: scale(0.95);
+        .stage-indicator {
+            font-size: 13px;
+            font-weight: bold;
+            color: #64748b;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .error-msg {
             color: #ef4444;
             font-size: 14px;
-            margin-top: 10px;
-            display: none;
+            margin-top: 8px;
             font-weight: 600;
+            min-height: 20px;
         }
 
-        .success-screen {
+        .final-screen {
             display: none;
-        }
-
-        .hint-btn {
-            background: none;
-            border: none;
-            color: #0284c7;
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 13px;
-            margin-top: 10px;
-            display: inline-block;
         }
     </style>
 </head>
 <body>
 
-    <div class="quest-container">
-        <div id="game-view">
-            <h1>The Ultimate Love Riddle Quest 👑</h1>
-            <p style="color: #64748b; font-size: 14px;">Ek ghante ka challenge! Har paheli ka sahi jawab hi agla rasta kholega...</p>
+    <div class="game-container" id="game-view">
+        <div class="stage-indicator" id="stage-track">Round 1 of 5</div>
+        <h1>The Love Wordle Quest 🧭</h1>
+        
+        <div class="clue-box" id="clue-display">Loading clue...</div>
 
-            <div class="progress-bar">
-                <div class="progress-step active" id="step-0">1</div>
-                <div class="progress-step" id="step-1">2</div>
-                <div class="progress-step" id="step-2">3</div>
-                <div class="progress-step" id="step-3">4</div>
-                <div class="progress-step" id="step-4">5</div>
-            </div>
+        <div class="wordle-grid" id="grid-display"></div>
 
-            <div class="riddle-card">
-                <p class="riddle-text" id="riddle-display">Loading riddle...</p>
-                
-                <div class="input-group">
-                    <input type="text" id="answer-input" placeholder="Type your answer here..." autocomplete="off">
-                </div>
-                
-                <button class="btn-submit" onclick="checkAnswer()">Unlock Next Stage 🔓</button>
-                <br>
-                <button class="hint-btn" onclick="showHint()">Need a hint?</button>
-                <p class="error-msg" id="error-display">Galat jawab! Dimaag lagayein Begum Sahiba... 🍳</p>
-            </div>
+        <div class="keyboard-input-group">
+            <input type="text" id="guess-input" autocomplete="off" placeholder="Type word...">
+            <br>
+            <button class="btn-guess" onclick="submitGuess()">Submit Guess</button>
         </div>
+        <p class="error-msg" id="error-display"></p>
+    </div>
 
-        <div id="success-view" class="success-screen">
-            <h2 style="color: #10b981; font-size: 28px; margin-bottom: 15px;">🎉 Quest Completed! 🎉</h2>
-            <div style="font-size: 60px; margin-bottom: 20px;">🏆👑❤️</div>
-            <p style="font-size: 20px; color: #1e3a8a; line-height: 1.6; font-weight: 600; margin-bottom: 25px;">
-                Wah Meri Jaan! Aapne Extreme Hard Level ko poora crack kar liya! You truly know everything. Mere dil ki asli malika aap hi ho! Love You Forever Always! 💋
-            </p>
-            <div style="color: #ec4899; font-size: 18px; font-weight: bold;">Umaaah! 🤗❤️</div>
-        </div>
+    <div class="game-container final-screen" id="success-view">
+        <h2 style="color: #10b981; font-size: 26px; margin-bottom: 15px;">🎉 Ultimate Wordle Champion! 🎉</h2>
+        <div style="font-size: 60px; margin-bottom: 20px;">🗺️❤️🏆</div>
+        <p style="font-size: 18px; color: #1e3a8a; line-height: 1.6; font-weight: 600;">
+            Kamaal kar diya Begum Sahiba! Saare secret codes crack kar liye! Pizza Max ki yaadon se lekar Umrah ke khubsurat khwab tak... Aapne sab dhoond liya. You are my whole world! Love You Forever! 💋
+        </p>
     </div>
 
     <script>
-        const questData = [
+        const stages = [
             {
-                riddle: "Main aapka sacha rishta huun, aapki izzat huun, aur aapke dil par raj karne wali aapki sabse badi upadhi huun. Batao main kaun huun?",
-                answer: "BEGUM",
-                hint: "Suniye... Aap meri kya lagti hain? (5 Letters)"
+                word: "ZINDAGI",
+                clue: "Clue 1: Yeh mera aapke liye ek aur pyaari nishaani wala naam hai, meri poori pehchan aapsay hai. (7 Letters)"
             },
             {
-                riddle: "Jab gussa aati hai toh aap mujhe yeh bolti hain, kitchen ka ek tool bhi huun, lekin phir bhi aap mujhse pyaar karti hain. Batao main kaun huun?",
-                answer: "DHAKAN",
-                hint: "Aap mujhe pyaar se kya bulati hain jab main ajeeb baatein karta huun? (6 Letters)"
+                word: "LOVE",
+                clue: "Clue 2: Hum dono ki meethee zubaan, ek doosre ke liye hamari sabse pehli aur aakhri pasand! (4 Letters)"
             },
             {
-                riddle: "Bina bolay pyaar jatane ka tareeqa huun, honton se honton ka ek chota sa tohfa huun. Batao main kaun huun?",
-                answer: "KISS",
-                hint: "Jo aapko mujhse chahiye hota hai! (4 Letters)"
+                word: "PIZZAMAX",
+                clue: "Clue 3: Wahan jahan hum dono chai/coffee peene ya date par gaye the (Sirf 1 dafa gaye hain bas, yaad karein!). (8 Letters, Bina space ke likhein)"
             },
             {
-                riddle: "Gale se laga kar sukoon dene wali jhappi huun, gusse ko thanda karne wali ek jadoo ki jhappi huun. Batao main kaun huun?",
-                answer: "HUG",
-                hint: "Pyaar se gale lagana! (3 Letters)"
+                word: "UMRAH",
+                clue: "Clue 4: Woh paak aur haseen jagah jahan hum dono ne ek sath ghumne jaane ka sacha plan banaya hua hai. (5 Letters)"
             },
             {
-                riddle: "Main aapka sabse pehla aur sabse pyaari nishaani wala naam huun, aapke aane se meri poori dunya badal gayi. Mera poora naam kya hai?",
-                answer: "ANNA",
-                hint: "Aapka short name nahi, aapka cute nickname click karein! (4 Letters)"
+                word: "JAAN",
+                clue: "Clue 5: The ultimate final word! Jo main aapko har saans ke sath bulata huun. (4 Letters)"
             }
         ];
 
         let currentStage = 0;
+        let attempts = 0;
+        const maxAttempts = 6;
+        let stageGuesses = [];
 
-        function loadStage() {
-            if (currentStage >= questData.length) {
+        function initStage() {
+            if(currentStage >= stages.length) {
                 document.getElementById('game-view').style.display = 'none';
                 document.getElementById('success-view').style.display = 'block';
                 return;
             }
 
-            document.getElementById('riddle-display').innerText = questData[currentStage].riddle;
-            document.getElementById('answer-input').value = "";
-            document.getElementById('error-display').style.display = 'none';
+            attempts = 0;
+            stageGuesses = [];
+            const currentData = stages[currentStage];
+            
+            document.getElementById('stage-track').innerText = `Round ${currentStage + 1} of 5`;
+            document.getElementById('clue-display').innerText = currentData.clue;
+            document.getElementById('error-display').innerText = "";
+            document.getElementById('guess-input').value = "";
+            document.getElementById('guess-input').maxLength = currentData.word.length;
 
-            // Update Progress Bar
-            for (let i = 0; i < questData.length; i++) {
-                const step = document.getElementById(`step-${i}`);
-                if (i < currentStage) {
-                    step.className = "progress-step completed";
-                    step.innerText = "✓";
-                } else if (i === currentStage) {
-                    step.className = "progress-step active";
-                    step.innerText = i + 1;
-                } else {
-                    step.className = "progress-step";
-                    step.innerText = i + 1;
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const gridContainer = document.getElementById('grid-display');
+            gridContainer.innerHTML = "";
+            const wordLength = stages[currentStage].word.length;
+
+            for(let r = 0; r < maxAttempts; r++) {
+                const row = document.createElement('div');
+                row.className = 'wordle-row';
+                
+                for(let c = 0; c < wordLength; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'wordle-cell';
+                    cell.id = `cell-${r}-${c}`;
+                    
+                    // If guess exists for this row
+                    if(stageGuesses[r]) {
+                        cell.innerText = stageGuesses[r][c] || "";
+                    }
+                    row.appendChild(cell);
+                }
+                gridContainer.appendChild(row);
+            }
+        }
+
+        function submitGuess() {
+            const inputField = document.getElementById('guess-input');
+            const errorField = document.getElementById('error-display');
+            const currentWord = stages[currentStage].word;
+            const guess = inputField.value.trim().toUpperCase();
+
+            errorField.innerText = "";
+
+            if(guess.length !== currentWord.length) {
+                errorField.innerText = `Pura ${currentWord.length} letters ka word likhein Begum!`;
+                return;
+            }
+
+            stageGuesses.push(guess);
+            colorRow(attempts, guess, currentWord);
+            attempts++;
+            inputField.value = "";
+
+            if(guess === currentWord) {
+                setTimeout(() => {
+                    currentStage++;
+                    initStage();
+                }, 1500);
+            } else if(attempts >= maxAttempts) {
+                errorField.innerText = "Chances khatam! Dobara koshish karein.";
+                setTimeout(() => {
+                    initStage();
+                }, 2000);
+            }
+        }
+
+        function colorRow(rowIdx, guess, target) {
+            const len = target.length;
+            let targetLetterCounts = {};
+
+            // Count target letters
+            for (let i = 0; i < len; i++) {
+                targetLetterCounts[target[i]] = (targetLetterCounts[target[i]] || 0) + 1;
+            }
+
+            let statuses = Array(len).fill('absent');
+
+            // First pass: Mark correct (Green)
+            for (let i = 0; i < len; i++) {
+                if (guess[i] === target[i]) {
+                    statuses[i] = 'correct';
+                    targetLetterCounts[guess[i]]--;
                 }
             }
-        }
 
-        function checkAnswer() {
-            const inputVal = document.getElementById('answer-input').value.trim().toUpperCase();
-            const correctAns = questData[currentStage].answer;
+            // Second pass: Mark present (Yellow)
+            for (let i = 0; i < len; i++) {
+                if (statuses[i] !== 'correct' && targetLetterCounts[guess[i]] > 0) {
+                    statuses[i] = 'present';
+                    targetLetterCounts[guess[i]]--;
+                }
+            }
 
-            if (inputVal === correctAns) {
-                currentStage++;
-                loadStage();
-            } else {
-                const errorDisplay = document.getElementById('error-display');
-                errorDisplay.style.display = 'block';
-                errorDisplay.innerText = "Galat jawab! Thoda aur sochiye Begum Sahiba... 🍳";
+            // Apply classes to UI with a slight flip delay
+            for (let i = 0; i < len; i++) {
+                const cell = document.getElementById(`cell-${rowIdx}-${i}`);
+                cell.innerText = guess[i];
+                
+                setTimeout(() => {
+                    cell.classList.add(statuses[i]);
+                }, i * 100);
             }
         }
 
-        function showHint() {
-            const errorDisplay = document.getElementById('error-display');
-            errorDisplay.style.display = 'block';
-            errorDisplay.style.color = '#0284c7';
-            errorDisplay.innerText = "Hint: " + questData[currentStage].hint;
-        }
-
-        // Start game
-        loadStage();
+        // Initialize first loop
+        initStage();
     </script>
 </body>
 </html>
