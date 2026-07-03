@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Search for My Queen</title>
+    <title>Word Search Challenge</title>
     <style>
         :root {
             --primary-bg: #e0f2fe;
@@ -181,7 +181,7 @@
 
     <div class="game-container">
         <h1>Find the Hidden Words! 🔍</h1>
-        <p class="subtitle">Meri pyaari wifey ke liye ek chota sa hard puzzle...</p>
+        <p class="subtitle">Chalein, ab dhoond kar dikhayein Begum Sahiba... 😎</p>
 
         <div class="word-list" id="word-list-container"></div>
         <div class="grid-container" id="grid"></div>
@@ -191,7 +191,7 @@
 
     <div class="modal" id="success-modal">
         <div class="modal-content">
-            <h2>🎉 Celebration Time! 🎉</h2>
+            <h2>🎉 Brilliant Job! 🎉</h2>
             <div style="font-size: 50px; margin-bottom: 15px;">👑❤️</div>
             <p class="love-message">
                 Wah Meri Jaan Ap tu Kamal hooo sub solve karliya Bethreen Mere Pyari Begum Sahiba ki tu baat hee alag hai Love You Januri Umaaah Umaaah 💋
@@ -201,40 +201,25 @@
     </div>
 
     <script>
-        const originalWords = ["ANUSHA", "KISS", "JAAN", "ZINDAGI", "CHOTIANU", "LALI", "MENDHAK", "WIFEY"];
+        const originalWords = ["ANNA", "RABI", "BEGUM", "KISS", "HUG", "JANU", "DHAKAN"];
         const displayWords = {
-            "ANUSHA": "Anusha", "KISS": "Kiss 💋", "JAAN": "Jaan", "ZINDAGI": "Zindagi",
-            "CHOTIANU": "Choti Anu", "LALI": "Lali", "MENDHAK": "Mendhak", "WIFEY": "Wifey"
+            "ANNA": "ANNA", "RABI": "RABI", "BEGUM": "Begum", "KISS": "Kiss 💋",
+            "HUG": "Hug 🤗", "JANU": "Janu", "DHAKAN": "Dhakan 🍳"
         };
 
-        // NEW FIXED GRID: GURIYA replaced by KISS perfectly
+        // 100% FIXED HANDMADE HARD GRID
         const staticGrid = [
-            ['A','N','U','S','H','A','P','O','I','U'], // Row 1: ANUSHA (1-6)
-            ['Q','W','E','R','T','Y','U','I','O','P'], // Row 2: Pure Fillers
-            ['K','I','S','S','Y','A','A','S','D','F'], // Row 3: KISS (1-4) -> Bilkul clear samne!
-            ['Z','X','C','V','B','N','M','L','K','J'], // Row 4: Pure Fillers
-            ['C','H','O','T','I','A','N','U','Q','W'], // Row 5: CHOTIANU (1-8)
-            ['E','R','T','Y','U','I','O','P','A','S'], // Row 6: Pure Fillers
-            ['M','E','N','D','H','A','K','D','F','G'], // Row 7: MENDHAK (1-7)
-            ['H','J','K','L','Z','X','C','V','B','N'], // Row 8: Pure Fillers
-            ['J','A','A','N','Q','W','E','R','T','Y'], // Row 9: JAAN (1-4)
-            ['W','I','F','E','Y','U','I','O','P','A']  // Row 10: WIFEY (1-5)
+            ['B','X','Y','Z','W','P','Q','R','S','T'], // Row 1
+            ['O','E','K','I','S','S','M','A','B','C'], // Row 2
+            ['P','L','G','R','A','B','I','D','E','F'], // Row 3
+            ['Q','M','U','U','N','N','A','G','H','I'], // Row 4
+            ['R','N','M','D','H','A','K','A','N','J'], // Row 5
+            ['S','O','P','W','A','X','Y','Z','W','K'], // Row 6
+            ['T','P','Q','R','N','U','N','A','J','L'], // Row 7
+            ['U','Q','R','S','T','G','U','H','X','M'], // Row 8
+            ['V','R','S','T','U','V','W','X','Y','Z'], // Row 9
+            ['W','S','T','U','V','W','X','Y','Z','A']  // Row 10
         ];
-
-        // Injecting ZINDAGI at Column 10 (index 9) vertically from Row 2 to 8
-        staticGrid[1][9] = 'Z';
-        staticGrid[2][9] = 'I';
-        staticGrid[3][9] = 'N';
-        staticGrid[4][9] = 'D';
-        staticGrid[5][9] = 'A';
-        staticGrid[6][9] = 'G';
-        staticGrid[7][9] = 'I';
-
-        // Injecting LALI at Column 9 (index 8) vertically from Row 2 to 5
-        staticGrid[1][8] = 'L';
-        staticGrid[2][8] = 'A';
-        staticGrid[3][8] = 'L';
-        staticGrid[4][8] = 'I';
 
         // Initialize List
         const listContainer = document.getElementById('word-list-container');
@@ -295,7 +280,7 @@
                 if (foundWords.length === originalWords.length) {
                     setTimeout(triggerWin, 500);
                 }
-            } else if (currentString.length >= 9) {
+            } else if (currentString.length >= 10) {
                 resetSelection();
             }
         }
