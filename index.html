@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Love Wordle Quest 🧭</title>
+    <title>Get Well Soon, Meri Jaan! 🌸</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #e0f2fe, #fef08a, #fbcfe8);
-            --correct-color: #10b981;
-            --present-color: #eab308;
-            --absent-color: #64748b;
-            --text-dark: #1e3a8a;
+            --bg-gradient: linear-gradient(135deg, #fff1f2, #ffe4e6, #fce7f3);
+            --text-main: #9f1239;
+            --accent-pink: #f43f5e;
         }
 
         * {
@@ -22,324 +20,214 @@
 
         body {
             background: var(--bg-gradient);
-            background-size: 300% 300%;
-            animation: moveBG 20s ease infinite;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
         }
 
-        @keyframes moveBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .game-container {
-            background: rgba(255, 255, 255, 0.92);
+        .mood-container {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 25px;
-            max-width: 500px;
+            padding: 30px;
+            max-width: 480px;
             width: 100%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.15);
             border: 2px solid white;
             text-align: center;
         }
 
         h1 {
-            color: var(--text-dark);
+            color: var(--text-main);
             font-size: 24px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
-        .clue-box {
-            background: rgba(254, 240, 138, 0.4);
-            border-left: 4px solid #eab308;
-            padding: 12px;
-            margin: 15px 0;
-            border-radius: 4px 12px 12px 4px;
+        .status-text {
+            color: #4c0519;
             font-size: 15px;
-            color: #334155;
-            font-weight: 600;
-            text-align: left;
+            margin-bottom: 25px;
             line-height: 1.5;
         }
 
-        .wordle-grid {
+        .menu-grid {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            margin: 20px auto;
-            width: max-content;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .wordle-row {
-            display: flex;
-            gap: 5px;
-        }
-
-        .wordle-cell {
-            width: 45px;
-            height: 45px;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 20px;
-            font-weight: bold;
+        .menu-card {
+            background: #fff5f5;
+            border: 2px solid #ffe4e6;
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-transform: uppercase;
-            color: #1e293b;
-            background: white;
+            gap: 15px;
             transition: all 0.3s ease;
+            text-align: left;
         }
 
-        .wordle-cell.correct {
-            background-color: var(--correct-color);
-            border-color: var(--correct-color);
-            color: white;
+        .menu-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-pink);
+            background: #fff1f2;
         }
 
-        .wordle-cell.present {
-            background-color: var(--present-color);
-            border-color: var(--present-color);
-            color: white;
+        .menu-icon {
+            font-size: 28px;
         }
 
-        .wordle-cell.absent {
-            background-color: var(--absent-color);
-            border-color: var(--absent-color);
-            color: white;
-        }
-
-        .keyboard-input-group {
-            margin-top: 15px;
-        }
-
-        input[type="text"] {
-            width: 70%;
-            padding: 10px 15px;
-            border: 2px solid #cbd5e1;
-            border-radius: 50px;
+        .menu-details h3 {
+            color: var(--text-main);
             font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .menu-details p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* Popup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
             text-align: center;
-            outline: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            border: 3px solid var(--accent-pink);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        input[type="text"]:focus {
-            border-color: #ec4899;
+        .modal-content h2 {
+            color: var(--text-main);
+            margin-bottom: 15px;
+            font-size: 20px;
         }
 
-        .btn-guess {
-            background: linear-gradient(135deg, #ec4899, #f43f5e);
+        .modal-content p {
+            color: #334155;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .close-btn {
+            background: var(--accent-pink);
             color: white;
             border: none;
             padding: 10px 25px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.2);
-        }
-
-        .stage-indicator {
-            font-size: 13px;
-            font-weight: bold;
-            color: #64748b;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .error-msg {
-            color: #ef4444;
-            font-size: 14px;
-            margin-top: 8px;
-            font-weight: 600;
-            min-height: 20px;
-        }
-
-        .final-screen {
-            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="game-container" id="game-view">
-        <div class="stage-indicator" id="stage-track">Round 1 of 5</div>
-        <h1>The Love Wordle Quest 🧭</h1>
-        
-        <div class="clue-box" id="clue-display">Loading clue...</div>
+    <div class="mood-container">
+        <div style="font-size: 50px; margin-bottom: 10px;">🤒 ❤️ 👑</div>
+        <h1>Get Well Soon, Meri Jaan!</h1>
+        <p class="status-text">
+            Mujhe pata hai aapki tabiyat theek nahi hai aur subah gussa aayi thi (jo ke bilkul allowed hai!). Aapka mood behtar karne ke liye aapka Lali hazir hai. Niche se jo chahiye click karein, order turant poora hoga!
+        </p>
 
-        <div class="wordle-grid" id="grid-display"></div>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="openOrder(1)">
+                <div class="menu-icon">💆‍♀️</div>
+                <div class="menu-details">
+                    <h3>Head Massage (Champi)</h3>
+                    <p>Lali ke hathon ka sukoon, sar dard gayab karne ke liye.</p>
+                </div>
+            </div>
 
-        <div class="keyboard-input-group">
-            <input type="text" id="guess-input" autocomplete="off" placeholder="Type word...">
-            <br>
-            <button class="btn-guess" onclick="submitGuess()">Submit Guess</button>
+            <div class="menu-card" onclick="openOrder(2)">
+                <div class="menu-icon">☕</div>
+                <div class="menu-details">
+                    <h3>Special Garam Chai / Soup</h3>
+                    <p>Aapki pasand ka garam cup jo sidha aapke bed par aayega.</p>
+                </div>
+            </div>
+
+            <div class="menu-card" onclick="openOrder(3)">
+                <div class="menu-icon">🥺</div>
+                <div class="menu-details">
+                    <h3>Maafi & Dher Saara Pyaar</h3>
+                    <p>Subah jo bhi hua, uske liye unlimited hugs aur sorry.</p>
+                </div>
+            </div>
+
+            <div class="menu-card" onclick="openOrder(4)">
+                <div class="menu-icon">🎬</div>
+                <div class="menu-details">
+                    <h3>Movie & Blanket Cozy Time</h3>
+                    <p>Aapki pasand ka koi show lagate hain aur aap bas aaram karein.</p>
+                </div>
+            </div>
         </div>
-        <p class="error-msg" id="error-display"></p>
+        
+        <p style="font-size: 12px; color: #94a3b8; font-style: italic;">Made with love by your Miya ❤️</p>
     </div>
 
-    <div class="game-container final-screen" id="success-view">
-        <h2 style="color: #10b981; font-size: 26px; margin-bottom: 15px;">🎉 Ultimate Wordle Champion! 🎉</h2>
-        <div style="font-size: 60px; margin-bottom: 20px;">🗺️❤️🏆</div>
-        <p style="font-size: 18px; color: #1e3a8a; line-height: 1.6; font-weight: 600;">
-            Kamaal kar diya Begum Sahiba! Saare secret codes crack kar liye! Pizza Max ki yaadon se lekar Umrah ke khubsurat khwab tak... Aapne sab dhoond liya. You are my whole world! Love You Forever! 💋
-        </p>
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Order Received! ✅</h2>
+            <p id="modal-message">Processing...</p>
+            <button class="close-btn" onclick="closeModal()">Lali, jaldi aao! 😘</button>
+        </div>
     </div>
 
     <script>
-        const stages = [
-            {
-                word: "ZINDAGI",
-                clue: "Clue 1: Yeh mera aapke liye ek aur pyaari nishaani wala naam hai, meri poori pehchan aapsay hai. (7 Letters)"
+        const services = {
+            1: {
+                title: "💆‍♀️ Champi Order Placed!",
+                msg: "Aapka personal therapist (yaani main!) 2 minute mein tel aur sukoon lekar aapke paas aa raha hai. Aap bas aankhein band karke letiye."
             },
-            {
-                word: "LOVE",
-                clue: "Clue 2: Hum dono ki meethee zubaan, ek doosre ke liye hamari sabse pehli aur aakhri pasand! (4 Letters)"
+            2: {
+                title: "☕ Hot Beverage Coming Up!",
+                msg: "Ek dam perfectly garam aur tasty chai ya soup banne ja raha hai. Lali kitchen mein daud chuka hai!"
             },
-            {
-                word: "PIZZAMAX",
-                clue: "Clue 3: Wahan jahan hum dono chai/coffee peene ya date par gaye the (Sirf 1 dafa gaye hain bas, yaad karein!). (8 Letters, Bina space ke likhein)"
+            3: {
+                title: "🥺 I Am So Sorry, Meri Jaan!",
+                msg: "Tabiyat kharab mein chirchira hona aapka haq hai! Main bilkul bura nahi mana. Aapko dher saari jhappiyan aur kissies. Jaldi se theek ho jao."
             },
-            {
-                word: "UMRAH",
-                clue: "Clue 4: Woh paak aur haseen jagah jahan hum dono ne ek sath ghumne jaane ka sacha plan banaya hua hai. (5 Letters)"
-            },
-            {
-                word: "JAAN",
-                clue: "Clue 5: The ultimate final word! Jo main aapko har saans ke sath bulata huun. (4 Letters)"
+            4: {
+                title: "🎬 Blanket & Chill Mode Activated!",
+                msg: "AC on, blanket ready aur aapka favorite drama ya movie lagne lagi hai. Aapko hilne ki bhi zaroorat nahi hai."
             }
-        ];
+        };
 
-        let currentStage = 0;
-        let attempts = 0;
-        const maxAttempts = 6;
-        let stageGuesses = [];
-
-        function initStage() {
-            if(currentStage >= stages.length) {
-                document.getElementById('game-view').style.display = 'none';
-                document.getElementById('success-view').style.display = 'block';
-                return;
-            }
-
-            attempts = 0;
-            stageGuesses = [];
-            const currentData = stages[currentStage];
-            
-            document.getElementById('stage-track').innerText = `Round ${currentStage + 1} of 5`;
-            document.getElementById('clue-display').innerText = currentData.clue;
-            document.getElementById('error-display').innerText = "";
-            document.getElementById('guess-input').value = "";
-            document.getElementById('guess-input').maxLength = currentData.word.length;
-
-            renderGrid();
+        function openOrder(id) {
+            document.getElementById('modal-title').innerText = services[id].title;
+            document.getElementById('modal-message').innerText = services[id].msg;
+            document.getElementById('order-modal').style.display = 'flex';
         }
 
-        function renderGrid() {
-            const gridContainer = document.getElementById('grid-display');
-            gridContainer.innerHTML = "";
-            const wordLength = stages[currentStage].word.length;
-
-            for(let r = 0; r < maxAttempts; r++) {
-                const row = document.createElement('div');
-                row.className = 'wordle-row';
-                
-                for(let c = 0; c < wordLength; c++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'wordle-cell';
-                    cell.id = `cell-${r}-${c}`;
-                    
-                    // If guess exists for this row
-                    if(stageGuesses[r]) {
-                        cell.innerText = stageGuesses[r][c] || "";
-                    }
-                    row.appendChild(cell);
-                }
-                gridContainer.appendChild(row);
-            }
+        function closeModal() {
+            document.getElementById('order-modal').style.display = 'none';
         }
-
-        function submitGuess() {
-            const inputField = document.getElementById('guess-input');
-            const errorField = document.getElementById('error-display');
-            const currentWord = stages[currentStage].word;
-            const guess = inputField.value.trim().toUpperCase();
-
-            errorField.innerText = "";
-
-            if(guess.length !== currentWord.length) {
-                errorField.innerText = `Pura ${currentWord.length} letters ka word likhein Begum!`;
-                return;
-            }
-
-            stageGuesses.push(guess);
-            colorRow(attempts, guess, currentWord);
-            attempts++;
-            inputField.value = "";
-
-            if(guess === currentWord) {
-                setTimeout(() => {
-                    currentStage++;
-                    initStage();
-                }, 1500);
-            } else if(attempts >= maxAttempts) {
-                errorField.innerText = "Chances khatam! Dobara koshish karein.";
-                setTimeout(() => {
-                    initStage();
-                }, 2000);
-            }
-        }
-
-        function colorRow(rowIdx, guess, target) {
-            const len = target.length;
-            let targetLetterCounts = {};
-
-            // Count target letters
-            for (let i = 0; i < len; i++) {
-                targetLetterCounts[target[i]] = (targetLetterCounts[target[i]] || 0) + 1;
-            }
-
-            let statuses = Array(len).fill('absent');
-
-            // First pass: Mark correct (Green)
-            for (let i = 0; i < len; i++) {
-                if (guess[i] === target[i]) {
-                    statuses[i] = 'correct';
-                    targetLetterCounts[guess[i]]--;
-                }
-            }
-
-            // Second pass: Mark present (Yellow)
-            for (let i = 0; i < len; i++) {
-                if (statuses[i] !== 'correct' && targetLetterCounts[guess[i]] > 0) {
-                    statuses[i] = 'present';
-                    targetLetterCounts[guess[i]]--;
-                }
-            }
-
-            // Apply classes to UI with a slight flip delay
-            for (let i = 0; i < len; i++) {
-                const cell = document.getElementById(`cell-${rowIdx}-${i}`);
-                cell.innerText = guess[i];
-                
-                setTimeout(() => {
-                    cell.classList.add(statuses[i]);
-                }, i * 100);
-            }
-        }
-
-        // Initialize first loop
-        initStage();
     </script>
 </body>
 </html>
