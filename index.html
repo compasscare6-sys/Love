@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Well Soon, Meri Jaan! 🌸</title>
+    <title>Get Well Soon, Anu Jaan! 🌸</title>
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #fff1f2, #ffe4e6, #fce7f3);
@@ -148,74 +148,75 @@
 <body>
 
     <div class="mood-container">
-        <div style="font-size: 50px; margin-bottom: 10px;">🤒 ❤️ 👑</div>
-        <h1>Get Well Soon, Meri Jaan!</h1>
+        <div style="font-size: 50px; margin-bottom: 10px;">🤒 ☁️ ❤️</div>
+        <h1>Get Well Soon, Anu Jaan!</h1>
         <p class="status-text">
-            Mujhe pata hai aapki tabiyat theek nahi hai aur subah gussa aayi thi (jo ke bilkul allowed hai!). Aapka mood behtar karne ke liye aapka Lali hazir hai. Niche se jo chahiye click karein, order turant poora hoga!
+            Mujhe pata hai doori ki wajah se main is waqt aapke paas nahi huun, par mera dil wahin hai. Subah aapka gussa hona bilkul haq tha aapka. Aapka mood behtar karne ke liye kuch real options banaye hain, click karke dekhein:
         </p>
 
         <div class="menu-grid">
             <div class="menu-card" onclick="openOrder(1)">
-                <div class="menu-icon">💆‍♀️</div>
+                <div class="menu-icon">🥺</div>
                 <div class="menu-details">
-                    <h3>Head Massage (Champi)</h3>
-                    <p>Lali ke hathon ka sukoon, sar dard gayab karne ke liye.</p>
+                    <h3>Official 'Sorry' & Unlimited Soft Hugs</h3>
+                    <p>Subah ke chidchidapan ki poori maafi aur dher saara virtual pyaar.</p>
                 </div>
             </div>
 
             <div class="menu-card" onclick="openOrder(2)">
-                <div class="menu-icon">☕</div>
+                <div class="menu-icon">🍲</div>
                 <div class="menu-details">
-                    <h3>Special Garam Chai / Soup</h3>
-                    <p>Aapki pasand ka garam cup jo sidha aapke bed par aayega.</p>
+                    <h3>Food Delivery (Aap Ki Pasand Ka)</h3>
+                    <p>Bina pooche kuch light aur mazedaar aapke ghar deliver karwao?</p>
                 </div>
             </div>
 
             <div class="menu-card" onclick="openOrder(3)">
-                <div class="menu-icon">🥺</div>
+                <div class="menu-icon">🤫</div>
                 <div class="menu-details">
-                    <h3>Maafi & Dher Saara Pyaar</h3>
-                    <p>Subah jo bhi hua, uske liye unlimited hugs aur sorry.</p>
+                    <h3>"No Call, Fast Sleep" Token</h3>
+                    <p>Agar baat karne ka bilkul mood nahi hai, toh aaram se so jaane ki ijazat.</p>
                 </div>
             </div>
 
             <div class="menu-card" onclick="openOrder(4)">
-                <div class="menu-icon">🎬</div>
+                <div class="menu-icon">🎙️</div>
                 <div class="menu-details">
-                    <h3>Movie & Blanket Cozy Time</h3>
-                    <p>Aapki pasand ka koi show lagate hain aur aap bas aaram karein.</p>
+                    <h3>Voice Note Stories / GupShup</h3>
+                    <p>Aap bas blanket mein latein, main cute baatein karke dil behlaata huun.</p>
                 </div>
             </div>
         </div>
         
-        <p style="font-size: 12px; color: #94a3b8; font-style: italic;">Made with love by your Miya ❤️</p>
+        <p style="font-size: 12px; color: #94a3b8; font-style: italic;">Door hain toh kya hua, khayal toh poora rahega ❤️</p>
     </div>
 
+    <!-- Modal Dynamic Popup -->
     <div class="modal" id="order-modal">
         <div class="modal-content">
-            <h2 id="modal-title">Order Received! ✅</h2>
+            <h2 id="modal-title">Action Locked! 🔓</h2>
             <p id="modal-message">Processing...</p>
-            <button class="close-btn" onclick="closeModal()">Lali, jaldi aao! 😘</button>
+            <button class="close-btn" onclick="closeModal()">Done na? 😘</button>
         </div>
     </div>
 
     <script>
         const services = {
             1: {
-                title: "💆‍♀️ Champi Order Placed!",
-                msg: "Aapka personal therapist (yaani main!) 2 minute mein tel aur sukoon lekar aapke paas aa raha hai. Aap bas aankhein band karke letiye."
+                title: "🥺 Virtual Hug Activated!",
+                msg: "Fever mein insaan bimar hota hai toh sab par gussa aata hai, aur aapka gussa toh sar aankhon par! Meri taraf se dher saara pyaar aur sorry. Aap jaldi se theek ho jao bas."
             },
             2: {
-                title: "☕ Hot Beverage Coming Up!",
-                msg: "Ek dam perfectly garam aur tasty chai ya soup banne ja raha hai. Lali kitchen mein daud chuka hai!"
+                title: "🍲 Khana Order Karein?",
+                msg: "Agar ghar ka khana khane ka dil nahi hai, toh mujhe WhatsApp par batao kya khana hai? Kuch behtareen aur light sa aapke ghar deliver karwata huun abhi!"
             },
             3: {
-                title: "🥺 I Am So Sorry, Meri Jaan!",
-                msg: "Tabiyat kharab mein chirchira hona aapka haq hai! Main bilkul bura nahi mana. Aapko dher saari jhappiyan aur kissies. Jaldi se theek ho jao."
+                title: "🤫 Pillow Mode On!",
+                msg: "Yeh option select karne ka matlab hai aap bina kisi tension ke phone side par rakh kar so sakti hain. No formal calls, no chats. Aapka aaram sabse pehle hai."
             },
             4: {
-                title: "🎬 Blanket & Chill Mode Activated!",
-                msg: "AC on, blanket ready aur aapka favorite drama ya movie lagne lagi hai. Aapko hilne ki bhi zaroorat nahi hai."
+                title: "🎙️ Lali is Ready to Speak!",
+                msg: "Aapko type karne ki koi zaroorat nahi hai. Mujhe text karo, main pyare pyare voice notes bhej kar aapka mood fresh karta huun. Aap bas suno!"
             }
         };
 
