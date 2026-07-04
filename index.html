@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Well Soon, Anu Jaan! 🌸</title>
+    <title>Anu Jaan ka Mood Lifter ✨</title>
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #fff1f2, #ffe4e6, #fce7f3);
-            --text-main: #9f1239;
-            --accent-pink: #f43f5e;
+            --pink-dark: #9f1239;
+            --pink-light: #f43f5e;
         }
 
         * {
@@ -27,207 +27,127 @@
             padding: 20px;
         }
 
-        .mood-container {
-            background: rgba(255, 255, 255, 0.95);
+        .magic-box {
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 30px;
-            max-width: 480px;
+            padding: 35px 25px;
+            max-width: 450px;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.15);
+            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.12);
             border: 2px solid white;
             text-align: center;
         }
 
-        h1 {
-            color: var(--text-main);
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .status-text {
-            color: #4c0519;
-            font-size: 15px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .menu-card {
-            background: #fff5f5;
-            border: 2px solid #ffe4e6;
-            border-radius: 15px;
-            padding: 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-            text-align: left;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-pink);
-            background: #fff1f2;
-        }
-
-        .menu-icon {
-            font-size: 28px;
-        }
-
-        .menu-details h3 {
-            color: var(--text-main);
-            font-size: 16px;
-            margin-bottom: 2px;
-        }
-
-        .menu-details p {
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        /* Popup Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            border: 3px solid var(--accent-pink);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .modal-content h2 {
-            color: var(--text-main);
+        .avatar {
+            font-size: 55px;
             margin-bottom: 15px;
-            font-size: 20px;
+            display: inline-block;
+            animation: pulse 2s infinite;
         }
 
-        .modal-content p {
-            color: #334155;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: var(--pink-dark);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .display-card {
+            background: #fff5f5;
+            border: 2px dashed #fbcfe8;
+            border-radius: 16px;
+            padding: 25px 20px;
+            min-height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 16px;
+            color: #334155;
+            font-weight: 600;
             line-height: 1.6;
-            margin-bottom: 20px;
-            font-weight: 500;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
         }
 
-        .close-btn {
-            background: var(--accent-pink);
+        .btn-magic {
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
             color: white;
             border: none;
-            padding: 10px 25px;
-            font-size: 14px;
+            padding: 14px 30px;
+            font-size: 15px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-magic:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 5px rgba(236, 72, 153, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <div class="mood-container">
-        <div style="font-size: 50px; margin-bottom: 10px;">🤒 ☁️ ❤️</div>
-        <h1>Get Well Soon, Anu Jaan!</h1>
-        <p class="status-text">
-            Mujhe pata hai doori ki wajah se main is waqt aapke paas nahi huun, par mera dil wahin hai. Subah aapka gussa hona bilkul haq tha aapka. Aapka mood behtar karne ke liye kuch real options banaye hain, click karke dekhein:
-        </p>
+    <div class="magic-box">
+        <div class="avatar" id="emoji-box">❤️</div>
+        <h1>Anu Jaan ka Mood Lifter</h1>
+        <p class="subtitle">Subah se meri pyaari Begum bimar hain aur gusse mein hain. Jab tak aapka mood perfectly 100% sahi nahi hota, is button ko tap karti rahein!</p>
 
-        <div class="menu-grid">
-            <div class="menu-card" onclick="openOrder(1)">
-                <div class="menu-icon">🥺</div>
-                <div class="menu-details">
-                    <h3>Official 'Sorry' & Unlimited Soft Hugs</h3>
-                    <p>Subah ke chidchidapan ki poori maafi aur dher saara virtual pyaar.</p>
-                </div>
-            </div>
-
-            <div class="menu-card" onclick="openOrder(2)">
-                <div class="menu-icon">🍲</div>
-                <div class="menu-details">
-                    <h3>Food Delivery (Aap Ki Pasand Ka)</h3>
-                    <p>Bina pooche kuch light aur mazedaar aapke ghar deliver karwao?</p>
-                </div>
-            </div>
-
-            <div class="menu-card" onclick="openOrder(3)">
-                <div class="menu-icon">🤫</div>
-                <div class="menu-details">
-                    <h3>"No Call, Fast Sleep" Token</h3>
-                    <p>Agar baat karne ka bilkul mood nahi hai, toh aaram se so jaane ki ijazat.</p>
-                </div>
-            </div>
-
-            <div class="menu-card" onclick="openOrder(4)">
-                <div class="menu-icon">🎙️</div>
-                <div class="menu-details">
-                    <h3>Voice Note Stories / GupShup</h3>
-                    <p>Aap bas blanket mein latein, main cute baatein karke dil behlaata huun.</p>
-                </div>
-            </div>
+        <div class="display-card" id="message-display">
+            Tap the magic button below to unlock a smile! ✨
         </div>
-        
-        <p style="font-size: 12px; color: #94a3b8; font-style: italic;">Door hain toh kya hua, khayal toh poora rahega ❤️</p>
-    </div>
 
-    <!-- Modal Dynamic Popup -->
-    <div class="modal" id="order-modal">
-        <div class="modal-content">
-            <h2 id="modal-title">Action Locked! 🔓</h2>
-            <p id="modal-message">Processing...</p>
-            <button class="close-btn" onclick="closeModal()">Done na? 😘</button>
-        </div>
+        <button class="btn-magic" onclick="liftMood()">Magic Button Tap Karein 🪄</button>
     </div>
 
     <script>
-        const services = {
-            1: {
-                title: "🥺 Virtual Hug Activated!",
-                msg: "Fever mein insaan bimar hota hai toh sab par gussa aata hai, aur aapka gussa toh sar aankhon par! Meri taraf se dher saara pyaar aur sorry. Aap jaldi se theek ho jao bas."
-            },
-            2: {
-                title: "🍲 Khana Order Karein?",
-                msg: "Agar ghar ka khana khane ka dil nahi hai, toh mujhe WhatsApp par batao kya khana hai? Kuch behtareen aur light sa aapke ghar deliver karwata huun abhi!"
-            },
-            3: {
-                title: "🤫 Pillow Mode On!",
-                msg: "Yeh option select karne ka matlab hai aap bina kisi tension ke phone side par rakh kar so sakti hain. No formal calls, no chats. Aapka aaram sabse pehle hai."
-            },
-            4: {
-                title: "🎙️ Lali is Ready to Speak!",
-                msg: "Aapko type karne ki koi zaroorat nahi hai. Mujhe text karo, main pyare pyare voice notes bhej kar aapka mood fresh karta huun. Aap bas suno!"
-            }
-        };
+        const moodBoosters = [
+            "Fever mein insaan bimar hota hai toh sab par chirchira hota hai, aur aapka chirchirapan toh mujhe aur bhi cute lagta hai! I don't mind at all meri jaan. 😘",
+            "Ek secret batauun? Aap gusse mein aur bhi zyada khoobsurat lagti hain, par please jaldi se theek ho jao, aapke bina din bilkul boring guzarta hai. 🥺",
+            "Chalo, ek pakka promise: Jaise hi aap theek ho jaogi, hum Pizza Max chalenge! Pura bada pizza sirf aapka hoga. 🍕",
+            "Aapka Lali is waqt door baith kar aapko dher saari virtual jhappiyan aur kissies bhej raha hai. Do minute aankhein band karke unhe feel karein! ❤️",
+            "Duniya ki sabse pyari aur sweet ladki ko is waqt bukhar ne tang kiya hua hai. Bukhar ko toh main baad mein dekhunga, pehle aap smile karo! 😊",
+            "Mera dil is waqt aapke paas hi hai. Agar type karne ka dil na ho, toh bilkul mat karo. Aap bas aaram karo, main hamesha yahi huun. 🌸",
+            "Aap mere zindagi ka sabse khoobsurat hissa ho. Aapka bimar hona matlab mera udas hona. Apne Lali ke liye ek choti si smile de do abhi? 🥺",
+            "Kuch dino baad jab hum sath honge na, toh bimar hone par main aapko apne hathon se soup pilaunga. Yeh dooriyan bas thode waqt ki hain! 🤵‍♂️❤️",
+            "Aapka gussa sar aankhon par! Aap mujh par din mein 10 baar aur bhadak sakti hain, full discount hai aapko! 😂❤️",
+            "The ultimate truth: I Love You Forever Always, chahe aap happy ho, sad ho, ya fever mein chirchiri ho! Aap meri favourite ho. 💋"
+        ];
 
-        function openOrder(id) {
-            document.getElementById('modal-title').innerText = services[id].title;
-            document.getElementById('modal-message').innerText = services[id].msg;
-            document.getElementById('order-modal').style.display = 'flex';
-        }
+        const emojis = ["🥰", "🥺", "🍕", "❤️", "😊", "🌸", "👑", "✨", "🤗", "💋"];
 
-        function closeModal() {
-            document.getElementById('order-modal').style.display = 'none';
+        function liftMood() {
+            const messageDisplay = document.getElementById('message-display');
+            const emojiBox = document.getElementById('emoji-box');
+            
+            // Get random message and emoji
+            const randomMsg = moodBoosters[Math.floor(Math.random() * moodBoosters.length)];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Add a tiny animation effect before text updates
+            messageDisplay.style.opacity = 0;
+            
+            setTimeout(() => {
+                messageDisplay.innerText = randomMsg;
+                emojiBox.innerText = randomEmoji;
+                messageDisplay.style.opacity = 1;
+            }, 200);
         }
     </script>
 </body>
