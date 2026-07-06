@@ -3,14 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu Jaan ka Mood Lifter ✨</title>
+    <title>For Anu 🌸</title>
     <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #fff1f2, #ffe4e6, #fce7f3);
-            --pink-dark: #9f1239;
-            --pink-light: #f43f5e;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -19,192 +13,177 @@
         }
 
         body {
-            background: var(--bg-gradient);
+            background: #1e293b; /* Initial angry/sad dark background */
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background 0.8s ease;
         }
 
-        .magic-box {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            padding: 35px 25px;
-            max-width: 450px;
+            padding: 40px 25px;
+            max-width: 420px;
             width: 100%;
-            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.12);
-            border: 2px solid white;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.8s ease;
         }
 
-        .counter-badge {
-            background: #ffe4e6;
-            color: var(--pink-dark);
-            padding: 6px 15px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        /* When active (Happy state) */
+        body.happy-mode {
+            background: linear-gradient(135deg, #fff1f2, #ffe4e6);
         }
 
-        .avatar {
-            font-size: 55px;
-            margin-bottom: 10px;
-            display: inline-block;
-            animation: pulse 2s infinite;
+        body.happy-mode .container {
+            background: white;
+            border-color: white;
+            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.1);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .emoji {
+            font-size: 60px;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
         }
 
         h1 {
-            color: var(--pink-dark);
-            font-size: 26px;
-            margin-bottom: 10px;
+            color: #f1f5f9;
+            font-size: 22px;
+            margin-bottom: 15px;
+            transition: color 0.5s ease;
         }
 
-        .subtitle {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.5;
+        body.happy-mode h1 {
+            color: #9f1239;
         }
 
-        .display-card {
-            background: #fff5f5;
-            border: 2px dashed #fbcfe8;
-            border-radius: 16px;
-            padding: 25px 20px;
-            min-height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: #334155;
-            font-weight: 600;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            transition: opacity 0.2s ease;
-        }
-
-        .btn-magic {
-            background: linear-gradient(135deg, #ec4899, #f43f5e);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-            transition: transform 0.1s, box-shadow 0.2s;
-        }
-
-        .btn-magic:active {
-            transform: scale(0.98);
-        }
-
-        .footer-text {
-            font-size: 13px;
+        .message {
             color: #94a3b8;
-            margin-top: 20px;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            transition: color 0.5s ease;
+        }
+
+        body.happy-mode .message {
+            color: #334155;
             font-weight: 500;
         }
 
-        .final-screen {
-            display: none;
+        /* Toggle Switch Styling */
+        .switch-container {
+            margin: 20px 0;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 70px;
+            height: 38px;
+        }
+
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #475569;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 30px;
+            width: 30px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #f43f5e;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(32px);
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #475569;
+            margin-top: 25px;
+            transition: color 0.5s ease;
+        }
+
+        body.happy-mode .footer {
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Game View -->
-    <div class="magic-box" id="game-view">
-        <div class="counter-badge" id="tap-counter">Taps Left: 10</div>
-        <br>
-        <div class="avatar" id="emoji-box">❤️</div>
-        <h1>My Dear Wifey</h1>
-        <p class="subtitle" id="game-desc">Subah se meri pyaari Begum bimar hain aur gusse mein hain. Meri Janu key paas 10 Magic Taps hain, har tap par terey liye ek surprise message hai Baby . Let's start! 🌸</p>
-
-        <div class="display-card" id="message-display">
-            Chalo Ab button Tap karo Shabash.
-        </div>
-
-        <button class="btn-magic" id="action-btn" onclick="nextTap()">Guriya Tap kar</button>
+    <div class="container">
+        <div class="emoji" id="emoji">⚡</div>
+        <h1 id="heading">Mood: Angry/Upset 😶‍🌫️</h1>
         
-        <p class="footer-text">Tera Pabi Umaahhhh Umahah ❤️</p>
-    </div>
-
-    <!-- Final Success View -->
-    <div class="magic-box final-screen" id="success-view">
-        <div class="avatar">👑❤️💋</div>
-        <h1 id="final-title" style="color: #db2777; margin-bottom: 15px;">Saare Magic Taps Khatam! Anna.</h1>
-        <div class="display-card" style="background: #fff1f2; border-style: solid; border-color: #f43f5e;">
-            <p id="final-msg" style="color: #4c0519; font-size: 16px; font-weight: 600;">
-                Terey saare 10 surprises poore ho gaye! Ab jaldi se smile karo, dawai khaoo aur aaram se sojaoo yeh rest karoo Guriya. Tera Miya tujse bhut pyaar karta hai. I Love You! 💋
-            </p>
+        <div class="message" id="msg">
+            Main janta huun kal aap theek thi aur aaj meri wajah se aapka mood bohot kharab hua. Maine bina pooche package kiya jo mujhe nahi karna chahiye tha. I am really very sorry, Anna.
         </div>
-        <p class="footer-text">Hamesha Tumhara, Tera Pabi ❤️</p>
+
+        <div class="switch-container">
+            <label class="switch">
+                <input type="checkbox" id="mood-toggle" onchange="toggleMood()">
+                <span class="slider"></span>
+            </label>
+            <p id="toggle-hint" style="font-size: 12px; color: #64748b; margin-top: 8px;">Turn this on if you can forgive me a little bit...</p>
+        </div>
+
+        <div class="footer" id="footer-text">From: Lali</div>
     </div>
 
     <script>
-        const moodBoosters = [
-            "Fever mein insaan bimar hota hai toh sab par chirchira hota hai, aur aapka chirchirapan toh mujhe aur bhi cute lagta hai! I Missed You Mera Bacha.",
-            "Ek secret batauun? Aap gusse mein aur bhi zyada khoobsurat lagti hain, Ab jaldi se theek ho jao, aapke bina din bilkul boring guzarta hai. 🥺",
-            "Chalo, ek pakka promise: Apna bHut sara khayal rakooo giii baba mere lecture sunney ko miley geey tuje boring lecture hahaha.",
-            "Tera Miya tujse bhut ziada pyaar karta hai meri jaanu ❤️. I Love You Meri Jaan my Baby .",
-            "Duniya ki sabse pyari aur Haseen ladki ko is waqt bukhar ne tang kiya hua hai. Bukhar ko toh main baad mein dekhunga, pehle ap smile karo! 😊",
-            "Mera dil terey paas hi hai Anna. Agar typing karne ka dil na ho, toh bilkul mat karna. Tum bas aaram karo, Baba 🌸",
-            "Tum mere zindagi ka sabse khoobsurat hissa ho. Aapka bimar hona matlab mera bimar hona. Apne Lali ke liye ek choti si smile de do abhi? or sath ek muchi bhi 🥺",
-            "Kuch dino baad jab hum sath honge na, toh bimar hone par main tuje apne hathon se soup pilaunga. Yeh dooriyan bas thode waqt ki hain! 🤵‍♂️❤️",
-            "Aapka gussa sar aankhon par! Aap mujh par din mein 10 baar aur bhadak sakti hain, full discount hai tuje! 😂❤️",
-            "I Love You Forever Always, Umaah Umaaah Umahahh 💋 Begum Sahiba."
-        ];
+        function toggleMood() {
+            const checkbox = document.getElementById('mood-toggle');
+            const body = document.body;
+            const emoji = document.getElementById('emoji');
+            const heading = document.getElementById('heading');
+            const msg = document.getElementById('msg');
+            const hint = document.getElementById('toggle-hint');
+            const footer = document.getElementById('footer-text');
 
-        const emojis = ["🥰", "🥺", "✨", "❤️", "😊", "🌸", "💖", "🤗", "😂", "💋"];
-        
-        let currentStep = 0;
-        const totalTaps = 10;
-
-        function nextTap() {
-            if (currentStep < totalTaps) {
-                const messageDisplay = document.getElementById('message-display');
-                const emojiBox = document.getElementById('emoji-box');
-                const counterBadge = document.getElementById('tap-counter');
-                
-                // Content update with fade effect
-                messageDisplay.style.opacity = 0;
-                
-                setTimeout(() => {
-                    messageDisplay.innerText = moodBoosters[currentStep];
-                    emojiBox.innerText = emojis[currentStep];
-                    messageDisplay.style.opacity = 1;
-                    
-                    currentStep++;
-                    
-                    // Update remaining taps
-                    const remaining = totalTaps - currentStep;
-                    counterBadge.innerText = `Taps Left: ${remaining}`;
-                    
-                    // If it was the last message, change button context or get ready for next click
-                    if (currentStep === totalTaps) {
-                        document.getElementById('action-btn').innerText = "Aakhri Surprise Dekhein ✨";
-                    }
-                }, 200);
-                
+            if (checkbox.checked) {
+                body.classList.add('happy-mode');
+                emoji.innerText = "🌸❤️";
+                heading.innerText = "Thank You, Guriya ✨";
+                msg.innerHTML = "Mera maksad aapko gussa dilana ya pareshan karna bilkul nahi tha, bas aap bimar thi toh care mein kar diya. Par aage se main pakka har cheez aap se pooch kar hi karunga. Please ab aaram karo aur dawa kha lo. I Love You! 💋";
+                hint.innerText = "Mood successfully switched! 😊";
+                footer.innerText = "Tera Pabi ❤️";
+                emoji.style.transform = "scale(1.1)";
             } else {
-                // Switch to final view
-                document.getElementById('game-view').style.display = 'none';
-                document.getElementById('success-view').style.display = 'block';
+                body.classList.remove('happy-mode');
+                emoji.innerText = "⚡";
+                heading.innerText = "Mood: Angry/Upset 😶‍🌫️";
+                msg.innerText = "Main janta huun kal aap theek thi aur aaj meri wajah se aapka mood bohot kharab hua. Maine bina pooche package kiya jo mujhe nahi karna chahiye tha. I am really very sorry, Anna.";
+                hint.innerText = "Turn this on if you can forgive me a little bit...";
+                footer.innerText = "From: Lali";
+                emoji.style.transform = "scale(1)";
             }
         }
     </script>
