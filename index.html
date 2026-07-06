@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Anu 🌸</title>
+    <title>ANU ke liye Sorry game 🌸</title>
     <style>
+        :root {
+            --bg: linear-gradient(135deg, #1e1b4b, #311042);
+            --pink: #f43f5e;
+            --purple: #a855f7;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,178 +19,269 @@
         }
 
         body {
-            background: #1e293b; /* Initial angry/sad dark background */
+            background: var(--bg);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            transition: background 0.8s ease;
+            padding: 15px;
+            color: white;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.05);
+        .game-box {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            padding: 40px 25px;
+            padding: 25px;
             max-width: 420px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.8s ease;
-        }
-
-        /* When active (Happy state) */
-        body.happy-mode {
-            background: linear-gradient(135deg, #fff1f2, #ffe4e6);
-        }
-
-        body.happy-mode .container {
-            background: white;
-            border-color: white;
-            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.1);
-        }
-
-        .emoji {
-            font-size: 60px;
-            margin-bottom: 20px;
-            transition: transform 0.5s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         h1 {
-            color: #f1f5f9;
-            font-size: 22px;
-            margin-bottom: 15px;
-            transition: color 0.5s ease;
+            font-size: 26px;
+            color: #fca5a5;
+            margin-bottom: 8px;
         }
 
-        body.happy-mode h1 {
-            color: #9f1239;
+        .rules {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
         }
 
-        .message {
-            color: #94a3b8;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            transition: color 0.5s ease;
+        .status {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, rgba(244, 63, 94, 0.3), rgba(168, 85, 247, 0.3));
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
-        body.happy-mode .message {
-            color: #334155;
-            font-weight: 500;
-        }
-
-        /* Toggle Switch Styling */
-        .switch-container {
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             margin: 20px 0;
         }
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 70px;
-            height: 38px;
-        }
-
-        .switch input { 
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
+        .cell {
+            background: rgba(255, 255, 255, 0.08);
+            aspect-ratio: 1;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            font-weight: bold;
             cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #475569;
-            transition: .4s;
-            border-radius: 34px;
+            transition: all 0.2s;
         }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 30px;
-            width: 30px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
+        .cell:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        input:checked + .slider {
-            background-color: #f43f5e;
+        .cell.X { color: #f43f5e; text-shadow: 0 0 12px rgba(244, 63, 94, 0.6); }
+        .cell.O { color: #38bdf8; text-shadow: 0 0 12px rgba(56, 189, 248, 0.6); }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
+            font-size: 15px;
+            transition: transform 0.1s;
         }
 
-        input:checked + .slider:before {
-            transform: translateX(32px);
+        .btn-action:active {
+            transform: scale(0.98);
         }
 
-        .footer {
-            font-size: 12px;
-            color: #475569;
-            margin-top: 25px;
-            transition: color 0.5s ease;
+        /* Result Popup Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 100;
         }
 
-        body.happy-mode .footer {
-            color: #94a3b8;
+        .popup {
+            background: #fff1f2;
+            color: #4c0519;
+            padding: 30px 20px;
+            border-radius: 24px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border: 2px solid #fecdd3;
         }
+
+        .popup h2 { margin-bottom: 15px; color: #9f1239; font-size: 24px; }
+        .popup p { font-size: 15px; line-height: 1.6; margin-bottom: 22px; font-weight: 500; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="emoji" id="emoji">⚡</div>
-        <h1 id="heading">Mood: Angry/Upset 😶‍🌫️</h1>
+    <div class="game-box">
+        <h1>ANU ke liye Sorry game</h1>
+        <div class="rules">
+            Chalo ek Challenge Match ho jaye! Agar Anna jeet gaeen (jo ke mushkil hai), toh Rabi ko ek aisi shart poori karni padegi jo aap bolegi. Aur agar Rabi jeet gaya, toh gussa khatam! 😎
+        </div>
         
-        <div class="message" id="msg">
-            Main janta huun kal aap theek thi aur aaj meri wajah se aapka mood bohot kharab hua. Maine bina pooche package kiya jo mujhe nahi karna chahiye tha. I am really very sorry, Anna.
+        <div class="status" id="status-text">Aapki Turn Hai (Aap 'X' Ho) 🔥</div>
+
+        <div class="board" id="board">
+            <div class="cell" onclick="makeMove(0)"></div>
+            <div class="cell" onclick="makeMove(1)"></div>
+            <div class="cell" onclick="makeMove(2)"></div>
+            <div class="cell" onclick="makeMove(3)"></div>
+            <div class="cell" onclick="makeMove(4)"></div>
+            <div class="cell" onclick="makeMove(5)"></div>
+            <div class="cell" onclick="makeMove(6)"></div>
+            <div class="cell" onclick="makeMove(7)"></div>
+            <div class="cell" onclick="makeMove(8)"></div>
         </div>
 
-        <div class="switch-container">
-            <label class="switch">
-                <input type="checkbox" id="mood-toggle" onchange="toggleMood()">
-                <span class="slider"></span>
-            </label>
-            <p id="toggle-hint" style="font-size: 12px; color: #64748b; margin-top: 8px;">Turn this on if you can forgive me a little bit...</p>
-        </div>
+        <button class="btn-action" onclick="resetGame()">Game Restart Karo 🔄</button>
+    </div>
 
-        <div class="footer" id="footer-text">From: Lali</div>
+    <!-- RESULT OVERLAY -->
+    <div class="overlay" id="overlay">
+        <div class="popup">
+            <h2 id="win-title">Winner!! 👑</h2>
+            <p id="win-msg">Message loading...</p>
+            <button class="btn-action" onclick="closePopup()">Chalo Dobara Khelte Hain 😤</button>
+        </div>
     </div>
 
     <script>
-        function toggleMood() {
-            const checkbox = document.getElementById('mood-toggle');
-            const body = document.body;
-            const emoji = document.getElementById('emoji');
-            const heading = document.getElementById('heading');
-            const msg = document.getElementById('msg');
-            const hint = document.getElementById('toggle-hint');
-            const footer = document.getElementById('footer-text');
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let isGameActive = true;
+        
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
 
-            if (checkbox.checked) {
-                body.classList.add('happy-mode');
-                emoji.innerText = "🌸❤️";
-                heading.innerText = "Thank You, Guriya ✨";
-                msg.innerHTML = "Mera maksad aapko gussa dilana ya pareshan karna bilkul nahi tha, bas aap bimar thi toh care mein kar diya. Par aage se main pakka har cheez aap se pooch kar hi karunga. Please ab aaram karo aur dawa kha lo. I Love You! 💋";
-                hint.innerText = "Mood successfully switched! 😊";
-                footer.innerText = "Tera Pabi ❤️";
-                emoji.style.transform = "scale(1.1)";
-            } else {
-                body.classList.remove('happy-mode');
-                emoji.innerText = "⚡";
-                heading.innerText = "Mood: Angry/Upset 😶‍🌫️";
-                msg.innerText = "Main janta huun kal aap theek thi aur aaj meri wajah se aapka mood bohot kharab hua. Maine bina pooche package kiya jo mujhe nahi karna chahiye tha. I am really very sorry, Anna.";
-                hint.innerText = "Turn this on if you can forgive me a little bit...";
-                footer.innerText = "From: Lali";
-                emoji.style.transform = "scale(1)";
+        function makeMove(index) {
+            if (board[index] !== "" || !isGameActive) return;
+
+            // Player Move (X)
+            board[index] = "X";
+            updateBoard();
+            
+            if (checkWin("X")) {
+                endGame("Anna Won! 👑", "ANU jeet gaeen! Shart ke mutabiq aapko Muj par FULL HUKUM chalane ka haq milta hai. Chalo ab hukum chalao begum! ❤️");
+                return;
             }
+
+            if (board.every(cell => cell !== "")) {
+                endGame("Match Draw! 🤝", "Draw ho gaya! Chalo dobara khelo, gusse mein dimaag tez chalta hai aapka, is baar hara kar apna hukum chalao mujh par! 😉");
+                return;
+            }
+
+            // Computer Move (O) with Delay
+            isGameActive = false;
+            document.getElementById('status-text').innerText = "Rabi Dimaag Laga Raha Hai... 🤔";
+            setTimeout(() => {
+                aiMove();
+                isGameActive = true;
+            }, 600);
+        }
+
+        function aiMove() {
+            // 1. Try to win
+            let move = findBestMove("O");
+            // 2. Block Player
+            if (move === null) move = findBestMove("X");
+            // 3. Take Center
+            if (move === null && board[4] === "") move = 4;
+            // 4. Take Random Empty Cell
+            if (move === null) {
+                let emptyCells = board.map((c, i) => c === "" ? i : null).filter(v => v !== null);
+                move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            }
+
+            if (move !== undefined && move !== null) {
+                board[move] = "O";
+                updateBoard();
+                if (checkWin("O")) {
+                    endGame("Rabi Won! 😎", "Mein jeet gaya! Guriya aapka dimaag gusse ki waja se para high huwa wah hai,. Shart ke mutabiq ab aapko apna gussa 50% kam karna padega aur dawa khani padegi. Chalo dobara try karo shabash, is baar harao mujhe!");
+                } else if (board.every(cell => cell !== "")) {
+                    endGame("Match Draw! 🤝", "Draw ho gaya! Chalo dobara khelo, gusse mein dimaag tez chalta hai aapka, is baar hara kar apna hukum chalao mujh par! 😉");
+                } else {
+                    document.getElementById('status-text').innerText = "Aapki Turn Hai (Aap 'X' Ho) 🔥";
+                }
+            }
+        }
+
+        function findBestMove(player) {
+            for (let pattern of winPatterns) {
+                let count = 0;
+                let emptyIdx = null;
+                for (let idx of pattern) {
+                    if (board[idx] === player) count++;
+                    else if (board[idx] === "") emptyIdx = idx;
+                }
+                if (count === 2 && emptyIdx !== null) return emptyIdx;
+            }
+            return null;
+        }
+
+        function checkWin(player) {
+            return winPatterns.some(pattern => {
+                return pattern.every(index => board[index] === player);
+            });
+        }
+
+        function updateBoard() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach((cell, i) => {
+                cell.innerText = board[i];
+                cell.className = `cell ${board[i]}`;
+            });
+        }
+
+        function endGame(title, msg) {
+            isGameActive = false;
+            document.getElementById('win-title').innerText = title;
+            document.getElementById('win-msg').innerText = msg;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            resetGame();
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            isGameActive = true;
+            document.getElementById('status-text').innerText = "Aapki Turn Hai (Aap 'X' Ho) 🔥";
+            updateBoard();
         }
     </script>
 </body>
