@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Ultimate Queen's Quest 👑</title>
+    <title>ANU ke liye Sorry game 🌸</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #fef08a, #fbcfe8, #e0f2fe);
-            --text-main: #1e3a8a;
-            --accent-pink: #ec4899;
+            --bg: linear-gradient(135deg, #1e1b4b, #311042);
+            --pink: #f43f5e;
+            --purple: #a855f7;
         }
 
         * {
@@ -19,272 +19,270 @@
         }
 
         body {
-            background: var(--bg-gradient);
-            background-size: 300% 300%;
-            animation: moveBG 20s ease infinite;
+            background: var(--bg);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
+            color: white;
         }
 
-        @keyframes moveBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .quest-container {
-            background: rgba(255, 255, 255, 0.9);
+        .game-box {
+            background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            padding: 35px;
-            max-width: 550px;
+            padding: 25px;
+            max-width: 420px;
             width: 100%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 3px solid white;
             text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         h1 {
-            color: var(--text-main);
             font-size: 26px;
-            margin-bottom: 10px;
+            color: #fca5a5;
+            margin-bottom: 8px;
         }
 
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-            background: #e2e8f0;
-            border-radius: 10px;
-            padding: 4px;
-            position: relative;
-        }
-
-        .progress-step {
-            width: 30px;
-            height: 30px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: #64748b;
-            transition: all 0.4s ease;
-            z-index: 2;
-        }
-
-        .progress-step.active {
-            background: var(--accent-pink);
-            color: white;
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
-        }
-
-        .progress-step.completed {
-            background: #10b981;
-            color: white;
-        }
-
-        .riddle-card {
-            margin-top: 20px;
-            min-height: 200px;
-        }
-
-        .riddle-text {
-            font-size: 18px;
-            color: #334155;
-            line-height: 1.6;
-            font-style: italic;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
-            width: 80%;
-            padding: 12px 20px;
-            border: 2px solid #cbd5e1;
-            border-radius: 50px;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            transition: border-color 0.3s;
-            text-transform: uppercase;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--accent-pink);
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #ec4899, #f43f5e);
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-            transition: transform 0.2s;
-        }
-
-        .btn-submit:active {
-            transform: scale(0.95);
-        }
-
-        .error-msg {
-            color: #ef4444;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-            font-weight: 600;
-        }
-
-        .success-screen {
-            display: none;
-        }
-
-        .hint-btn {
-            background: none;
-            border: none;
-            color: #0284c7;
-            cursor: pointer;
-            text-decoration: underline;
+        .rules {
             font-size: 13px;
-            margin-top: 10px;
-            display: inline-block;
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
         }
+
+        .status {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, rgba(244, 63, 94, 0.3), rgba(168, 85, 247, 0.3));
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .cell {
+            background: rgba(255, 255, 255, 0.08);
+            aspect-ratio: 1;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cell:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .cell.X { color: #f43f5e; text-shadow: 0 0 12px rgba(244, 63, 94, 0.6); }
+        .cell.O { color: #38bdf8; text-shadow: 0 0 12px rgba(56, 189, 248, 0.6); }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
+            font-size: 15px;
+            transition: transform 0.1s;
+        }
+
+        .btn-action:active {
+            transform: scale(0.98);
+        }
+
+        /* Result Popup Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .popup {
+            background: #fff1f2;
+            color: #4c0519;
+            padding: 30px 20px;
+            border-radius: 24px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border: 2px solid #fecdd3;
+        }
+
+        .popup h2 { margin-bottom: 15px; color: #9f1239; font-size: 24px; }
+        .popup p { font-size: 15px; line-height: 1.6; margin-bottom: 22px; font-weight: 500; }
     </style>
 </head>
 <body>
 
-    <div class="quest-container">
-        <div id="game-view">
-            <h1>The Ultimate Love Riddle Quest 👑</h1>
-            <p style="color: #64748b; font-size: 14px;">Ek ghante ka challenge! Har paheli ka sahi jawab hi agla rasta kholega...</p>
+    <div class="game-box">
+        <h1>ANU ke liye Sorry game</h1>
+        <div class="rules">
+            Chalo ek Challenge Match ho jaye! Agar Anna jeet gaeen (jo ke mushkil hai), toh Rabi ko ek aisi shart poori karni padegi jo aap bolegi. Aur agar Rabi jeet gaya, toh gussa khatam! 😎
+        </div>
+        
+        <div class="status" id="status-text">Aapki Turn Hai (Aap 'X' Ho) 🔥</div>
 
-            <div class="progress-bar">
-                <div class="progress-step active" id="step-0">1</div>
-                <div class="progress-step" id="step-1">2</div>
-                <div class="progress-step" id="step-2">3</div>
-                <div class="progress-step" id="step-3">4</div>
-                <div class="progress-step" id="step-4">5</div>
-            </div>
-
-            <div class="riddle-card">
-                <p class="riddle-text" id="riddle-display">Loading riddle...</p>
-                
-                <div class="input-group">
-                    <input type="text" id="answer-input" placeholder="Type your answer here..." autocomplete="off">
-                </div>
-                
-                <button class="btn-submit" onclick="checkAnswer()">Unlock Next Stage 🔓</button>
-                <br>
-                <button class="hint-btn" onclick="showHint()">Need a hint?</button>
-                <p class="error-msg" id="error-display">Galat jawab! Dimaag lagayein Begum Sahiba... 🍳</p>
-            </div>
+        <div class="board" id="board">
+            <div class="cell" onclick="makeMove(0)"></div>
+            <div class="cell" onclick="makeMove(1)"></div>
+            <div class="cell" onclick="makeMove(2)"></div>
+            <div class="cell" onclick="makeMove(3)"></div>
+            <div class="cell" onclick="makeMove(4)"></div>
+            <div class="cell" onclick="makeMove(5)"></div>
+            <div class="cell" onclick="makeMove(6)"></div>
+            <div class="cell" onclick="makeMove(7)"></div>
+            <div class="cell" onclick="makeMove(8)"></div>
         </div>
 
-        <div id="success-view" class="success-screen">
-            <h2 style="color: #10b981; font-size: 28px; margin-bottom: 15px;">🎉 Quest Completed! 🎉</h2>
-            <div style="font-size: 60px; margin-bottom: 20px;">🏆👑❤️</div>
-            <p style="font-size: 20px; color: #1e3a8a; line-height: 1.6; font-weight: 600; margin-bottom: 25px;">
-                Wah Meri Jaan! Aapne Extreme Hard Level ko poora crack kar liya! You truly know everything. Mere dil ki asli malika aap hi ho! Love You Forever Always! 💋
-            </p>
-            <div style="color: #ec4899; font-size: 18px; font-weight: bold;">Umaaah! 🤗❤️</div>
+        <button class="btn-action" onclick="resetGame()">Game Restart Karo 🔄</button>
+    </div>
+
+    <!-- RESULT OVERLAY -->
+    <div class="overlay" id="overlay">
+        <div class="popup">
+            <h2 id="win-title">Winner!! 👑</h2>
+            <p id="win-msg">Message loading...</p>
+            <button class="btn-action" onclick="closePopup()">Chalo Dobara Khelte Hain 😤</button>
         </div>
     </div>
 
     <script>
-        const questData = [
-            {
-                riddle: "Main aapka sacha rishta huun, aapka hamsafar huun, aur aapke dil par raj karne wala aapka apna kaun huun? Batao main kaun huun?",
-                answer: "MIYA",
-                hint: "Aapka mere sath kya rishta hai? Main aapka kya lagta huun? (4 Letters)"
-            },
-            {
-                riddle: "Kitchen ka ek tool bhi huun jo cheezon ko band karta hai... Aur jab tum ulti baatein karti ho ya mujhe tang karti ho, toh main pyaar se kya kehta huun tuje? Batao main kaun huun?",
-                answer: "DHAKAN",
-                hint: "Jab tum ulti baatein karti ho ya mujhe tang karti ho, toh main pyaar se kya kehta huun tuje? (6 Letters)"
-            },
-            {
-                riddle: "Bina bolay pyaar jatane ka tareeqa huun, honton se honton ka ek chota sa tohfa huun. Batao main kaun huun?",
-                answer: "KISS",
-                hint: "Jo aapko mujhse chahiye hota hai! (4 Letters)"
-            },
-            {
-                riddle: "Gale se laga kar sukoon dene wali jhappi huun, gusse ko thanda karne wali ek jadoo ki jhappi huun. Batao main kaun huun?",
-                answer: "HUG",
-                hint: "Pyaar se gale lagana! (3 Letters)"
-            },
-            {
-                riddle: "Main aapka sabse pasandida, sweet aur cute naam huun jo aap mujhe pyaar se bulati hain. Batao main kaun huun?",
-                answer: "LALI",
-                hint: "Aap mujhe pyaar se kya bulati hain? Yaad karein! (4 Letters)"
-            }
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let isGameActive = true;
+        
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
         ];
 
-        let currentStage = 0;
+        function makeMove(index) {
+            if (board[index] !== "" || !isGameActive) return;
 
-        function loadStage() {
-            if (currentStage >= questData.length) {
-                document.getElementById('game-view').style.display = 'none';
-                document.getElementById('success-view').style.display = 'block';
+            // Player Move (X)
+            board[index] = "X";
+            updateBoard();
+            
+            if (checkWin("X")) {
+                endGame("Anna Won! 👑", "ANU jeet gaeen! Shart ke mutabiq aapko Muj par FULL HUKUM chalane ka haq milta hai. Chalo ab hukum chalao begum! ❤️");
                 return;
             }
 
-            document.getElementById('riddle-display').innerText = questData[currentStage].riddle;
-            document.getElementById('answer-input').value = "";
-            document.getElementById('error-display').style.display = 'none';
+            if (board.every(cell => cell !== "")) {
+                endGame("Match Draw! 🤝", "Draw ho gaya! Chalo dobara khelo, gusse mein dimaag tez chalta hai aapka, is baar hara kar apna hukum chalao mujh par! 😉");
+                return;
+            }
 
-            // Update Progress Bar
-            for (let i = 0; i < questData.length; i++) {
-                const step = document.getElementById(`step-${i}`);
-                if (i < currentStage) {
-                    step.className = "progress-step completed";
-                    step.innerText = "✓";
-                } else if (i === currentStage) {
-                    step.className = "progress-step active";
-                    step.innerText = i + 1;
+            // Computer Move (O) with Delay
+            isGameActive = false;
+            document.getElementById('status-text').innerText = "Rabi Dimaag Laga Raha Hai... 🤔";
+            setTimeout(() => {
+                aiMove();
+                isGameActive = true;
+            }, 600);
+        }
+
+        function aiMove() {
+            // 1. Try to win
+            let move = findBestMove("O");
+            // 2. Block Player
+            if (move === null) move = findBestMove("X");
+            // 3. Take Center
+            if (move === null && board[4] === "") move = 4;
+            // 4. Take Random Empty Cell
+            if (move === null) {
+                let emptyCells = board.map((c, i) => c === "" ? i : null).filter(v => v !== null);
+                move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            }
+
+            if (move !== undefined && move !== null) {
+                board[move] = "O";
+                updateBoard();
+                if (checkWin("O")) {
+                    endGame("Rabi Won! 😎", "Mein jeet gaya! Guriya aapka dimaag gusse ki waja se para high huwa wah hai,. Shart ke mutabiq ab aapko apna gussa 50% kam karna padega aur dawa khani padegi. Chalo dobara try karo shabash, is baar harao mujhe!");
+                } else if (board.every(cell => cell !== "")) {
+                    endGame("Match Draw! 🤝", "Draw ho gaya! Chalo dobara khelo, gusse mein dimaag tez chalta hai aapka, is baar hara kar apna hukum chalao mujh par! 😉");
                 } else {
-                    step.className = "progress-step";
-                    step.innerText = i + 1;
+                    document.getElementById('status-text').innerText = "Aapki Turn Hai (Aap 'X' Ho) 🔥";
                 }
             }
         }
 
-        function checkAnswer() {
-            const inputVal = document.getElementById('answer-input').value.trim().toUpperCase();
-            const correctAns = questData[currentStage].answer;
-
-            if (inputVal === correctAns) {
-                currentStage++;
-                loadStage();
-            } else {
-                const errorDisplay = document.getElementById('error-display');
-                errorDisplay.style.display = 'block';
-                errorDisplay.style.color = '#ef4444';
-                errorDisplay.innerText = "Galat jawab! Thoda aur sochiye Begum Sahiba... 🍳";
+        function findBestMove(player) {
+            for (let pattern of winPatterns) {
+                let count = 0;
+                let emptyIdx = null;
+                for (let idx of pattern) {
+                    if (board[idx] === player) count++;
+                    else if (board[idx] === "") emptyIdx = idx;
+                }
+                if (count === 2 && emptyIdx !== null) return emptyIdx;
             }
+            return null;
         }
 
-        function showHint() {
-            const errorDisplay = document.getElementById('error-display');
-            errorDisplay.style.display = 'block';
-            errorDisplay.style.color = '#0284c7';
-            errorDisplay.innerText = "Hint: " + questData[currentStage].hint;
+        function checkWin(player) {
+            return winPatterns.some(pattern => {
+                return pattern.every(index => board[index] === player);
+            });
         }
 
-        // Start game
-        loadStage();
+        function updateBoard() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach((cell, i) => {
+                cell.innerText = board[i];
+                cell.className = `cell ${board[i]}`;
+            });
+        }
+
+        function endGame(title, msg) {
+            isGameActive = false;
+            document.getElementById('win-title').innerText = title;
+            document.getElementById('win-msg').innerText = msg;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            resetGame();
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            isGameActive = true;
+            document.getElementById('status-text').innerText = "Aapki Turn Hai (Aap 'X' Ho) 🔥";
+            updateBoard();
+        }
     </script>
 </body>
 </html>
