@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANU ke liye Sorry game 🌸</title>
+    <title>Anu's Custom Doll Makeover Studio 💄✨</title>
     <style>
         :root {
-            --bg: linear-gradient(135deg, #1e1b4b, #311042);
-            --pink: #f43f5e;
-            --purple: #a855f7;
+            --studio-pink: #ff85a2;
+            --studio-dark: #2d1b24;
+            --studio-bg: linear-gradient(135deg, #ffeef2, #fbcfe8, #fef08a);
         }
 
         * {
@@ -16,272 +16,368 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: var(--bg);
+            background: var(--studio-bg);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 15px;
-            color: white;
         }
 
-        .game-box {
-            background: rgba(255, 255, 255, 0.07);
+        .studio-container {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 25px;
-            max-width: 420px;
+            border-radius: 30px;
+            max-width: 900px;
             width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        h1 {
-            font-size: 26px;
-            color: #fca5a5;
-            margin-bottom: 8px;
-        }
-
-        .rules {
-            font-size: 13px;
-            color: #cbd5e1;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-        }
-
-        .status {
-            font-size: 14px;
-            color: #ffffff;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, rgba(244, 63, 94, 0.3), rgba(168, 85, 247, 0.3));
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .board {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 20px 0;
+            grid-template-columns: 1.2fr 1fr;
+            box-shadow: 0 20px 50px rgba(219, 39, 119, 0.15);
+            border: 4px solid white;
+            overflow: hidden;
+            min-height: 620px;
         }
 
-        .cell {
-            background: rgba(255, 255, 255, 0.08);
-            aspect-ratio: 1;
-            border-radius: 14px;
+        @media (max-width: 768px) {
+            .studio-container {
+                grid-template-columns: 1fr;
+            }
+            .canvas-area {
+                height: 400px !important;
+            }
+        }
+
+        /* LEFT SIDE: DOLL CANVAS */
+        .canvas-area {
+            background: radial-gradient(circle, #ffffff, #fff1f2);
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 38px;
+            overflow: hidden;
+            border-right: 2px solid #fecdd3;
+            height: 100%;
+        }
+
+        .brand-label {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 14px;
             font-weight: bold;
+            color: #db2777;
+            background: #ffe4e6;
+            padding: 5px 12px;
+            border-radius: 50px;
+        }
+
+        .doll-wrapper {
+            position: relative;
+            width: 260px;
+            height: 380px;
+            margin-top: 20px;
+        }
+
+        /* Layer System using pure vector overlays */
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: all 0.3s ease;
+        }
+
+        /* BASE INNERWEAR GRAPHIC */
+        .layer.base-doll {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><circle cx="50" cy="25" r="12" fill="%23ffd1b3"/><ellipse cx="50" cy="65" rx="14" ry="25" fill="%23ffd1b3"/><rect x="42" y="35" width="16" height="12" fill="%23ffd1b3"/><rect x="40" y="85" width="7" height="45" fill="%23ffd1b3"/><rect x="53" y="85" width="7" height="45" fill="%23ffd1b3"/><path d="M38,45 Q25,65 20,85" stroke="%23ffd1b3" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M62,45 Q75,65 80,85" stroke="%23ffd1b3" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M41,25 Q45,28 50,25 Q55,28 59,25" stroke="%23ffd1b3" fill="none"/><circle cx="46" cy="24" r="1.5" fill="%232d1b24"/><circle cx="54" cy="24" r="1.5" fill="%232d1b24"/><path d="M47,29 Q50,31 53,29" stroke="%23db2777" stroke-width="1" fill="none"/><rect x="36" y="55" width="28" height="14" rx="4" fill="%23f43f5e"/><path d="M36,75 Q50,90 64,75 Z" fill="%23f43f5e"/></svg>');
+        }
+
+        /* RIGHT SIDE: SALON INTERFACE */
+        .controls-area {
+            padding: 25px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .header-box h1 {
+            font-size: 22px;
+            color: var(--studio-dark);
+            margin-bottom: 5px;
+        }
+
+        .header-box p {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 10px 5px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #475569;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .cell:hover {
-            background: rgba(255, 255, 255, 0.15);
+        .tab-btn.active {
+            background: var(--studio-pink);
+            color: white;
         }
 
-        .cell.X { color: #f43f5e; text-shadow: 0 0 12px rgba(244, 63, 94, 0.6); }
-        .cell.O { color: #38bdf8; text-shadow: 0 0 12px rgba(56, 189, 248, 0.6); }
+        .options-panel {
+            background: #fff1f2;
+            border-radius: 18px;
+            padding: 15px;
+            min-height: 220px;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
 
-        .btn-action {
-            background: linear-gradient(135deg, var(--pink), var(--purple));
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .opt-card {
+            background: white;
+            border: 2px solid #ffe4e6;
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4c0519;
+            transition: all 0.2s;
+        }
+
+        .opt-card:hover, .opt-card.selected {
+            border-color: var(--studio-pink);
+            background: #fff5f5;
+            transform: translateY(-1px);
+        }
+
+        .btn-reveal {
+            background: linear-gradient(135deg, #db2777, #f43f5e);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 15px;
             border-radius: 50px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
-            font-size: 15px;
-            transition: transform 0.1s;
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.3);
         }
 
-        .btn-action:active {
-            transform: scale(0.98);
-        }
-
-        /* Result Popup Overlay */
-        .overlay {
+        /* REVEAL SCREEN MODE */
+        .modal-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.95);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            z-index: 100;
+            padding: 15px;
         }
 
-        .popup {
-            background: #fff1f2;
-            color: #4c0519;
-            padding: 30px 20px;
-            border-radius: 24px;
-            max-width: 380px;
+        .reveal-box {
+            background: white;
+            border-radius: 30px;
+            max-width: 450px;
             width: 100%;
+            padding: 30px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            border: 2px solid #fecdd3;
+            border: 4px solid var(--studio-pink);
         }
 
-        .popup h2 { margin-bottom: 15px; color: #9f1239; font-size: 24px; }
-        .popup p { font-size: 15px; line-height: 1.6; margin-bottom: 22px; font-weight: 500; }
+        .reveal-title {
+            color: #9f1239;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .reveal-msg {
+            font-size: 15px;
+            color: #334155;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
 
-    <div class="game-box">
-        <h1>ANU ke liye Sorry game</h1>
-        <div class="rules">
-            Chalo ek Challenge Match ho jaye! Agar Anna jeet gaeen (jo ke mushkil hai), toh Rabi ko ek aisi shart poori karni padegi jo aap bolegi. Aur agar Rabi jeet gaya, toh gussa khatam! 😎
-        </div>
-        
-        <div class="status" id="status-text">Aapki Turn Hai (Aap 'X' Ho) 🔥</div>
-
-        <div class="board" id="board">
-            <div class="cell" onclick="makeMove(0)"></div>
-            <div class="cell" onclick="makeMove(1)"></div>
-            <div class="cell" onclick="makeMove(2)"></div>
-            <div class="cell" onclick="makeMove(3)"></div>
-            <div class="cell" onclick="makeMove(4)"></div>
-            <div class="cell" onclick="makeMove(5)"></div>
-            <div class="cell" onclick="makeMove(6)"></div>
-            <div class="cell" onclick="makeMove(7)"></div>
-            <div class="cell" onclick="makeMove(8)"></div>
+    <div class="studio-container">
+        <!-- LEFT SCREEN: LIVE DOLL GENERATOR -->
+        <div class="canvas-area" id="studio-canvas">
+            <div class="brand-label">Rabi's Design Line 💖</div>
+            
+            <div class="doll-wrapper">
+                <!-- Layers Snapped in hierarchy -->
+                <div class="layer base-doll"></div>
+                <div class="layer" id="layer-makeup"></div>
+                <div class="layer" id="layer-dress"></div>
+                <div class="layer" id="layer-hair"></div>
+            </div>
         </div>
 
-        <button class="btn-action" onclick="resetGame()">Game Restart Karo 🔄</button>
+        <!-- RIGHT SCREEN: DRESS UP MANAGER -->
+        <div class="controls-area">
+            <div class="header-box">
+                <h1>Doll Dress-Up Salon</h1>
+                <p>Guriya, apni marzi ke stylish clothes, hair aur makeup designs select karein aur check karein final preview ✨</p>
+            </div>
+
+            <!-- TABS CATAGORIES -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('dress', this)">👗 Dresses</button>
+                <button class="tab-btn" onclick="switchTab('hair', this)">💇‍♀️ Hair</button>
+                <button class="tab-btn" onclick="switchTab('makeup', this)">💄 Makeup</button>
+                <button class="tab-btn" onclick="switchTab('bg', this)">🌌 Stage</button>
+            </div>
+
+            <!-- OPTIONS LOAD CONTAINER -->
+            <div class="options-panel">
+                <!-- DRESS PANEL -->
+                <div class="grid-options id-panel" id="panel-dress">
+                    <div class="opt-card" onclick="applyAsset('dress', 'd1', this)">Gown Red Velvet</div>
+                    <div class="opt-card" onclick="applyAsset('dress', 'd2', this)">Casual Blue Jeans</div>
+                    <div class="opt-card" onclick="applyAsset('dress', 'd3', this)">Summer Floral Dress</div>
+                    <div class="opt-card" onclick="applyAsset('dress', 'd4', this)">Barbie Pink Skirt</div>
+                </div>
+
+                <!-- HAIR PANEL -->
+                <div class="grid-options id-panel" id="panel-hair" style="display:none;">
+                    <div class="opt-card" onclick="applyAsset('hair', 'h1', this)">Long Golden Waves</div>
+                    <div class="opt-card" onclick="applyAsset('hair', 'h2', this)">Short Bold Bob</div>
+                    <div class="opt-card" onclick="applyAsset('hair', 'h3', this)">Classic Dark Curls</div>
+                    <div class="opt-card" onclick="applyAsset('hair', 'h4', this)">Anime Purple Ponytail</div>
+                </div>
+
+                <!-- MAKEUP PANEL -->
+                <div class="grid-options id-panel" id="panel-makeup" style="display:none;">
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm1', this)">Ruby Red Glaze</div>
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm2', this)">Soft Pink Blush</div>
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm3', this)">Golden Glam Shade</div>
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm4', this)">Smokey Dark Liner</div>
+                </div>
+
+                <!-- BACKGROUND STAGE PANEL -->
+                <div class="grid-options id-panel" id="panel-bg" style="display:none;">
+                    <div class="opt-card" onclick="changeBackground('bg1', this)">Fashion Runway</div>
+                    <div class="opt-card" onclick="changeBackground('bg2', this)">Neon Party Night</div>
+                    <div class="opt-card" onclick="changeBackground('bg3', this)">Cozy Bedroom Room</div>
+                    <div class="opt-card" onclick="changeBackground('bg4', this)">Dreamy Castle Hall</div>
+                </div>
+            </div>
+
+            <button class="btn-reveal" onclick="showReveal()">Finalize Look & Reveal! 🪄</button>
+        </div>
     </div>
 
-    <!-- RESULT OVERLAY -->
-    <div class="overlay" id="overlay">
-        <div class="popup">
-            <h2 id="win-title">Winner!! 👑</h2>
-            <p id="win-msg">Message loading...</p>
-            <button class="btn-action" onclick="closePopup()">Chalo Dobara Khelte Hain 😤</button>
+    <!-- POPUP SCREEN MODAL -->
+    <div class="modal-overlay" id="reveal-modal">
+        <div class="reveal-box">
+            <h2 class="reveal-title">Absolutely Gorgeous! 😍👑</h2>
+            <p class="reveal-msg">
+                Wow, Guriya! Aapka design kiya hua look ekdum perfect aur super stylish lag raha hai. Aapka fashion sense sach mein tareef ke kabil hai.<br><br>Ab jaldi se smile kijiye, saara gussa side par rakhein, dawa khaiye aur rest kijiye. Tera Rabi hamesha aapke sath hai aur aapko khush dekhna chahta hai! ❤️
+            </p>
+            <button class="btn-reveal" onclick="closeModal()">Close & Keep Designing 💋</button>
         </div>
     </div>
 
     <script>
-        let board = ["", "", "", "", "", "", "", "", ""];
-        let isGameActive = true;
-        
-        const winPatterns = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],
-            [0, 4, 8], [2, 4, 6]
-        ];
-
-        function makeMove(index) {
-            if (board[index] !== "" || !isGameActive) return;
-
-            // Player Move (X)
-            board[index] = "X";
-            updateBoard();
-            
-            if (checkWin("X")) {
-                endGame("Anna Won! 👑", "ANU jeet gaeen! Shart ke mutabiq aapko Muj par FULL HUKUM chalane ka haq milta hai. Chalo ab hukum chalao begum! ❤️");
-                return;
+        // High Quality SVG Data Asset Links Embedded for smooth vector rendering on runtime
+        const assets = {
+            dress: {
+                d1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M36,50 Q50,45 64,50 L75,130 Q50,145 25,130 Z" fill="%23dc2626"/><path d="M36,50 Q50,65 64,50 L50,85 Z" fill="%23991b1b"/></svg>\')',
+                d2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><rect x="36" y="52" width="28" height="25" fill="%23ffffff"/><rect x="40" y="75" width="9" height="55" fill="%232563eb"/><rect x="51" y="75" width="9" height="55" fill="%232563eb"/></svg>\')',
+                d3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M36,50 Q50,40 64,50 L70,115 Q50,125 30,115 Z" fill="%23fbbf24"/><circle cx="45" cy="70" r="3" fill="%23ef4444"/><circle cx="55" cy="85" r="4" fill="%23ef4444"/><circle cx="42" cy="100" r="3" fill="%23ef4444"/></svg>\')',
+                d4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><rect x="38" y="50" width="24" height="20" fill="%23f472b6"/><path d="M30,70 L70,70 L78,110 Q50,125 22,110 Z" fill="%23db2777"/></svg>\')'
+            },
+            hair: {
+                h1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M32,25 Q50,-5 68,25 Q78,65 72,90 Q65,40 60,30 Q50,35 40,30 Q35,40 28,90 Q22,65 32,25 Z" fill="%23f59e0b"/></svg>\')',
+                h2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M34,22 Q50,2 66,22 Q72,42 66,45 Q50,32 34,45 Q28,42 34,22 Z" fill="%23bd1e24"/></svg>\')',
+                h3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M32,25 Q50,3 68,25 Q74,50 70,65 C65,55 62,45 58,40 C50,48 42,44 38,40 C34,48 28,52 26,65 Q24,45 32,25 Z" fill="%231e1b4b"/></svg>\')',
+                h4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M35,22 Q50,2 65,22 Q70,40 62,42 Q50,30 38,42 Z" fill="%23c084fc"/><path d="M64,22 Q85,25 80,45" stroke="%23c084fc" stroke-width="6" fill="none"/><path d="M36,22 Q15,25 20,45" stroke="%23c084fc" stroke-width="6" fill="none"/></svg>\')'
+            },
+            makeup: {
+                m1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M46,29 Q50,32 54,29 Q50,30 46,29 Z" fill="%23dc2626" stroke="%23dc2626" stroke-width="1"/><circle cx="43" cy="26" r="2" fill="%23f43f5e" opacity="0.4"/><circle cx="57" cy="26" r="2" fill="%23f43f5e" opacity="0.4"/></svg>\')',
+                m2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M47,29 Q50,31 53,29" stroke="%23f472b6" stroke-width="1.5" fill="none"/><circle cx="41" cy="26" r="4" fill="%23f472b6" opacity="0.6"/><circle cx="59" cy="26" r="4" fill="%23f472b6" opacity="0.6"/></svg>\')',
+                m3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M47,29 Q50,31 53,29" stroke="%23db2777" stroke-width="1" fill="none"/><ellipse cx="45" cy="22" rx="3" ry="1" fill="%23fbbf24" opacity="0.7"/><ellipse cx="55" cy="22" rx="3" ry="1" fill="%23fbbf24" opacity="0.7"/></svg>\')',
+                m4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M43,23 L49,23 M51,23 L57,23" stroke="%230f172a" stroke-width="1.5" stroke-linecap="round"/><path d="M46,29 Q50,31 54,29" stroke="%23be123c" stroke-width="1" fill="none"/></svg>\')'
             }
+        };
 
-            if (board.every(cell => cell !== "")) {
-                endGame("Match Draw! 🤝", "Draw ho gaya! Chalo dobara khelo, gusse mein dimaag tez chalta hai aapka, is baar hara kar apna hukum chalao mujh par! 😉");
-                return;
-            }
+        const backgrounds = {
+            bg1: 'radial-gradient(circle, #ffffff, #fff1f2, #fbcfe8)',
+            bg2: 'radial-gradient(circle, #2e1065, #0f172a)',
+            bg3: 'radial-gradient(circle, #fef9c3, #ffedd5, #ffecf0)',
+            bg4: 'radial-gradient(circle, #e0f2fe, #bae6fd, #f1f5f9)'
+        };
 
-            // Computer Move (O) with Delay
-            isGameActive = false;
-            document.getElementById('status-text').innerText = "Rabi Dimaag Laga Raha Hai... 🤔";
-            setTimeout(() => {
-                aiMove();
-                isGameActive = true;
-            }, 600);
+        function switchTab(tabId, btn) {
+            // Manage Active Tab Buttons
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Manage View Panels
+            document.querySelectorAll('.id-panel').forEach(p => p.style.display = 'none');
+            document.getElementById(`panel-${tabId}`).style.display = 'grid';
         }
 
-        function aiMove() {
-            // 1. Try to win
-            let move = findBestMove("O");
-            // 2. Block Player
-            if (move === null) move = findBestMove("X");
-            // 3. Take Center
-            if (move === null && board[4] === "") move = 4;
-            // 4. Take Random Empty Cell
-            if (move === null) {
-                let emptyCells = board.map((c, i) => c === "" ? i : null).filter(v => v !== null);
-                move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-            }
+        function applyAsset(type, assetKey, card) {
+            // Highlight selected card within same panel category
+            const siblings = card.parentNode.querySelectorAll('.opt-card');
+            siblings.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
 
-            if (move !== undefined && move !== null) {
-                board[move] = "O";
-                updateBoard();
-                if (checkWin("O")) {
-                    endGame("Rabi Won! 😎", "Mein jeet gaya! Guriya aapka dimaag gusse ki waja se para high huwa wah hai,. Shart ke mutabiq ab aapko apna gussa 50% kam karna padega aur dawa khani padegi. Chalo dobara try karo shabash, is baar harao mujhe!");
-                } else if (board.every(cell => cell !== "")) {
-                    endGame("Match Draw! 🤝", "Draw ho gaya! Chalo dobara khelo, gusse mein dimaag tez chalta hai aapka, is baar hara kar apna hukum chalao mujh par! 😉");
-                } else {
-                    document.getElementById('status-text').innerText = "Aapki Turn Hai (Aap 'X' Ho) 🔥";
-                }
-            }
+            // Apply SVG visual to respective layer live
+            const layer = document.getElementById(`layer-${type}`);
+            layer.style.backgroundImage = assets[type][assetKey];
         }
 
-        function findBestMove(player) {
-            for (let pattern of winPatterns) {
-                let count = 0;
-                let emptyIdx = null;
-                for (let idx of pattern) {
-                    if (board[idx] === player) count++;
-                    else if (board[idx] === "") emptyIdx = idx;
-                }
-                if (count === 2 && emptyIdx !== null) return emptyIdx;
-            }
-            return null;
+        function changeBackground(bgKey, card) {
+            const siblings = card.parentNode.querySelectorAll('.opt-card');
+            siblings.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+
+            // Apply direct canvas modification
+            document.getElementById('studio-canvas').style.background = backgrounds[bgKey];
         }
 
-        function checkWin(player) {
-            return winPatterns.some(pattern => {
-                return pattern.every(index => board[index] === player);
-            });
+        function showReveal() {
+            document.getElementById('reveal-modal').style.display = 'flex';
         }
 
-        function updateBoard() {
-            const cells = document.querySelectorAll('.cell');
-            cells.forEach((cell, i) => {
-                cell.innerText = board[i];
-                cell.className = `cell ${board[i]}`;
-            });
-        }
-
-        function endGame(title, msg) {
-            isGameActive = false;
-            document.getElementById('win-title').innerText = title;
-            document.getElementById('win-msg').innerText = msg;
-            document.getElementById('overlay').style.display = 'flex';
-        }
-
-        function closePopup() {
-            document.getElementById('overlay').style.display = 'none';
-            resetGame();
-        }
-
-        function resetGame() {
-            board = ["", "", "", "", "", "", "", "", ""];
-            isGameActive = true;
-            document.getElementById('status-text').innerText = "Aapki Turn Hai (Aap 'X' Ho) 🔥";
-            updateBoard();
+        function closeModal() {
+            document.getElementById('reveal-modal').style.display = 'none';
         }
     </script>
 </body>
