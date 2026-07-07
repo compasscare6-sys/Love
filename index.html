@@ -66,7 +66,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: rgba(255, 255, 255, 0.04);
             padding: 10px;
             border-radius: 14px;
@@ -80,6 +80,28 @@
             font-size: 15px;
             color: var(--gold);
             margin-top: 2px;
+        }
+
+        /* PREMIUM HINT BUTTON STYLE */
+        .hint-btn-container {
+            margin-bottom: 12px;
+        }
+
+        .btn-hint {
+            background: linear-gradient(135deg, #4c1d95, #2563eb);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition: background 0.2s ease;
+        }
+
+        .btn-hint:active {
+            transform: scale(0.97);
         }
 
         .candy-grid {
@@ -114,7 +136,7 @@
         }
 
         .tile.hint-pulse {
-            animation: hintGlow 1s infinite alternate;
+            animation: hintGlow 1s infinite alternate !important;
             z-index: 5;
         }
 
@@ -145,7 +167,7 @@
             text-align: center;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
             max-height: 90vh;
-            overflow-y: auto; /* Allows smooth scrolling if the emotional message text wraps heavily on small viewports */
+            overflow-y: auto;
         }
 
         .modal-title {
@@ -182,13 +204,17 @@
     <div class="game-wrapper">
         <header>
             <h1>Sugar Match-3 Deluxe</h1>
-            <p>Candies ko swipe karke match banayein ✨ (Hints automatic milengi)</p>
+            <p>Candies ko swipe karke match banayein ✨</p>
         </header>
 
         <div class="dashboard">
             <div>Level<span id="level-val">1</span></div>
             <div>Score<span id="score-val">0 / 300</span></div>
             <div>Moves Left<span id="moves-val">40</span></div>
+        </div>
+
+        <div class="hint-btn-container">
+            <button class="btn-hint" onclick="triggerManualHint()">Get Hint 💡</button>
         </div>
 
         <div class="candy-grid" id="grid"></div>
@@ -297,7 +323,6 @@
                 setTimeout(() => {
                     refillGrid();
                     checkGameStatus();
-                    resetHintTimer();
                 }, 250);
             } else {
                 setTimeout(() => {
@@ -320,7 +345,7 @@
             let toClear = new Set();
 
             for (let r = 0; r < width; r++) {
-                for (let c = 0; c < width - 2; c++) {
+                for (let c = 0; r < width && c < width - 2; c++) {
                     let idx = r * width + c;
                     if (gridData[idx] && gridData[idx] === gridData[idx+1] && gridData[idx] === gridData[idx+2]) {
                         toClear.add(idx).add(idx+1).add(idx+2);
@@ -380,17 +405,26 @@
 
             if (checkAndClearMatches()) {
                 setTimeout(refillGrid, 250);
+            } else {
+                resetHintTimer();
             }
         }
 
+        // AUTO-HINT SYSTEM UPDATED TO 10 SECONDS FOR "ZID MODE"
         function resetHintTimer() {
             clearHint();
-            hintTimer = setTimeout(findAndShowHint, 5000);
+            hintTimer = setTimeout(findAndShowHint, 10000); // 10 seconds idle check
         }
 
         function clearHint() {
             clearTimeout(hintTimer);
             document.querySelectorAll('.tile').forEach(t => t.classList.remove('hint-pulse'));
+        }
+
+        // Manual button click furan work karega bina wait kiye
+        function triggerManualHint() {
+            clearHint();
+            findAndShowHint();
         }
 
         function findAndShowHint() {
@@ -435,8 +469,12 @@
         }
 
         function triggerHintAnimation(id1, id2) {
-            document.getElementById(id1).classList.add('hint-pulse');
-            document.getElementById(id2).classList.add('hint-pulse');
+            const t1 = document.getElementById(id1);
+            const t2 = document.getElementById(id2);
+            if(t1 && t2) {
+                t1.classList.add('hint-pulse');
+                t2.classList.add('hint-pulse');
+            }
         }
 
         function updateDashboard() {
@@ -450,7 +488,6 @@
             if (score >= target) {
                 clearHint();
                 if (currentLevel === 5) {
-                    // Customized emotional win breakdown statement injected smoothly
                     showModal("Won! 👑💖", "Umeed karta huun meri yeh mehnat mere Anu ko pasand aii hoo or wo thora khuhs hoi hoo is game se baki mere hotey weh meri Begum ko udas honey ki zarurat bhi kiya hai mene jab zima uthaya hai ussey hamesha khush rakney ka Muhammad Farooq Kalu Abdul Masani sub ko bhi yeh wada karo gha key apki Beti ko kabhi roney nhi dungha uski ank mein kabhi ansu nhi aney dunga q key mere Pyari si Begum Sahiba apney abu ki Shezadi hai tu meri Kul kainat hai mere Jaan or mein apse Behaad Mobhaat karta huun Baby. I Love You My Cute WIffey! Umaaaah Umaaaaahhhh.", "Play Again 🔄");
                 } else {
                     showModal("Level Cleared! 🎉", `Aapne Level ${currentLevel} ko behtareen tareeqe se solve kiya. Agla step thoda aur interesting hone wala hai! ✨`, "Next Level");
