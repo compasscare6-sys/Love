@@ -3,86 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu's Custom Doll Makeover Studio 💄✨</title>
+    <title>Anu's Haute Couture Studio 👑✨</title>
     <style>
         :root {
-            --studio-pink: #ff85a2;
-            --studio-dark: #2d1b24;
-            --studio-bg: linear-gradient(135deg, #ffeef2, #fbcfe8, #fef08a);
+            --studio-dark: #1e1118;
+            --premium-pink: #db2777;
+            --gold-glow: #f59e0b;
+            --panel-bg: rgba(15, 23, 42, 0.4);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cabinet Grotesk', 'Segoe UI', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: var(--studio-bg);
+            background: radial-gradient(circle at center, #2e1222 0%, #11070d 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
         .studio-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            max-width: 900px;
+            background: rgba(30, 17, 24, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 32px;
+            max-width: 950px;
             width: 100%;
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            box-shadow: 0 20px 50px rgba(219, 39, 119, 0.15);
-            border: 4px solid white;
+            grid-template-columns: 1.1fr 1fr;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             overflow: hidden;
-            min-height: 620px;
+            min-height: 650px;
         }
 
         @media (max-width: 768px) {
-            .studio-container {
-                grid-template-columns: 1fr;
-            }
-            .canvas-area {
-                height: 400px !important;
-            }
+            .studio-container { grid-template-columns: 1fr; }
+            .canvas-area { height: 420px !important; }
         }
 
-        /* LEFT SIDE: DOLL CANVAS */
+        /* LEFT SIDE: 3D SHADED MODEL CANVAS */
         .canvas-area {
-            background: radial-gradient(circle, #ffffff, #fff1f2);
+            background: radial-gradient(circle at 50% 40%, #3a1c2e 0%, #1a0b14 100%);
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            border-right: 2px solid #fecdd3;
-            height: 100%;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            perspective: 1000px;
         }
 
         .brand-label {
             position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #db2777;
-            background: #ffe4e6;
-            padding: 5px 12px;
+            top: 20px;
+            left: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fbcfe8;
+            background: linear-gradient(135deg, rgba(219,39,119,0.3), rgba(168,85,247,0.3));
+            padding: 6px 16px;
             border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .doll-wrapper {
             position: relative;
-            width: 260px;
-            height: 380px;
-            margin-top: 20px;
+            width: 250px;
+            height: 420px;
+            transform: translateZ(20px);
+            filter: drop-shadow(0 25px 35px rgba(0,0,0,0.6));
         }
 
-        /* Layer System using pure vector overlays */
+        /* Highly Shaded 3D Layering Engine */
         .layer {
             position: absolute;
             top: 0;
@@ -92,293 +94,295 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* BASE INNERWEAR GRAPHIC */
+        /* PROFESSIONAL 3D MODEL SHADING BASE WITH BRALETTE SYSTEM */
         .layer.base-doll {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><circle cx="50" cy="25" r="12" fill="%23ffd1b3"/><ellipse cx="50" cy="65" rx="14" ry="25" fill="%23ffd1b3"/><rect x="42" y="35" width="16" height="12" fill="%23ffd1b3"/><rect x="40" y="85" width="7" height="45" fill="%23ffd1b3"/><rect x="53" y="85" width="7" height="45" fill="%23ffd1b3"/><path d="M38,45 Q25,65 20,85" stroke="%23ffd1b3" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M62,45 Q75,65 80,85" stroke="%23ffd1b3" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M41,25 Q45,28 50,25 Q55,28 59,25" stroke="%23ffd1b3" fill="none"/><circle cx="46" cy="24" r="1.5" fill="%232d1b24"/><circle cx="54" cy="24" r="1.5" fill="%232d1b24"/><path d="M47,29 Q50,31 53,29" stroke="%23db2777" stroke-width="1" fill="none"/><rect x="36" y="55" width="28" height="14" rx="4" fill="%23f43f5e"/><path d="M36,75 Q50,90 64,75 Z" fill="%23f43f5e"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23ffe4e6"/><stop offset="40%" stop-color="%23fbcfe8"/><stop offset="100%" stop-color="%23f472b6"/></linearGradient><linearGradient id="shadow" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="%23000000" stop-opacity="0"/><stop offset="100%" stop-color="%23000000" stop-opacity="0.35"/></linearGradient><linearGradient id="silk" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23111827"/><stop offset="50%" stop-color="%231f2937"/><stop offset="100%" stop-color="%23111827"/></linearGradient></defs><circle cx="50" cy="24" r="11" fill="url(%23skin)"/><circle cx="50" cy="24" r="11" fill="url(%23shadow)"/><ellipse cx="50" cy="65" rx="13" ry="24" fill="url(%23skin)"/><ellipse cx="50" cy="65" rx="13" ry="24" fill="url(%23shadow)"/><rect x="42" y="33" width="16" height="12" fill="url(%23skin)"/><path d="M40,86 L43,135 L49,135 L47,86 Z" fill="url(%23skin)"/><path d="M60,86 L57,135 L51,135 L53,86 Z" fill="url(%23skin)"/><path d="M37,42 Q23,60 19,82" stroke="url(%23skin)" stroke-width="5.5" stroke-linecap="round" fill="none"/><path d="M63,42 Q77,60 81,82" stroke="url(%23skin)" stroke-width="5.5" stroke-linecap="round" fill="none"/><circle cx="46.5" cy="23" r="1.2" fill="%231e1b4b"/><circle cx="53.5" cy="23" r="1.2" fill="%231e1b4b"/><path d="M47.5" cy="27" d="M47.5,27 Q50,28.5 52.5,27" stroke="%23be123c" stroke-width="0.8" fill="none"/><path d="M37,53 Q50,60 63,53 L63,64 Q50,72 37,64 Z" fill="url(%23silk)"/><path d="M37,76 Q50,88 63,76 L61,86 Q50,94 39,86 Z" fill="url(%23silk)"/></svg>');
         }
 
-        /* RIGHT SIDE: SALON INTERFACE */
+        /* RIGHT SIDE: PREMIUM DASHBOARD */
         .controls-area {
-            padding: 25px;
-            background: #ffffff;
+            padding: 35px;
+            background: rgba(20, 10, 15, 0.5);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
         .header-box h1 {
-            font-size: 22px;
-            color: var(--studio-dark);
-            margin-bottom: 5px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 6px;
+            background: linear-gradient(to right, #fff, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header-box p {
             font-size: 13px;
-            color: #64748b;
-            margin-bottom: 20px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
 
         .tabs {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .tab-btn {
-            background: #f1f5f9;
-            border: none;
-            padding: 10px 5px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 5px;
+            border-radius: 14px;
             font-size: 12px;
-            font-weight: bold;
-            color: #475569;
+            font-weight: 700;
+            color: #cbd5e1;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
 
         .tab-btn.active {
-            background: var(--studio-pink);
+            background: linear-gradient(135deg, var(--premium-pink), #ca8a04);
             color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
         }
 
         .options-panel {
-            background: #fff1f2;
-            border-radius: 18px;
-            padding: 15px;
-            min-height: 220px;
-            max-height: 250px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            min-height: 230px;
+            max-height: 260px;
             overflow-y: auto;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .grid-options {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
         }
 
         .opt-card {
-            background: white;
-            border: 2px solid #ffe4e6;
-            border-radius: 12px;
-            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px 12px;
             cursor: pointer;
             text-align: center;
             font-size: 13px;
             font-weight: 600;
-            color: #4c0519;
-            transition: all 0.2s;
+            color: #e2e8f0;
+            transition: all 0.2s ease;
         }
 
         .opt-card:hover, .opt-card.selected {
-            border-color: var(--studio-pink);
-            background: #fff5f5;
-            transform: translateY(-1px);
+            border-color: var(--premium-pink);
+            background: rgba(219, 39, 119, 0.15);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(219, 39, 119, 0.2);
         }
 
         .btn-reveal {
-            background: linear-gradient(135deg, #db2777, #f43f5e);
+            background: linear-gradient(135deg, #db2777, #be123c);
             color: white;
             border: none;
-            padding: 15px;
+            padding: 16px;
             border-radius: 50px;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.3);
+            box-shadow: 0 10px 25px rgba(219, 39, 119, 0.4);
+            transition: all 0.3s ease;
         }
 
-        /* REVEAL SCREEN MODE */
+        .btn-reveal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(219, 39, 119, 0.6);
+        }
+
+        /* PREMIUM REVEAL OVERLAY */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
+            background: rgba(10, 5, 8, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
         }
 
         .reveal-box {
-            background: white;
-            border-radius: 30px;
-            max-width: 450px;
+            background: linear-gradient(145deg, #25121e, #140810);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 28px;
+            max-width: 460px;
             width: 100%;
-            padding: 30px;
+            padding: 35px 25px;
             text-align: center;
-            border: 4px solid var(--studio-pink);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
         }
 
         .reveal-title {
-            color: #9f1239;
-            font-size: 24px;
+            color: #f472b6;
+            font-size: 26px;
             margin-bottom: 15px;
+            font-weight: 800;
         }
 
         .reveal-msg {
-            font-size: 15px;
-            color: #334155;
-            line-height: 1.6;
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.7;
             margin-bottom: 25px;
-            font-weight: 500;
         }
     </style>
 </head>
 <body>
 
     <div class="studio-container">
-        <!-- LEFT SCREEN: LIVE DOLL GENERATOR -->
+        <!-- LEFT: 3D SHADED ENGINE -->
         <div class="canvas-area" id="studio-canvas">
-            <div class="brand-label">Rabi's Design Line 💖</div>
+            <div class="brand-label">Rabi's Atelier Private Collection 💎</div>
             
             <div class="doll-wrapper">
-                <!-- Layers Snapped in hierarchy -->
                 <div class="layer base-doll"></div>
-                <div class="layer" id="layer-makeup"></div>
-                <div class="layer" id="layer-dress"></div>
-                <div class="layer" id="layer-hair"></div>
+                <div class="layer" id="layer-makeup" style="filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));"></div>
+                <div class="layer" id="layer-dress" style="filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));"></div>
+                <div class="layer" id="layer-hair" style="filter: drop-shadow(0 10px 12px rgba(0,0,0,0.6));"></div>
             </div>
         </div>
 
-        <!-- RIGHT SCREEN: DRESS UP MANAGER -->
+        <!-- RIGHT: INTERACTIVE CONTROL DASHBOARD -->
         <div class="controls-area">
             <div class="header-box">
-                <h1>Doll Dress-Up Salon</h1>
-                <p>Guriya, apni marzi ke stylish clothes, hair aur makeup designs select karein aur check karein final preview ✨</p>
+                <h1>Haute Couture Studio</h1>
+                <p>Guriya, customized styles blend karein. Har option mein ultra depth aur professional high-end vectors inject kiye gaye hain ✨</p>
             </div>
 
-            <!-- TABS CATAGORIES -->
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('dress', this)">👗 Dresses</button>
-                <button class="tab-btn" onclick="switchTab('hair', this)">💇‍♀️ Hair</button>
-                <button class="tab-btn" onclick="switchTab('makeup', this)">💄 Makeup</button>
-                <button class="tab-btn" onclick="switchTab('bg', this)">🌌 Stage</button>
+                <button class="tab-btn active" onclick="switchTab('dress', this)">👗 Outfits</button>
+                <button class="tab-btn" onclick="switchTab('hair', this)">💇‍♀️ Coiffure</button>
+                <button class="tab-btn" onclick="switchTab('makeup', this)">💄 Visage</button>
+                <button class="tab-btn" onclick="switchTab('bg', this)">🌌 Ambient</button>
             </div>
 
-            <!-- OPTIONS LOAD CONTAINER -->
             <div class="options-panel">
-                <!-- DRESS PANEL -->
+                <!-- PREMIUM SHADED OUTFITS -->
                 <div class="grid-options id-panel" id="panel-dress">
-                    <div class="opt-card" onclick="applyAsset('dress', 'd1', this)">Gown Red Velvet</div>
-                    <div class="opt-card" onclick="applyAsset('dress', 'd2', this)">Casual Blue Jeans</div>
-                    <div class="opt-card" onclick="applyAsset('dress', 'd3', this)">Summer Floral Dress</div>
-                    <div class="opt-card" onclick="applyAsset('dress', 'd4', this)">Barbie Pink Skirt</div>
+                    <div class="opt-card" onclick="applyAsset('dress', 'd1', this)">Crimson Velvet Gown</div>
+                    <div class="opt-card" onclick="applyAsset('dress', 'd2', this)">Midnight Denim Jumpsuit</div>
+                    <div class="opt-card" onclick="applyAsset('dress', 'd3', this)">Imperial Golden Silk</div>
+                    <div class="opt-card" onclick="applyAsset('dress', 'd4', this)">Cyber Neon Corset</div>
                 </div>
 
-                <!-- HAIR PANEL -->
+                <!-- COUTURE HAIRSTYLES WITH DEPTH SHADOWS -->
                 <div class="grid-options id-panel" id="panel-hair" style="display:none;">
-                    <div class="opt-card" onclick="applyAsset('hair', 'h1', this)">Long Golden Waves</div>
-                    <div class="opt-card" onclick="applyAsset('hair', 'h2', this)">Short Bold Bob</div>
-                    <div class="opt-card" onclick="applyAsset('hair', 'h3', this)">Classic Dark Curls</div>
-                    <div class="opt-card" onclick="applyAsset('hair', 'h4', this)">Anime Purple Ponytail</div>
+                    <div class="opt-card" onclick="applyAsset('hair', 'h1', this)">Royal Golden Cascades</div>
+                    <div class="opt-card" onclick="applyAsset('hair', 'h2', this)">Sleek Mahogany Bob</div>
+                    <div class="opt-card" onclick="applyAsset('hair', 'h3', this)">Midnight Curvature Pixie</div>
+                    <div class="opt-card" onclick="applyAsset('hair', 'h4', this)">Amethyst Cyber Pigtails</div>
                 </div>
 
-                <!-- MAKEUP PANEL -->
+                <!-- SHADED MAKEUP ASSETS -->
                 <div class="grid-options id-panel" id="panel-makeup" style="display:none;">
-                    <div class="opt-card" onclick="applyAsset('makeup', 'm1', this)">Ruby Red Glaze</div>
-                    <div class="opt-card" onclick="applyAsset('makeup', 'm2', this)">Soft Pink Blush</div>
-                    <div class="opt-card" onclick="applyAsset('makeup', 'm3', this)">Golden Glam Shade</div>
-                    <div class="opt-card" onclick="applyAsset('makeup', 'm4', this)">Smokey Dark Liner</div>
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm1', this)">Ruby Satin Gloss</div>
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm2', this)">Rose Quartz Aura Blush</div>
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm3', this)">24K Venetian Shimmer</div>
+                    <div class="opt-card" onclick="applyAsset('makeup', 'm4', this)">Noir Cat-Eye Contour</div>
                 </div>
 
-                <!-- BACKGROUND STAGE PANEL -->
+                <!-- CHIC AMBIENT STAGES -->
                 <div class="grid-options id-panel" id="panel-bg" style="display:none;">
-                    <div class="opt-card" onclick="changeBackground('bg1', this)">Fashion Runway</div>
-                    <div class="opt-card" onclick="changeBackground('bg2', this)">Neon Party Night</div>
-                    <div class="opt-card" onclick="changeBackground('bg3', this)">Cozy Bedroom Room</div>
-                    <div class="opt-card" onclick="changeBackground('bg4', this)">Dreamy Castle Hall</div>
+                    <div class="opt-card" onclick="changeBackground('bg1', this)">Met Gala Runway</div>
+                    <div class="opt-card" onclick="changeBackground('bg2', this)">Tokyo Neon Lounge</div>
+                    <div class="opt-card" onclick="changeBackground('bg3', this)">Boudoir Suite Rose</div>
+                    <div class="opt-card" onclick="changeBackground('bg4', this)">Ethereal Crystal Hall</div>
                 </div>
             </div>
 
-            <button class="btn-reveal" onclick="showReveal()">Finalize Look & Reveal! 🪄</button>
+            <button class="btn-reveal" onclick="showReveal()">Lock Look & Showcase! 🪄</button>
         </div>
     </div>
 
     <!-- POPUP SCREEN MODAL -->
     <div class="modal-overlay" id="reveal-modal">
         <div class="reveal-box">
-            <h2 class="reveal-title">Absolutely Gorgeous! 😍👑</h2>
+            <h2 class="reveal-title">Breathtakingly Elite! 😍👑</h2>
             <p class="reveal-msg">
-                Wow, Guriya! Aapka design kiya hua look ekdum perfect aur super stylish lag raha hai. Aapka fashion sense sach mein tareef ke kabil hai.<br><br>Ab jaldi se smile kijiye, saara gussa side par rakhein, dawa khaiye aur rest kijiye. Tera Rabi hamesha aapke sath hai aur aapko khush dekhna chahta hai! ❤️
+                Wow, Guriya! Yeh combinations bilkul professional runway level ke lag rahe hain. Shading aur tone ka selection aap se behtar koi nahi kar sakta.<br><br>Ab saari narazgi side par, thoda muskuraiye aur medicine lekar rest kijiye. Aapka Rabi har pal aapke sath hai! ❤️
             </p>
-            <button class="btn-reveal" onclick="closeModal()">Close & Keep Designing 💋</button>
+            <button class="btn-reveal" onclick="closeModal()">Back to Design Suite 💋</button>
         </div>
     </div>
 
     <script>
-        // High Quality SVG Data Asset Links Embedded for smooth vector rendering on runtime
+        // High Shading SVG Engines with Multi-stops Linear & Radial Gradients for 3D realism
         const assets = {
             dress: {
-                d1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M36,50 Q50,45 64,50 L75,130 Q50,145 25,130 Z" fill="%23dc2626"/><path d="M36,50 Q50,65 64,50 L50,85 Z" fill="%23991b1b"/></svg>\')',
-                d2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><rect x="36" y="52" width="28" height="25" fill="%23ffffff"/><rect x="40" y="75" width="9" height="55" fill="%232563eb"/><rect x="51" y="75" width="9" height="55" fill="%232563eb"/></svg>\')',
-                d3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M36,50 Q50,40 64,50 L70,115 Q50,125 30,115 Z" fill="%23fbbf24"/><circle cx="45" cy="70" r="3" fill="%23ef4444"/><circle cx="55" cy="85" r="4" fill="%23ef4444"/><circle cx="42" cy="100" r="3" fill="%23ef4444"/></svg>\')',
-                d4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><rect x="38" y="50" width="24" height="20" fill="%23f472b6"/><path d="M30,70 L70,70 L78,110 Q50,125 22,110 Z" fill="%23db2777"/></svg>\')'
+                d1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="%237f1d1d"/><stop offset="50%" stop-color="%23ef4444"/><stop offset="100%" stop-color="%237f1d1d"/></linearGradient></defs><path d="M37,53 Q50,48 63,53 L74,135 Q50,148 26,135 Z" fill="url(%23g1)"/><path d="M37,53 Q50,68 63,53 L50,88 Z" fill="%234c0519" opacity="0.4"/></svg>\')',
+                d2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="%231e3a8a"/><stop offset="50%" stop-color="%233b82f6"/><stop offset="100%" stop-color="%231e3a8a"/></linearGradient></defs><rect x="37" y="53" width="26" height="24" fill="url(%23g2)"/><path d="M39,77 L43,135 L48,135 L46,77 Z" fill="url(%23g2)"/><path d="M61,77 L57,135 L52,135 L54,77 Z" fill="url(%23g2)"/></svg>\')',
+                d3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23ca8a04"/><stop offset="50%" stop-color="%23fef08a"/><stop offset="100%" stop-color="%23a16207"/></linearGradient></defs><path d="M37,53 Q50,45 63,53 L72,122 Q50,132 28,122 Z" fill="url(%23g3)"/></svg>\')',
+                d4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="%23ec4899"/><stop offset="50%" stop-color="%23f472b6"/><stop offset="100%" stop-color="%23ec4899"/></linearGradient></defs><path d="M37,53 L63,53 L60,82 L40,82 Z" fill="url(%23g4)"/><path d="M35,82 L65,82 L68,102 L32,102 Z" fill="%23111827"/></svg>\')'
             },
             hair: {
-                h1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M32,25 Q50,-5 68,25 Q78,65 72,90 Q65,40 60,30 Q50,35 40,30 Q35,40 28,90 Q22,65 32,25 Z" fill="%23f59e0b"/></svg>\')',
-                h2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M34,22 Q50,2 66,22 Q72,42 66,45 Q50,32 34,45 Q28,42 34,22 Z" fill="%23bd1e24"/></svg>\')',
-                h3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M32,25 Q50,3 68,25 Q74,50 70,65 C65,55 62,45 58,40 C50,48 42,44 38,40 C34,48 28,52 26,65 Q24,45 32,25 Z" fill="%231e1b4b"/></svg>\')',
-                h4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M35,22 Q50,2 65,22 Q70,40 62,42 Q50,30 38,42 Z" fill="%23c084fc"/><path d="M64,22 Q85,25 80,45" stroke="%23c084fc" stroke-width="6" fill="none"/><path d="M36,22 Q15,25 20,45" stroke="%23c084fc" stroke-width="6" fill="none"/></svg>\')'
+                h1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="gh1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="%23b45309"/><stop offset="50%" stop-color="%23fbbf24"/><stop offset="100%" stop-color="%23d97706"/></linearGradient></defs><path d="M30,24 Q50,-6 70,24 Q81,65 74,92 Q66,42 61,30 Q50,36 39,30 Q34,42 26,92 Q19,65 30,24 Z" fill="url(%23gh1)"/></svg>\')',
+                h2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="gh2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23450a0a"/><stop offset="100%" stop-color="%23991b1b"/></linearGradient></defs><path d="M32,23 Q50,1 68,23 Q74,44 67,47 Q50,33 33,47 Q26,44 32,23 Z" fill="url(%23gh2)"/></svg>\')',
+                h3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="gh3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="%230f172a"/><stop offset="100%" stop-color="%23334155"/></linearGradient></defs><path d="M31,24 Q50,2 69,24 Q75,48 69,55 C64,48 61,42 57,38 C50,44 43,44 38,38 C34,42 29,48 24,55 Q20,44 31,24 Z" fill="url(%23gh3)"/></svg>\')',
+                h4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><defs><linearGradient id="gh4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="%236b21a8"/><stop offset="50%" stop-color="%23c084fc"/><stop offset="100%" stop-color="%236b21a8"/></linearGradient></defs><path d="M34,23 Q50,1 66,23 Q71,41 63,43 Q50,31 37,43 Z" fill="url(%23gh4)"/><circle cx="75" cy="23" r="8" fill="url(%23gh4)"/><circle cx="25" cy="23" r="8" fill="url(%23gh4)"/></svg>\')'
             },
             makeup: {
-                m1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M46,29 Q50,32 54,29 Q50,30 46,29 Z" fill="%23dc2626" stroke="%23dc2626" stroke-width="1"/><circle cx="43" cy="26" r="2" fill="%23f43f5e" opacity="0.4"/><circle cx="57" cy="26" r="2" fill="%23f43f5e" opacity="0.4"/></svg>\')',
-                m2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M47,29 Q50,31 53,29" stroke="%23f472b6" stroke-width="1.5" fill="none"/><circle cx="41" cy="26" r="4" fill="%23f472b6" opacity="0.6"/><circle cx="59" cy="26" r="4" fill="%23f472b6" opacity="0.6"/></svg>\')',
-                m3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M47,29 Q50,31 53,29" stroke="%23db2777" stroke-width="1" fill="none"/><ellipse cx="45" cy="22" rx="3" ry="1" fill="%23fbbf24" opacity="0.7"/><ellipse cx="55" cy="22" rx="3" ry="1" fill="%23fbbf24" opacity="0.7"/></svg>\')',
-                m4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M43,23 L49,23 M51,23 L57,23" stroke="%230f172a" stroke-width="1.5" stroke-linecap="round"/><path d="M46,29 Q50,31 54,29" stroke="%23be123c" stroke-width="1" fill="none"/></svg>\')'
+                m1: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M46,27 Q50,29.5 54,27 Q50,28.2 46,27 Z" fill="%23be123c"/><ellipse cx="43" cy="24" rx="2" ry="1.5" fill="%23e11d48" opacity="0.3"/><ellipse cx="57" cy="24" rx="2" ry="1.5" fill="%23e11d48" opacity="0.3"/></svg>\')',
+                m2: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M46.5,27 Q50,28.5 53.5,27" stroke="%23f472b6" stroke-width="0.8" fill="none"/><circle cx="41" cy="24" r="3.5" fill="%23f43f5e" opacity="0.45"/><circle cx="59" cy="24" r="3.5" fill="%23f43f5e" opacity="0.45"/></svg>\')',
+                m3: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><ellipse cx="43" cy="22" rx="3.5" ry="1.2" fill="%23eab308" opacity="0.5"/><ellipse cx="57" cy="22" rx="3.5" ry="1.2" fill="%23eab308" opacity="0.5"/><path d="M46,27 Q50,28.5 54,27" stroke="%239f1239" stroke-width="0.8" fill="none"/></svg>\')',
+                m4: 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150"><path d="M41,22 Q44,21 46,22.5 M59,22 Q56,21 54,22.5" stroke="%23020617" stroke-width="1.2" fill="none"/><path d="M46,27 Q50,28.5 54,27" stroke="%234c0519" stroke-width="1" fill="none"/></svg>\')'
             }
         };
 
         const backgrounds = {
-            bg1: 'radial-gradient(circle, #ffffff, #fff1f2, #fbcfe8)',
-            bg2: 'radial-gradient(circle, #2e1065, #0f172a)',
-            bg3: 'radial-gradient(circle, #fef9c3, #ffedd5, #ffecf0)',
-            bg4: 'radial-gradient(circle, #e0f2fe, #bae6fd, #f1f5f9)'
+            bg1: 'radial-gradient(circle at 50% 40%, #4c0519 0%, #110307 100%)',
+            bg2: 'radial-gradient(circle at 50% 40%, #172554 0%, #030712 100%)',
+            bg3: 'radial-gradient(circle at 50% 40%, #2e1065 0%, #090514 100%)',
+            bg4: 'radial-gradient(circle at 50% 40%, #1e293b 0%, #0f172a 100%)'
         };
 
         function switchTab(tabId, btn) {
-            // Manage Active Tab Buttons
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            // Manage View Panels
             document.querySelectorAll('.id-panel').forEach(p => p.style.display = 'none');
             document.getElementById(`panel-${tabId}`).style.display = 'grid';
         }
 
         function applyAsset(type, assetKey, card) {
-            // Highlight selected card within same panel category
             const siblings = card.parentNode.querySelectorAll('.opt-card');
             siblings.forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-
-            // Apply SVG visual to respective layer live
-            const layer = document.getElementById(`layer-${type}`);
-            layer.style.backgroundImage = assets[type][assetKey];
+            document.getElementById(`layer-${type}`).style.backgroundImage = assets[type][assetKey];
         }
 
         function changeBackground(bgKey, card) {
             const siblings = card.parentNode.querySelectorAll('.opt-card');
             siblings.forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-
-            // Apply direct canvas modification
             document.getElementById('studio-canvas').style.background = backgrounds[bgKey];
         }
 
-        function showReveal() {
-            document.getElementById('reveal-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('reveal-modal').style.display = 'none';
-        }
+        function showReveal() { document.getElementById('reveal-modal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('reveal-modal').style.display = 'none'; }
     </script>
 </body>
 </html>
