@@ -82,7 +82,6 @@
             margin-top: 2px;
         }
 
-        /* PREMIUM HINT BUTTON STYLE */
         .hint-btn-container {
             margin-bottom: 12px;
         }
@@ -239,7 +238,8 @@
         let startX, startY, activeTileId = null;
         let hintTimer = null;
 
-        const levelTargets = { 1: 300, 2: 600, 3: 1000, 4: 1500, 5: 2200 };
+        // Level 5 Target modified to 2000 points perfectly
+        const levelTargets = { 1: 300, 2: 600, 3: 1000, 4: 1500, 5: 2000 };
         const levelMoves = { 1: 40, 2: 40, 3: 40, 4: 45, 5: 50 };
 
         function initGame() {
@@ -410,10 +410,9 @@
             }
         }
 
-        // AUTO-HINT SYSTEM UPDATED TO 10 SECONDS FOR "ZID MODE"
         function resetHintTimer() {
             clearHint();
-            hintTimer = setTimeout(findAndShowHint, 10000); // 10 seconds idle check
+            hintTimer = setTimeout(findAndShowHint, 10000); // 10 Sec Zid Mode
         }
 
         function clearHint() {
@@ -421,29 +420,49 @@
             document.querySelectorAll('.tile').forEach(t => t.classList.remove('hint-pulse'));
         }
 
-        // Manual button click furan work karega bina wait kiye
         function triggerManualHint() {
             clearHint();
             findAndShowHint();
         }
 
         function findAndShowHint() {
+            let possibleMoves = [];
+
             for (let i = 0; i < width * width; i++) {
                 let r = Math.floor(i / width);
                 let c = i % width;
 
                 if (c < width - 1) {
-                    if (testMatchPotential(i, i + 1)) {
-                        triggerHintAnimation(i, i + 1);
-                        return;
-                    }
+                    if (testMatchPotential(i, i + 1)) possibleMoves.push([i, i + 1]);
                 }
                 if (r < width - 1) {
-                    if (testMatchPotential(i, i + width)) {
-                        triggerHintAnimation(i, i + width);
-                        return;
-                    }
+                    if (testMatchPotential(i, i + width)) possibleMoves.push([i, i + width]);
                 }
+            }
+
+            if (possibleMoves.length > 0) {
+                triggerHintAnimation(possibleMoves[0][0], possibleMoves[0][1]);
+            } else {
+                shuffleBoardSafely();
+            }
+        }
+
+        function shuffleBoardSafely() {
+            for (let i = gridData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                let temp = gridData[i];
+                gridData[i] = gridData[j];
+                gridData[j] = temp;
+            }
+            
+            for (let i = 0; i < width * width; i++) {
+                document.getElementById(i).innerText = gridData[i];
+            }
+
+            if (checkAndClearMatches()) {
+                refillGrid();
+            } else {
+                setTimeout(findAndShowHint, 300);
             }
         }
 
