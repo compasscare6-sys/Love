@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Anu's Sweet Sugar Rush 🍬✨</title>
     <style>
         :root {
             --bg-dark: #0f0813;
-            --panel-bg: rgba(26, 15, 36, 0.75);
+            --panel-bg: rgba(26, 15, 36, 0.85);
             --gold: #f59e0b;
             --text-light: #f8fafc;
         }
@@ -18,6 +18,8 @@
             padding: 0;
             font-family: 'Segoe UI', system-ui, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         body {
@@ -26,26 +28,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 10px;
             color: var(--text-light);
             overflow: hidden;
+            touch-action: none; /* Prevents mobile double-tap zoom and scrolling */
         }
 
         .game-wrapper {
             background: var(--panel-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            max-width: 480px;
             width: 100%;
-            padding: 20px;
+            max-width: 420px; /* Fixed profile width for clean mobile presentation */
+            padding: 15px;
             box-shadow: 0 25px 65px rgba(0, 0, 0, 0.7);
             text-align: center;
         }
 
         header h1 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             background: linear-gradient(to right, #fff, #f472b6, var(--gold));
             -webkit-background-clip: text;
@@ -54,71 +57,60 @@
         }
 
         header p {
-            font-size: 12px;
+            font-size: 11px;
             color: #94a3b8;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
-        /* STATUS METRICS Dashboard */
         .dashboard {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 13px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 10px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 12px;
             font-weight: 600;
         }
 
         .dashboard div span {
             display: block;
-            font-size: 16px;
+            font-size: 15px;
             color: var(--gold);
             margin-top: 2px;
         }
 
-        /* CANDY CRUSH 6x6 GRID */
+        /* FIXED SIZED IMMUTABLE GRID */
         .candy-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-            background: rgba(10, 5, 15, 0.5);
-            padding: 10px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            margin-bottom: 15px;
+            gap: 6px;
+            background: rgba(10, 5, 15, 0.6);
+            padding: 8px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
             touch-action: none;
         }
 
         .tile {
             aspect-ratio: 1;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 26px;
+            font-size: 24px;
             cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s;
-            user-select: none;
-        }
-
-        .tile:active {
-            transform: scale(0.9);
+            transition: transform 0.15s ease, background-color 0.15s ease;
+            position: relative;
         }
 
         .tile.selected {
-            background: rgba(244, 114, 182, 0.25);
+            background: rgba(244, 114, 182, 0.3);
             border: 2px solid #f472b6;
-            animation: pulse 0.6s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
         }
 
         /* POPUP MODALS */
@@ -127,7 +119,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(10, 5, 15, 0.9);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -138,22 +130,22 @@
             background: linear-gradient(145deg, #20132c, #0f0813);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            max-width: 400px;
+            max-width: 360px;
             width: 100%;
-            padding: 30px 20px;
+            padding: 25px 20px;
             text-align: center;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
         }
 
         .modal-title {
             color: #f472b6;
-            font-size: 22px;
-            margin-bottom: 12px;
+            font-size: 20px;
+            margin-bottom: 10px;
             font-weight: 700;
         }
 
         .modal-msg {
-            font-size: 14px;
+            font-size: 13px;
             color: #cbd5e1;
             line-height: 1.6;
             margin-bottom: 20px;
@@ -169,12 +161,6 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(219, 39, 119, 0.4);
-            transition: all 0.2s;
-        }
-
-        .btn-action:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(219, 39, 119, 0.6);
         }
     </style>
 </head>
@@ -183,7 +169,7 @@
     <div class="game-wrapper">
         <header>
             <h1>Sugar Match-3 Deluxe</h1>
-            <p>Candies ko swap karke pairs banayein aur target score hit karein ✨</p>
+            <p>Candies ko drag ya swipe karke match banayein ✨</p>
         </header>
 
         <div class="dashboard">
@@ -195,7 +181,6 @@
         <div class="candy-grid" id="grid"></div>
     </div>
 
-    <!-- LEVEL UP / WIN MODAL -->
     <div class="modal" id="game-modal">
         <div class="modal-content">
             <h2 class="modal-title" id="m-title">Level Cleared! 🎉</h2>
@@ -211,7 +196,9 @@
         let score = 0;
         let currentLevel = 1;
         let movesLeft = 25;
-        let selectedTile = null;
+
+        // Touch swipe tracking variables
+        let startX, startY, activeTileId = null;
 
         const levelTargets = { 1: 300, 2: 600, 3: 1000, 4: 1500, 5: 2200 };
         const levelMoves = { 1: 25, 2: 22, 3: 20, 4: 18, 5: 15 };
@@ -221,10 +208,11 @@
             movesLeft = levelMoves[currentLevel];
             updateDashboard();
             createBoard();
-            // Initial check to clear automated matches on spawn
             while(checkAndClearMatches()) {
                 refillGrid();
             }
+            score = 0; // Reset score mechanics back to zero after screen cleanup setup
+            updateDashboard();
         }
 
         function createBoard() {
@@ -238,44 +226,69 @@
                 tile.classList.add('tile');
                 tile.setAttribute('id', i);
                 tile.innerText = randomCandy;
-                tile.addEventListener('click', handleTileClick);
+
+                // Native Pointer Events handling both Mouse and Touch Drag profiles seamlessly
+                tile.addEventListener('pointerdown', onSwipeStart);
+                tile.addEventListener('pointerup', onSwipeEnd);
+
                 gridElement.appendChild(tile);
                 gridData.push(randomCandy);
             }
         }
 
-        function handleTileClick() {
-            const clickedId = parseInt(this.getAttribute('id'));
-
-            if (selectedTile === null) {
-                selectedTile = clickedId;
-                this.classList.add('selected');
-            } else {
-                document.getElementById(selectedTile).classList.remove('selected');
-                if (isAdjacent(selectedTile, clickedId)) {
-                    swapTiles(selectedTile, clickedId);
-                    movesLeft--;
-                    updateDashboard();
-
-                    let hasMatches = checkAndClearMatches();
-                    if (hasMatches) {
-                        setTimeout(() => {
-                            refillGrid();
-                            checkGameStatus();
-                        }, 300);
-                    } else {
-                        // Undo swap if no matches found
-                        setTimeout(() => swapTiles(selectedTile, clickedId), 200);
-                    }
-                }
-                selectedTile = null;
-            }
+        function onSwipeStart(e) {
+            activeTileId = parseInt(this.getAttribute('id'));
+            startX = e.clientX;
+            startY = e.clientY;
+            this.classList.add('selected');
+            this.setPointerReleaseCapture(e.pointerId); // Fixes tracking bugs outside active component limits
         }
 
-        function isAdjacent(id1, id2) {
-            const r1 = Math.floor(id1 / width), c1 = id1 % width;
-            const r2 = Math.floor(id2 / width), c2 = id2 % width;
-            return (Math.abs(r1 - r2) + Math.abs(c1 - c2)) === 1;
+        function onSwipeEnd(e) {
+            if (activeTileId === null) return;
+            document.getElementById(activeTileId).classList.remove('selected');
+
+            const diffX = e.clientX - startX;
+            const diffY = e.clientY - startY;
+            const threshold = 30; // Minimum swipe distance registration standard
+
+            let targetId = null;
+
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (Math.abs(diffX) > threshold) {
+                    targetId = diffX > 0 ? activeTileId + 1 : activeTileId - 1;
+                    // Prevent row wrapping wrapping jumps natively
+                    if (Math.floor(activeTileId / width) !== Math.floor(targetId / width)) targetId = null;
+                }
+            } else {
+                if (Math.abs(diffY) > threshold) {
+                    targetId = diffY > 0 ? activeTileId + width : activeTileId - width;
+                }
+            }
+
+            if (targetId !== null && targetId >= 0 && targetId < width * width) {
+                executeMove(activeTileId, targetId);
+            }
+            activeTileId = null;
+        }
+
+        function executeMove(id1, id2) {
+            swapTiles(id1, id2);
+            movesLeft--;
+            updateDashboard();
+
+            let hasMatches = checkAndClearMatches();
+            if (hasMatches) {
+                setTimeout(() => {
+                    refillGrid();
+                    checkGameStatus();
+                }, 250);
+            } else {
+                // Return pieces back seamlessly if no matching state triggered
+                setTimeout(() => {
+                    swapTiles(id1, id2);
+                }, 200);
+            }
         }
 
         function swapTiles(id1, id2) {
@@ -291,7 +304,6 @@
             let matchFound = false;
             let toClear = new Set();
 
-            // Row validation
             for (let r = 0; r < width; r++) {
                 for (let c = 0; c < width - 2; c++) {
                     let idx = r * width + c;
@@ -302,7 +314,6 @@
                 }
             }
 
-            // Column validation
             for (let c = 0; c < width; c++) {
                 for (let r = 0; r < width - 2; r++) {
                     let idx = r * width + c;
@@ -325,7 +336,6 @@
         }
 
         function refillGrid() {
-            // Drop down mechanic
             for (let c = 0; c < width; c++) {
                 for (let r = width - 1; r >= 0; r--) {
                     let idx = r * width + c;
@@ -346,7 +356,6 @@
                 }
             }
 
-            // Fill empty top row spaces
             for (let i = 0; i < width * width; i++) {
                 if (gridData[i] === '') {
                     gridData[i] = candies[Math.floor(Math.random() * candies.length)];
@@ -354,9 +363,8 @@
                 }
             }
 
-            // Cascade chains check
             if (checkAndClearMatches()) {
-                setTimeout(refillGrid, 300);
+                setTimeout(refillGrid, 250);
             }
         }
 
@@ -399,7 +407,6 @@
             }
         }
 
-        // Boot system up
         initGame();
     </script>
 </body>
