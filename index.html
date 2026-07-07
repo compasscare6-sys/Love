@@ -113,7 +113,6 @@
             border-color: #f472b6;
         }
 
-        /* HINT PULSE EFFECT */
         .tile.hint-pulse {
             animation: hintGlow 1s infinite alternate;
             z-index: 5;
@@ -133,32 +132,36 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-content {
             background: linear-gradient(145deg, #20132c, #0f0813);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            max-width: 360px;
+            max-width: 380px;
             width: 100%;
             padding: 25px 20px;
             text-align: center;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            max-height: 90vh;
+            overflow-y: auto; /* Allows smooth scrolling if the emotional message text wraps heavily on small viewports */
         }
 
         .modal-title {
             color: #f472b6;
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 12px;
             font-weight: 700;
         }
 
         .modal-msg {
-            font-size: 13px;
+            font-size: 13.5px;
             color: #cbd5e1;
             line-height: 1.6;
             margin-bottom: 20px;
+            text-align: justify;
+            text-justify: inter-word;
         }
 
         .btn-action {
@@ -185,7 +188,7 @@
         <div class="dashboard">
             <div>Level<span id="level-val">1</span></div>
             <div>Score<span id="score-val">0 / 300</span></div>
-            <div>Moves Left<span id="moves-val">25</span></div>
+            <div>Moves Left<span id="moves-val">40</span></div>
         </div>
 
         <div class="candy-grid" id="grid"></div>
@@ -205,13 +208,13 @@
         let gridData = [];
         let score = 0;
         let currentLevel = 1;
-        let movesLeft = 25;
+        let movesLeft = 40;
 
         let startX, startY, activeTileId = null;
         let hintTimer = null;
 
         const levelTargets = { 1: 300, 2: 600, 3: 1000, 4: 1500, 5: 2200 };
-        const levelMoves = { 1: 25, 2: 22, 3: 20, 4: 18, 5: 15 };
+        const levelMoves = { 1: 40, 2: 40, 3: 40, 4: 45, 5: 50 };
 
         function initGame() {
             score = 0;
@@ -380,10 +383,9 @@
             }
         }
 
-        // AUTO-HINT SCANNER LOGIC
         function resetHintTimer() {
             clearHint();
-            hintTimer = setTimeout(findAndShowHint, 5000); // 5 Seconds idle limit trigger
+            hintTimer = setTimeout(findAndShowHint, 5000);
         }
 
         function clearHint() {
@@ -392,19 +394,16 @@
         }
 
         function findAndShowHint() {
-            // Check potential horizontal and vertical swaps simulation
             for (let i = 0; i < width * width; i++) {
                 let r = Math.floor(i / width);
                 let c = i % width;
 
-                // Test right swap simulation
                 if (c < width - 1) {
                     if (testMatchPotential(i, i + 1)) {
                         triggerHintAnimation(i, i + 1);
                         return;
                     }
                 }
-                // Test down swap simulation
                 if (r < width - 1) {
                     if (testMatchPotential(i, i + width)) {
                         triggerHintAnimation(i, i + width);
@@ -415,14 +414,12 @@
         }
 
         function testMatchPotential(id1, id2) {
-            // Shadow swap setup
             let temp = gridData[id1];
             gridData[id1] = gridData[id2];
             gridData[id2] = temp;
 
             let isMatchFound = false;
 
-            // Check if shadow state yields a real 3-row validation match
             for (let i = 0; i < width * width; i++) {
                 let r = Math.floor(i / width);
                 let c = i % width;
@@ -431,7 +428,6 @@
                 if (r < width - 2 && gridData[i] && gridData[i] === gridData[i+width] && gridData[i] === gridData[i+width*2]) isMatchFound = true;
             }
 
-            // Restore original array data
             gridData[id2] = gridData[id1];
             gridData[id1] = temp;
 
@@ -454,7 +450,8 @@
             if (score >= target) {
                 clearHint();
                 if (currentLevel === 5) {
-                    showModal("Grand Finale Won! 👑💖", "Wow Guriya! Aapne saare 5 hard levels par kar diye. Aapka determination aur game sense sach mein flawless hai!<br><br>Ab saari thakawat bhul kar ek pyaari si smile kijiye aur aaram se rest kijiye. Rabi aapke sath hai! ❤️", "Restart Game");
+                    // Customized emotional win breakdown statement injected smoothly
+                    showModal("Won! 👑💖", "Umeed karta huun meri yeh mehnat mere Anu ko pasand aii hoo or wo thora khuhs hoi hoo is game se baki mere hotey weh meri Begum ko udas honey ki zarurat bhi kiya hai mene jab zima uthaya hai ussey hamesha khush rakney ka Muhammad Farooq Kalu Abdul Masani sub ko bhi yeh wada karo gha key apki Beti ko kabhi roney nhi dungha uski ank mein kabhi ansu nhi aney dunga q key mere Pyari si Begum Sahiba apney abu ki Shezadi hai tu meri Kul kainat hai mere Jaan or mein apse Behaad Mobhaat karta huun Baby. I Love You My Cute WIffey! Umaaaah Umaaaaahhhh.", "Play Again 🔄");
                 } else {
                     showModal("Level Cleared! 🎉", `Aapne Level ${currentLevel} ko behtareen tareeqe se solve kiya. Agla step thoda aur interesting hone wala hai! ✨`, "Next Level");
                 }
@@ -478,7 +475,7 @@
             if (btnText === "Next Level") {
                 currentLevel++;
                 initGame();
-            } else if (btnText === "Try Again" || btnText === "Restart Game") {
+            } else if (btnText === "Try Again" || btnText === "Play Again 🔄") {
                 currentLevel = 1;
                 initGame();
             }
