@@ -31,7 +31,7 @@
             padding: 10px;
             color: var(--text-light);
             overflow: hidden;
-            touch-action: none; /* Prevents mobile double-tap zoom and scrolling */
+            touch-action: none;
         }
 
         .game-wrapper {
@@ -41,7 +41,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             width: 100%;
-            max-width: 420px; /* Fixed profile width for clean mobile presentation */
+            max-width: 420px;
             padding: 15px;
             box-shadow: 0 25px 65px rgba(0, 0, 0, 0.7);
             text-align: center;
@@ -82,7 +82,6 @@
             margin-top: 2px;
         }
 
-        /* FIXED SIZED IMMUTABLE GRID */
         .candy-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -106,14 +105,25 @@
             cursor: pointer;
             transition: transform 0.15s ease, background-color 0.15s ease;
             position: relative;
+            border: 2px solid transparent;
         }
 
         .tile.selected {
             background: rgba(244, 114, 182, 0.3);
-            border: 2px solid #f472b6;
+            border-color: #f472b6;
         }
 
-        /* POPUP MODALS */
+        /* HINT PULSE EFFECT */
+        .tile.hint-pulse {
+            animation: hintGlow 1s infinite alternate;
+            z-index: 5;
+        }
+
+        @keyframes hintGlow {
+            0% { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3); transform: scale(1); }
+            100% { background: rgba(245, 158, 11, 0.35); border-color: #f59e0b; transform: scale(1.05); }
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -169,7 +179,7 @@
     <div class="game-wrapper">
         <header>
             <h1>Sugar Match-3 Deluxe</h1>
-            <p>Candies ko drag ya swipe karke match banayein ✨</p>
+            <p>Candies ko swipe karke match banayein ✨ (Hints automatic milengi)</p>
         </header>
 
         <div class="dashboard">
@@ -184,7 +194,7 @@
     <div class="modal" id="game-modal">
         <div class="modal-content">
             <h2 class="modal-title" id="m-title">Level Cleared! 🎉</h2>
-            <p class="modal-msg" id="m-msg">Great job! Agla level aur zyada challenging hone wala hai.</p>
+            <p class="modal-msg" id="m-msg">Great job!</p>
             <button class="btn-action" id="m-btn" onclick="modalAction()">Next Level ➡️</button>
         </div>
     </div>
@@ -197,8 +207,8 @@
         let currentLevel = 1;
         let movesLeft = 25;
 
-        // Touch swipe tracking variables
         let startX, startY, activeTileId = null;
+        let hintTimer = null;
 
         const levelTargets = { 1: 300, 2: 600, 3: 1000, 4: 1500, 5: 2200 };
         const levelMoves = { 1: 25, 2: 22, 3: 20, 4: 18, 5: 15 };
@@ -211,8 +221,9 @@
             while(checkAndClearMatches()) {
                 refillGrid();
             }
-            score = 0; // Reset score mechanics back to zero after screen cleanup setup
+            score = 0;
             updateDashboard();
+            resetHintTimer();
         }
 
         function createBoard() {
@@ -227,7 +238,6 @@
                 tile.setAttribute('id', i);
                 tile.innerText = randomCandy;
 
-                // Native Pointer Events handling both Mouse and Touch Drag profiles seamlessly
                 tile.addEventListener('pointerdown', onSwipeStart);
                 tile.addEventListener('pointerup', onSwipeEnd);
 
@@ -237,11 +247,12 @@
         }
 
         function onSwipeStart(e) {
+            clearHint();
             activeTileId = parseInt(this.getAttribute('id'));
             startX = e.clientX;
             startY = e.clientY;
             this.classList.add('selected');
-            this.setPointerReleaseCapture(e.pointerId); // Fixes tracking bugs outside active component limits
+            this.setPointerReleaseCapture(e.pointerId);
         }
 
         function onSwipeEnd(e) {
@@ -250,14 +261,13 @@
 
             const diffX = e.clientX - startX;
             const diffY = e.clientY - startY;
-            const threshold = 30; // Minimum swipe distance registration standard
+            const threshold = 30;
 
             let targetId = null;
 
             if (Math.abs(diffX) > Math.abs(diffY)) {
                 if (Math.abs(diffX) > threshold) {
                     targetId = diffX > 0 ? activeTileId + 1 : activeTileId - 1;
-                    // Prevent row wrapping wrapping jumps natively
                     if (Math.floor(activeTileId / width) !== Math.floor(targetId / width)) targetId = null;
                 }
             } else {
@@ -268,6 +278,8 @@
 
             if (targetId !== null && targetId >= 0 && targetId < width * width) {
                 executeMove(activeTileId, targetId);
+            } else {
+                resetHintTimer();
             }
             activeTileId = null;
         }
@@ -282,11 +294,12 @@
                 setTimeout(() => {
                     refillGrid();
                     checkGameStatus();
+                    resetHintTimer();
                 }, 250);
             } else {
-                // Return pieces back seamlessly if no matching state triggered
                 setTimeout(() => {
                     swapTiles(id1, id2);
+                    resetHintTimer();
                 }, 200);
             }
         }
@@ -295,7 +308,6 @@
             const temp = gridData[id1];
             gridData[id1] = gridData[id2];
             gridData[id2] = temp;
-
             document.getElementById(id1).innerText = gridData[id1];
             document.getElementById(id2).innerText = gridData[id2];
         }
@@ -368,6 +380,69 @@
             }
         }
 
+        // AUTO-HINT SCANNER LOGIC
+        function resetHintTimer() {
+            clearHint();
+            hintTimer = setTimeout(findAndShowHint, 5000); // 5 Seconds idle limit trigger
+        }
+
+        function clearHint() {
+            clearTimeout(hintTimer);
+            document.querySelectorAll('.tile').forEach(t => t.classList.remove('hint-pulse'));
+        }
+
+        function findAndShowHint() {
+            // Check potential horizontal and vertical swaps simulation
+            for (let i = 0; i < width * width; i++) {
+                let r = Math.floor(i / width);
+                let c = i % width;
+
+                // Test right swap simulation
+                if (c < width - 1) {
+                    if (testMatchPotential(i, i + 1)) {
+                        triggerHintAnimation(i, i + 1);
+                        return;
+                    }
+                }
+                // Test down swap simulation
+                if (r < width - 1) {
+                    if (testMatchPotential(i, i + width)) {
+                        triggerHintAnimation(i, i + width);
+                        return;
+                    }
+                }
+            }
+        }
+
+        function testMatchPotential(id1, id2) {
+            // Shadow swap setup
+            let temp = gridData[id1];
+            gridData[id1] = gridData[id2];
+            gridData[id2] = temp;
+
+            let isMatchFound = false;
+
+            // Check if shadow state yields a real 3-row validation match
+            for (let i = 0; i < width * width; i++) {
+                let r = Math.floor(i / width);
+                let c = i % width;
+
+                if (c < width - 2 && gridData[i] && gridData[i] === gridData[i+1] && gridData[i] === gridData[i+2]) isMatchFound = true;
+                if (r < width - 2 && gridData[i] && gridData[i] === gridData[i+width] && gridData[i] === gridData[i+width*2]) isMatchFound = true;
+            }
+
+            // Restore original array data
+            gridData[id2] = gridData[id1];
+            gridData[id1] = temp;
+
+            return isMatchFound;
+        }
+
+        function triggerHintAnimation(id1, id2) {
+            document.getElementById(id1).classList.add('hint-pulse');
+            document.getElementById(id2).classList.add('hint-pulse');
+        }
+
         function updateDashboard() {
             document.getElementById('level-val').innerText = currentLevel;
             document.getElementById('score-val').innerText = `${score} / ${levelTargets[currentLevel]}`;
@@ -377,12 +452,14 @@
         function checkGameStatus() {
             const target = levelTargets[currentLevel];
             if (score >= target) {
+                clearHint();
                 if (currentLevel === 5) {
                     showModal("Grand Finale Won! 👑💖", "Wow Guriya! Aapne saare 5 hard levels par kar diye. Aapka determination aur game sense sach mein flawless hai!<br><br>Ab saari thakawat bhul kar ek pyaari si smile kijiye aur aaram se rest kijiye. Rabi aapke sath hai! ❤️", "Restart Game");
                 } else {
                     showModal("Level Cleared! 🎉", `Aapne Level ${currentLevel} ko behtareen tareeqe se solve kiya. Agla step thoda aur interesting hone wala hai! ✨`, "Next Level");
                 }
             } else if (movesLeft <= 0) {
+                clearHint();
                 showModal("Level Failed! 🔄", "Koi baat nahi Guriya, is baar target thoda reh gaya. Dubara koshish kijiye, aap aaram se clear kar lengi!", "Try Again");
             }
         }
