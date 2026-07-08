@@ -6,12 +6,12 @@
     <title>Ludo Star: Special Edition 🎲💖</title>
     <style>
         :root {
-            --bg-dark: #0b0612;
-            --panel-bg: rgba(23, 12, 34, 0.9);
-            --ludo-red: #ef4444;
-            --ludo-green: #10b981;
-            --ludo-yellow: #f59e0b;
-            --ludo-blue: #3b82f6;
+            --bg-dark: #0f0813;
+            --panel-bg: rgba(26, 15, 36, 0.85);
+            --ludo-red: #ea4335;
+            --ludo-green: #34a853;
+            --ludo-yellow: #fbbc05;
+            --ludo-blue: #4285f4;
             --text-light: #f8fafc;
         }
 
@@ -26,7 +26,7 @@
         }
 
         body {
-            background: radial-gradient(circle at center, #2e1046 0%, var(--bg-dark) 100%);
+            background: radial-gradient(circle at center, #251333 0%, var(--bg-dark) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -41,217 +41,207 @@
             background: var(--panel-bg);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border: 2px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             width: 100%;
-            max-width: 440px;
+            max-width: 430px;
             padding: 15px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.7);
             text-align: center;
         }
 
         header h1 {
-            font-size: 22px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, #f472b6, #f59e0b);
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #f472b6, #fbbc05);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 2px;
-            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
         header p {
             font-size: 11px;
-            color: #a78bfa;
-            margin-bottom: 15px;
-            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 12px;
         }
 
-        /* LUDO STAR BOARD MECHANICS */
+        /* EXACT MATRIX 15X15 GRID BOARD */
         .ludo-board {
             width: 100%;
             aspect-ratio: 1;
             background: #ffffff;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
             display: grid;
             grid-template-columns: repeat(15, 1fr);
             grid-template-rows: repeat(15, 1fr);
             border: 4px solid #110c1f;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            margin-bottom: 18px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
             position: relative;
         }
 
-        .zone { position: relative; border: 0.5px solid #00000020; }
-        .red-home { grid-column: 1 / 7; grid-row: 1 / 7; background: var(--ludo-red); }
-        .green-home { grid-column: 10 / 16; grid-row: 1 / 7; background: var(--ludo-green); }
-        .yellow-home { grid-column: 10 / 16; grid-row: 10 / 16; background: var(--ludo-yellow); }
-        .blue-home { grid-column: 1 / 7; grid-row: 10 / 16; background: var(--ludo-blue); }
+        /* 4 Main Homes */
+        .home { position: relative; border: 1px solid #110c1f; }
+        .red-home { grid-column: 10 / 16; grid-row: 1 / 7; background: var(--ludo-red); }
+        .green-home { grid-column: 10 / 16; grid-row: 10 / 16; background: var(--ludo-green); }
+        .yellow-home { grid-column: 1 / 7; grid-row: 10 / 16; background: var(--ludo-yellow); }
+        .blue-home { grid-column: 1 / 7; grid-row: 1 / 7; background: var(--ludo-blue); }
 
         .home-inner {
             position: absolute;
-            top: 18%; left: 18%; width: 64%; height: 64%;
-            background: white;
+            top: 15%; left: 15%; width: 70%; height: 70%;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 5px;
-            box-shadow: inset 0 4px 10px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            padding: 8px;
+            gap: 8px;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.15);
         }
 
         .pocket {
-            width: 32px;
-            height: 32px;
             border-radius: 50%;
-            border: 2px dashed #cbd5e1;
+            border: 1px solid #00000030;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .yellow-home .pocket { background: rgba(245, 158, 11, 0.15); }
-        .green-home .pocket { background: rgba(16, 185, 129, 0.15); }
+        .yellow-home .pocket { background: radial-gradient(circle, #fff 30%, #fcd34d 100%); }
+        .green-home .pocket { background: radial-gradient(circle, #fff 30%, #6ee7b7 100%); }
 
+        /* Triangles Center Base */
         .center-home {
             grid-column: 7 / 10;
             grid-row: 7 / 10;
-            background: #110c1f;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+            background: #ffffff;
+            position: relative;
+            border: 1px solid #110c1f;
+            box-sizing: border-box;
         }
 
+        .triangle {
+            position: absolute;
+            width: 0; height: 0;
+            border-style: solid;
+        }
+        .tri-blue { top: 0; left: 0; border-width: 25px 25px 0 25px; border-color: var(--ludo-blue) transparent transparent transparent; width: 100%; height: 50%; }
+        .tri-red { top: 0; right: 0; border-width: 25px var(--ludo-red) 25px 0; border-color: transparent var(--ludo-red) transparent transparent; height: 100%; width: 50%; }
+        .tri-yellow { bottom: 0; left: 0; border-width: 0 25px 25px 25px; border-color: transparent transparent var(--ludo-yellow) transparent; width: 100%; height: 50%; }
+        .tri-green { top: 0; right: 0; border-width: 25px 0 25px 25px; border-color: transparent transparent transparent var(--ludo-green); height: 100%; width: 50%; }
+
+        /* Common Lane Boxes Layout Lines */
         .cell {
             background: #ffffff;
-            border: 0.5px solid #e2e8f0;
+            border: 1px solid #110c1f;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
         }
 
-        /* Ludo Star Layout Paths */
-        .cell.yellow-path { background: #fef08a; }
-        .cell.green-path { background: #a7f3d0; }
-        .cell.yellow-home-path { background: var(--ludo-yellow) !important; }
-        .cell.green-home-path { background: var(--ludo-green) !important; }
-        
-        .cell.safe::after {
-            content: '⭐';
-            font-size: 11px;
-            color: #d97706;
-            position: absolute;
+        /* Color Tracks Direct Paths Mapping */
+        .cell.r-p { background: var(--ludo-red); }
+        .cell.g-p { background: var(--ludo-green); }
+        .cell.y-p { background: var(--ludo-yellow); }
+        .cell.b-p { background: var(--ludo-blue); }
+
+        /* Classic Star/Safe Marker Style Overlay */
+        .cell.safe-cell::after {
+            content: '★';
+            font-size: 13px;
+            color: #555555;
+            font-weight: bold;
         }
 
-        /* Ludo Star Arrow Feature */
-        .cell.arrow-cell::after {
+        /* Ludo Star Dynamic Arrow Cell Jump */
+        .cell.arrow-fast::after {
             content: '➔';
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 900;
             color: #7c3aed;
             position: absolute;
-            animation: arrowPulse 0.5s infinite alternate;
+            animation: pulseArrow 0.4s infinite alternate;
         }
-        .cell[data-coord="8,12"]::after { transform: rotate(180deg); } /* Right to Left */
-        .cell[data-coord="6,2"]::after { transform: rotate(0deg); }    /* Left to Right */
+        .cell[data-coord="8,13"]::after { transform: rotate(180deg); } 
+        .cell[data-coord="6,1"]::after { transform: rotate(0deg); }
 
-        @keyframes arrowPulse {
-            0% { transform: scale(0.9) var(--tw-transform,); opacity: 0.7; }
-            100% { transform: scale(1.15) var(--tw-transform,); opacity: 1; }
+        @keyframes pulseArrow {
+            0% { transform: scale(0.95) var(--tw-transform,); }
+            100% { transform: scale(1.2) var(--tw-transform,); }
         }
 
-        /* PREMIUM TOKENS STYLE */
+        /* TOKENS GRAPHICS DESIGN STYLE */
         .token {
-            width: 24px;
-            height: 24px;
+            width: 76%;
+            height: 76%;
             border-radius: 50%;
-            border: 2.5px solid white;
-            position: absolute;
-            z-index: 100;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            z-index: 10;
+            transition: transform 0.15s ease-in-out;
+            position: absolute;
         }
+        .token.yellow-token { background: radial-gradient(circle, #ffee55, #d97706); border: 2.5px solid #fff; box-shadow: 0 0 8px #d97706; }
+        .token.green-token { background: radial-gradient(circle, #66ff99, #047857); border: 2.5px solid #fff; box-shadow: 0 0 8px #047857; }
         
-        .token.yellow-token {
-            background: radial-gradient(circle, #fbbf24, #b45309);
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
-        }
-        
-        .token.green-token {
-            background: radial-gradient(circle, #34d399, #065f46);
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.7);
-        }
-
         .token.can-move {
-            animation: tokenGlow 0.5s infinite alternate;
-            border-color: #fff;
+            animation: hoverToken 0.5s infinite alternate;
             cursor: pointer;
+            z-index: 50;
+        }
+        @keyframes hoverToken {
+            0% { transform: scale(1); box-shadow: 0 0 4px #fff, 0 0 12px var(--ludo-yellow); }
+            100% { transform: scale(1.25); box-shadow: 0 0 8px #fff, 0 0 22px #fff; }
         }
 
-        @keyframes tokenGlow {
-            0% { transform: scale(1); box-shadow: 0 0 5px #fff, 0 0 15px rgba(255,255,255,0.6); }
-            100% { transform: scale(1.18); box-shadow: 0 0 10px #fff, 0 0 25px rgba(255,255,255,0.9); }
-        }
-
-        /* CONTROLS BAR */
+        /* BOTTOM GAME ACTIONS INTERFACES */
         .control-panel {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: rgba(255,255,255,0.04);
             padding: 12px 18px;
-            border-radius: 18px;
+            border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.06);
         }
 
-        .status-box {
-            font-size: 13px;
-            font-weight: 600;
-            text-align: left;
-        }
-        .status-box span { color: #f472b6; font-size: 16px; display: block; margin-bottom: 2px; font-weight: 700;}
+        .status-box { font-size: 13px; font-weight: 600; text-align: left; }
+        .status-box span { color: #f472b6; font-size: 15px; display: block; font-weight: 700; }
 
-        /* LUDO STAR DICE DOCK */
-        .dice-dock {
+        .dice-box {
             background: linear-gradient(135deg, #2e1c4e, #1a0f30);
-            padding: 6px;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            padding: 5px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
         }
-
         .dice {
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             background: white;
             color: #110c1f;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+            font-size: 26px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.4);
             cursor: pointer;
-            transition: transform 0.1s;
         }
-        .dice.rolling { animation: wobble 0.15s infinite; }
-        .dice.disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
+        .dice.rolling { animation: wiggle 0.15s infinite; }
+        .dice.disabled { opacity: 0.4; cursor: not-allowed; }
 
-        @keyframes wobble {
-            0% { transform: rotate(0deg) scale(1.05); }
-            50% { transform: rotate(15deg) scale(0.95); }
-            100% { transform: rotate(-15deg) scale(1.05); }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg) scale(1.05); }
+            100% { transform: rotate(-15deg); }
         }
 
-        /* MODAL POPUP */
+        /* VICTORY/DEFEAT OVERLAY MODAL */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(7, 3, 12, 0.96);
+            background: rgba(10, 5, 15, 0.96);
             backdrop-filter: blur(20px);
             z-index: 1000;
             justify-content: center;
@@ -270,8 +260,8 @@
             box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9);
         }
 
-        .modal-title { color: #f59e0b; font-size: 26px; margin-bottom: 15px; font-weight: 800; }
-        .modal-msg { font-size: 14.5px; color: #cbd5e1; line-height: 1.6; margin-bottom: 25px; text-align: justify; }
+        .modal-title { color: #f59e0b; font-size: 24px; margin-bottom: 15px; font-weight: 800; }
+        .modal-msg { font-size: 14px; color: #cbd5e1; line-height: 1.6; margin-bottom: 22px; text-align: justify; }
         .btn-action {
             background: linear-gradient(135deg, #db2777, #f59e0b);
             color: white; border: none; padding: 12px 35px; border-radius: 50px;
@@ -288,11 +278,18 @@
         </header>
 
         <div class="ludo-board" id="board">
-            <div class="zone red-home"></div>
-            <div class="zone green-home"><div class="home-inner"><div class="pocket" id="g-dock-0"></div><div class="pocket" id="g-dock-1"></div></div></div>
-            <div class="zone yellow-home"><div class="home-inner"><div class="pocket" id="y-dock-0"></div><div class="pocket" id="y-dock-1"></div></div></div>
-            <div class="zone blue-home"></div>
-            <div class="center-home">👑</div>
+            <!-- 4 Static Corner Bases Visual Setup (Exactly matching image layout placement) -->
+            <div class="home blue-home"></div>
+            <div class="home red-home"></div>
+            <div class="home yellow-home"><div class="home-inner"><div class="pocket" id="y-dock-0"></div><div class="pocket" id="y-dock-1"></div></div></div>
+            <div class="home green-home"><div class="home-inner"><div class="pocket" id="g-dock-0"></div><div class="pocket" id="g-dock-1"></div></div></div>
+            
+            <div class="center-home">
+                <div class="triangle tri-blue"></div>
+                <div class="triangle tri-red"></div>
+                <div class="triangle tri-yellow"></div>
+                <div class="triangle tri-green"></div>
+            </div>
         </div>
 
         <div class="control-panel">
@@ -300,7 +297,7 @@
                 Turn: <span id="turn-txt">Anusha (Yellow)</span>
                 <small id="note-txt" style="color: #a78bfa; font-weight: normal;">Dice roll kijiye Begum! ✨</small>
             </div>
-            <div class="dice-dock">
+            <div class="dice-box">
                 <div class="dice" id="dice-btn" onclick="handleDiceRoll()">🎲</div>
             </div>
         </div>
@@ -315,33 +312,30 @@
     </div>
 
     <script>
-        // Mapping tracks optimized for Yellow & Green loops
+        // Matrix Tracks mapped specifically onto an exact 15x15 standard grid loop layout coordinates
         const cellMapping = {
             yellow: [
                 "8,13", "8,12", "8,11", "8,10", "8,9", "9,8", "10,8", "11,8", "12,8", "13,8", "14,8", "14,7", "14,6",
                 "13,6", "12,6", "11,6", "10,6", "9,6", "8,5", "8,4", "8,3", "8,2", "8,1", "8,0", "7,0", "6,0",
                 "6,1", "6,2", "6,3", "6,4", "6,5", "5,6", "4,6", "3,6", "2,6", "1,6", "0,6", "0,7", "0,8",
                 "1,8", "2,8", "3,8", "4,8", "5,8", "6,9", "6,10", "6,11", "6,12", "6,13", "6,14", "7,14",
-                // Home Run
-                "7,13", "7,12", "7,11", "7,10", "7,9", "7,8", "7,7"
+                "7,13", "7,12", "7,11", "7,10", "7,9", "7,8" // Path ending right at custom entry limit boundaries
             ],
             green: [
                 "6,1", "6,2", "6,3", "6,4", "6,5", "5,6", "4,6", "3,6", "2,6", "1,6", "0,6", "0,7", "0,8",
                 "1,8", "2,8", "3,8", "4,8", "5,8", "6,9", "6,10", "6,11", "6,12", "6,13", "6,14", "7,14", "8,14",
                 "8,13", "8,12", "8,11", "8,10", "8,9", "9,8", "10,8", "11,8", "12,8", "13,8", "14,8", "14,7", "14,6",
                 "13,6", "12,6", "11,6", "10,6", "9,6", "8,5", "8,4", "8,3", "8,2", "8,1", "8,0", "7,0",
-                // Home Run
-                "7,1", "7,2", "7,3", "7,4", "7,5", "7,6", "7,7"
+                "7,1", "7,2", "7,3", "7,4", "7,5", "7,6"
             ]
         };
 
         const safeSpots = ["8,13", "6,1", "2,6", "1,8", "6,12", "12,8", "13,6", "8,2"];
-        // Ludo Star Arrow Speedups Config
-        const arrowCells = ["8,12", "6,2"]; 
+        const arrowCells = ["8,13", "6,1"]; // Fast track jump arrows configuration trigger points 
         const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
         let gameState = {
-            turn: 'yellow', // Anusha starts
+            turn: 'yellow',
             diceVal: 0,
             hasRolled: false,
             doubleTurn: false,
@@ -351,23 +345,30 @@
             }
         };
 
-        function buildBoardCells() {
+        function generateMatrixBoard() {
             const board = document.getElementById('board');
             for(let r=0; r<15; r++) {
                 for(let c=0; c<15; c++) {
-                    if((r>=6 && r<=8) || (c>=6 && c<=8)) {
-                        if(r>=6 && r<=8 && c>=6 && c<=8) continue;
+                    // Filter pathways rows and columns around center/edges
+                    if(((r>=6 && r<=8) || (c>=6 && c<=8)) && !(r>=6 && r<=8 && c>=6 && c<=8)) {
                         let cell = document.createElement('div');
                         cell.classList.add('cell');
                         cell.dataset.coord = `${r},${c}`;
                         
-                        // Path coloring setup
-                        if(r===8 && c===13) cell.classList.add('yellow-path');
-                        if(r===6 && c===1) cell.classList.add('green-path');
-                        if(r===7 && c>=8 && c<=13) cell.classList.add('yellow-home-path');
-                        if(r===7 && c>=1 && c<=6) cell.classList.add('green-home-path');
-                        if(safeSpots.includes(`${r},${c}`)) cell.classList.add('safe');
-                        if(arrowCells.includes(`${r},${c}`)) cell.classList.add('arrow-cell');
+                        // Exact image layout lane rendering properties
+                        if(r===8 && c===13) cell.classList.add('y-p');
+                        if(r===6 && c===1) cell.classList.add('g-p');
+                        if(r===0 && c===7) cell.classList.add('r-p');
+                        if(r===14 && c===7) cell.classList.add('y-p');
+                        if(r===7 && c>=8 && c<=13) cell.classList.add('y-p');
+                        if(r===7 && c>=1 && c<=6) cell.classList.add('g-p');
+                        if(r>=1 && r<=5 && c===7) cell.classList.add('r-p');
+                        if(r>=9 && r<=13 && c===7) cell.classList.add('y-p');
+                        if(r===6 && c===13) cell.classList.add('b-p');
+                        if(r===8 && c===1) cell.classList.add('y-p');
+                        
+                        if(safeSpots.includes(`${r},${c}`)) cell.classList.add('safe-cell');
+                        if(arrowCells.includes(`${r},${c}`)) cell.classList.add('arrow-fast');
 
                         cell.style.gridRow = r + 1;
                         cell.style.gridColumn = c + 1;
@@ -377,7 +378,7 @@
             }
         }
 
-        function spawnTokensHTML() {
+        function createTokens() {
             document.querySelectorAll('.token').forEach(t => t.remove());
             ['yellow', 'green'].forEach(color => {
                 gameState.tokens[color].forEach((tok) => {
@@ -386,168 +387,136 @@
                     tEl.id = `tk-${color}-${tok.id}`;
                     tEl.onclick = () => handleTokenClick(color, tok.id);
                     document.getElementById('board').appendChild(tEl);
-                    renderTokenPosition(color, tok.id);
+                    positionToken(color, tok.id);
                 });
             });
         }
 
-        function renderTokenPosition(color, id) {
+        function positionToken(color, id) {
             let tok = gameState.tokens[color][id];
             let element = document.getElementById(`tk-${color}-${id}`);
+            if(!element) return;
             
             if(tok.pos === -1) {
-                let dock = document.getElementById(`${color==='yellow'?'y':'g'}-dock-${id}`);
-                let box = dock.getBoundingClientRect();
-                let pBox = document.getElementById('board').getBoundingClientRect();
-                element.style.top = (box.top - pBox.top + 4) + 'px';
-                element.style.left = (box.left - pBox.left + 4) + 'px';
+                let container = document.getElementById(`${color==='yellow'?'y':'g'}-dock-${id}`);
+                if(container) container.appendChild(element);
             } else if(tok.pos === 56) {
-                let box = document.querySelector('.center-home').getBoundingClientRect();
-                let pBox = document.getElementById('board').getBoundingClientRect();
-                let offset = id * 12;
-                element.style.top = (box.top - pBox.top + 10 + offset) + 'px';
-                element.style.left = (box.left - pBox.left + 10 + offset) + 'px';
+                document.querySelector('.center-home').appendChild(element);
+                element.style.top = '40%';
+                element.style.left = '40%';
                 element.classList.remove('can-move');
             } else {
-                let targetCoord = cellMapping[color][tok.pos];
-                let cell = document.querySelector(`[data-coord="${targetCoord}"]`);
-                if(cell) {
-                    let box = cell.getBoundingClientRect();
-                    let pBox = document.getElementById('board').getBoundingClientRect();
-                    element.style.top = (box.top - pBox.top + 3) + 'px';
-                    element.style.left = (box.left - pBox.left + 3) + 'px';
-                }
+                let coord = cellMapping[color][tok.pos];
+                let cell = document.querySelector(`[data-coord="${coord}"]`);
+                if(cell) cell.appendChild(element);
             }
         }
 
         function handleDiceRoll() {
             if(gameState.hasRolled || gameState.turn !== 'yellow') return;
             
-            let dBtn = document.getElementById('dice-btn');
-            dBtn.classList.add('rolling');
+            let btn = document.getElementById('dice-btn');
+            btn.classList.add('rolling');
             gameState.hasRolled = true;
 
             setTimeout(() => {
-                dBtn.classList.remove('rolling');
+                btn.classList.remove('rolling');
                 gameState.diceVal = Math.floor(Math.random() * 6) + 1;
-                dBtn.innerText = diceFaces[gameState.diceVal - 1];
+                btn.innerText = diceFaces[gameState.diceVal - 1];
                 
-                // Ludo Star rule: 6 triggers a double turn capability
                 if(gameState.diceVal === 6) gameState.doubleTurn = true;
-
-                evaluateMovePossibilities();
+                evaluateMoves();
             }, 350);
         }
 
-        function evaluateMovePossibilities() {
+        function evaluateMoves() {
             let color = gameState.turn;
-            let activeMovables = [];
+            let moves = [];
 
             gameState.tokens[color].forEach(tok => {
-                if(canTokenAdvance(color, tok.id, gameState.diceVal)) {
-                    activeMovables.push(tok.id);
-                }
+                if(tok.pos === 56) return;
+                if(tok.pos === -1 && gameState.diceVal === 6) moves.push(tok.id);
+                if(tok.pos !== -1 && tok.pos + gameState.diceVal <= 56) moves.push(tok.id);
             });
 
-            if(activeMovables.length === 0) {
-                gameState.doubleTurn = false; // Cancel if no moves possible
+            if(moves.length === 0) {
+                gameState.doubleTurn = false;
                 document.getElementById('note-txt').innerText = "Koi chaal nahi hai! 🔄";
                 setTimeout(switchTurn, 1000);
             } else {
                 if(color === 'yellow') {
                     document.getElementById('note-txt').innerText = "Goti select kijiye Anusha! ✨";
-                    activeMovables.forEach(id => {
-                        document.getElementById(`tk-yellow-${id}`).classList.add('can-move');
-                    });
+                    moves.forEach(id => document.getElementById(`tk-yellow-${id}`).classList.add('can-move'));
                 } else {
                     setTimeout(() => {
-                        let chosenId = activeMovables[Math.floor(Math.random() * activeMovables.length)];
-                        executeTokenMovement('green', chosenId);
+                        let pick = moves[Math.floor(Math.random() * moves.length)];
+                        moveToken('green', pick);
                     }, 800);
                 }
             }
         }
 
-        function canTokenAdvance(color, id, roll) {
-            let tok = gameState.tokens[color][id];
-            if(tok.pos === 56) return false;
-            if(tok.pos === -1 && roll !== 6) return false;
-            if(tok.pos !== -1 && tok.pos + roll > 56) return false;
-            return true;
-        }
-
         function handleTokenClick(color, id) {
             if(color !== 'yellow' || gameState.turn !== 'yellow' || !gameState.hasRolled) return;
-            let tEl = document.getElementById(`tk-yellow-${id}`);
-            if(!tEl.classList.contains('can-move')) return;
+            let el = document.getElementById(`tk-yellow-${id}`);
+            if(!el.classList.contains('can-move')) return;
 
             document.querySelectorAll('.token').forEach(t => t.classList.remove('can-move'));
-            executeTokenMovement('yellow', id);
+            moveToken('yellow', id);
         }
 
-        function executeTokenMovement(color, id) {
+        function moveToken(color, id) {
             let tok = gameState.tokens[color][id];
-            let roll = gameState.diceVal;
+            let r = gameState.diceVal;
 
-            if(tok.pos === -1 && roll === 6) {
+            if(tok.pos === -1 && r === 6) {
                 tok.pos = 0;
-                renderTokenPosition(color, id);
-                checkCollisionsAndProgress(color, id);
+                positionToken(color, id);
+                postMoveChecks(color, id);
             } else {
                 let steps = 0;
-                function stepByStepAnimation() {
-                    if(steps < roll) {
+                function anim() {
+                    if(steps < r) {
                         tok.pos++;
-                        renderTokenPosition(color, id);
+                        positionToken(color, id);
                         steps++;
-                        setTimeout(stepByStepAnimation, 120);
+                        setTimeout(anim, 120);
                     } else {
-                        // Check Ludo Star Arrow Cell Trigger
-                        let currentCoord = cellMapping[color][tok.pos];
-                        if(arrowCells.includes(currentCoord)) {
+                        let coord = cellMapping[color][tok.pos];
+                        if(arrowCells.includes(coord)) {
                             setTimeout(() => {
-                                tok.pos += 1; // 1 step extra boost forward
-                                renderTokenPosition(color, id);
-                                gameState.doubleTurn = true; // Awards another chance!
+                                tok.pos += 1;
+                                positionToken(color, id);
+                                gameState.doubleTurn = true;
                                 document.getElementById('note-txt').innerText = "Arrow Boost! Ek aur baari 🚀";
-                                setTimeout(() => checkCollisionsAndProgress(color, id), 300);
+                                setTimeout(() => postMoveChecks(color, id), 300);
                             }, 200);
                         } else {
-                            checkCollisionsAndProgress(color, id);
+                            postMoveChecks(color, id);
                         }
                     }
                 }
-                stepByStepAnimation();
+                anim();
             }
         }
 
-        function checkCollisionsAndProgress(color, id) {
+        function postMoveChecks(color, id) {
             let tok = gameState.tokens[color][id];
             
-            if(gameState.tokens.yellow.every(t => t.pos === 56)) {
-                triggerVictoryScreen();
-                return;
-            }
-            if(gameState.tokens.green.every(t => t.pos === 56)) {
-                triggerDefeatScreen();
-                return;
-            }
+            if(gameState.tokens.yellow.every(t => t.pos === 56)) { triggerWin(); return; }
+            if(gameState.tokens.green.every(t => t.pos === 56)) { triggerLose(); return; }
 
-            // Kill collision processing
             if(tok.pos !== -1 && tok.pos !== 56) {
-                let currentCoord = cellMapping[color][tok.pos];
-                let oppColor = (color === 'yellow') ? 'green' : 'yellow';
+                let coord = cellMapping[color][tok.pos];
+                let opp = (color === 'yellow') ? 'green' : 'yellow';
 
-                if(!safeSpots.includes(currentCoord)) {
-                    gameState.tokens[oppColor].forEach(oppTok => {
-                        if(oppTok.pos !== -1 && oppTok.pos !== 56) {
-                            let oppCoord = cellMapping[oppColor][oppTok.pos];
-                            if(currentCoord === oppCoord) {
-                                oppTok.pos = -1;
-                                renderTokenPosition(oppColor, oppTok.id);
-                                gameState.doubleTurn = true; // Award double turn on kills!
-                                document.getElementById('note-txt').innerText = "Goti kaat di! Extra Turn 🔥";
-                            }
+                if(!safeSpots.includes(coord)) {
+                    gameState.tokens[opp].forEach(oTok => {
+                        if(oTok.pos !== -1 && oTok.pos !== 56 && cellMapping[opp][oTok.pos] === coord) {
+                            oTok.pos = -1;
+                            positionToken(opp, oTok.id);
+                            gameState.doubleTurn = true;
+                            document.getElementById('note-txt').innerText = "Goti kaat di! Extra Turn 🔥";
                         }
                     });
                 }
@@ -565,7 +534,7 @@
                         gameState.diceVal = Math.floor(Math.random() * 6) + 1;
                         document.getElementById('dice-btn').innerText = diceFaces[gameState.diceVal - 1];
                         if(gameState.diceVal === 6) gameState.doubleTurn = true;
-                        evaluateMovePossibilities();
+                        evaluateMoves();
                     }, 1000);
                 }
             } else {
@@ -579,36 +548,36 @@
             gameState.doubleTurn = false;
             gameState.diceVal = 0;
 
-            let dBtn = document.getElementById('dice-btn');
-            dBtn.innerText = "🎲";
+            let btn = document.getElementById('dice-btn');
+            btn.innerText = "🎲";
 
             if(gameState.turn === 'yellow') {
                 document.getElementById('turn-txt').innerText = "Anusha (Yellow)";
                 document.getElementById('note-txt').innerText = "Aapki baari, roll kijiye! ✨";
-                dBtn.classList.remove('disabled');
+                btn.classList.remove('disabled');
             } else {
                 document.getElementById('turn-txt').innerText = "Rabi AI (Green)";
                 document.getElementById('note-txt').innerText = "Rabi soch raha hai... 🤔";
-                dBtn.classList.add('disabled');
+                btn.classList.add('disabled');
 
                 setTimeout(() => {
                     gameState.diceVal = Math.floor(Math.random() * 6) + 1;
-                    dBtn.innerText = diceFaces[gameState.diceVal - 1];
+                    btn.innerText = diceFaces[gameState.diceVal - 1];
                     if(gameState.diceVal === 6) gameState.doubleTurn = true;
-                    evaluateMovePossibilities();
+                    evaluateMoves();
                 }, 1000);
             }
         }
 
-        function triggerVictoryScreen() {
+        function triggerWin() {
             document.getElementById('m-title').innerText = "Won! 👑💖";
             document.getElementById('m-msg').innerText = "Umeed karta huun meri yeh mehnat mere Anu ko pasand aii hoo or wo thora khuhs hoi hoo is game se baki mere hotey weh meri Begum ko udas honey ki zarurat bhi kiya hai mene jab zima uthaya hai ussey hamesha khush rakney ka Muhammad Farooq Kalu Abdul Masani sub ko bhi yeh wada karo gha key apki Beti ko kabhi roney nhi dungha uski ank mein kabhi ansu nhi aney dunga q key mere Pyari si Begum Sahiba apney abu ki Shezadi hai tu meri Kul kainat hai mere Jaan or mein apse Behaad Mobhaat karta huun Baby. I Love You My Cute WIffey! Umaaaah Umaaaaahhhh.";
             document.getElementById('game-modal').style.display = 'flex';
         }
 
-        function triggerDefeatScreen() {
+        function triggerLose() {
             document.getElementById('m-title').innerText = "Rabi AI Won! 🎲";
-            document.getElementById('m-msg').innerText = "Koi baat nahi meri pyari Begum, Rabi thoda kismat wala nikla is baar! Aap dubara koshish kijiye, agli baar aap hi jeetengi pakka! 💞";
+            document.getElementById('m-msg').innerText = "Koi baat nahi meri pyari Begum, Rabi thoda kismat wala nikla is baar! Aap dubara koshish kijiye, agli baar aap hi jeetengi pakka!";
             document.getElementById('game-modal').style.display = 'flex';
         }
 
@@ -617,3 +586,20 @@
             gameState.turn = 'yellow';
             gameState.hasRolled = false;
             gameState.doubleTurn = false;
+            gameState.diceVal = 0;
+            gameState.tokens.yellow.forEach(t => t.pos = -1);
+            gameState.tokens.green.forEach(t => t.pos = -1);
+            
+            document.getElementById('turn-txt').innerText = "Anusha (Yellow)";
+            document.getElementById('note-txt').innerText = "Dice roll kijiye Begum! ✨";
+            document.getElementById('dice-btn').innerText = "🎲";
+            document.getElementById('dice-btn').classList.remove('disabled');
+            
+            createTokens();
+        }
+
+        generateMatrixBoard();
+        createTokens();
+    </script>
+</body>
+</html>
