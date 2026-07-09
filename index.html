@@ -30,7 +30,7 @@
             align-items: center;
             padding: 16px;
             color: #f8fafc;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             touch-action: none;
         }
@@ -136,9 +136,14 @@
         .message-content {
             font-size: 14.5px;
             color: #cbd5e1;
-            line-height: 1.65;
+            line-height: 1.7;
             font-weight: 400;
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Added beautiful margin spacing for paragraphs */
+        .message-content p {
+            margin-bottom: 16px;
         }
 
         .signature {
@@ -160,17 +165,20 @@
             <p class="sub-text" id="instruction-tap">Tap the heart to unlock my feelings, Begum Sahiba...</p>
             
             <div class="letter-box" id="letter">
-                <p class="message-content" id="typewriter-text"></p>
+                <div class="message-content" id="typewriter-text"></div>
                 <div class="signature" id="sig-tag" style="display:none;">Hamesha Aapka, Rabi ❤️</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Updated exact message with premium relatable emoji placements
-        const originalMessage = "Umeed karta huun meri yeh mehnat mere Anu ko pasand aii hoo 💖 or wo thora Khush hoi hogi is Romatic chez se 🙈 baki mere hotey weh meri Begum ko udas honey ki zarurat bhi kiya hai 👑 mene jab zima uthaya hai ussey hamesha khush rakney ka 💕 Muhammad Farooq Kalu Abdul Masani Sir ko bhi yeh wada karo gha key apki Beti ko kabhi roney nhi dungha 🤝 uski ank mein kabhi ansu nhi aney dunga 😢 q key mere Pyari si Begum Sahiba apney abu ki Shezadi hai ✨ tu meri Kul kainat hai mere Jaan ❤️ or mein apse Behaad Mobhaat karta huun Baby. 🕊️ I Love You My Cute WIffey! 💍 Umarhh Umaaaaahhhh. 😘💋";
+        // Array structure to properly hold paragraphs and ensure clean spacing without single-block clutter
+        const paragraphs = [
+            "Umeed karta huun meri yeh mehnat mere Anu ko pasand aii hoo 💖 or wo thora Khush hoi hogi is Romatic chez se 🙈 baki mere hotey weh meri Begum ko udas honey ki zarurat bhi kiya hai 👑 mene jab zima uthaya hai ussey hamesha khush rakney ka 💕",
+            "Muhammad Farooq Kalu Abdul Masani Sir ko bhi yeh wada karo gha key apki Beti ko kabhi roney nhi dungha 🤝 uski ank mein kabhi ansu nhi aney dunga 😢 q key mere Pyari si Begum Sahiba apney abu ki Shezadi hai ✨ tu meri Kul kainat hai mere Jaan ❤️",
+            "or mein apse Behaad Mobhaat karta huun Baby. 🕊️ I Love You My Cute WIffey! 💍 Umaaaah Umaaaaahhhh. 😘💋"
+        ];
 
-        // Background continuous heart loop
         function spawnAmbientHearts() {
             setInterval(() => {
                 let heart = document.createElement('div');
@@ -198,7 +206,6 @@
             
             letter.classList.add('reveal');
             
-            // Burst multi hearts instantly on unlock click trigger
             for(let i=0; i<15; i++) {
                 setTimeout(() => {
                     let h = document.createElement('div');
@@ -211,18 +218,34 @@
                 }, i * 50);
             }
 
-            let index = 0;
             const txtContainer = document.getElementById('typewriter-text');
-            txtContainer.innerText = '';
+            txtContainer.innerHTML = '';
+            
+            let currentParagraphIndex = 0;
+            let currentCharIndex = 0;
+            let currentParaElement = document.createElement('p');
+            txtContainer.appendChild(currentParaElement);
             
             function typeText() {
-                if (index < originalMessage.length) {
-                    // Check if current or upcoming chars are part of an emoji/surrogate pair to type together
-                    let char = originalMessage.codePointAt(index);
-                    let charStr = String.fromCodePoint(char);
-                    txtContainer.innerText += charStr;
-                    index += charStr.length;
-                    setTimeout(typeText, 35); // Clean romantic text speed flow
+                if (currentParagraphIndex < paragraphs.length) {
+                    let currentText = paragraphs[currentParagraphIndex];
+                    
+                    if (currentCharIndex < currentText.length) {
+                        let charCode = currentText.codePointAt(currentCharIndex);
+                        let charStr = String.fromCodePoint(charCode);
+                        currentParaElement.innerHTML += charStr;
+                        currentCharIndex += charStr.length;
+                        setTimeout(typeText, 35);
+                    } else {
+                        // Move to next paragraph block seamlessly
+                        currentParagraphIndex++;
+                        currentCharIndex = 0;
+                        if (currentParagraphIndex < paragraphs.length) {
+                            currentParaElement = document.createElement('p');
+                            txtContainer.appendChild(currentParaElement);
+                        }
+                        setTimeout(typeText, 200); // Small sweet delay before typing next block
+                    }
                 } else {
                     document.getElementById('sig-tag').style.display = 'block';
                 }
@@ -232,7 +255,6 @@
             typeText();
         }
 
-        // Tap screen anywhere to generate direct custom hearts
         window.addEventListener('pointerdown', (e) => {
             let clickHeart = document.createElement('div');
             clickHeart.classList.add('heart-particle');
