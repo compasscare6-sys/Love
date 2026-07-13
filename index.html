@@ -19,6 +19,11 @@
 
   *{margin:0;padding:0;box-sizing:border-box;}
 
+  html, body{
+    height:auto;
+    min-height:100%;
+  }
+
   body{
     min-height:100vh;
     background:
@@ -30,7 +35,8 @@
     justify-content:center;
     font-family:'Marcellus', serif;
     color:var(--paper);
-    overflow:hidden;
+    overflow-x:hidden;
+    overflow-y:auto;
     position:relative;
   }
 
