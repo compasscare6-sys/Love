@@ -1,286 +1,421 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Queen's Catch 👑💖</title>
-    <style>
-        :root {
-            --bg-dark: #0f051d;
-            --panel-bg: rgba(30, 15, 45, 0.85);
-            --text-light: #fff5ff;
-            --rose-pink: #f472b6;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meri Jaan ♥</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Marcellus&family=Dancing+Script:wght@600;700&display=swap');
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+  :root{
+    --maroon:#4a1224;
+    --maroon-deep:#2e0a16;
+    --blush:#f6dde2;
+    --rose:#c9536b;
+    --gold:#c9a24b;
+    --gold-soft:#e6d3a3;
+    --paper:#fbf3ec;
+  }
 
-        body {
-            background: radial-gradient(circle at center, #2d124d 0%, var(--bg-dark) 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            color: var(--text-light);
-            overflow: hidden;
-            touch-action: none;
-        }
+  *{margin:0;padding:0;box-sizing:border-box;}
 
-        .game-container {
-            background: var(--panel-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1.5px solid rgba(255, 100, 255, 0.15);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 390px;
-            padding: 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            text-align: center;
-            position: relative;
-        }
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(201,162,75,0.08), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(201,83,107,0.10), transparent 45%),
+      var(--maroon-deep);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Marcellus', serif;
+    color:var(--paper);
+    overflow:hidden;
+    position:relative;
+  }
 
-        header h1 {
-            font-size: 20px;
-            font-weight: 800;
-            background: linear-gradient(to right, #ff73b9, #ffbe3b, #ff73b9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 2px;
-        }
+  /* ambient floating petals */
+  .petal{
+    position:fixed;
+    top:-5%;
+    font-size:18px;
+    opacity:0.35;
+    color:var(--rose);
+    animation:fall linear infinite;
+    pointer-events:none;
+    user-select:none;
+  }
+  @keyframes fall{
+    to{ transform: translateY(110vh) rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .petal{ animation: none; display:none; }
+  }
 
-        header p {
-            font-size: 11px;
-            color: #c0aed1;
-            margin-bottom: 12px;
-        }
+  .stage{
+    width:100%;
+    max-width:420px;
+    padding:32px 24px;
+    position:relative;
+    z-index:2;
+  }
 
-        .score-box {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 6px 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 15px;
-        }
-        .score-box span { color: #ffbe3b; font-size: 16px; }
+  /* ---------- LOCK SCREEN ---------- */
+  #lockScreen{
+    text-align:center;
+    animation: riseIn 0.8s ease both;
+  }
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
 
-        .game-field {
-            width: 100%;
-            height: 380px;
-            background: rgba(10, 3, 18, 0.6);
-            border-radius: 14px;
-            border: 3px solid #3d1b63;
-            box-shadow: inset 0 4px 15px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 5px;
-        }
+  .seal{
+    width:78px;
+    height:78px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 60%, #8a6d24 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    color:var(--maroon-deep);
+    box-shadow: 0 0 0 3px rgba(230,211,163,0.15), 0 8px 24px rgba(0,0,0,0.4);
+  }
 
-        .basket {
-            width: 70px;
-            height: 35px;
-            background: linear-gradient(135deg, #ff73b9, #eab308);
-            border: 2px solid #fff;
-            border-radius: 0 0 20px 20px;
-            position: absolute;
-            bottom: 10px;
-            left: calc(50% - 35px);
-            box-shadow: 0 4px 10px rgba(255, 115, 185, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
-            z-index: 10;
-        }
+  .eyebrow{
+    letter-spacing:0.32em;
+    font-size:11px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:10px;
+    font-family:'Marcellus', serif;
+  }
 
-        .falling-item {
-            position: absolute;
-            font-size: 26px;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-        }
+  h1.title{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:42px;
+    color:var(--blush);
+    margin-bottom:6px;
+    line-height:1.1;
+  }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(8, 3, 15, 0.96);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
+  .sub{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:16px;
+    color:rgba(246,221,226,0.75);
+    margin-bottom:34px;
+  }
 
-        .modal-content {
-            background: linear-gradient(145deg, #31134a, #0d0614);
-            border: 1px solid rgba(255, 100, 255, 0.15);
-            border-radius: 24px;
-            max-width: 350px;
-            width: 100%;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.7);
-        }
+  .code-row{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:22px;
+  }
 
-        .modal-title { color: #ffbe3b; font-size: 22px; margin-bottom: 12px; font-weight: 800; }
-        .modal-msg { font-size: 14.5px; color: #d6cae3; line-height: 1.6; margin-bottom: 20px; text-align: justify; }
-        .btn-action {
-            background: linear-gradient(135deg, #ff73b9, #ffbe3b);
-            color: white; border: none; padding: 11px 30px; border-radius: 50px;
-            font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 115, 185, 0.3);
-        }
-    </style>
+  .digit{
+    width:48px;
+    height:58px;
+    border:1.5px solid rgba(230,211,163,0.35);
+    border-radius:10px;
+    background:rgba(255,255,255,0.03);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-family:'Marcellus', serif;
+    color:var(--gold-soft);
+    transition: border-color 0.25s, background 0.25s, transform 0.15s;
+  }
+  .digit.filled{
+    border-color:var(--gold);
+    background:rgba(201,162,75,0.12);
+  }
+  .digit.shake{
+    animation: shake 0.4s ease;
+    border-color:var(--rose);
+  }
+  @keyframes shake{
+    0%,100%{ transform: translateX(0); }
+    20%{ transform: translateX(-6px); }
+    40%{ transform: translateX(6px); }
+    60%{ transform: translateX(-4px); }
+    80%{ transform: translateX(4px); }
+  }
+
+  #hiddenInput{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .keypad{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+    max-width:260px;
+    margin:0 auto;
+  }
+
+  .key{
+    aspect-ratio:1;
+    border-radius:50%;
+    border:1px solid rgba(230,211,163,0.25);
+    background:rgba(255,255,255,0.02);
+    color:var(--blush);
+    font-family:'Marcellus', serif;
+    font-size:19px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition: background 0.2s, transform 0.1s, border-color 0.2s;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .key:active{
+    background:rgba(201,162,75,0.22);
+    transform:scale(0.94);
+    border-color:var(--gold);
+  }
+  .key.wide{ font-size:13px; letter-spacing:0.05em; }
+
+  .hint{
+    margin-top:24px;
+    font-size:12px;
+    color:rgba(246,221,226,0.45);
+    font-style:italic;
+    font-family:'Cormorant Garamond', serif;
+  }
+
+  /* ---------- GIFT SCREEN ---------- */
+  #giftScreen{
+    display:none;
+    text-align:center;
+  }
+  #giftScreen.show{
+    display:block;
+    animation: unlockIn 1s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes unlockIn{
+    from{ opacity:0; transform:scale(0.92) translateY(10px); }
+    to{ opacity:1; transform:scale(1) translateY(0); }
+  }
+
+  .heart-mark{
+    font-size:34px;
+    color:var(--rose);
+    margin-bottom:14px;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.12); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .heart-mark{ animation:none; }
+  }
+
+  h1.gift-title{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:46px;
+    color:var(--blush);
+    margin-bottom:4px;
+  }
+
+  .gift-eyebrow{
+    letter-spacing:0.28em;
+    font-size:11px;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:28px;
+  }
+
+  .letter{
+    background:linear-gradient(180deg, rgba(251,243,236,0.05), rgba(251,243,236,0.02));
+    border:1px solid rgba(230,211,163,0.25);
+    border-radius:14px;
+    padding:28px 24px;
+    text-align:left;
+    font-family:'Cormorant Garamond', serif;
+    font-size:19px;
+    line-height:1.85;
+    color:var(--blush);
+  }
+  .letter p{ margin-bottom:16px; }
+  .letter p:last-child{ margin-bottom:0; }
+  .signature{
+    font-family:'Dancing Script', cursive;
+    font-size:26px;
+    color:var(--gold-soft);
+    text-align:right;
+    margin-top:18px;
+  }
+
+  .footer-line{
+    margin-top:26px;
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(246,221,226,0.4);
+  }
+</style>
 </head>
 <body>
 
-    <div class="game-container">
-        <header>
-            <h1>The Queen's Catch 👑💖</h1>
-            <p>Drag or Tap to move basket left & right</p>
-        </header>
+<div class="stage">
 
-        <div class="score-box">Score: <span id="score-txt">0</span> / 500</div>
+  <!-- LOCK SCREEN -->
+  <div id="lockScreen">
+    <div class="seal">♥</div>
+    <div class="eyebrow">A Gift, Sealed For You</div>
+    <h1 class="title">Meri Jaan</h1>
+    <div class="sub">Enter your passcode to open</div>
 
-        <div class="game-field" id="field">
-            <div class="basket" id="basket">👑</div>
-        </div>
+    <div class="code-row" id="codeRow">
+      <div class="digit"></div>
+      <div class="digit"></div>
+      <div class="digit"></div>
+      <div class="digit"></div>
     </div>
 
-    <div class="modal" id="win-modal">
-        <div class="modal-content">
-            <h2 class="modal-title">Good Morning My Queen! 👑🌸</h2>
-            <p class="modal-msg">Good Morning Jaanu Ummed karta huun meri guriya ki tabyat bethar hai ab Allah or sehatyaabi dey meri Anna ko. baki jaldi se fresh hojaooo or nashta karlooo Baba . I Love You Begum Sahiba MY Love , Ummaah Umaaaah 😘💋❤️</p>
-            <button class="btn-action" onclick="resetGame()">Play Again 🔄</button>
-        </div>
+    <input type="tel" id="hiddenInput" maxlength="4" autocomplete="off">
+
+    <div class="keypad" id="keypad">
+      <div class="key" data-k="1">1</div>
+      <div class="key" data-k="2">2</div>
+      <div class="key" data-k="3">3</div>
+      <div class="key" data-k="4">4</div>
+      <div class="key" data-k="5">5</div>
+      <div class="key" data-k="6">6</div>
+      <div class="key" data-k="7">7</div>
+      <div class="key" data-k="8">8</div>
+      <div class="key" data-k="9">9</div>
+      <div class="key wide" data-k="clear">clear</div>
+      <div class="key" data-k="0">0</div>
+      <div class="key wide" data-k="back">⌫</div>
     </div>
 
-    <script>
-        const field = document.getElementById('field');
-        const basket = document.getElementById('basket');
-        const scoreTxt = document.getElementById('score-txt');
-        const winModal = document.getElementById('win-modal');
+    <div class="hint">hint: the day we became "hum" ♡</div>
+  </div>
 
-        let score = 0;
-        let gameActive = true;
-        let basketX = 160; 
-        const basketWidth = 70;
+  <!-- GIFT SCREEN -->
+  <div id="giftScreen">
+    <div class="heart-mark">♥</div>
+    <div class="gift-eyebrow">National Girlfriend's Day</div>
+    <h1 class="gift-title">Happy Wife Day</h1>
 
-        const goodItems = ['🍬', '❤️', '💍', '🍩', '💖', '🍓'];
-        const badItems = ['🤬', '💣'];
+    <div class="letter">
+      <p>Meri Jaan,</p>
+      <p>Aaj ka din tumhare liye hai ❣️ meri sabse pyaari, sabse khaas insaan ke liye. Guriya 💖 Tumhare saath har din ek naya wajah ban jaata hai muskurane ka. 🫀</p>
+      <p>Tumhari hasi, tumhara gussa, tumhara wo cute sa Mou banana — sab kuch mujhe tumse aur pyaar karwa deta hai. Tum sirf meri Begum nahi ho, meri Duniya hoo 🌎, mera sukoon, meri ghar ho 🏠</p>
+      <p>Is choti si passcode wali site ke peeche bas ek hi baat chhupi thi ke tum meri zindagi ka sabse mehfooz aur sabse pyaara raaz ho 💗❤️🫀💖🫂</p>
+      <p>Happy Wife Day, meri jaan. I love you, aaj bhi, hamesha bhi. ♥😍💋💓</p>
+      <div class="signature">— tumhara hi</div>
+    </div>
 
-        function moveBasket(clientX) {
-            if (!gameActive) return;
-            const rect = field.getBoundingClientRect();
-            let relativeX = clientX - rect.left - (basketWidth / 2);
-            
-            if (relativeX < 0) relativeX = 0;
-            if (relativeX > (rect.width - basketWidth)) relativeX = rect.width - basketWidth;
-            
-            basketX = relativeX;
-            basket.style.left = basketX + 'px';
-        }
+    <div class="footer-line">made with ♥ just for you</div>
+  </div>
 
-        field.addEventListener('touchmove', (e) => {
-            moveBasket(e.touches[0].clientX);
-        });
-        field.addEventListener('mousemove', (e) => {
-            moveBasket(e.clientX);
-        });
+</div>
 
-        function spawnItem() {
-            if (!gameActive) return;
+<script>
+  const CODE = "2329";
+  let entered = "";
 
-            const item = document.createElement('div');
-            item.classList.add('falling-item');
-            
-            const isGood = Math.random() > 0.25;
-            const type = isGood 
-                ? goodItems[Math.floor(Math.random() * goodItems.length)]
-                : badItems[Math.floor(Math.random() * badItems.length)];
-                
-            item.innerText = type;
-            
-            const fieldRect = field.getBoundingClientRect();
-            const startX = Math.random() * (fieldRect.width - 30);
-            item.style.left = startX + 'px';
-            item.style.top = '0px';
-            field.appendChild(item);
+  const codeRow = document.getElementById('codeRow');
+  const digits = codeRow.querySelectorAll('.digit');
+  const hiddenInput = document.getElementById('hiddenInput');
+  const keypad = document.getElementById('keypad');
+  const lockScreen = document.getElementById('lockScreen');
+  const giftScreen = document.getElementById('giftScreen');
 
-            let currentY = 0;
-            const speed = Math.random() * 2 + 3;
+  function renderDigits(){
+    digits.forEach((d, i) => {
+      if(i < entered.length){
+        d.textContent = "•";
+        d.classList.add('filled');
+      } else {
+        d.textContent = "";
+        d.classList.remove('filled');
+      }
+    });
+  }
 
-            function fall() {
-                if (!gameActive) {
-                    item.remove();
-                    return;
-                }
+  function shakeAndReset(){
+    digits.forEach(d => d.classList.add('shake'));
+    setTimeout(() => {
+      digits.forEach(d => d.classList.remove('shake'));
+      entered = "";
+      renderDigits();
+    }, 420);
+  }
 
-                currentY += speed;
-                item.style.top = currentY + 'px';
+  function tryUnlock(){
+    if(entered.length === 4){
+      if(entered === CODE){
+        setTimeout(() => {
+          lockScreen.style.display = "none";
+          giftScreen.classList.add('show');
+        }, 200);
+      } else {
+        shakeAndReset();
+      }
+    }
+  }
 
-                const basketTop = fieldRect.height - 45;
+  function addDigit(d){
+    if(entered.length < 4){
+      entered += d;
+      renderDigits();
+      tryUnlock();
+    }
+  }
 
-                if (currentY >= basketTop && currentY <= basketTop + 25) {
-                    if (startX + 20 >= basketX && startX <= basketX + basketWidth) {
-                        if (isGood) {
-                            score += 20;
-                        } else {
-                            score = Math.max(0, score - 30);
-                        }
-                        scoreTxt.innerText = score;
-                        item.remove();
+  function backspace(){
+    entered = entered.slice(0, -1);
+    renderDigits();
+  }
 
-                        if (score >= 500) {
-                            triggerWin();
-                        }
-                        return;
-                    }
-                }
+  function clearAll(){
+    entered = "";
+    renderDigits();
+  }
 
-                if (currentY > fieldRect.height) {
-                    item.remove();
-                } else {
-                    requestAnimationFrame(fall);
-                }
-            }
-            requestAnimationFrame(fall);
-        }
+  keypad.addEventListener('click', (e) => {
+    const key = e.target.closest('.key');
+    if(!key) return;
+    const k = key.dataset.k;
+    if(k === 'back') backspace();
+    else if(k === 'clear') clearAll();
+    else addDigit(k);
+  });
 
-        let spawnInterval = setInterval(spawnItem, 700);
+  // allow physical keyboard too
+  document.addEventListener('keydown', (e) => {
+    if(/^[0-9]$/.test(e.key)) addDigit(e.key);
+    else if(e.key === 'Backspace') backspace();
+  });
 
-        function triggerWin() {
-            gameActive = false;
-            clearInterval(spawnInterval);
-            winModal.style.display = 'flex';
-            document.querySelectorAll('.falling-item').forEach(i => i.remove());
-        }
+  renderDigits();
 
-        function resetGame() {
-            score = 0;
-            scoreTxt.innerText = score;
-            gameActive = true;
-            winModal.style.display = 'none';
-            basketX = 160;
-            basket.style.left = basketX + 'px';
-            spawnInterval = setInterval(spawnItem, 700);
-        }
-    </script>
+  // ambient petals
+  const petalChars = ['♡','✿','❀'];
+  for(let i=0; i<14; i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalChars[Math.floor(Math.random()*petalChars.length)];
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.animationDuration = (8 + Math.random()*10) + 's';
+    p.style.animationDelay = (Math.random()*10) + 's';
+    p.style.fontSize = (12 + Math.random()*14) + 'px';
+    document.body.appendChild(p);
+  }
+</script>
+
 </body>
 </html>
