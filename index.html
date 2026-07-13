@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Queen 👑💖</title>
+    <title>The Queen's Catch 👑💖</title>
     <style>
         :root {
-            --bg-dark: #0b0512;
-            --card-bg: rgba(28, 13, 43, 0.85);
-            --gold-glow: #eab308;
+            --bg-dark: #0f051d;
+            --panel-bg: rgba(30, 15, 45, 0.85);
+            --text-light: #fff5ff;
             --rose-pink: #f472b6;
         }
 
@@ -23,250 +23,264 @@
         }
 
         body {
-            background: radial-gradient(circle at center, #231036 0%, var(--bg-dark) 100%);
+            background: radial-gradient(circle at center, #2d124d 0%, var(--bg-dark) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 16px;
-            color: #f8fafc;
-            overflow-x: hidden;
-            position: relative;
+            padding: 10px;
+            color: var(--text-light);
+            overflow: hidden;
             touch-action: none;
         }
 
-        /* FLOATING HEARTS BACKGROUND EFFECT */
-        .heart-particle {
-            position: absolute;
-            color: rgba(244, 114, 182, 0.45);
-            pointer-events: none;
-            animation: floatUp 4s linear forwards;
-            z-index: 1;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.3) rotate(360deg); opacity: 0; }
-        }
-
-        /* MAIN VIP CONTAINER */
-        .wrapper {
-            position: relative;
-            z-index: 10;
+        .game-container {
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid rgba(255, 100, 255, 0.15);
+            border-radius: 24px;
             width: 100%;
-            max-width: 380px;
+            max-width: 390px;
+            padding: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
             text-align: center;
+            position: relative;
         }
 
-        .main-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 30px 20px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255,255,255,0.15);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* BIG PULSING GOLDEN HEART INTERACTIVE BUTTON */
-        .heart-trigger {
-            width: 85px;
-            height: 85px;
-            background: radial-gradient(circle at 35% 35%, #fef08a 0%, #ca8a04 70%, #854d0e 100%);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 38px;
-            margin: 0 auto 20px auto;
-            box-shadow: 0 10px 25px rgba(202, 138, 4, 0.4), 0 0 0 0px rgba(255,255,255,0.2);
-            cursor: pointer;
-            border: 2.5px solid #fff;
-            animation: pulseHeart 1.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
-            transition: transform 0.3s ease;
-        }
-
-        .heart-trigger:active {
-            transform: scale(0.9);
-        }
-
-        @keyframes pulseHeart {
-            0% { transform: scale(1); box-shadow: 0 10px 25px rgba(202, 138, 4, 0.4), 0 0 0 0px rgba(255,255,255,0.3); }
-            50% { transform: scale(1.08); box-shadow: 0 15px 30px rgba(202, 138, 4, 0.6), 0 0 0 14px rgba(255,255,255,0); }
-            100% { transform: scale(1); box-shadow: 0 10px 25px rgba(202, 138, 4, 0.4), 0 0 0 0px rgba(255,255,255,0); }
-        }
-
-        .title-text {
-            font-size: 22px;
+        header h1 {
+            font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(to right, #fff, var(--rose-pink), var(--gold-glow));
+            background: linear-gradient(to right, #ff73b9, #ffbe3b, #ff73b9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
+            margin-bottom: 2px;
         }
 
-        .sub-text {
-            font-size: 13px;
-            color: #94a3b8;
+        header p {
+            font-size: 11px;
+            color: #c0aed1;
+            margin-bottom: 12px;
+        }
+
+        .score-box {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 15px;
+        }
+        .score-box span { color: #ffbe3b; font-size: 16px; }
+
+        .game-field {
+            width: 100%;
+            height: 380px;
+            background: rgba(10, 3, 18, 0.6);
+            border-radius: 14px;
+            border: 3px solid #3d1b63;
+            box-shadow: inset 0 4px 15px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
             margin-bottom: 5px;
         }
 
-        /* REVEALED LETTER STYLING */
-        .letter-box {
+        .basket {
+            width: 70px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff73b9, #eab308);
+            border: 2px solid #fff;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            bottom: 10px;
+            left: calc(50% - 35px);
+            box-shadow: 0 4px 10px rgba(255, 115, 185, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .falling-item {
+            position: absolute;
+            font-size: 26px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .modal {
             display: none;
-            margin-top: 22px;
-            padding-top: 22px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: justify;
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.6s ease;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(8, 3, 15, 0.96);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
         }
 
-        .letter-box.reveal {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+        .modal-content {
+            background: linear-gradient(145deg, #31134a, #0d0614);
+            border: 1px solid rgba(255, 100, 255, 0.15);
+            border-radius: 24px;
+            max-width: 350px;
+            width: 100%;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.7);
         }
 
-        .message-content {
-            font-size: 14.5px;
-            color: #cbd5e1;
-            line-height: 1.7;
-            font-weight: 400;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        /* Added beautiful margin spacing for paragraphs */
-        .message-content p {
-            margin-bottom: 16px;
-        }
-
-        .signature {
-            margin-top: 20px;
-            text-align: right;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--rose-pink);
-            font-style: italic;
+        .modal-title { color: #ffbe3b; font-size: 22px; margin-bottom: 12px; font-weight: 800; }
+        .modal-msg { font-size: 14.5px; color: #d6cae3; line-height: 1.6; margin-bottom: 20px; text-align: justify; }
+        .btn-action {
+            background: linear-gradient(135deg, #ff73b9, #ffbe3b);
+            color: white; border: none; padding: 11px 30px; border-radius: 50px;
+            font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 115, 185, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <div class="main-card">
-            <div class="heart-trigger" id="main-heart" onclick="openRoyalLetter()">💝</div>
-            <h1 class="title-text" id="header-title">A Special Surprise ✨</h1>
-            <p class="sub-text" id="instruction-tap">Tap the heart to unlock my feelings, Begum Sahiba...</p>
-            
-            <div class="letter-box" id="letter">
-                <div class="message-content" id="typewriter-text"></div>
-                <div class="signature" id="sig-tag" style="display:none;">Hamesha Aapka, Rabi ❤️</div>
-            </div>
+    <div class="game-container">
+        <header>
+            <h1>The Queen's Catch 👑💖</h1>
+            <p>Drag or Tap to move basket left & right</p>
+        </header>
+
+        <div class="score-box">Score: <span id="score-txt">0</span> / 500</div>
+
+        <div class="game-field" id="field">
+            <div class="basket" id="basket">👑</div>
+        </div>
+    </div>
+
+    <div class="modal" id="win-modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Good Morning My Queen! 👑🌸</h2>
+            <p class="modal-msg">Good Morning Jaanu Ummed karta huun meri guriya ki tabyat bethar hai ab Allah or sehatyaabi dey meri Anna ko. baki jaldi se fresh hojaooo or nashta karlooo Baba . I Love You Begum Sahiba MY Love , Ummaah Umaaaah 😘💋❤️</p>
+            <button class="btn-action" onclick="resetGame()">Play Again 🔄</button>
         </div>
     </div>
 
     <script>
-        // Array structure to properly hold paragraphs and ensure clean spacing without single-block clutter
-        const paragraphs = [
-            "Umeed karta huun meri yeh mehnat mere Anu ko pasand aii hoo 💖 or wo thora Khush hoi hogi is Romatic chez se 🙈 baki mere hotey weh meri Begum ko udas honey ki zarurat bhi kiya hai 👑 mene jab zima uthaya hai ussey hamesha khush rakney ka 💕",
-            "Muhammad Farooq Kalu Abdul Masani Sir ko bhi yeh wada karo gha key apki Beti ko kabhi roney nhi dungha 🤝 uski ank mein kabhi ansu nhi aney dunga 😢 q key mere Pyari si Begum Sahiba apney abu ki Shezadi hai ✨ tu meri Kul kainat hai mere Jaan ❤️",
-            "or mein apse Behaad Mobhaat karta huun Baby. 🕊️ I Love You My Cute WIffey! 💍 Umaaaah Umaaaaahhhh. 😘💋"
-        ];
+        const field = document.getElementById('field');
+        const basket = document.getElementById('basket');
+        const scoreTxt = document.getElementById('score-txt');
+        const winModal = document.getElementById('win-modal');
 
-        function spawnAmbientHearts() {
-            setInterval(() => {
-                let heart = document.createElement('div');
-                heart.classList.add('heart-particle');
-                heart.innerHTML = ['❤️', '💖', '💝', '💕', '🌸'][Math.floor(Math.random() * 5)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = Math.random() * 12 + 12 + 'px';
-                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 4500);
-            }, 600);
+        let score = 0;
+        let gameActive = true;
+        let basketX = 160; 
+        const basketWidth = 70;
+
+        const goodItems = ['🍬', '❤️', '💍', '🍩', '💖', '🍓'];
+        const badItems = ['🤬', '💣'];
+
+        function moveBasket(clientX) {
+            if (!gameActive) return;
+            const rect = field.getBoundingClientRect();
+            let relativeX = clientX - rect.left - (basketWidth / 2);
+            
+            if (relativeX < 0) relativeX = 0;
+            if (relativeX > (rect.width - basketWidth)) relativeX = rect.width - basketWidth;
+            
+            basketX = relativeX;
+            basket.style.left = basketX + 'px';
         }
 
-        function openRoyalLetter() {
-            const heartBtn = document.getElementById('main-heart');
-            const letter = document.getElementById('letter');
-            const title = document.getElementById('header-title');
-            const instruct = document.getElementById('instruction-tap');
-            
-            heartBtn.style.animation = 'none';
-            heartBtn.style.transform = 'scale(0.9) rotate(-10deg)';
-            
-            instruct.style.display = 'none';
-            title.innerText = "To My Whole World 👑";
-            
-            letter.classList.add('reveal');
-            
-            for(let i=0; i<15; i++) {
-                setTimeout(() => {
-                    let h = document.createElement('div');
-                    h.classList.add('heart-particle');
-                    h.innerHTML = '💖';
-                    h.style.left = (Math.random() * 40 + 30) + 'vw';
-                    h.style.fontSize = '20px';
-                    h.style.animationDuration = '2.5s';
-                    document.body.appendChild(h);
-                }, i * 50);
-            }
-
-            const txtContainer = document.getElementById('typewriter-text');
-            txtContainer.innerHTML = '';
-            
-            let currentParagraphIndex = 0;
-            let currentCharIndex = 0;
-            let currentParaElement = document.createElement('p');
-            txtContainer.appendChild(currentParaElement);
-            
-            function typeText() {
-                if (currentParagraphIndex < paragraphs.length) {
-                    let currentText = paragraphs[currentParagraphIndex];
-                    
-                    if (currentCharIndex < currentText.length) {
-                        let charCode = currentText.codePointAt(currentCharIndex);
-                        let charStr = String.fromCodePoint(charCode);
-                        currentParaElement.innerHTML += charStr;
-                        currentCharIndex += charStr.length;
-                        setTimeout(typeText, 35);
-                    } else {
-                        // Move to next paragraph block seamlessly
-                        currentParagraphIndex++;
-                        currentCharIndex = 0;
-                        if (currentParagraphIndex < paragraphs.length) {
-                            currentParaElement = document.createElement('p');
-                            txtContainer.appendChild(currentParaElement);
-                        }
-                        setTimeout(typeText, 200); // Small sweet delay before typing next block
-                    }
-                } else {
-                    document.getElementById('sig-tag').style.display = 'block';
-                }
-            }
-            
-            heartBtn.onclick = null;
-            typeText();
-        }
-
-        window.addEventListener('pointerdown', (e) => {
-            let clickHeart = document.createElement('div');
-            clickHeart.classList.add('heart-particle');
-            clickHeart.innerHTML = '❤️';
-            clickHeart.style.left = (e.clientX - 10) + 'px';
-            clickHeart.style.top = (e.clientY - 40) + 'px';
-            clickHeart.style.animation = 'floatUp 2.5s ease-out forwards';
-            document.body.appendChild(clickHeart);
-            setTimeout(() => clickHeart.remove(), 2500);
+        field.addEventListener('touchmove', (e) => {
+            moveBasket(e.touches[0].clientX);
+        });
+        field.addEventListener('mousemove', (e) => {
+            moveBasket(e.clientX);
         });
 
-        spawnAmbientHearts();
+        function spawnItem() {
+            if (!gameActive) return;
+
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            
+            const isGood = Math.random() > 0.25;
+            const type = isGood 
+                ? goodItems[Math.floor(Math.random() * goodItems.length)]
+                : badItems[Math.floor(Math.random() * badItems.length)];
+                
+            item.innerText = type;
+            
+            const fieldRect = field.getBoundingClientRect();
+            const startX = Math.random() * (fieldRect.width - 30);
+            item.style.left = startX + 'px';
+            item.style.top = '0px';
+            field.appendChild(item);
+
+            let currentY = 0;
+            const speed = Math.random() * 2 + 3;
+
+            function fall() {
+                if (!gameActive) {
+                    item.remove();
+                    return;
+                }
+
+                currentY += speed;
+                item.style.top = currentY + 'px';
+
+                const basketTop = fieldRect.height - 45;
+
+                if (currentY >= basketTop && currentY <= basketTop + 25) {
+                    if (startX + 20 >= basketX && startX <= basketX + basketWidth) {
+                        if (isGood) {
+                            score += 20;
+                        } else {
+                            score = Math.max(0, score - 30);
+                        }
+                        scoreTxt.innerText = score;
+                        item.remove();
+
+                        if (score >= 500) {
+                            triggerWin();
+                        }
+                        return;
+                    }
+                }
+
+                if (currentY > fieldRect.height) {
+                    item.remove();
+                } else {
+                    requestAnimationFrame(fall);
+                }
+            }
+            requestAnimationFrame(fall);
+        }
+
+        let spawnInterval = setInterval(spawnItem, 700);
+
+        function triggerWin() {
+            gameActive = false;
+            clearInterval(spawnInterval);
+            winModal.style.display = 'flex';
+            document.querySelectorAll('.falling-item').forEach(i => i.remove());
+        }
+
+        function resetGame() {
+            score = 0;
+            scoreTxt.innerText = score;
+            gameActive = true;
+            winModal.style.display = 'none';
+            basketX = 160;
+            basket.style.left = basketX + 'px';
+            spawnInterval = setInterval(spawnItem, 700);
+        }
     </script>
 </body>
 </html>
