@@ -1,427 +1,365 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meri Jaan ♥</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Marcellus&family=Dancing+Script:wght@600;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Balloon Archer: Pop the Love 🎈🏹</title>
+    <style>
+        :root {
+            --bg-dark: #0d0614;
+            --panel-bg: rgba(33, 17, 48, 0.85);
+            --gold: #f59e0b;
+            --pink: #ec4899;
+        }
 
-  :root{
-    --maroon:#4a1224;
-    --maroon-deep:#2e0a16;
-    --blush:#f6dde2;
-    --rose:#c9536b;
-    --gold:#c9a24b;
-    --gold-soft:#e6d3a3;
-    --paper:#fbf3ec;
-  }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-  *{margin:0;padding:0;box-sizing:border-box;}
+        body {
+            background: radial-gradient(circle at center, #2e1047 0%, var(--bg-dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            color: #fff;
+            overflow: hidden;
+            touch-action: none;
+        }
 
-  html, body{
-    height:auto;
-    min-height:100%;
-  }
+        .game-container {
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(236, 72, 153, 0.2);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 390px;
+            padding: 15px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            position: relative;
+        }
 
-  body{
-    min-height:100vh;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(201,162,75,0.08), transparent 40%),
-      radial-gradient(circle at 80% 80%, rgba(201,83,107,0.10), transparent 45%),
-      var(--maroon-deep);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'Marcellus', serif;
-    color:var(--paper);
-    overflow-x:hidden;
-    overflow-y:auto;
-    position:relative;
-  }
+        header h1 {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(to right, #f472b6, #fbbf24, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2px;
+        }
 
-  /* ambient floating petals */
-  .petal{
-    position:fixed;
-    top:-5%;
-    font-size:18px;
-    opacity:0.35;
-    color:var(--rose);
-    animation:fall linear infinite;
-    pointer-events:none;
-    user-select:none;
-  }
-  @keyframes fall{
-    to{ transform: translateY(110vh) rotate(360deg); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .petal{ animation: none; display:none; }
-  }
+        header p {
+            font-size: 11px;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+        }
 
-  .stage{
-    width:100%;
-    max-width:420px;
-    padding:32px 24px;
-    position:relative;
-    z-index:2;
-  }
+        .score-box {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 12px;
+        }
+        .score-box span { color: var(--gold); font-size: 16px; }
 
-  /* ---------- LOCK SCREEN ---------- */
-  #lockScreen{
-    text-align:center;
-    animation: riseIn 0.8s ease both;
-  }
-  @keyframes riseIn{
-    from{ opacity:0; transform:translateY(18px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
+        /* PLAYING FIELD */
+        .game-field {
+            width: 100%;
+            height: 400px;
+            background: rgba(10, 3, 18, 0.7);
+            border-radius: 16px;
+            border: 2px solid #4c1d95;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 5px;
+            cursor: crosshair;
+        }
 
-  .seal{
-    width:78px;
-    height:78px;
-    margin:0 auto 22px;
-    border-radius:50%;
-    background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 60%, #8a6d24 100%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:30px;
-    color:var(--maroon-deep);
-    box-shadow: 0 0 0 3px rgba(230,211,163,0.15), 0 8px 24px rgba(0,0,0,0.4);
-  }
+        /* BOW / LAUNCHER (ANCHORED AT BOTTOM CENTER) */
+        .bow {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            z-index: 10;
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+        }
 
-  .eyebrow{
-    letter-spacing:0.32em;
-    font-size:11px;
-    text-transform:uppercase;
-    color:var(--gold-soft);
-    margin-bottom:10px;
-    font-family:'Marcellus', serif;
-  }
+        /* GAME ELEMENTS */
+        .balloon {
+            position: absolute;
+            font-size: 38px;
+            cursor: pointer;
+            pointer-events: none;
+            transition: transform 0.1s ease;
+        }
 
-  h1.title{
-    font-family:'Dancing Script', cursive;
-    font-weight:700;
-    font-size:42px;
-    color:var(--blush);
-    margin-bottom:6px;
-    line-height:1.1;
-  }
+        .arrow {
+            position: absolute;
+            font-size: 24px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: 5;
+        }
 
-  .sub{
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:16px;
-    color:rgba(246,221,226,0.75);
-    margin-bottom:34px;
-  }
+        .heart-pop {
+            position: absolute;
+            font-size: 18px;
+            pointer-events: none;
+            animation: popScatter 0.6s ease-out forwards;
+        }
 
-  .code-row{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    margin-bottom:22px;
-  }
+        @keyframes popScatter {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0.4); opacity: 0; }
+        }
 
-  .digit{
-    width:48px;
-    height:58px;
-    border:1.5px solid rgba(230,211,163,0.35);
-    border-radius:10px;
-    background:rgba(255,255,255,0.03);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-family:'Marcellus', serif;
-    color:var(--gold-soft);
-    transition: border-color 0.25s, background 0.25s, transform 0.15s;
-  }
-  .digit.filled{
-    border-color:var(--gold);
-    background:rgba(201,162,75,0.12);
-  }
-  .digit.shake{
-    animation: shake 0.4s ease;
-    border-color:var(--rose);
-  }
-  @keyframes shake{
-    0%,100%{ transform: translateX(0); }
-    20%{ transform: translateX(-6px); }
-    40%{ transform: translateX(6px); }
-    60%{ transform: translateX(-4px); }
-    80%{ transform: translateX(4px); }
-  }
+        /* WIN MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(8, 3, 15, 0.96);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
 
-  #hiddenInput{
-    position:absolute;
-    opacity:0;
-    pointer-events:none;
-  }
+        .modal-content {
+            background: linear-gradient(145deg, #31134a, #0d0614);
+            border: 2px solid rgba(236, 72, 153, 0.3);
+            border-radius: 28px;
+            max-width: 350px;
+            width: 100%;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.8);
+            animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-  .keypad{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:12px;
-    max-width:260px;
-    margin:0 auto;
-  }
+        @keyframes scaleUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
 
-  .key{
-    aspect-ratio:1;
-    border-radius:50%;
-    border:1px solid rgba(230,211,163,0.25);
-    background:rgba(255,255,255,0.02);
-    color:var(--blush);
-    font-family:'Marcellus', serif;
-    font-size:19px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition: background 0.2s, transform 0.1s, border-color 0.2s;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .key:active{
-    background:rgba(201,162,75,0.22);
-    transform:scale(0.94);
-    border-color:var(--gold);
-  }
-  .key.wide{ font-size:13px; letter-spacing:0.05em; }
-
-  .hint{
-    margin-top:24px;
-    font-size:12px;
-    color:rgba(246,221,226,0.45);
-    font-style:italic;
-    font-family:'Cormorant Garamond', serif;
-  }
-
-  /* ---------- GIFT SCREEN ---------- */
-  #giftScreen{
-    display:none;
-    text-align:center;
-  }
-  #giftScreen.show{
-    display:block;
-    animation: unlockIn 1s cubic-bezier(.2,.8,.2,1) both;
-  }
-  @keyframes unlockIn{
-    from{ opacity:0; transform:scale(0.92) translateY(10px); }
-    to{ opacity:1; transform:scale(1) translateY(0); }
-  }
-
-  .heart-mark{
-    font-size:34px;
-    color:var(--rose);
-    margin-bottom:14px;
-    animation: pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes pulse{
-    0%,100%{ transform:scale(1); }
-    50%{ transform:scale(1.12); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .heart-mark{ animation:none; }
-  }
-
-  h1.gift-title{
-    font-family:'Dancing Script', cursive;
-    font-weight:700;
-    font-size:46px;
-    color:var(--blush);
-    margin-bottom:4px;
-  }
-
-  .gift-eyebrow{
-    letter-spacing:0.28em;
-    font-size:11px;
-    text-transform:uppercase;
-    color:var(--gold-soft);
-    margin-bottom:28px;
-  }
-
-  .letter{
-    background:linear-gradient(180deg, rgba(251,243,236,0.05), rgba(251,243,236,0.02));
-    border:1px solid rgba(230,211,163,0.25);
-    border-radius:14px;
-    padding:28px 24px;
-    text-align:left;
-    font-family:'Cormorant Garamond', serif;
-    font-size:19px;
-    line-height:1.85;
-    color:var(--blush);
-  }
-  .letter p{ margin-bottom:16px; }
-  .letter p:last-child{ margin-bottom:0; }
-  .signature{
-    font-family:'Dancing Script', cursive;
-    font-size:26px;
-    color:var(--gold-soft);
-    text-align:right;
-    margin-top:18px;
-  }
-
-  .footer-line{
-    margin-top:26px;
-    font-size:12px;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    color:rgba(246,221,226,0.4);
-  }
-</style>
+        .modal-title { color: var(--gold); font-size: 22px; margin-bottom: 12px; font-weight: 800; }
+        .modal-msg { font-size: 15px; color: #e2d8f0; line-height: 1.6; margin-bottom: 22px; text-align: justify; }
+        .btn-action {
+            background: linear-gradient(135deg, var(--pink), var(--gold));
+            color: white; border: none; padding: 11px 32px; border-radius: 50px;
+            font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+        }
+    </style>
 </head>
 <body>
 
-<div class="stage">
+    <div class="game-container">
+        <header>
+            <h1>Balloon Archer 🏹🎈</h1>
+            <p>Tap anywhere inside the field to shoot arrows!</p>
+        </header>
 
-  <!-- LOCK SCREEN -->
-  <div id="lockScreen">
-    <div class="seal">♥</div>
-    <div class="eyebrow">A Gift, Sealed For You</div>
-    <h1 class="title">Meri Jaan</h1>
-    <div class="sub">Enter your passcode to open</div>
+        <div class="score-box">Score: <span id="score-txt">0</span> / 1000</div>
 
-    <div class="code-row" id="codeRow">
-      <div class="digit"></div>
-      <div class="digit"></div>
-      <div class="digit"></div>
-      <div class="digit"></div>
+        <div class="game-field" id="field">
+            <div class="bow" id="bow">🏹</div>
+        </div>
     </div>
 
-    <input type="tel" id="hiddenInput" maxlength="4" autocomplete="off">
-
-    <div class="keypad" id="keypad">
-      <div class="key" data-k="1">1</div>
-      <div class="key" data-k="2">2</div>
-      <div class="key" data-k="3">3</div>
-      <div class="key" data-k="4">4</div>
-      <div class="key" data-k="5">5</div>
-      <div class="key" data-k="6">6</div>
-      <div class="key" data-k="7">7</div>
-      <div class="key" data-k="8">8</div>
-      <div class="key" data-k="9">9</div>
-      <div class="key wide" data-k="clear">clear</div>
-      <div class="key" data-k="0">0</div>
-      <div class="key wide" data-k="back">⌫</div>
+    <div class="modal" id="win-modal">
+        <div class="modal-content">
+            <h2 class="modal-title">For My Beautiful Wife 👑🌸</h2>
+            <p class="modal-msg">Subah subah se kam kar kar ke thak gai hogii thora relief mila hoga is game se apko Janu.  I Missed you Very Much Guriya Umaaah Umaaaah</p>
+            <button class="btn-action" onclick="resetGame()">Play Again 🔄</button>
+        </div>
     </div>
 
-    <div class="hint">hint: the day we became "hum" ♡</div>
-  </div>
+    <script>
+        const field = document.getElementById('field');
+        const scoreTxt = document.getElementById('score-txt');
+        const winModal = document.getElementById('win-modal');
+        const bow = document.getElementById('bow');
 
-  <!-- GIFT SCREEN -->
-  <div id="giftScreen">
-    <div class="heart-mark">♥</div>
-    <div class="gift-eyebrow">National Girlfriend's Day</div>
-    <h1 class="gift-title">Happy Wife Day</h1>
+        let score = 0;
+        let gameActive = true;
+        let balloons = [];
+        let arrows = [];
 
-    <div class="letter">
-      <p>Meri Jaan,</p>
-      <p>Aaj ka din tumhare liye hai ❣️ meri sabse pyaari, sabse khaas insaan ke liye. Guriya 💖 Tumhare saath har din ek naya wajah ban jaata hai muskurane ka. 🫀</p>
-      <p>Tumhari hasi, tumhara gussa, tumhara wo cute sa Mou banana — sab kuch mujhe tumse aur pyaar karwa deta hai. Tum sirf meri Begum nahi ho, meri Duniya hoo 🌎, mera sukoon, meri ghar ho 🏠</p>
-      <p>Is choti si passcode wali site ke peeche bas ek hi baat chhupi thi ke tum meri zindagi ka sabse mehfooz aur sabse pyaara raaz ho 💗❤️🫀💖🫂</p>
-      <p>Happy Wife Day, meri jaan. I love you, aaj bhi, hamesha bhi. ♥😍💋💓</p>
-      <div class="signature">— tumhara hi</div>
-    </div>
+        const balloonEmojis = ['🎈', '💖', '🎈', '❤️', '🎈', '🌸'];
 
-    <div class="footer-line">made with ♥ just for you</div>
-  </div>
+        field.addEventListener('pointerdown', (e) => {
+            if (!gameActive) return;
 
-</div>
+            const rect = field.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
 
-<script>
-  const CODE = "2329";
-  let entered = "";
+            if (clickY > rect.height - 30) return;
 
-  const codeRow = document.getElementById('codeRow');
-  const digits = codeRow.querySelectorAll('.digit');
-  const hiddenInput = document.getElementById('hiddenInput');
-  const keypad = document.getElementById('keypad');
-  const lockScreen = document.getElementById('lockScreen');
-  const giftScreen = document.getElementById('giftScreen');
+            const angle = Math.atan2(clickY - (rect.height - 20), clickX - (rect.width / 2)) * 180 / Math.PI;
+            bow.style.transform = `translateX(-50%) rotate(${angle + 90}deg)`;
 
-  function renderDigits(){
-    digits.forEach((d, i) => {
-      if(i < entered.length){
-        d.textContent = "•";
-        d.classList.add('filled');
-      } else {
-        d.textContent = "";
-        d.classList.remove('filled');
-      }
-    });
-  }
+            spawnArrow(clickX, clickY);
+        });
 
-  function shakeAndReset(){
-    digits.forEach(d => d.classList.add('shake'));
-    setTimeout(() => {
-      digits.forEach(d => d.classList.remove('shake'));
-      entered = "";
-      renderDigits();
-    }, 420);
-  }
+        function spawnArrow(targetX, targetY) {
+            const rect = field.getBoundingClientRect();
+            const arrow = document.createElement('div');
+            arrow.classList.add('arrow');
+            arrow.innerText = '💘';
+            
+            const startX = rect.width / 2 - 10;
+            const startY = rect.height - 40;
+            
+            arrow.style.left = startX + 'px';
+            arrow.style.top = startY + 'px';
+            field.appendChild(arrow);
 
-  function tryUnlock(){
-    if(entered.length === 4){
-      if(entered === CODE){
-        setTimeout(() => {
-          lockScreen.style.display = "none";
-          giftScreen.classList.add('show');
-        }, 200);
-      } else {
-        shakeAndReset();
-      }
-    }
-  }
+            const dx = targetX - startX;
+            const dy = targetY - startY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const speed = 12;
+            const vx = (dx / distance) * speed;
+            const vy = (dy / distance) * speed;
 
-  function addDigit(d){
-    if(entered.length < 4){
-      entered += d;
-      renderDigits();
-      tryUnlock();
-    }
-  }
+            const arrowObj = { element: arrow, x: startX, y: startY, vx: vx, vy: vy };
+            arrows.push(arrowObj);
+        }
 
-  function backspace(){
-    entered = entered.slice(0, -1);
-    renderDigits();
-  }
+        function spawnBalloon() {
+            if (!gameActive) return;
 
-  function clearAll(){
-    entered = "";
-    renderDigits();
-  }
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.innerText = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+            
+            const rect = field.getBoundingClientRect();
+            const startX = Math.random() * (rect.width - 40);
+            balloon.style.left = startX + 'px';
+            balloon.style.top = rect.height + 'px';
+            field.appendChild(balloon);
 
-  keypad.addEventListener('click', (e) => {
-    const key = e.target.closest('.key');
-    if(!key) return;
-    const k = key.dataset.k;
-    if(k === 'back') backspace();
-    else if(k === 'clear') clearAll();
-    else addDigit(k);
-  });
+            const speed = Math.random() * 1.5 + 2; 
+            const balloonObj = { element: balloon, x: startX, y: rect.height, speed: speed, radius: 20 };
+            balloons.push(balloonObj);
+        }
 
-  // allow physical keyboard too
-  document.addEventListener('keydown', (e) => {
-    if(/^[0-9]$/.test(e.key)) addDigit(e.key);
-    else if(e.key === 'Backspace') backspace();
-  });
+        function triggerPopParticles(x, y) {
+            for(let i = 0; i < 6; i++) {
+                const pop = document.createElement('div');
+                pop.classList.add('heart-pop');
+                pop.innerText = Math.random() > 0.5 ? '💖' : '✨';
+                pop.style.left = x + 'px';
+                pop.style.top = y + 'px';
 
-  renderDigits();
+                const dx = (Math.random() - 0.5) * 120;
+                const dy = (Math.random() - 0.5) * 120;
+                pop.style.setProperty('--dx', `${dx}px`);
+                pop.style.setProperty('--dy', `${dy}px`);
 
-  // ambient petals
-  const petalChars = ['♡','✿','❀'];
-  for(let i=0; i<14; i++){
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.textContent = petalChars[Math.floor(Math.random()*petalChars.length)];
-    p.style.left = Math.random()*100 + 'vw';
-    p.style.animationDuration = (8 + Math.random()*10) + 's';
-    p.style.animationDelay = (Math.random()*10) + 's';
-    p.style.fontSize = (12 + Math.random()*14) + 'px';
-    document.body.appendChild(p);
-  }
-</script>
+                field.appendChild(pop);
+                setTimeout(() => pop.remove(), 600);
+            }
+        }
 
+        function updateFrame() {
+            if (!gameActive) return;
+
+            const rect = field.getBoundingClientRect();
+
+            for (let i = arrows.length - 1; i >= 0; i--) {
+                let a = arrows[i];
+                a.x += a.vx;
+                a.y += a.vy;
+                a.element.style.left = a.x + 'px';
+                a.element.style.top = a.y + 'px';
+
+                if (a.x < -20 || a.x > rect.width + 20 || a.y < -20) {
+                    a.element.remove();
+                    arrows.splice(i, 1);
+                }
+            }
+
+            for (let j = balloons.length - 1; j >= 0; j--) {
+                let b = balloons[j];
+                b.y -= b.speed;
+                b.element.style.top = b.y + 'px';
+
+                if (b.y < -50) {
+                    b.element.remove();
+                    balloons.splice(j, 1);
+                    continue;
+                }
+
+                for (let i = arrows.length - 1; i >= 0; i--) {
+                    let a = arrows[i];
+                    const dist = Math.sqrt(Math.pow((a.x - b.x - 10), 2) + Math.pow((a.y - b.y - 10), 2));
+                    
+                    if (dist < 32) { 
+                        triggerPopParticles(b.x + 10, b.y + 10);
+                        score += 20; // Pop ke 20 points
+                        scoreTxt.innerText = score;
+
+                        b.element.remove();
+                        balloons.splice(j, 1);
+                        a.element.remove();
+                        arrows.splice(i, 1);
+
+                        if (score >= 1000) { // Target 1000 points
+                            triggerWin();
+                        }
+                        break;
+                    }
+                }
+            }
+
+            requestAnimationFrame(updateFrame);
+        }
+
+        let balloonSpawnInterval = setInterval(spawnBalloon, 900);
+        requestAnimationFrame(updateFrame);
+
+        function triggerWin() {
+            gameActive = false;
+            clearInterval(balloonSpawnInterval);
+            winModal.style.display = 'flex';
+            
+            document.querySelectorAll('.balloon').forEach(b => b.remove());
+            document.querySelectorAll('.arrow').forEach(a => a.remove());
+            balloons = [];
+            arrows = [];
+        }
+
+        function resetGame() {
+            score = 0;
+            scoreTxt.innerText = score;
+            gameActive = true;
+            winModal.style.display = 'none';
+            bow.style.transform = 'translateX(-50%) rotate(0deg)';
+            balloonSpawnInterval = setInterval(spawnBalloon, 900);
+            requestAnimationFrame(updateFrame);
+        }
+    </script>
 </body>
 </html>
