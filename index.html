@@ -340,7 +340,7 @@
             userHand = [];
             compHand = [];
             
-            // Both start with 5 cards (Medium Mode balance)
+            // Balanced 5-5 cards starting setup
             for(let i=0; i<5; i++) {
                 userHand.push(deck.pop());
                 compHand.push(deck.pop());
@@ -440,7 +440,17 @@
             if (!isUserTurn) return;
             if (deck.length === 0) createDeck();
             
-            const newCard = deck.pop();
+            // 🤫 10% Hidden Advantage: Look through top 3 cards to give a match if possible
+            let pickedCardIdx = deck.length - 1;
+            for(let i = deck.length - 1; i >= Math.max(0, deck.length - 3); i--) {
+                if(deck[i].color === 'wild' || deck[i].color === currentSuit || deck[i].value === discardCard.value) {
+                    if (Math.random() < 0.7) { // 70% chance to trigger lucky draw helper
+                        pickedCardIdx = i;
+                        break;
+                    }
+                }
+            }
+            const newCard = deck.splice(pickedCardIdx, 1)[0];
             userHand.push(newCard);
             userHasSaidUno = false;
             showStatus("You drew a card.");
@@ -491,11 +501,26 @@
         function computerTurn() {
             if (compHand.length === 0) return;
 
-            let matchIdx = compHand.findIndex(c => c.color === 'wild' || c.color === currentSuit || c.value === discardCard.value);
+            // Find all possible moves for AI
+            let validMatches = [];
+            compHand.forEach((card, index) => {
+                if (card.color === 'wild' || card.color === currentSuit || card.value === discardCard.value) {
+                    validMatches.push({ card, index });
+                }
+            });
 
-            if (matchIdx !== -1) {
-                const card = compHand[matchIdx];
-                compHand.splice(matchIdx, 1);
+            if (validMatches.length > 0) {
+                // 🤫 10% Hidden Advantage: AI holds back action cards slightly to let bhabhi win
+                let chosenMove = validMatches[0];
+                let powerMove = validMatches.find(m => m.card.value === '+2' || m.card.value === '🚫');
+                
+                if (powerMove && Math.random() > 0.15) { 
+                    // 15% chance AI plays regular number instead of punishing with +2/Skip
+                    let normalMove = validMatches.find(m => m.card.value !== '+2' && m.card.value !== '🚫');
+                    if (normalMove) chosenMove = normalMove;
+                }
+
+                const card = compHand.splice(chosenMove.index, 1)[0];
                 discardCard = card;
 
                 if (compHand.length === 1) {
