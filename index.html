@@ -54,7 +54,6 @@
             position: relative;
         }
 
-        /* SCORE / DECKS AREA */
         .info-panel {
             display: flex;
             justify-content: space-between;
@@ -74,7 +73,6 @@
             height: 18px;
         }
 
-        /* ENEMY (COMPUTER) AREA */
         .opponent-area {
             text-align: center;
         }
@@ -99,7 +97,6 @@
             background-position: 0 0, 5px 5px;
         }
 
-        /* PLAYING TABLE (MIDDLE) */
         .play-table {
             flex-grow: 1;
             display: flex;
@@ -127,7 +124,6 @@
             transform: scale(0.95);
         }
 
-        /* RENDERED CARDS */
         .card {
             width: 65px;
             height: 95px;
@@ -157,7 +153,6 @@
             font-size: 11px;
         }
 
-        /* USER HAND AREA */
         .user-hand-container {
             display: flex;
             flex-direction: column;
@@ -185,7 +180,6 @@
             z-index: 50;
         }
 
-        /* UNO BUTTON */
         .uno-btn {
             background: linear-gradient(135deg, #f59e0b, #ef4444);
             border: 2px solid white;
@@ -209,7 +203,6 @@
             to { transform: scale(1.1); }
         }
 
-        /* COLOR SELECTOR FOR WILD CARDS */
         .color-picker {
             display: none;
             position: absolute;
@@ -229,7 +222,6 @@
             cursor: pointer;
         }
 
-        /* WIN WIN SURPRISE MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -271,30 +263,22 @@
 <body>
 
     <div class="game-container">
-        <!-- TOP DETAILS -->
         <div class="info-panel">
-            <span>Opponent Hand: <b id="comp-count">7</b></span>
+            <span>Opponent Hand: <b id="comp-count">5</b></span>
             <span>Current Suit: <b id="suit-txt">None</b></span>
         </div>
 
-        <!-- ENEMY SECTION -->
         <div class="opponent-area">
-            <div class="opponent-cards" id="opponent-hand-display">
-                <!-- Programmatically Filled Backside Cards -->
-            </div>
+            <div class="opponent-cards" id="opponent-hand-display"></div>
         </div>
 
-        <!-- MIDDLE DESK -->
         <div class="play-table">
             <div class="draw-pile" onclick="userDrawCard()">
                 <span style="font-size: 28px;">🎴</span>
                 <span style="font-size: 10px; font-weight: bold; margin-top: 5px;">DRAW CARD</span>
             </div>
-            <div id="discard-pile-container">
-                <!-- Current Discard Card Display -->
-            </div>
+            <div id="discard-pile-container"></div>
 
-            <!-- Color Choose Box Overlay -->
             <div class="color-picker" id="picker">
                 <div class="picker-btn" style="background: var(--red);" onclick="chooseWildColor('red')"></div>
                 <div class="picker-btn" style="background: var(--blue);" onclick="chooseWildColor('blue')"></div>
@@ -305,16 +289,12 @@
 
         <div class="status-msg" id="status-display">Your Turn! Play a matching card.</div>
 
-        <!-- USER SECTION -->
         <div class="user-hand-container">
             <button class="uno-btn" id="uno-btn-trigger" onclick="claimUno()">Say UNO! 📣</button>
-            <div class="user-cards" id="user-hand-display">
-                <!-- Player Cards Render -->
-            </div>
+            <div class="user-cards" id="user-hand-display"></div>
         </div>
     </div>
 
-    <!-- WIN SCREEN -->
     <div class="modal" id="win-modal">
         <div class="modal-content">
             <h2 class="modal-title">You Won Begum Sahiba! 🏆👑</h2>
@@ -337,14 +317,12 @@
 
         function createDeck() {
             deck = [];
-            // Create colored cards
             for (let c of colors) {
                 for (let v of values) {
                     deck.push({ color: c, value: v });
-                    if (v !== '0') deck.push({ color: c, value: v }); // duplicate matching real cards
+                    if (v !== '0') deck.push({ color: c, value: v });
                 }
             }
-            // Add Wild Cards
             for (let i = 0; i < 4; i++) {
                 deck.push({ color: 'wild', value: '🌈' });
             }
@@ -361,11 +339,13 @@
         function dealCards() {
             userHand = [];
             compHand = [];
-            for(let i=0; i<7; i++) {
+            
+            // Both start with 5 cards (Medium Mode balance)
+            for(let i=0; i<5; i++) {
                 userHand.push(deck.pop());
                 compHand.push(deck.pop());
             }
-            // First Discard Card setup
+            
             discardCard = deck.pop();
             while (discardCard.color === 'wild') {
                 deck.push(discardCard);
@@ -376,7 +356,6 @@
         }
 
         function renderGame() {
-            // Render User Cards
             const userDisplay = document.getElementById('user-hand-display');
             userDisplay.innerHTML = '';
             userHand.forEach((card, idx) => {
@@ -387,7 +366,6 @@
                 userDisplay.appendChild(cardDiv);
             });
 
-            // Render Computer cards (shown as card backs)
             const compDisplay = document.getElementById('opponent-hand-display');
             compDisplay.innerHTML = '';
             compHand.forEach(() => {
@@ -397,7 +375,6 @@
             });
             document.getElementById('comp-count').innerText = compHand.length;
 
-            // Render Discard Card
             const discardContainer = document.getElementById('discard-pile-container');
             discardContainer.innerHTML = '';
             const discCardDiv = document.createElement('div');
@@ -405,12 +382,10 @@
             discCardDiv.innerHTML = `<span class="card-corner">${discardCard.value}</span>${discardCard.value}`;
             discardContainer.appendChild(discCardDiv);
 
-            // Suit styling text update
             const suitText = document.getElementById('suit-txt');
             suitText.innerText = currentSuit.toUpperCase();
             suitText.style.color = currentSuit === 'red' ? '#ff4d4d' : currentSuit === 'blue' ? '#4da3ff' : currentSuit === 'green' ? '#4dffaa' : '#ffd14d';
 
-            // Show Uno button if user has exactly 2 cards (so they should claim it before playing)
             const unoBtn = document.getElementById('uno-btn-trigger');
             if (userHand.length === 2) {
                 unoBtn.classList.add('pulse');
@@ -423,21 +398,19 @@
             if (!isUserTurn) return;
             const card = userHand[idx];
 
-            // Matching Logic
             if (card.color === 'wild' || card.color === currentSuit || card.value === discardCard.value) {
                 userHand.splice(idx, 1);
                 discardCard = card;
                 
-                // If UNO was needed but not said
                 if (userHand.length === 1 && !userHasSaidUno) {
-                    showStatus("You forgot to say UNO! Computer draws 2 cards for you.");
+                    showStatus("You forgot to say UNO! Computer draws 2 cards.");
                     userHand.push(deck.pop());
                     userHand.push(deck.pop());
                 }
 
                 if (card.color === 'wild') {
                     document.getElementById('picker').style.display = 'flex';
-                    isUserTurn = false; // Freeze until color chosen
+                    isUserTurn = false;
                 } else {
                     currentSuit = card.color;
                     handleActionEffects(card.value, false);
@@ -459,7 +432,7 @@
             showStatus(`Suit changed to ${color.toUpperCase()}!`);
             checkWinState();
             if (compHand.length > 0) {
-                setTimeout(computerTurn, 1200);
+                setTimeout(computerTurn, 1000);
             }
         }
 
@@ -473,9 +446,8 @@
             showStatus("You drew a card.");
             renderGame();
             
-            // Switch turn
             isUserTurn = false;
-            setTimeout(computerTurn, 1200);
+            setTimeout(computerTurn, 1000);
         }
 
         function handleActionEffects(value, isComputerWhoPlayed) {
@@ -486,7 +458,7 @@
                 showStatus(isComputerWhoPlayed ? "Your turn got Skipped! 🚫" : "You Skipped the Computer! 🚫");
                 renderGame();
                 if (isComputerWhoPlayed) {
-                    setTimeout(computerTurn, 1500);
+                    setTimeout(computerTurn, 1200);
                 } else {
                     isUserTurn = true;
                 }
@@ -497,14 +469,12 @@
                 targetHand.push(deck.pop());
                 renderGame();
                 
-                // Draw 2 also skips target's next turn
                 if (isComputerWhoPlayed) {
-                    setTimeout(computerTurn, 1500);
+                    setTimeout(computerTurn, 1200);
                 } else {
                     isUserTurn = true;
                 }
             } else {
-                // Regular number cards
                 if (isComputerWhoPlayed) {
                     isUserTurn = true;
                     showStatus("Your Turn!");
@@ -513,7 +483,7 @@
                     isUserTurn = false;
                     showStatus("Computer is thinking...");
                     renderGame();
-                    setTimeout(computerTurn, 1200);
+                    setTimeout(computerTurn, 1000);
                 }
             }
         }
@@ -521,7 +491,6 @@
         function computerTurn() {
             if (compHand.length === 0) return;
 
-            // Simple AI match finder
             let matchIdx = compHand.findIndex(c => c.color === 'wild' || c.color === currentSuit || c.value === discardCard.value);
 
             if (matchIdx !== -1) {
@@ -529,13 +498,11 @@
                 compHand.splice(matchIdx, 1);
                 discardCard = card;
 
-                // Simple AI shout UNO checker
                 if (compHand.length === 1) {
                     showStatus("Computer Shouted UNO! 📣");
                 }
 
                 if (card.color === 'wild') {
-                    // Pick the color computer has most of
                     let counts = { red: 0, blue: 0, green: 0, yellow: 0 };
                     compHand.forEach(c => { if(c.color !== 'wild') counts[c.color]++; });
                     let maxColor = 'red';
@@ -551,7 +518,6 @@
                     handleActionEffects(card.value, true);
                 }
             } else {
-                // Computer draws card
                 if (deck.length === 0) createDeck();
                 compHand.push(deck.pop());
                 showStatus("Computer drew a card.");
@@ -564,8 +530,8 @@
             if (userHand.length === 0) {
                 triggerUserWin();
             } else if (compHand.length === 0) {
-                showStatus("Computer Won! Try again to win your special message.");
-                setTimeout(resetGame, 3000);
+                showStatus("Computer Won! Resetting for a fresh match...");
+                setTimeout(resetGame, 2000);
             }
         }
 
@@ -587,7 +553,6 @@
             renderGame();
         }
 
-        // Initialize setup
         createDeck();
         dealCards();
         renderGame();
