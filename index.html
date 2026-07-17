@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Queen's Royal Run 👑🏃‍♀️</title>
+    <title>Ludo Snake Twist 👑🐍</title>
     <style>
         :root {
-            --bg-dark: #0b0512;
+            --bg-dark: #09040e;
+            --board-bg: #1e0b30;
             --pink-main: #ec4899;
             --gold: #f59e0b;
         }
@@ -22,113 +23,99 @@
         }
 
         body {
-            background: #111;
+            background: radial-gradient(circle at center, #2b0f42 0%, var(--bg-dark) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5px;
+            padding: 10px;
             color: #fff;
             overflow: hidden;
         }
 
         .game-container {
-            background: var(--bg-dark);
-            position: relative;
+            background: rgba(30, 15, 45, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(236, 72, 153, 0.3);
+            border-radius: 24px;
             width: 100%;
             max-width: 360px;
-            height: 80vh;
-            max-height: 600px;
-            border: 3px solid var(--pink-main);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            touch-action: none;
+            padding: 15px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            text-align: center;
         }
 
-        /* 3 RUNNING LANES */
-        .subway-track {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, #1e1035 0%, #3b115c 50%, #0f0517 100%);
-            display: flex;
+        .title {
+            color: var(--gold);
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 5px;
         }
 
-        .lane-line {
-            flex: 1;
-            border-right: 2px dashed rgba(255, 255, 255, 0.15);
-            height: 100%;
-            position: relative;
-        }
-        .lane-line:last-child { border-right: none; }
-
-        /* HUD STATS */
         .hud {
-            position: absolute;
-            top: 15px;
-            left: 0;
-            width: 100%;
             display: flex;
             justify-content: space-between;
-            padding: 0 20px;
-            z-index: 10;
-        }
-
-        .score-box {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-weight: 800;
-            border: 1px solid var(--pink-main);
-            font-size: 14px;
-        }
-
-        /* PLAYER CHARACTER */
-        #player {
-            position: absolute;
-            bottom: 40px;
-            width: 50px;
-            height: 50px;
-            font-size: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: left 0.15s ease-out, bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 5;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-        }
-
-        /* OBSTACLES & ITEMS */
-        .game-entity {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 32px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 4;
-        }
-
-        .instruction-overlay {
-            position: absolute;
-            bottom: 120px;
-            width: 100%;
-            text-align: center;
-            color: #d8b4fe;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            margin-bottom: 15px;
             font-size: 13px;
-            font-weight: 600;
-            animation: fadeOutOut 3s forwards;
-            background: rgba(0,0,0,0.4);
-            padding: 5px 0;
-            pointer-events: none;
+            font-weight: bold;
+            border: 1px solid rgba(236, 72, 153, 0.1);
         }
-        @keyframes fadeOutOut { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
 
-        /* ROMANTIC MODAL */
+        .board-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 15px auto;
+            background: var(--board-bg);
+            border: 4px solid #3b115c;
+            border-radius: 12px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 180px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3b145a, #1f0833);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.92);
+            background: var(--pink-main);
+        }
+
+        .btn-up { grid-column: 2; }
+        .btn-left { grid-column: 1; }
+        .btn-right { grid-column: 3; }
+        .btn-down { grid-column: 2; }
+
         .modal {
             display: none;
             position: fixed;
@@ -150,14 +137,14 @@
             padding: 25px 20px;
             text-align: center;
             box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
-            animation: scaleUp 0.4s ease-out;
+            animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .heart-icon { font-size: 45px; color: #ef4444; animation: beat 0.8s infinite alternate; margin-bottom: 8px; }
         @keyframes beat { to { transform: scale(1.15); } }
-        .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 12px; font-weight: 800; }
-        .modal-msg { font-size: 13.5px; color: #f3e8ff; line-height: 1.6; margin-bottom: 22px; text-align: center; }
+        .modal-title { color: var(--gold); font-size: 19px; margin-bottom: 15px; font-weight: 800; }
+        .modal-msg { font-size: 14px; color: #f3e8ff; line-height: 1.6; margin-bottom: 22px; text-align: center; }
         
         .btn-action {
             background: linear-gradient(135deg, #ec4899, #f59e0b);
@@ -168,186 +155,169 @@
 </head>
 <body>
 
-    <div class="game-container" id="game-zone">
-        <!-- Tracks -->
-        <div class="subway-track">
-            <div class="lane-line"></div>
-            <div class="lane-line"></div>
-            <div class="lane-line"></div>
-        </div>
-
-        <!-- HUD -->
+    <div class="game-container">
+        <h1 class="title">Ludo Snake Twist 🐍🎲</h1>
+        
         <div class="hud">
-            <div class="score-box" style="color: #f472b6;">❤️ Hearts: <span id="score-val">0</span>/10</div>
-            <div class="score-box" style="color: var(--gold);">👑 Run, Queen!</div>
+            <span style="color: #f472b6;">⭐ Collected: <span id="score-val">0</span>/5</span>
+            <span style="color: var(--gold);">Use Brain Arrows Below 👇</span>
         </div>
 
-        <!-- Player -->
-        <div id="player">👑</div>
+        <div class="board-wrapper">
+            <canvas id="gameCanvas" width="300" height="300"></canvas>
+        </div>
 
-        <div class="instruction-overlay">Swipe Left / Right to Move & Up to Jump! ⚡</div>
+        <div class="controls">
+            <button class="btn btn-up" onclick="changeDirection('UP')">▲</button>
+            <button class="btn btn-left" onclick="changeDirection('LEFT')">◀</button>
+            <button class="btn btn-right" onclick="changeDirection('RIGHT')">▶</button>
+            <button class="btn btn-down" onclick="changeDirection('DOWN')">▼</button>
+        </div>
     </div>
 
-    <!-- WIN CONGRATS OVERLAY -->
+    <!-- WIN MODAL WITH UPDATED ROMANTIC MESSAGE -->
     <div class="modal" id="win-modal">
         <div class="modal-content">
             <div class="heart-icon">❤️</div>
-            <h2 class="modal-title">Incredible Reflexes, Queen! 🏆⚡</h2>
+            <h2 class="modal-title">Brilliant Strategy, Begum Sahiba! 🏆🐍</h2>
             <p class="modal-msg">
-                Mubarak ho Meri Jaan ko is super speed running jeet ki! Aapke aage toh har obstacle chota pad gaya. 🏃‍♀️🏆<br><br>
-                I am so sorry meri jaan, subah se kaam mein itna fasa hua tha ki aapko bilkul time nahi de paya, par sach bolu toh dimaag mein har pal bas aap hi chal rahi thi. Bohot miss kiya aapko aaj subah se. Meri har khushi aur har waqt bas aapke naam hai. Ab jaldi se muskura dijiye aur gussa thanda kijiye, kyunki aapki smile ke bina mera poora din adhoora hai. I Love You So Much, My Queen! Ummaah! 👑💋
+                I am so sorry meri jaan, subah se kaam mein itna fasa wah huun key aapko bilkul time nahi de paya, par sach bolu toh dimaag mein har pal bas Meri Begum hi chal rahi thi. Bohot miss kiya tuje ANU aaj subah se. Meri har khushi aur har waqt bas aapke naam hai. Ab jaldi se muskura dijiye, kyunki aapki smile ke bina mera poora din adhoora hai. <br><br><strong>I Love You So Much, My Queen! Ummaah! 👑💋</strong>
             </p>
             <button class="btn-action" onclick="resetGame()">Play Again 🔄</button>
         </div>
     </div>
 
     <script>
-        const gameZone = document.getElementById('game-zone');
-        const player = document.getElementById('player');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
         const scoreVal = document.getElementById('score-val');
         const winModal = document.getElementById('win-modal');
 
-        let currentLane = 1; // 0: Left, 1: Center, 2: Right
-        const laneWidths = [16.66, 50, 83.33]; // percentage positions for center alignment
-        
+        const box = 30;
+        let snake, direction, star, gameInterval;
         let score = 0;
         let gameActive = true;
-        let isJumping = false;
-        let entities = [];
-        let gameLoopId, spawnLoopId;
 
         function initGame() {
             score = 0;
             scoreVal.innerText = score;
-            currentLane = 1;
-            updatePlayerPosition();
-            entities.forEach(e => e.element.remove());
-            entities = [];
+            direction = 'RIGHT';
             gameActive = true;
             winModal.style.display = 'none';
 
-            // Game Logic Loops
-            gameLoopId = setInterval(updateEntities, 20);
-            spawnLoopId = setInterval(spawnEntity, 1200);
+            snake = [
+                { x: 5 * box, y: 5 * box },
+                { x: 4 * box, y: 5 * box }
+            ];
+
+            spawnStar();
+            if (gameInterval) clearInterval(gameInterval);
+            gameInterval = setInterval(draw, 220);
         }
 
-        function updatePlayerPosition() {
-            // Align player according to current track lane
-            player.style.left = `calc(${laneWidths[currentLane]}% - 25px)`;
+        function spawnStar() {
+            star = {
+                x: Math.floor(Math.random() * 10) * box,
+                y: Math.floor(Math.random() * 10) * box
+            };
+            
+            for (let cell of snake) {
+                if (cell.x === star.x && cell.y === star.y) {
+                    spawnStar();
+                    break;
+                }
+            }
         }
 
-        // Swipe Controls System
-        let touchStartX = 0;
-        let touchStartY = 0;
-
-        gameZone.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, {passive: true});
-
-        gameZone.addEventListener('touchend', (e) => {
+        function changeDirection(newDir) {
             if (!gameActive) return;
-            let diffX = e.changedTouches[0].clientX - touchStartX;
-            let diffY = e.changedTouches[0].clientY - touchStartY;
+            if (newDir === 'LEFT' && direction !== 'RIGHT') direction = 'LEFT';
+            if (newDir === 'UP' && direction !== 'DOWN') direction = 'UP';
+            if (newDir === 'RIGHT' && direction !== 'LEFT') direction = 'RIGHT';
+            if (newDir === 'DOWN' && direction !== 'UP') direction = 'DOWN';
+        }
 
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                // Horizontal Swipe
-                if (diffX > 40 && currentLane < 2) {
-                    currentLane++;
-                    updatePlayerPosition();
-                } else if (diffX < -40 && currentLane > 0) {
-                    currentLane--;
-                    updatePlayerPosition();
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') changeDirection('UP');
+            if (e.key === 'ArrowDown') changeDirection('DOWN');
+            if (e.key === 'ArrowLeft') changeDirection('LEFT');
+            if (e.key === 'ArrowRight') changeDirection('RIGHT');
+        });
+
+        function draw() {
+            if (!gameActive) return;
+
+            ctx.fillStyle = '#1e0b30';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            for (let i = 0; i < canvas.width; i += box) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
+            }
+
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i === 0) ? '#ec4899' : '#a78bfa';
+                ctx.strokeStyle = '#09040e';
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+                
+                if (i === 0) {
+                    ctx.fillStyle = '#fff';
+                    ctx.fillRect(snake[i].x + 6, snake[i].y + 6, 5, 5);
+                    ctx.fillRect(snake[i].x + 18, snake[i].y + 6, 5, 5);
+                }
+            }
+
+            ctx.font = "22px Arial";
+            ctx.fillText("⭐", star.x + 4, star.y + 22);
+
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (direction === 'LEFT') snakeX -= box;
+            if (direction === 'UP') snakeY -= box;
+            if (direction === 'RIGHT') snakeX += box;
+            if (direction === 'DOWN') snakeY += box;
+
+            if (snakeX < 0) snakeX = canvas.width - box;
+            if (snakeX >= canvas.width) snakeX = 0;
+            if (snakeY < 0) snakeY = canvas.height - box;
+            if (snakeY >= canvas.height) snakeY = 0;
+
+            for (let i = 1; i < snake.length; i++) {
+                if (snakeX === snake[i].x && snakeY === snake[i].y) {
+                    handleFail();
+                    return;
+                }
+            }
+
+            if (snakeX === star.x && snakeY === star.y) {
+                score++;
+                scoreVal.innerText = score;
+                spawnStar();
+
+                if (score >= 5) {
+                    triggerWin();
+                    return;
                 }
             } else {
-                // Vertical Swipe Up for Jump
-                if (diffY < -40 && !isJumping) {
-                    triggerJump();
-                }
+                snake.pop();
             }
-        }, {passive: true});
 
-        function triggerJump() {
-            isJumping = true;
-            player.style.bottom = '130px'; // Lift character up
-            setTimeout(() => {
-                player.style.bottom = '40px'; // Bring back down
-                setTimeout(() => { isJumping = false; }, 150);
-            }, 350);
-        }
-
-        function spawnEntity() {
-            if (!gameActive) return;
-
-            const randomLane = Math.floor(Math.random() * 3);
-            // 60% chance of Heart, 40% chance of obstacle block box
-            const isHeart = Math.random() < 0.6; 
-
-            const element = document.createElement('div');
-            element.className = 'game-entity';
-            element.innerText = isHeart ? '❤️' : '🚧';
-            element.style.top = '-50px';
-            element.style.left = `calc(${laneWidths[randomLane]}% - 20px)`;
-
-            gameZone.appendChild(element);
-            entities.push({
-                element,
-                lane: randomLane,
-                type: isHeart ? 'heart' : 'obstacle',
-                topPos: -50
-            });
-        }
-
-        function updateEntities() {
-            if (!gameActive) return;
-
-            for (let i = entities.length - 1; i >= 0; i--) {
-                let ent = entities[i];
-                ent.topPos += 5; // Fall downward speed
-                ent.element.style.top = ent.topPos + 'px';
-
-                // Check collisions when reaching the player's bottom height zone
-                if (ent.topPos > 460 && ent.topPos < 520) {
-                    if (ent.lane === currentLane) {
-                        if (ent.type === 'heart') {
-                            // Collected Heart
-                            score++;
-                            scoreVal.innerText = score;
-                            ent.element.remove();
-                            entities.splice(i, 1);
-
-                            if (score >= 10) {
-                                triggerWin();
-                            }
-                        } else {
-                            // Hit Obstacle (Only triggers fail if player isn't jumping over it)
-                            if (!isJumping) {
-                                handleFail();
-                            }
-                        }
-                    }
-                }
-
-                // Remove out-of-screen entities safely
-                if (ent.topPos > 600) {
-                    ent.element.remove();
-                    entities.splice(i, 1);
-                }
-            }
+            let newHead = { x: snakeX, y: snakeY };
+            snake.unshift(newHead);
         }
 
         function handleFail() {
-            // Instant soft-reset on hit to keep it completely frustration-free
-            clearInterval(gameLoopId);
-            clearInterval(spawnLoopId);
+            clearInterval(gameInterval);
             gameActive = false;
-            alert("Safe Zone Reset! Don't worry, run again, Queen! ✨🏃‍♀️");
+            alert("Oops! Strategic loop locked! Let's try again, Queen! ✨🐍");
             initGame();
         }
 
         function triggerWin() {
-            clearInterval(gameLoopId);
-            clearInterval(spawnLoopId);
+            clearInterval(gameInterval);
             gameActive = false;
             setTimeout(() => {
                 winModal.style.display = 'flex';
@@ -358,7 +328,6 @@
             initGame();
         }
 
-        // Run Engine Setup
         initGame();
     </script>
 </body>
