@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Queen's 21 👑🃏</title>
+    <title>The Queen's Royal Run 👑🏃‍♀️</title>
     <style>
         :root {
             --bg-dark: #0b0512;
-            --panel-bg: rgba(30, 15, 45, 0.85);
             --pink-main: #ec4899;
             --gold: #f59e0b;
         }
@@ -23,120 +22,113 @@
         }
 
         body {
-            background: radial-gradient(circle at center, #2e1047 0%, var(--bg-dark) 100%);
+            background: #111;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 5px;
             color: #fff;
             overflow: hidden;
         }
 
         .game-container {
-            background: var(--panel-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(236, 72, 153, 0.3);
-            border-radius: 24px;
+            background: var(--bg-dark);
+            position: relative;
             width: 100%;
-            max-width: 370px;
-            padding: 20px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-            text-align: center;
+            max-width: 360px;
+            height: 80vh;
+            max-height: 600px;
+            border: 3px solid var(--pink-main);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            touch-action: none;
         }
 
-        .title {
-            color: var(--gold);
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 5px;
+        /* 3 RUNNING LANES */
+        .subway-track {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #1e1035 0%, #3b115c 50%, #0f0517 100%);
+            display: flex;
         }
 
-        .subtitle {
-            font-size: 12px;
-            color: #d8b4fe;
-            margin-bottom: 20px;
+        .lane-line {
+            flex: 1;
+            border-right: 2px dashed rgba(255, 255, 255, 0.15);
+            height: 100%;
+            position: relative;
         }
+        .lane-line:last-child { border-right: none; }
 
-        /* PLAY ZONES */
-        .zone {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(236, 72, 153, 0.1);
-        }
-
-        .zone-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #a78bfa;
-            margin-bottom: 8px;
-            text-align: left;
+        /* HUD STATS */
+        .hud {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
             display: flex;
             justify-content: space-between;
+            padding: 0 20px;
+            z-index: 10;
         }
 
-        .card-display {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            min-height: 75px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        /* DIGITAL CARDS styling */
-        .card {
-            background: #fff;
-            color: #000;
-            width: 50px;
-            height: 75px;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            animation: dealCard 0.3s ease-out forwards;
-        }
-
-        .card.red { color: #ef4444; }
-        .card.black { color: #1f2937; }
-
-        @keyframes dealCard {
-            from { transform: translateY(-20px) scale(0.5); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        /* CONTROLS */
-        .controls {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 700;
+        .score-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 800;
+            border: 1px solid var(--pink-main);
             font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: transform 0.1s;
         }
 
-        .btn:active { transform: scale(0.95); }
-        .btn-hit { background: linear-gradient(135deg, #ec4899, #db2777); color: white; }
-        .btn-stand { background: linear-gradient(135deg, #4b5563, #1f2937); color: white; }
+        /* PLAYER CHARACTER */
+        #player {
+            position: absolute;
+            bottom: 40px;
+            width: 50px;
+            height: 50px;
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: left 0.15s ease-out, bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 5;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        }
 
-        /* WIN OVERLAY */
+        /* OBSTACLES & ITEMS */
+        .game-entity {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+        }
+
+        .instruction-overlay {
+            position: absolute;
+            bottom: 120px;
+            width: 100%;
+            text-align: center;
+            color: #d8b4fe;
+            font-size: 13px;
+            font-weight: 600;
+            animation: fadeOutOut 3s forwards;
+            background: rgba(0,0,0,0.4);
+            padding: 5px 0;
+            pointer-events: none;
+        }
+        @keyframes fadeOutOut { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
+
+        /* ROMANTIC MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -153,19 +145,20 @@
             background: linear-gradient(145deg, #3a1146, #0f0517);
             border: 2px solid rgba(236, 72, 153, 0.4);
             border-radius: 28px;
-            max-width: 350px;
+            max-width: 340px;
             width: 100%;
             padding: 25px 20px;
             text-align: center;
             box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
-            animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: scaleUp 0.4s ease-out;
         }
 
         @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .heart-icon { font-size: 45px; color: #ef4444; animation: beat 0.8s infinite alternate; margin-bottom: 8px; }
         @keyframes beat { to { transform: scale(1.15); } }
         .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 12px; font-weight: 800; }
-        .modal-msg { font-size: 14px; color: #f3e8ff; line-height: 1.6; margin-bottom: 22px; text-align: center; }
+        .modal-msg { font-size: 13.5px; color: #f3e8ff; line-height: 1.6; margin-bottom: 22px; text-align: center; }
+        
         .btn-action {
             background: linear-gradient(135deg, #ec4899, #f59e0b);
             color: white; border: none; padding: 10px 30px; border-radius: 50px;
@@ -175,189 +168,198 @@
 </head>
 <body>
 
-    <div class="game-container">
-        <h1 class="title">The Queen's 21 🃏</h1>
-        <p class="subtitle">Get closer to 21 without going over!</p>
-
-        <!-- Computer Zone -->
-        <div class="zone">
-            <div class="zone-title"><span>Computer (🤖)</span> <span id="comp-score">Score: ?</span></div>
-            <div class="card-display" id="comp-cards"></div>
+    <div class="game-container" id="game-zone">
+        <!-- Tracks -->
+        <div class="subway-track">
+            <div class="lane-line"></div>
+            <div class="lane-line"></div>
+            <div class="lane-line"></div>
         </div>
 
-        <!-- Player Zone -->
-        <div class="zone">
-            <div class="zone-title"><span>Your Hand (👑)</span> <span id="player-score">Score: 0</span></div>
-            <div class="card-display" id="player-cards"></div>
+        <!-- HUD -->
+        <div class="hud">
+            <div class="score-box" style="color: #f472b6;">❤️ Hearts: <span id="score-val">0</span>/10</div>
+            <div class="score-box" style="color: var(--gold);">👑 Run, Queen!</div>
         </div>
 
-        <!-- Action Controls -->
-        <div class="controls">
-            <button class="btn btn-hit" id="hit-btn" onclick="playerHit()">+ Draw Card</button>
-            <button class="btn btn-stand" id="stand-btn" onclick="playerStand()">🛑 Stand</button>
-        </div>
+        <!-- Player -->
+        <div id="player">👑</div>
+
+        <div class="instruction-overlay">Swipe Left / Right to Move & Up to Jump! ⚡</div>
     </div>
 
-    <!-- SURPRISE MODAL -->
+    <!-- WIN CONGRATS OVERLAY -->
     <div class="modal" id="win-modal">
         <div class="modal-content">
             <div class="heart-icon">❤️</div>
-            <h2 class="modal-title" id="modal-heading">Brilliant Strategy, Queen! 🏆</h2>
+            <h2 class="modal-title">Incredible Reflexes, Queen! 🏆⚡</h2>
             <p class="modal-msg">
-                Mubarak ho Meri Jaan ko is pyaari si jeet ki! Kahna padega cards ke mamle mein aapka dimaag wakai bohot tez chalta hai. 🧠🃏<br><br>
+                Mubarak ho Meri Jaan ko is super speed running jeet ki! Aapke aage toh har obstacle chota pad gaya. 🏃‍♀️🏆<br><br>
                 I am so sorry meri jaan, subah se kaam mein itna fasa hua tha ki aapko bilkul time nahi de paya, par sach bolu toh dimaag mein har pal bas aap hi chal rahi thi. Bohot miss kiya aapko aaj subah se. Meri har khushi aur har waqt bas aapke naam hai. Ab jaldi se muskura dijiye aur gussa thanda kijiye, kyunki aapki smile ke bina mera poora din adhoora hai. I Love You So Much, My Queen! Ummaah! 👑💋
             </p>
-            <button class="btn-action" onclick="restartGame()">Play Again 🔄</button>
+            <button class="btn-action" onclick="resetGame()">Play Again 🔄</button>
         </div>
     </div>
 
     <script>
-        const pCardsDiv = document.getElementById('player-cards');
-        const cCardsDiv = document.getElementById('comp-cards');
-        const pScoreSpan = document.getElementById('player-score');
-        const cScoreSpan = document.getElementById('comp-score');
+        const gameZone = document.getElementById('game-zone');
+        const player = document.getElementById('player');
+        const scoreVal = document.getElementById('score-val');
         const winModal = document.getElementById('win-modal');
-        const modalHeading = document.getElementById('modal-heading');
 
-        let deck = [];
-        let playerHand = [];
-        let compHand = [];
+        let currentLane = 1; // 0: Left, 1: Center, 2: Right
+        const laneWidths = [16.66, 50, 83.33]; // percentage positions for center alignment
+        
+        let score = 0;
         let gameActive = true;
+        let isJumping = false;
+        let entities = [];
+        let gameLoopId, spawnLoopId;
 
-        const suits = [
-            { icon: '❤️', color: 'red' },
-            { icon: '♦️', color: 'red' },
-            { icon: '♠️', color: 'black' },
-            { icon: '♣️', color: 'black' }
-        ];
-        const values = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
-
-        function buildDeck() {
-            deck = [];
-            for (let suit of suits) {
-                for (let val of values) {
-                    deck.push({ val, suit });
-                }
-            }
-            // Shuffle
-            deck.sort(() => Math.random() - 0.5);
-        }
-
-        function getHandScore(hand) {
-            let score = 0;
-            let aces = 0;
-            for (let card of hand) {
-                if (['J','Q','K'].includes(card.val)) score += 10;
-                else if (card.val === 'A') { score += 11; aces++; }
-                else score += parseInt(card.val);
-            }
-            while (score > 21 && aces > 0) {
-                score -= 10;
-                aces--;
-            }
-            return score;
-        }
-
-        function renderCard(card, targetElement, hidden = false) {
-            const div = document.createElement('div');
-            if (hidden) {
-                div.className = 'card black';
-                div.style.background = 'linear-gradient(135deg, #ec4899, #7c3aed)';
-                div.innerText = '❓';
-            } else {
-                div.className = `card ${card.suit.color}`;
-                div.innerHTML = `<div>${card.val}</div><div style="font-size:12px">${card.suit.icon}</div>`;
-            }
-            targetElement.appendChild(div);
-        }
-
-        function startNewRound() {
-            buildDeck();
-            playerHand = [];
-            compHand = [];
-            pCardsDiv.innerHTML = '';
-            cCardsDiv.innerHTML = '';
+        function initGame() {
+            score = 0;
+            scoreVal.innerText = score;
+            currentLane = 1;
+            updatePlayerPosition();
+            entities.forEach(e => e.element.remove());
+            entities = [];
             gameActive = true;
-
-            // Deal Initial Hands
-            playerHand.push(deck.pop(), deck.pop());
-            compHand.push(deck.pop(), deck.pop());
-
-            playerHand.forEach(c => renderCard(c, pCardsDiv));
-            renderCard(compHand[0], cCardsDiv);
-            renderCard(null, cCardsDiv, true); // Hidden card
-
-            pScoreSpan.innerText = `Score: ${getHandScore(playerHand)}`;
-            cScoreSpan.innerText = `Score: ?`;
-        }
-
-        function playerHit() {
-            if (!gameActive) return;
-            const newCard = deck.pop();
-            playerHand.push(newCard);
-            renderCard(newCard, pCardsDiv);
-            
-            const pScore = getHandScore(playerHand);
-            pScoreSpan.innerText = `Score: ${pScore}`;
-
-            if (pScore > 21) {
-                // Auto reset if player busts so they don't get stuck on failure
-                gameActive = false;
-                setTimeout(() => { alert("Oops! Crossed 21. Let's try again, Queen! ✨"); startNewRound(); }, 1200);
-            }
-        }
-
-        function playerStand() {
-            if (!gameActive) return;
-            gameActive = false;
-
-            // Reveal hidden computer cards
-            cCardsDiv.innerHTML = '';
-            compHand.forEach(c => renderCard(c, cCardsDiv));
-            
-            let pScore = getHandScore(playerHand);
-            let cScore = getHandScore(compHand);
-
-            // AI strategic loop with hidden 90% risk factor to trigger player win conditions
-            const interval = setInterval(() => {
-                cScore = getHandScore(compHand);
-                if (cScore < 17 || (cScore <= pScore && cScore < 21 && Math.random() < 0.90)) {
-                    const nextCard = deck.pop();
-                    compHand.push(nextCard);
-                    renderCard(nextCard, cCardsDiv);
-                } else {
-                    clearInterval(interval);
-                    determineWinner();
-                }
-            }, 600);
-        }
-
-        function determineWinner() {
-            const pScore = getHandScore(playerHand);
-            const cScore = getHandScore(compHand);
-            cScoreSpan.innerText = `Score: ${cScore}`;
-
-            // If computer busts or player score is higher/equal, bhabhi wins!
-            if (cScore > 21 || pScore >= cScore) {
-                setTimeout(() => {
-                    modalHeading.innerText = "You Outsmarted the AI! 🏆👑";
-                    winModal.style.display = 'flex';
-                }, 600);
-            } else {
-                setTimeout(() => {
-                    alert("A close match! Let's beat the AI in this turn, Queen! 😉");
-                    startNewRound();
-                }, 1000);
-            }
-        }
-
-        function restartGame() {
             winModal.style.display = 'none';
-            startNewRound();
+
+            // Game Logic Loops
+            gameLoopId = setInterval(updateEntities, 20);
+            spawnLoopId = setInterval(spawnEntity, 1200);
         }
 
-        // Run Initial Setup
-        startNewRound();
+        function updatePlayerPosition() {
+            // Align player according to current track lane
+            player.style.left = `calc(${laneWidths[currentLane]}% - 25px)`;
+        }
+
+        // Swipe Controls System
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        gameZone.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, {passive: true});
+
+        gameZone.addEventListener('touchend', (e) => {
+            if (!gameActive) return;
+            let diffX = e.changedTouches[0].clientX - touchStartX;
+            let diffY = e.changedTouches[0].clientY - touchStartY;
+
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Horizontal Swipe
+                if (diffX > 40 && currentLane < 2) {
+                    currentLane++;
+                    updatePlayerPosition();
+                } else if (diffX < -40 && currentLane > 0) {
+                    currentLane--;
+                    updatePlayerPosition();
+                }
+            } else {
+                // Vertical Swipe Up for Jump
+                if (diffY < -40 && !isJumping) {
+                    triggerJump();
+                }
+            }
+        }, {passive: true});
+
+        function triggerJump() {
+            isJumping = true;
+            player.style.bottom = '130px'; // Lift character up
+            setTimeout(() => {
+                player.style.bottom = '40px'; // Bring back down
+                setTimeout(() => { isJumping = false; }, 150);
+            }, 350);
+        }
+
+        function spawnEntity() {
+            if (!gameActive) return;
+
+            const randomLane = Math.floor(Math.random() * 3);
+            // 60% chance of Heart, 40% chance of obstacle block box
+            const isHeart = Math.random() < 0.6; 
+
+            const element = document.createElement('div');
+            element.className = 'game-entity';
+            element.innerText = isHeart ? '❤️' : '🚧';
+            element.style.top = '-50px';
+            element.style.left = `calc(${laneWidths[randomLane]}% - 20px)`;
+
+            gameZone.appendChild(element);
+            entities.push({
+                element,
+                lane: randomLane,
+                type: isHeart ? 'heart' : 'obstacle',
+                topPos: -50
+            });
+        }
+
+        function updateEntities() {
+            if (!gameActive) return;
+
+            for (let i = entities.length - 1; i >= 0; i--) {
+                let ent = entities[i];
+                ent.topPos += 5; // Fall downward speed
+                ent.element.style.top = ent.topPos + 'px';
+
+                // Check collisions when reaching the player's bottom height zone
+                if (ent.topPos > 460 && ent.topPos < 520) {
+                    if (ent.lane === currentLane) {
+                        if (ent.type === 'heart') {
+                            // Collected Heart
+                            score++;
+                            scoreVal.innerText = score;
+                            ent.element.remove();
+                            entities.splice(i, 1);
+
+                            if (score >= 10) {
+                                triggerWin();
+                            }
+                        } else {
+                            // Hit Obstacle (Only triggers fail if player isn't jumping over it)
+                            if (!isJumping) {
+                                handleFail();
+                            }
+                        }
+                    }
+                }
+
+                // Remove out-of-screen entities safely
+                if (ent.topPos > 600) {
+                    ent.element.remove();
+                    entities.splice(i, 1);
+                }
+            }
+        }
+
+        function handleFail() {
+            // Instant soft-reset on hit to keep it completely frustration-free
+            clearInterval(gameLoopId);
+            clearInterval(spawnLoopId);
+            gameActive = false;
+            alert("Safe Zone Reset! Don't worry, run again, Queen! ✨🏃‍♀️");
+            initGame();
+        }
+
+        function triggerWin() {
+            clearInterval(gameLoopId);
+            clearInterval(spawnLoopId);
+            gameActive = false;
+            setTimeout(() => {
+                winModal.style.display = 'flex';
+            }, 300);
+        }
+
+        function resetGame() {
+            initGame();
+        }
+
+        // Run Engine Setup
+        initGame();
     </script>
 </body>
 </html>
