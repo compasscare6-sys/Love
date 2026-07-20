@@ -177,17 +177,16 @@
             border-radius: 28px;
             max-width: 350px;
             width: 100%;
-            padding: 25px 20px;
+            padding: 30px 20px;
             text-align: center;
             box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
             animation: scaleUp 0.4s ease-out;
         }
 
         @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .heart-icon { font-size: 50px; color: #ef4444; animation: beat 0.8s infinite alternate; margin-bottom: 8px; }
-        @keyframes beat { to { transform: scale(1.15); } }
-        .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 12px; font-weight: 800; }
-        .modal-msg { font-size: 13.5px; color: #f3e8ff; line-height: 1.6; margin-bottom: 22px; text-align: center; }
+        .heart-icon { font-size: 55px; margin-bottom: 12px; }
+        .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 15px; font-weight: 800; }
+        .modal-msg { font-size: 16px; color: #f3e8ff; line-height: 1.5; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -213,14 +212,13 @@
         <div class="hint-box" id="hint-box">Hint goes here...</div>
     </div>
 
-    <!-- WIN DIALOG -->
+    <!-- SIMPLE FINAL WIN DIALOG -->
     <div class="modal" id="win-modal">
         <div class="modal-content">
             <div class="heart-icon">👑💋</div>
-            <h2 class="modal-title">Quest Completed, Begum! 🏆</h2>
+            <h2 class="modal-title">You Won My Heart Again! 🏆❤️</h2>
             <p class="modal-msg">
-                I am so sorry meri jaan, subah se kaam mein itna fasa wah huun key aapko bilkul time nahi de paya, par sach bolu toh dimaag mein har pal bas Meri Begum hi chal rahi thi. Bohot miss kiya tuje ANU aaj subah se. Meri har khushi aur har waqt bas aapke naam hai. Ab jaldi se muskura dijiye, kyunki aapki smile ke bina mera poora din adhoora hai.<br><br>
-                <strong>I Love You So Much, My Queen! Ummaah! 👑💋</strong>
+                I Love You So Much, My Queen! Ummaah! 👑💋
             </p>
         </div>
     </div>
@@ -234,7 +232,7 @@
             },
             {
                 q: "Poori duniya mein ek hi naam hai jo mere dil ki dhadkan mein aur har saans mein basa hai. Wo kaun hai? ❤️",
-                a: ["anu", "bhabhi"],
+                a: ["anu"],
                 h: "Aapka apna pyara naam..."
             },
             {
