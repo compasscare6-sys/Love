@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ludo Snake Twist 👑🐍</title>
+    <title>The Queen's Quest 👑🗝️</title>
     <style>
         :root {
-            --bg-dark: #09040e;
-            --board-bg: #1e0b30;
+            --bg-dark: #0b0512;
+            --card-bg: rgba(30, 15, 45, 0.9);
             --pink-main: #ec4899;
             --gold: #f59e0b;
+            --purple-light: #c084fc;
         }
 
         * {
@@ -18,104 +19,146 @@
             padding: 0;
             font-family: 'Segoe UI', system-ui, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            -webkit-user-select: none;
         }
 
         body {
-            background: radial-gradient(circle at center, #2b0f42 0%, var(--bg-dark) 100%);
+            background: radial-gradient(circle at center, #2e1047 0%, var(--bg-dark) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 15px;
             color: #fff;
-            overflow: hidden;
         }
 
-        .game-container {
-            background: rgba(30, 15, 45, 0.85);
+        .quest-card {
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(236, 72, 153, 0.3);
-            border-radius: 24px;
+            border: 2px solid rgba(236, 72, 153, 0.35);
+            border-radius: 28px;
             width: 100%;
-            max-width: 360px;
-            padding: 15px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            max-width: 380px;
+            padding: 25px 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
             text-align: center;
-        }
-
-        .title {
-            color: var(--gold);
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .hud {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 12px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            font-weight: bold;
-            border: 1px solid rgba(236, 72, 153, 0.1);
-        }
-
-        .board-wrapper {
             position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto 15px auto;
-            background: var(--board-bg);
-            border: 4px solid #3b115c;
-            border-radius: 12px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
             overflow: hidden;
         }
 
-        canvas {
-            display: block;
-            background-size: 30px 30px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        .progress-bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            height: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(236, 72, 153, 0.2);
         }
 
-        .controls {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            width: 180px;
-            margin: 0 auto;
+        .progress-fill {
+            background: linear-gradient(90deg, var(--pink-main), var(--gold));
+            height: 100%;
+            width: 10%;
+            transition: width 0.4s ease;
         }
 
-        .btn {
-            background: linear-gradient(135deg, #3b145a, #1f0833);
-            border: 1px solid rgba(236, 72, 153, 0.3);
+        .level-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f3e8ff;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .ans-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            border: 2px solid rgba(236, 72, 153, 0.3);
+            background: rgba(15, 5, 23, 0.7);
+            color: #fff;
+            font-size: 15px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .ans-input:focus {
+            border-color: var(--pink-main);
+            box-shadow: 0 0 12px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--pink-main), #db2777);
             color: white;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
+            border: none;
+            padding: 14px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: transform 0.1s, background 0.2s;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
+            transition: transform 0.1s;
         }
 
-        .btn:active {
-            transform: scale(0.92);
-            background: var(--pink-main);
+        .btn-submit:active {
+            transform: scale(0.97);
         }
 
-        .btn-up { grid-column: 2; }
-        .btn-left { grid-column: 1; }
-        .btn-right { grid-column: 3; }
-        .btn-down { grid-column: 2; }
+        .hint-btn {
+            background: none;
+            border: none;
+            color: var(--purple-light);
+            font-size: 12px;
+            margin-top: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
+        .hint-box {
+            display: none;
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--gold);
+            font-style: italic;
+            background: rgba(245, 158, 11, 0.1);
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+            font-weight: 600;
+        }
+
+        /* FINAL WIN MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -130,205 +173,160 @@
 
         .modal-content {
             background: linear-gradient(145deg, #3a1146, #0f0517);
-            border: 2px solid rgba(236, 72, 153, 0.4);
+            border: 2px solid rgba(236, 72, 153, 0.5);
             border-radius: 28px;
-            max-width: 340px;
+            max-width: 350px;
             width: 100%;
             padding: 25px 20px;
             text-align: center;
             box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
-            animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: scaleUp 0.4s ease-out;
         }
 
         @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .heart-icon { font-size: 45px; color: #ef4444; animation: beat 0.8s infinite alternate; margin-bottom: 8px; }
+        .heart-icon { font-size: 50px; color: #ef4444; animation: beat 0.8s infinite alternate; margin-bottom: 8px; }
         @keyframes beat { to { transform: scale(1.15); } }
-        .modal-title { color: var(--gold); font-size: 19px; margin-bottom: 15px; font-weight: 800; }
-        .modal-msg { font-size: 14px; color: #f3e8ff; line-height: 1.6; margin-bottom: 22px; text-align: center; }
-        
-        .btn-action {
-            background: linear-gradient(135deg, #ec4899, #f59e0b);
-            color: white; border: none; padding: 10px 30px; border-radius: 50px;
-            font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
-        }
+        .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 12px; font-weight: 800; }
+        .modal-msg { font-size: 13.5px; color: #f3e8ff; line-height: 1.6; margin-bottom: 22px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="game-container">
-        <h1 class="title">Ludo Snake Twist 🐍🎲</h1>
-        
-        <div class="hud">
-            <span style="color: #f472b6;">⭐ Collected: <span id="score-val">0</span>/5</span>
-            <span style="color: var(--gold);">Use Brain Arrows Below 👇</span>
+    <div class="quest-card">
+        <div class="progress-bar-container">
+            <div class="progress-fill" id="progress"></div>
         </div>
 
-        <div class="board-wrapper">
-            <canvas id="gameCanvas" width="300" height="300"></canvas>
+        <div class="level-badge" id="level-badge">Level 1 / 10</div>
+
+        <div class="question-text" id="question">Loading Question...</div>
+
+        <div class="input-group">
+            <input type="text" class="ans-input" id="answer-input" placeholder="Type your answer here..." autocomplete="off">
+            <div class="error-msg" id="error">Galat answer! Thoda aur dimaag lagao 🧠</div>
         </div>
 
-        <div class="controls">
-            <button class="btn btn-up" onclick="changeDirection('UP')">▲</button>
-            <button class="btn btn-left" onclick="changeDirection('LEFT')">◀</button>
-            <button class="btn btn-right" onclick="changeDirection('RIGHT')">▶</button>
-            <button class="btn btn-down" onclick="changeDirection('DOWN')">▼</button>
-        </div>
+        <button class="btn-submit" onclick="checkAnswer()">Unlock Next Level 🗝️</button>
+
+        <br>
+        <button class="hint-btn" onclick="toggleHint()">Need a Hint? 💡</button>
+        <div class="hint-box" id="hint-box">Hint goes here...</div>
     </div>
 
-    <!-- WIN MODAL WITH UPDATED ROMANTIC MESSAGE -->
+    <!-- WIN DIALOG -->
     <div class="modal" id="win-modal">
         <div class="modal-content">
-            <div class="heart-icon">❤️</div>
-            <h2 class="modal-title">Brilliant Strategy, Begum Sahiba! 🏆🐍</h2>
+            <div class="heart-icon">👑💋</div>
+            <h2 class="modal-title">Quest Completed, Begum! 🏆</h2>
             <p class="modal-msg">
-                I am so sorry meri jaan, subah se kaam mein itna fasa wah huun key aapko bilkul time nahi de paya, par sach bolu toh dimaag mein har pal bas Meri Begum hi chal rahi thi. Bohot miss kiya tuje ANU aaj subah se. Meri har khushi aur har waqt bas aapke naam hai. Ab jaldi se muskura dijiye, kyunki aapki smile ke bina mera poora din adhoora hai. <br><br><strong>I Love You So Much, My Queen! Ummaah! 👑💋</strong>
+                I am so sorry meri jaan, subah se kaam mein itna fasa wah huun key aapko bilkul time nahi de paya, par sach bolu toh dimaag mein har pal bas Meri Begum hi chal rahi thi. Bohot miss kiya tuje ANU aaj subah se. Meri har khushi aur har waqt bas aapke naam hai. Ab jaldi se muskura dijiye, kyunki aapki smile ke bina mera poora din adhoora hai.<br><br>
+                <strong>I Love You So Much, My Queen! Ummaah! 👑💋</strong>
             </p>
-            <button class="btn-action" onclick="resetGame()">Play Again 🔄</button>
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const scoreVal = document.getElementById('score-val');
+        const questData = [
+            {
+                q: "Wo konsi special date hai jab duniya mein mera sabse favourite insaan paida hua tha? 🎂",
+                a: ["23"],
+                h: "Month ke last week ki shuruat..."
+            },
+            {
+                q: "Poori duniya mein ek hi naam hai jo mere dil ki dhadkan mein aur har saans mein basa hai. Wo kaun hai? ❤️",
+                a: ["anu", "bhabhi"],
+                h: "Aapka apna pyara naam..."
+            },
+            {
+                q: "Subah uthte hi mujhe sabse pehle kis cheez ki sabse zyada crave/yaad aati hai? ☕",
+                a: ["aapka message", "aapka msg", "message", "msg"],
+                h: "Aapke phone se bheja hua text..."
+            },
+            {
+                q: "Ek aisi cheez jo jitni zyada share karo, utni hi badhti hai... aur mere paas aapke liye yeh unlimited hai. Kya hai wo? 🧠",
+                a: ["pyaar", "love", "pyar"],
+                h: "Dil se judi hui khoobsurat feeling..."
+            },
+            {
+                q: "Humari wo konsi jagah hai jahan humne sabse pyaara time spent kiya tha aur pizza khaya tha? 📍",
+                a: ["pizza max", "pizzamax"],
+                h: "Humari favourite pizza spot..."
+            },
+            {
+                q: "Mera subah se shaam tak ek hi dream hai... Aapko kya bol kar bulana aur aapki smile dekhna? 👑",
+                a: ["begum", "meri begum"],
+                h: "Royal title jo sirf aapka hai..."
+            },
+            {
+                q: "Main gusse mein ya pyaar mein, aapko sabse pyaara aur chota nikalne wala nickname kya bolta hoon? 🙈",
+                a: ["jaan", "meri jaan"],
+                h: "Jo har insaan ki life hoti hai..."
+            },
+            {
+                q: "Wo kaunsi cheez hai jo jab hum saath hote hain toh hawa ki tarah tezz bhaagti hai, lekin jab hum door hote hain toh ruk si jaati hai? ⏳",
+                a: ["waqt", "time"],
+                h: "Ghadi ki suiyan (clock)..."
+            },
+            {
+                q: "Mere paas ek aisa dil hai jo sirf ek hi chabi (key) se khulta hai. Wo chabi kiske paas hai? 🔑",
+                a: ["anu", "aapke paas", "anu ke paas", "aapke"],
+                h: "Mera sabse favourite insaan..."
+            },
+            {
+                q: "Wo konsi ek pyaari si cheez hai jo main aapko hazar baar bhi de doon, mera man kabhi nahi bhatta aur mujhe baar-baar dene mein sabse zyada maza aata hai? 💋",
+                a: ["umaaah", "umah", "kiss", "kisses", "ummmah"],
+                h: "Gaal par dene wali pyari si cheez... 💋"
+            }
+        ];
+
+        let currentLevel = 0;
+
+        const questionEl = document.getElementById('question');
+        const answerInput = document.getElementById('answer-input');
+        const levelBadge = document.getElementById('level-badge');
+        const progressEl = document.getElementById('progress');
+        const hintBox = document.getElementById('hint-box');
+        const errorEl = document.getElementById('error');
         const winModal = document.getElementById('win-modal');
 
-        const box = 30;
-        let snake, direction, star, gameInterval;
-        let score = 0;
-        let gameActive = true;
-
-        function initGame() {
-            score = 0;
-            scoreVal.innerText = score;
-            direction = 'RIGHT';
-            gameActive = true;
-            winModal.style.display = 'none';
-
-            snake = [
-                { x: 5 * box, y: 5 * box },
-                { x: 4 * box, y: 5 * box }
-            ];
-
-            spawnStar();
-            if (gameInterval) clearInterval(gameInterval);
-            gameInterval = setInterval(draw, 220);
+        function loadLevel() {
+            const data = questData[currentLevel];
+            questionEl.innerText = data.q;
+            levelBadge.innerText = `Level ${currentLevel + 1} / 10`;
+            progressEl.style.width = `${((currentLevel + 1) / 10) * 100}%`;
+            answerInput.value = '';
+            hintBox.style.display = 'none';
+            hintBox.innerText = `💡 Hint: ${data.h}`;
+            errorEl.style.display = 'none';
         }
 
-        function spawnStar() {
-            star = {
-                x: Math.floor(Math.random() * 10) * box,
-                y: Math.floor(Math.random() * 10) * box
-            };
-            
-            for (let cell of snake) {
-                if (cell.x === star.x && cell.y === star.y) {
-                    spawnStar();
-                    break;
-                }
-            }
-        }
+        function checkAnswer() {
+            const userAns = answerInput.value.trim().toLowerCase();
+            const validAnswers = questData[currentLevel].a;
 
-        function changeDirection(newDir) {
-            if (!gameActive) return;
-            if (newDir === 'LEFT' && direction !== 'RIGHT') direction = 'LEFT';
-            if (newDir === 'UP' && direction !== 'DOWN') direction = 'UP';
-            if (newDir === 'RIGHT' && direction !== 'LEFT') direction = 'RIGHT';
-            if (newDir === 'DOWN' && direction !== 'UP') direction = 'DOWN';
-        }
-
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowUp') changeDirection('UP');
-            if (e.key === 'ArrowDown') changeDirection('DOWN');
-            if (e.key === 'ArrowLeft') changeDirection('LEFT');
-            if (e.key === 'ArrowRight') changeDirection('RIGHT');
-        });
-
-        function draw() {
-            if (!gameActive) return;
-
-            ctx.fillStyle = '#1e0b30';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            for (let i = 0; i < canvas.width; i += box) {
-                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
-                ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
-            }
-
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i === 0) ? '#ec4899' : '#a78bfa';
-                ctx.strokeStyle = '#09040e';
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
-                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-                
-                if (i === 0) {
-                    ctx.fillStyle = '#fff';
-                    ctx.fillRect(snake[i].x + 6, snake[i].y + 6, 5, 5);
-                    ctx.fillRect(snake[i].x + 18, snake[i].y + 6, 5, 5);
-                }
-            }
-
-            ctx.font = "22px Arial";
-            ctx.fillText("⭐", star.x + 4, star.y + 22);
-
-            let snakeX = snake[0].x;
-            let snakeY = snake[0].y;
-
-            if (direction === 'LEFT') snakeX -= box;
-            if (direction === 'UP') snakeY -= box;
-            if (direction === 'RIGHT') snakeX += box;
-            if (direction === 'DOWN') snakeY += box;
-
-            if (snakeX < 0) snakeX = canvas.width - box;
-            if (snakeX >= canvas.width) snakeX = 0;
-            if (snakeY < 0) snakeY = canvas.height - box;
-            if (snakeY >= canvas.height) snakeY = 0;
-
-            for (let i = 1; i < snake.length; i++) {
-                if (snakeX === snake[i].x && snakeY === snake[i].y) {
-                    handleFail();
-                    return;
-                }
-            }
-
-            if (snakeX === star.x && snakeY === star.y) {
-                score++;
-                scoreVal.innerText = score;
-                spawnStar();
-
-                if (score >= 5) {
-                    triggerWin();
-                    return;
+            if (validAnswers.some(ans => userAns.includes(ans))) {
+                currentLevel++;
+                if (currentLevel < questData.length) {
+                    loadLevel();
+                } else {
+                    winModal.style.display = 'flex';
                 }
             } else {
-                snake.pop();
+                errorEl.style.display = 'block';
             }
-
-            let newHead = { x: snakeX, y: snakeY };
-            snake.unshift(newHead);
         }
 
-        function handleFail() {
-            clearInterval(gameInterval);
-            gameActive = false;
-            alert("Oops! Strategic loop locked! Let's try again, Queen! ✨🐍");
-            initGame();
+        function toggleHint() {
+            hintBox.style.display = hintBox.style.display === 'block' ? 'none' : 'block';
         }
 
-        function triggerWin() {
-            clearInterval(gameInterval);
-            gameActive = false;
-            setTimeout(() => {
-                winModal.style.display = 'flex';
-            }, 300);
-        }
+        answerInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        });
 
-        function resetGame() {
-            initGame();
-        }
-
-        initGame();
+        loadLevel();
     </script>
 </body>
 </html>
