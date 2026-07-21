@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Queen's Quest 👑🗝️</title>
+    <title>Queen's Romantic Alchemy 🧪💖</title>
     <style>
         :root {
             --bg-dark: #0b0512;
@@ -31,140 +31,137 @@
             color: #fff;
         }
 
-        .quest-card {
+        .game-card {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 2px solid rgba(236, 72, 153, 0.35);
             border-radius: 28px;
             width: 100%;
-            max-width: 380px;
-            padding: 25px 20px;
+            max-width: 400px;
+            padding: 20px;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        .progress-bar-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            height: 10px;
-            width: 100%;
-            margin-bottom: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(236, 72, 153, 0.2);
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, var(--pink-main), var(--gold));
-            height: 100%;
-            width: 10%;
-            transition: width 0.4s ease;
-        }
-
-        .level-badge {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid var(--gold);
+        h1 {
+            font-size: 20px;
             color: var(--gold);
-            padding: 4px 14px;
-            border-radius: 50px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
             font-size: 12px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .question-text {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f3e8ff;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .input-group {
+            color: var(--purple-light);
             margin-bottom: 15px;
         }
 
-        .ans-input {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 16px;
-            border: 2px solid rgba(236, 72, 153, 0.3);
-            background: rgba(15, 5, 23, 0.7);
-            color: #fff;
-            font-size: 15px;
-            text-align: center;
-            outline: none;
-            transition: border-color 0.3s;
+        .cauldron {
+            background: rgba(15, 5, 23, 0.8);
+            border: 2px dashed var(--pink-main);
+            border-radius: 20px;
+            padding: 15px;
+            min-height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
-        .ans-input:focus {
-            border-color: var(--pink-main);
-            box-shadow: 0 0 12px rgba(236, 72, 153, 0.3);
+        .slot {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: all 0.3s;
         }
 
-        .btn-submit {
-            width: 100%;
+        .slot.active {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .plus-sign {
+            font-size: 20px;
+            color: var(--purple-light);
+            font-weight: bold;
+        }
+
+        .btn-mix {
             background: linear-gradient(135deg, var(--pink-main), #db2777);
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 16px;
-            font-size: 15px;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
+            box-shadow: 0 6px 15px rgba(236, 72, 153, 0.4);
+            margin-bottom: 15px;
             transition: transform 0.1s;
         }
 
-        .btn-submit:active {
-            transform: scale(0.97);
+        .btn-mix:active {
+            transform: scale(0.95);
         }
 
-        .hint-btn {
-            background: none;
-            border: none;
+        .elements-title {
+            font-size: 13px;
+            text-align: left;
+            margin-bottom: 10px;
             color: var(--purple-light);
-            font-size: 12px;
-            margin-top: 12px;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .hint-box {
-            display: none;
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--gold);
-            font-style: italic;
-            background: rgba(245, 158, 11, 0.1);
-            padding: 8px;
-            border-radius: 10px;
-        }
-
-        .error-msg {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 8px;
-            display: none;
             font-weight: 600;
         }
 
-        /* FINAL WIN MODAL */
+        .elements-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .element-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(236, 72, 153, 0.25);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .element-chip:active {
+            transform: scale(0.92);
+            background: rgba(236, 72, 153, 0.2);
+        }
+
+        .status-msg {
+            font-size: 12px;
+            min-height: 18px;
+            margin-top: 10px;
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        /* POPUP MODAL */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(8, 3, 15, 0.98);
-            backdrop-filter: blur(20px);
+            background: rgba(8, 3, 15, 0.95);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -173,158 +170,200 @@
 
         .modal-content {
             background: linear-gradient(145deg, #3a1146, #0f0517);
-            border: 2px solid rgba(236, 72, 153, 0.5);
+            border: 2px solid var(--pink-main);
             border-radius: 28px;
             max-width: 350px;
             width: 100%;
-            padding: 30px 20px;
+            padding: 25px 20px;
             text-align: center;
             box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
-            animation: scaleUp 0.4s ease-out;
+            animation: scaleUp 0.3s ease-out;
         }
 
         @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .heart-icon { font-size: 55px; margin-bottom: 12px; }
-        .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 15px; font-weight: 800; }
-        .modal-msg { font-size: 16px; color: #f3e8ff; line-height: 1.5; font-weight: 700; }
+        .modal-icon { font-size: 50px; margin-bottom: 10px; }
+        .modal-title { color: var(--gold); font-size: 18px; margin-bottom: 10px; font-weight: 800; }
+        .modal-msg { font-size: 14px; color: #f3e8ff; line-height: 1.5; margin-bottom: 20px; }
+        .modal-btn {
+            background: var(--pink-main);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <div class="quest-card">
-        <div class="progress-bar-container">
-            <div class="progress-fill" id="progress"></div>
+    <div class="game-card">
+        <h1>Romantic Alchemy 🧪💖</h1>
+        <div class="subtitle" id="progress-text">Discovered: 0 / 7 Recipes</div>
+
+        <!-- MIXING AREA -->
+        <div class="cauldron">
+            <div class="slot" id="slot1" onclick="clearSlot(1)">❓</div>
+            <div class="plus-sign">+</div>
+            <div class="slot" id="slot2" onclick="clearSlot(2)">❓</div>
         </div>
 
-        <div class="level-badge" id="level-badge">Level 1 / 10</div>
+        <button class="btn-mix" onclick="mixElements()">Mix Elements 🪄</button>
+        <div class="status-msg" id="status"></div>
 
-        <div class="question-text" id="question">Loading Question...</div>
-
-        <div class="input-group">
-            <input type="text" class="ans-input" id="answer-input" placeholder="Type your answer here..." autocomplete="off">
-            <div class="error-msg" id="error">Galat answer! Thoda aur dimaag lagao 🧠</div>
+        <!-- ELEMENTS GRID -->
+        <div class="elements-title">Tap elements to select:</div>
+        <div class="elements-grid" id="elements-grid">
+            <!-- Dynamic Elements Will Appear Here -->
         </div>
-
-        <button class="btn-submit" onclick="checkAnswer()">Unlock Next Level 🗝️</button>
-
-        <br>
-        <button class="hint-btn" onclick="toggleHint()">Need a Hint? 💡</button>
-        <div class="hint-box" id="hint-box">Hint goes here...</div>
     </div>
 
-    <!-- SIMPLE FINAL WIN DIALOG -->
-    <div class="modal" id="win-modal">
+    <!-- REWARD MODAL -->
+    <div class="modal" id="reward-modal">
         <div class="modal-content">
-            <div class="heart-icon">👑💋</div>
-            <h2 class="modal-title">You Won My Heart Again! 🏆❤️</h2>
-            <p class="modal-msg">
-                I Love You So Much, My Queen! Ummaah! 👑💋
-            </p>
+            <div class="modal-icon" id="pop-icon">💍</div>
+            <h2 class="modal-title" id="pop-title">Recipe Unlocked!</h2>
+            <p class="modal-msg" id="pop-msg">Compliment here...</p>
+            <button class="modal-btn" onclick="closeModal()">Continue Mixing 🧪</button>
         </div>
     </div>
 
     <script>
-        const questData = [
+        // BASE ELEMENTS
+        const baseElements = [
+            { id: 'love', name: 'Love', icon: '❤️' },
+            { id: 'time', name: 'Time', icon: '⏳' },
+            { id: 'smiles', name: 'Smiles', icon: '😊' },
+            { id: 'care', name: 'Care', icon: '🤗' },
+            { id: 'key', name: 'Secret Key', icon: '🔑' }
+        ];
+
+        // RECIPES
+        const recipes = [
             {
-                q: "Wo konsi special date hai jab duniya mein mera sabse favourite insaan paida hua tha? 🎂",
-                a: ["23"],
-                h: "Month ke last week ki shuruat..."
+                inputs: ['love', 'time'],
+                result: { id: 'lifetime', name: 'Lifetime Commitment', icon: '💍' },
+                msg: "Aapke saath bitaya har ek pal meri zindagi ka sabse pyaara gift hai! 💖"
             },
             {
-                q: "Poori duniya mein ek hi naam hai jo mere dil ki dhadkan mein aur har saans mein basa hai. Wo kaun hai? ❤️",
-                a: ["anu"],
-                h: "Aapka apna pyara naam..."
+                inputs: ['smiles', 'care'],
+                result: { id: 'messages', name: 'Messages', icon: '📱' },
+                msg: "Subah uthte hi aapka message dekhna mera din bana deta hai! ✨"
             },
             {
-                q: "Subah uthte hi mujhe sabse pehle kis cheez ki sabse zyada crave/yaad aati hai? ☕",
-                a: ["aapka message", "aapka msg", "message", "msg"],
-                h: "Aapke phone se bheja hua text..."
+                inputs: ['love', 'care'],
+                result: { id: 'umaaah', name: 'Umaaah Special', icon: '💋' },
+                msg: "Aapko Umaaah dene mein jo maza hai na, wo kisi cheez mein nahi! 💋"
             },
             {
-                q: "Ek aisi cheez jo jitni zyada share karo, utni hi badhti hai... aur mere paas aapke liye yeh unlimited hai. Kya hai wo? 🧠",
-                a: ["pyaar", "love", "pyar"],
-                h: "Dil se judi hui khoobsurat feeling..."
+                inputs: ['love', 'smiles'],
+                result: { id: 'begum', name: 'Begum Sahiba', icon: '👑' },
+                msg: "Aapki smile hi mere poore din ki sabse badi khushi hai, Begum! 👑"
             },
             {
-                q: "Humari wo konsi jagah hai jahan humne sabse pyaara time spent kiya tha aur pizza khaya tha? 📍",
-                a: ["pizza max", "pizzamax"],
-                h: "Humari favourite pizza spot..."
+                inputs: ['smiles', 'time'],
+                result: { id: 'nicknames', name: 'Naughty Nicknames', icon: '🙈' },
+                msg: "Pyaar se jab main aapko 'Jaan' bolta hoon toh dil khush ho jata hai! 🙈"
             },
             {
-                q: "Mera subah se shaam tak ek hi dream hai... Aapko kya bol kar bulana aur aapki smile dekhna? 👑",
-                a: ["begum", "meri begum"],
-                h: "Royal title jo sirf aapka hai..."
+                inputs: ['key', 'love'],
+                result: { id: 'heartlock', name: "My Heart's Lock", icon: '💖' },
+                msg: "Mere dil ki chabi sirf aur sirf Anu ke paas hai! 🔑❤️"
             },
             {
-                q: "Main gusse mein ya pyaar mein, aapko sabse pyaara aur chota nikalne wala nickname kya bolta hoon? 🙈",
-                a: ["jaan", "meri jaan"],
-                h: "Jo har insaan ki life hoti hai..."
-            },
-            {
-                q: "Wo kaunsi cheez hai jo jab hum saath hote hain toh hawa ki tarah tezz bhaagti hai, lekin jab hum door hote hain toh ruk si jaati hai? ⏳",
-                a: ["waqt", "time"],
-                h: "Ghadi ki suiyan (clock)..."
-            },
-            {
-                q: "Mere paas ek aisa dil hai jo sirf ek hi chabi (key) se khulta hai. Wo chabi kiske paas hai? 🔑",
-                a: ["anu", "aapke paas", "anu ke paas", "aapke"],
-                h: "Mera sabse favourite insaan..."
-            },
-            {
-                q: "Wo konsi ek pyaari si cheez hai jo main aapko hazar baar bhi de doon, mera man kabhi nahi bhatta aur mujhe baar-baar dene mein sabse zyada maza aata hai? 💋",
-                a: ["umaaah", "umah", "kiss", "kisses", "ummmah"],
-                h: "Gaal par dene wali pyari si cheez... 💋"
+                inputs: ['umaaah', 'lifetime'],
+                result: { id: 'queen', name: 'The Ultimate Queen', icon: '🏆' },
+                msg: "Aap sirf meri biwi nahi, mere dil ki rani hain! 💖👑"
             }
         ];
 
-        let currentLevel = 0;
+        let unlockedElements = [...baseElements];
+        let slot1 = null;
+        let slot2 = null;
+        let discoveredCount = 0;
 
-        const questionEl = document.getElementById('question');
-        const answerInput = document.getElementById('answer-input');
-        const levelBadge = document.getElementById('level-badge');
-        const progressEl = document.getElementById('progress');
-        const hintBox = document.getElementById('hint-box');
-        const errorEl = document.getElementById('error');
-        const winModal = document.getElementById('win-modal');
-
-        function loadLevel() {
-            const data = questData[currentLevel];
-            questionEl.innerText = data.q;
-            levelBadge.innerText = `Level ${currentLevel + 1} / 10`;
-            progressEl.style.width = `${((currentLevel + 1) / 10) * 100}%`;
-            answerInput.value = '';
-            hintBox.style.display = 'none';
-            hintBox.innerText = `💡 Hint: ${data.h}`;
-            errorEl.style.display = 'none';
+        function renderElements() {
+            const grid = document.getElementById('elements-grid');
+            grid.innerHTML = '';
+            unlockedElements.forEach(el => {
+                const chip = document.createElement('div');
+                chip.className = 'element-chip';
+                chip.innerHTML = `<span>${el.icon}</span> <span>${el.name}</span>`;
+                chip.onclick = () => selectElement(el);
+                grid.appendChild(chip);
+            });
         }
 
-        function checkAnswer() {
-            const userAns = answerInput.value.trim().toLowerCase();
-            const validAnswers = questData[currentLevel].a;
+        function selectElement(el) {
+            document.getElementById('status').innerText = '';
+            if (!slot1) {
+                slot1 = el;
+                document.getElementById('slot1').innerText = el.icon;
+                document.getElementById('slot1').classList.add('active');
+            } else if (!slot2) {
+                slot2 = el;
+                document.getElementById('slot2').innerText = el.icon;
+                document.getElementById('slot2').classList.add('active');
+            }
+        }
 
-            if (validAnswers.some(ans => userAns.includes(ans))) {
-                currentLevel++;
-                if (currentLevel < questData.length) {
-                    loadLevel();
-                } else {
-                    winModal.style.display = 'flex';
+        function clearSlot(num) {
+            if (num === 1) {
+                slot1 = null;
+                document.getElementById('slot1').innerText = '❓';
+                document.getElementById('slot1').classList.remove('active');
+            } else {
+                slot2 = null;
+                document.getElementById('slot2').innerText = '❓';
+                document.getElementById('slot2').classList.remove('active');
+            }
+        }
+
+        function mixElements() {
+            if (!slot1 || !slot2) {
+                document.getElementById('status').innerText = 'Dono slots mein elements daalo!';
+                return;
+            }
+
+            const match = recipes.find(r => 
+                (r.inputs.includes(slot1.id) && r.inputs.includes(slot2.id)) && slot1.id !== slot2.id
+            );
+
+            if (match) {
+                const exists = unlockedElements.some(e => e.id === match.result.id);
+                if (!exists) {
+                    unlockedElements.push(match.result);
+                    discoveredCount++;
+                    document.getElementById('progress-text').innerText = `Discovered: ${discoveredCount} / 7 Recipes`;
+                    renderElements();
+                }
+
+                showModal(match.result.icon, match.result.name, match.msg);
+                clearSlot(1);
+                clearSlot(2);
+
+                if (discoveredCount === 7) {
+                    setTimeout(() => {
+                        showModal('👑💋', 'You Won My Heart Again! 🏆❤️', 'I Love You So Much, My Queen! Ummaah! 👑💋');
+                    }, 800);
                 }
             } else {
-                errorEl.style.display = 'block';
+                document.getElementById('status').innerText = 'Is combination se kuch nahi bana! Doosra try karo 🧪';
             }
         }
 
-        function toggleHint() {
-            hintBox.style.display = hintBox.style.display === 'block' ? 'none' : 'block';
+        function showModal(icon, title, msg) {
+            document.getElementById('pop-icon').innerText = icon;
+            document.getElementById('pop-title').innerText = title;
+            document.getElementById('pop-msg').innerText = msg;
+            document.getElementById('reward-modal').style.display = 'flex';
         }
 
-        answerInput.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                checkAnswer();
-            }
-        });
+        function closeModal() {
+            document.getElementById('reward-modal').style.display = 'none';
+        }
 
-        loadLevel();
+        renderElements();
     </script>
 </body>
 </html>
