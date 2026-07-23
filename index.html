@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Love Courier 💌</title>
+    <title>The Queen's Secret Vault 🔒👑</title>
     <style>
         :root {
-            --bg-dark: #0b0512;
-            --card-bg: rgba(30, 15, 45, 0.95);
-            --pink-main: #ec4899;
+            --bg-dark: #08030d;
+            --vault-metal: linear-gradient(145deg, #2a2a35, #121218);
             --gold: #f59e0b;
-            --purple-light: #c084fc;
+            --pink-main: #ec4899;
         }
 
         * {
@@ -22,86 +21,145 @@
         }
 
         body {
-            background: radial-gradient(circle at center, #2e1047 0%, var(--bg-dark) 100%);
+            background: radial-gradient(circle at center, #230c33 0%, var(--bg-dark) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 15px;
             color: #fff;
+            overflow: hidden;
         }
 
-        .story-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(236, 72, 153, 0.35);
-            border-radius: 28px;
+        .vault-wrapper {
             width: 100%;
-            max-width: 380px;
-            padding: 25px 20px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            max-width: 360px;
+            background: var(--vault-metal);
+            border: 4px solid #3d3d4e;
+            border-radius: 35px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 15px rgba(255,255,255,0.05);
             text-align: center;
             position: relative;
         }
 
-        .badge {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid var(--gold);
+        .vault-header {
             color: var(--gold);
-            padding: 4px 14px;
-            border-radius: 50px;
-            font-size: 12px;
+            font-size: 18px;
             font-weight: 800;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
-        .story-icon {
-            font-size: 45px;
-            margin-bottom: 12px;
+        .vault-subtext {
+            font-size: 12px;
+            color: #a78bfa;
+            margin-bottom: 25px;
         }
 
-        .story-text {
-            font-size: 16px;
-            font-weight: 700;
-            color: #f3e8ff;
-            line-height: 1.5;
-            margin-bottom: 22px;
-            min-height: 60px;
-        }
-
-        .options-container {
+        /* 3D DIAL CONTAINER */
+        .dial-container {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 25px;
+            background: radial-gradient(circle, #3a3a4c 0%, #15151c 100%);
+            border-radius: 50%;
+            border: 6px solid #4a4a5e;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.8);
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1.5px solid rgba(236, 72, 153, 0.3);
-            color: #fff;
-            padding: 14px 16px;
-            border-radius: 18px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
+            position: relative;
         }
 
-        .option-btn:active {
+        .dial-wheel {
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, #22222c 0%, #0d0d12 100%);
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+            transition: transform 0.2s ease-out;
+            position: relative;
+        }
+
+        .dial-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .dial-pointer {
+            position: absolute;
+            top: -12px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 14px solid var(--pink-main);
+            z-index: 10;
+        }
+
+        /* CONTROLS */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .btn-step {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(236, 72, 153, 0.3);
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .btn-step:active {
+            transform: scale(0.92);
+            background: var(--pink-main);
+        }
+
+        .btn-unlock {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold), #d97706);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+            transition: transform 0.1s;
+        }
+
+        .btn-unlock:active {
             transform: scale(0.97);
-            background: rgba(236, 72, 153, 0.25);
-            border-color: var(--pink-main);
         }
 
-        /* FINAL POPUP MODAL */
-        .modal {
+        .status-msg {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 12px;
+            font-weight: 700;
+            min-height: 18px;
+        }
+
+        /* REVEAL OVERLAY MODAL */
+        .vault-reveal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -110,42 +168,57 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
         }
 
-        .modal-content {
+        .vault-content {
             background: linear-gradient(145deg, #3a1146, #0f0517);
             border: 2px solid var(--pink-main);
             border-radius: 28px;
             max-width: 350px;
             width: 100%;
-            padding: 30px 20px;
+            padding: 35px 22px;
             text-align: center;
             box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
-            animation: scaleUp 0.4s ease-out;
+            animation: vaultOpen 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes scaleUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .heart-icon { font-size: 55px; margin-bottom: 12px; }
+        @keyframes vaultOpen {
+            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .crown-icon { font-size: 60px; margin-bottom: 15px; }
         .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 15px; font-weight: 800; }
-        .modal-msg { font-size: 16px; color: #f3e8ff; line-height: 1.5; font-weight: 700; }
+        .modal-msg { font-size: 16px; color: #f3e8ff; line-height: 1.6; font-weight: 700; }
     </style>
 </head>
 <body>
 
-    <div class="story-card">
-        <div class="badge" id="chapter-badge">Chapter 1 / 4</div>
-        <div class="story-icon" id="story-icon">☀️</div>
-        <div class="story-text" id="story-text">Loading story...</div>
-        <div class="options-container" id="options-container">
-            <!-- Dynamic Options -->
+    <div class="vault-wrapper">
+        <div class="vault-header">Secret Queen Vault 🔒</div>
+        <div class="vault-subtext">Dial her special date code to unlock!</div>
+
+        <div class="dial-container">
+            <div class="dial-pointer"></div>
+            <div class="dial-wheel" id="wheel">
+                <div class="dial-number" id="code-val">0</div>
+            </div>
         </div>
+
+        <div class="controls">
+            <button class="btn-step" onclick="changeCode(-1)">-</button>
+            <button class="btn-step" onclick="changeCode(1)">+</button>
+        </div>
+
+        <button class="btn-unlock" onclick="unlockVault()">UNLOCK VAULT 🗝️</button>
+        <div class="status-msg" id="status"></div>
     </div>
 
-    <!-- WIN DIALOG -->
-    <div class="modal" id="win-modal">
-        <div class="modal-content">
-            <div class="heart-icon">👑💋</div>
+    <!-- SECRET REVEAL POPUP -->
+    <div class="vault-reveal" id="vault-reveal">
+        <div class="vault-content">
+            <div class="crown-icon">👑💋</div>
             <h2 class="modal-title">You Won My Heart Again! 🏆❤️</h2>
             <p class="modal-msg">
                 I Love You So Much, My Queen! Ummaah! 👑💋
@@ -154,75 +227,30 @@
     </div>
 
     <script>
-        const storyData = [
-            {
-                chapter: "Chapter 1: The Morning Vibe ☀️",
-                icon: "📱",
-                text: "Subah uthte hi sabse pehle kya karongi, Meri Begum?",
-                options: [
-                    { text: "Pyaar se aapka message check karungi 💌", next: 1 },
-                    { text: "Aapko miss karungi aur smile karungi 🙈", next: 1 }
-                ]
-            },
-            {
-                chapter: "Chapter 2: The Truth 💖",
-                icon: "❤️",
-                text: "Sach sach batana, duniya mein sab se zyada kisse pyar karti ho?",
-                options: [
-                    { text: "Sirf aur sirf aap se! 🥰", next: 2 },
-                    { text: "Mere Shohar se, unki jaan hoon main 👑", next: 2 }
-                ]
-            },
-            {
-                chapter: "Chapter 3: The Punishment 🙈",
-                icon: "⏳",
-                text: "Agar main kabhi kaam ke chakkar mein late ghar aau, toh kya punishment milegi?",
-                options: [
-                    { text: "Dher saari Umaaah deni padegi 💋", next: 3 },
-                    { text: "Shopping par le jana padega 🛍️", next: 3 }
-                ]
-            },
-            {
-                chapter: "Chapter 4: The Final Lock 🔑",
-                icon: "👑",
-                text: "Dil ki chabi kiske paas hai aur mere poore din ki khushi kisse judi hai?",
-                options: [
-                    { text: "Sirf aur sirf Anu ke paas! 💖", next: "WIN" },
-                    { text: "Meri Begum Sahiba ke paas! 👑", next: "WIN" }
-                ]
-            }
-        ];
+        let currentCode = 0;
+        const SECRET_CODE = 23; // Special Birthdate Code
 
-        let currentChapter = 0;
+        function changeCode(val) {
+            currentCode += val;
+            if (currentCode < 0) currentCode = 31;
+            if (currentCode > 31) currentCode = 0;
 
-        function loadChapter() {
-            const data = storyData[currentChapter];
-            document.getElementById('chapter-badge').innerText = data.chapter;
-            document.getElementById('story-icon').innerText = data.icon;
-            document.getElementById('story-text').innerText = data.text;
+            document.getElementById('code-val').innerText = currentCode;
+            document.getElementById('status').innerText = '';
 
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-
-            data.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = opt.text;
-                btn.onclick = () => handleChoice(opt.next);
-                container.appendChild(btn);
-            });
+            // Rotate dial visual effect
+            const rotation = currentCode * (360 / 32);
+            document.getElementById('wheel').style.transform = `rotate(${rotation}deg)`;
         }
 
-        function handleChoice(nextChapter) {
-            if (nextChapter === "WIN") {
-                document.getElementById('win-modal').style.display = 'flex';
+        function unlockVault() {
+            if (currentCode === SECRET_CODE) {
+                document.getElementById('status').innerText = '';
+                document.getElementById('vault-reveal').style.display = 'flex';
             } else {
-                currentChapter = nextChapter;
-                loadChapter();
+                document.getElementById('status').innerText = 'Access Denied! Wrong Key Code ❌';
             }
         }
-
-        loadChapter();
     </script>
 </body>
 </html>
