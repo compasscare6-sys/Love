@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Queen's Secret Vault 🔒👑</title>
+    <title>Couple Truth or Dare 🎲❤️</title>
     <style>
         :root {
-            --bg-dark: #08030d;
-            --vault-metal: linear-gradient(145deg, #2a2a35, #121218);
+            --bg-dark: #0d0614;
+            --pink-accent: #ec4899;
+            --purple-accent: #8b5cf6;
             --gold: #f59e0b;
-            --pink-main: #ec4899;
-            --purple-light: #c084fc;
         }
 
         * {
@@ -25,295 +24,246 @@
             background: radial-gradient(circle at center, #230c33 0%, var(--bg-dark) 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
             color: #fff;
             overflow: hidden;
         }
 
-        .vault-wrapper {
-            width: 100%;
-            max-width: 360px;
-            background: var(--vault-metal);
-            border: 4px solid #3d3d4e;
-            border-radius: 35px;
-            padding: 30px 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 15px rgba(255,255,255,0.05);
+        .header {
             text-align: center;
-            position: relative;
+            margin-bottom: 25px;
         }
 
-        .vault-header {
+        .header h1 {
+            font-size: 24px;
             color: var(--gold);
-            font-size: 18px;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #c084fc;
+        }
+
+        /* BOTTLE CONTAINER */
+        .bottle-stage {
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(236, 72, 153, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+        }
+
+        .bottle {
+            width: 50px;
+            height: 160px;
+            font-size: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 3s cubic-bezier(0.15, 0.85, 0.35, 1.2);
+            user-select: none;
+        }
+
+        .spin-btn {
+            background: linear-gradient(135deg, var(--pink-accent), var(--purple-accent));
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 25px;
+            font-size: 16px;
             font-weight: 800;
             letter-spacing: 1px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .vault-subtext {
-            font-size: 12px;
-            color: #a78bfa;
-            margin-bottom: 25px;
-        }
-
-        /* 3D DIAL CONTAINER */
-        .dial-container {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 25px;
-            background: radial-gradient(circle, #3a3a4c 0%, #15151c 100%);
-            border-radius: 50%;
-            border: 6px solid #4a4a5e;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .dial-wheel {
-            width: 140px;
-            height: 140px;
-            background: radial-gradient(circle, #22222c 0%, #0d0d12 100%);
-            border-radius: 50%;
-            border: 3px solid var(--gold);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
-            transition: transform 0.2s ease-out;
-            position: relative;
-        }
-
-        .dial-number {
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--gold);
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-        }
-
-        .dial-pointer {
-            position: absolute;
-            top: -12px;
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 14px solid var(--pink-main);
-            z-index: 10;
-        }
-
-        /* CONTROLS */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .btn-step {
-            width: 50px;
-            height: 50px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(236, 72, 153, 0.3);
-            color: #fff;
-            font-size: 22px;
-            font-weight: bold;
             cursor: pointer;
-            transition: all 0.1s;
-        }
-
-        .btn-step:active {
-            transform: scale(0.92);
-            background: var(--pink-main);
-        }
-
-        .btn-unlock {
-            width: 100%;
-            background: linear-gradient(135deg, var(--gold), #d97706);
-            color: #000;
-            border: none;
-            padding: 14px;
-            border-radius: 18px;
-            font-size: 16px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
             transition: transform 0.1s;
         }
 
-        .btn-unlock:active {
-            transform: scale(0.97);
+        .spin-btn:active {
+            transform: scale(0.95);
         }
 
-        .status-msg {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 12px;
-            font-weight: 700;
-            min-height: 18px;
-        }
-
-        /* REVEAL OVERLAY MODAL */
-        .vault-reveal {
+        /* MODAL POPUP */
+        .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(8, 3, 15, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
+            background: rgba(13, 6, 20, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 100;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            overflow-y: auto;
         }
 
-        .vault-content {
-            background: linear-gradient(145deg, #3a1146, #0f0517);
-            border: 2px solid var(--pink-main);
+        .modal-card {
+            background: linear-gradient(145deg, #2a0e38, #13061c);
+            border: 2px solid var(--pink-accent);
             border-radius: 28px;
-            max-width: 380px;
+            max-width: 350px;
             width: 100%;
-            padding: 30px 20px;
+            padding: 30px 22px;
             text-align: center;
-            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.9);
-            animation: vaultOpen 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-height: 90vh;
-            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            animation: popIn 0.4s ease-out;
         }
 
-        @keyframes vaultOpen {
-            0% { transform: scale(0) rotate(-10deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        .crown-icon { font-size: 45px; margin-bottom: 8px; }
-        .modal-title { color: var(--gold); font-size: 20px; margin-bottom: 15px; font-weight: 800; }
-        
-        .romantic-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(236, 72, 153, 0.25);
-            border-radius: 20px;
-            padding: 18px 15px;
-            margin-bottom: 15px;
+        .choice-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
         }
 
-        .line-regular {
+        .btn-choice {
+            flex: 1;
+            padding: 12px;
+            border-radius: 15px;
+            border: none;
             font-size: 15px;
-            color: #f3e8ff;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .poetry-box {
-            background: rgba(245, 158, 11, 0.08);
-            border-left: 3px solid var(--gold);
-            padding: 12px 10px;
-            border-radius: 10px;
-            font-style: italic;
-            color: #fef08a;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .blessing-text {
-            font-size: 14px;
-            color: #e9d5ff;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        .final-love {
-            font-size: 16px;
-            color: var(--pink-main);
             font-weight: 800;
-            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .btn-truth {
+            background: rgba(59, 130, 246, 0.2);
+            border: 2px solid #3b82f6;
+            color: #60a5fa;
+        }
+
+        .btn-dare {
+            background: rgba(236, 72, 153, 0.2);
+            border: 2px solid var(--pink-accent);
+            color: #f472b6;
+        }
+
+        .task-title {
+            font-size: 20px;
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .task-desc {
+            font-size: 16px;
+            color: #f3e8ff;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .btn-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 25px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="vault-wrapper">
-        <div class="vault-header">Secret Queen Vault 🔒</div>
-        <div class="vault-subtext">Dial her special date code to unlock!</div>
-
-        <div class="dial-container">
-            <div class="dial-pointer"></div>
-            <div class="dial-wheel" id="wheel">
-                <div class="dial-number" id="code-val">0</div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="btn-step" onclick="changeCode(-1)">-</button>
-            <button class="btn-step" onclick="changeCode(1)">+</button>
-        </div>
-
-        <button class="btn-unlock" onclick="unlockVault()">UNLOCK VAULT 🗝️</button>
-        <div class="status-msg" id="status"></div>
+    <div class="header">
+        <h1>Couple Truth or Dare 🎲❤️</h1>
+        <p>Spin the bottle & take your turn, Jaanu!</p>
     </div>
 
-    <!-- SECRET REVEAL POPUP -->
-    <div class="vault-reveal" id="vault-reveal">
-        <div class="vault-content">
-            <div class="crown-icon">👑💋</div>
-            <h2 class="modal-title">Good Morning Meri Jaan ❤️</h2>
-            
-            <div class="romantic-box">
-                <p class="line-regular">
-                    Subah ki yeh roshni bas tumhari muskaan jaisi lagti hai,<br>
-                    Aur har nayi kiran tumhari yaadon se saja deti hai 💫
-                </p>
+    <div class="bottle-stage">
+        <div class="bottle" id="bottle">🍾</div>
+    </div>
 
-                <div class="poetry-box">
-                    "Tumhari ek muskaan se shuru hoti hai meri har subah,<br>
-                    Tum ho toh har din lagta hai jaise ho koi khubsurat dua."
-                </div>
+    <button class="spin-btn" onclick="spinBottle()">SPIN BOTTLE 🔄</button>
 
-                <p class="blessing-text">
-                    Allah tumhein hamesha khush rakhe, meri zindagi ka sabse haseen hissa tum ho 💕
-                </p>
-
-                <p class="final-love">
-                    Have a beautiful day meri mohabbat 😘<br>
-                    I Love You Sooo Much Jaanu❤️
-                </p>
-            </div>
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-card" id="modal-content">
+            <!-- Dynamic Content -->
         </div>
     </div>
 
     <script>
-        let currentCode = 0;
-        const SECRET_CODE = 23; // Special Birthdate Code
+        let currentRotation = 0;
+        let isSpinning = false;
 
-        function changeCode(val) {
-            currentCode += val;
-            if (currentCode < 0) currentCode = 31;
-            if (currentCode > 31) currentCode = 0;
+        const truths = [
+            "Mera konsa esa cute aadat hai jo tumhein bhut pasand hai? ❤️",
+            "Tumhare Phone mein meri koi favorite Picture hai? 📱✨",
+            "Batao, mujhse kitni mohabbat karti hoo? 💖",
+            "Hamari sabse pehli date ki konsi baat tumhein aaj bhi exact yaad hai? 🥰",
+            "Mera konsa esa compliment hai jo sunkar tum sabse zyada blus karti ho? 🙈"
+        ];
 
-            document.getElementById('code-val').innerText = currentCode;
-            document.getElementById('status').innerText = '';
+        const dares = [
+            "Raat ko jaldi sogi... max 3 baje tak bas! ⏰😴",
+            "Jo Picture delete ki hai wo dubara bhejogi aur sath mein 2 aur new pictures dogi! 📸💋",
+            "Sunday tak naraz nahi ho sakti ho mujhse! Promise karo 🤞💕",
+            "Apne phone se meri koi cute pic abhi mere waise status par lagao ya mujhe personal bhejo! 📲",
+            "Mujhe abhi ek 10-second ka cute Voice Note bhejkar batao ki kitna miss kar rahi ho! 🎙️❤️"
+        ];
 
-            // Rotate dial visual effect
-            const rotation = currentCode * (360 / 32);
-            document.getElementById('wheel').style.transform = `rotate(${rotation}deg)`;
+        function spinBottle() {
+            if (isSpinning) return;
+            isSpinning = true;
+
+            // Extra spins + random angle
+            const randomDegrees = Math.floor(Math.random() * 360) + 1440; 
+            currentRotation += randomDegrees;
+
+            const bottle = document.getElementById('bottle');
+            bottle.style.transform = `rotate(${currentRotation}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                showChoiceModal();
+            }, 3000);
         }
 
-        function unlockVault() {
-            if (currentCode === SECRET_CODE) {
-                document.getElementById('status').innerText = '';
-                document.getElementById('vault-reveal').style.display = 'flex';
-            } else {
-                document.getElementById('status').innerText = 'Access Denied! Wrong Key Code ❌';
-            }
+        function showChoiceModal() {
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <h2 style="color: var(--gold); margin-bottom: 15px;">Bottle Stopped! 🎉</h2>
+                <p style="color: #e9d5ff; font-size: 15px; margin-bottom: 20px;">Kya choose karna chahogi, Meri Jaan?</p>
+                <div class="choice-btns">
+                    <button class="btn-choice btn-truth" onclick="showTask('Truth')">TRUTH 💭</button>
+                    <button class="btn-choice btn-dare" onclick="showTask('Dare')">DARE 🔥</button>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function showTask(type) {
+            const list = type === 'Truth' ? truths : dares;
+            const randomTask = list[Math.floor(Math.random() * list.length)];
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="task-title">${type === 'Truth' ? '💭 TRUTH' : '🔥 DARE'}</div>
+                <div class="task-desc">${randomTask}</div>
+                <button class="btn-close" onclick="closeModal()">DONE 💖</button>
+            `;
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
         }
     </script>
 </body>
