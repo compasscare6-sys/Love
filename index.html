@@ -3,271 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Couple Truth or Dare 🎲❤️</title>
+    <title>THE ROMANTIC DAILY 🗞️👑</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Special+Elite&display=swap');
+
         :root {
-            --bg-dark: #0d0614;
-            --pink-accent: #ec4899;
-            --purple-accent: #8b5cf6;
-            --gold: #f59e0b;
+            --paper-bg: #f2ebd9;
+            --paper-border: #2b261f;
+            --ink: #1a1612;
+            --accent: #8b1e1e;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: radial-gradient(circle at center, #230c33 0%, var(--bg-dark) 100%);
+            background-color: #0e0a07;
+            background-image: radial-gradient(#2b2015 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--ink);
+            font-family: 'Playfair Display', serif;
+            padding: 15px 10px;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: #fff;
-            overflow: hidden;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            color: var(--gold);
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            font-size: 13px;
-            color: #c084fc;
-        }
-
-        .bottle-stage {
-            width: 240px;
-            height: 240px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px dashed rgba(236, 72, 153, 0.3);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .newspaper {
+            background-color: var(--paper-bg);
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 3px);
+            width: 100%;
+            max-width: 480px;
+            padding: 20px 18px;
+            border: 1px solid #d4c8ad;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 80px rgba(139,115,85,0.25);
             position: relative;
-            margin-bottom: 25px;
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
         }
 
-        .bottle {
-            font-size: 80px;
-            cursor: pointer;
-            transition: transform 3s cubic-bezier(0.15, 0.85, 0.35, 1.2);
-            user-select: none;
+        /* HEADER SECTION */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--ink);
+            padding-bottom: 5px;
+            font-family: 'Special Elite', cursive;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .spin-btn {
-            background: linear-gradient(135deg, var(--pink-accent), var(--purple-accent));
-            color: #fff;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 800;
+        .newspaper-title {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 900;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            margin: 10px 0 5px 0;
+            line-height: 0.95;
+            border-bottom: 4px double var(--ink);
+            padding-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .sub-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--ink);
+            padding: 4px 0;
+            font-family: 'Special Elite', cursive;
+            font-size: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* BREAKING NEWS HEADLINE */
+        .breaking-banner {
+            background: var(--ink);
+            color: var(--paper-bg);
+            text-align: center;
+            font-family: 'Special Elite', cursive;
+            font-size: 11px;
+            padding: 4px 8px;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .main-headline {
+            font-size: 24px;
+            font-weight: 900;
+            text-align: center;
+            line-height: 1.15;
+            margin-bottom: 12px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        /* LEAD ARTICLE */
+        .lead-article {
+            border: 2px solid var(--ink);
+            padding: 14px 12px;
+            background: rgba(0,0,0,0.02);
+            margin-bottom: 18px;
+            position: relative;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+            transition: transform 0.15s ease;
+        }
+
+        .lead-article:active {
+            transform: scale(0.99);
+        }
+
+        .lead-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--ink);
+            padding-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lead-text {
+            font-size: 13.5px;
+            line-height: 1.55;
+            text-align: justify;
+            font-weight: 400;
+        }
+
+        .tap-hint {
+            font-family: 'Special Elite', cursive;
+            font-size: 9px;
+            color: var(--accent);
+            text-align: right;
+            margin-top: 6px;
+            font-weight: bold;
+        }
+
+        /* GRID SECTIONS */
+        .grid-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .news-box {
+            border: 1px solid var(--ink);
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .news-box:active {
+            background: rgba(139, 30, 30, 0.08);
+        }
+
+        .box-category {
+            font-family: 'Special Elite', cursive;
+            font-size: 10px;
+            background: var(--ink);
+            color: var(--paper-bg);
+            display: inline-block;
+            padding: 2px 5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .box-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            line-height: 1.25;
+        }
+
+        .box-snippet {
+            font-size: 11.5px;
+            line-height: 1.4;
+            opacity: 0.85;
+        }
+
+        /* FULL WIDTH BOTTOM CLASSIFIED */
+        .classified-section {
+            border-top: 3px double var(--ink);
+            padding-top: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .classified-title {
+            font-family: 'Special Elite', cursive;
+            font-size: 12px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .classified-body {
+            border: 1px dashed var(--ink);
+            padding: 10px;
+            text-align: center;
+            font-style: italic;
+            font-size: 13px;
+            line-height: 1.4;
+            background: rgba(0,0,0,0.01);
         }
 
         /* MODAL POPUP */
-        .modal {
+        .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(13, 6, 20, 0.95);
-            backdrop-filter: blur(15px);
-            z-index: 100;
+            background: rgba(10, 7, 5, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
 
         .modal-card {
-            background: linear-gradient(145deg, #2a0e38, #13061c);
-            border: 2px solid var(--pink-accent);
-            border-radius: 28px;
-            max-width: 360px;
+            background: var(--paper-bg);
+            border: 3px double var(--ink);
+            max-width: 380px;
             width: 100%;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            animation: popIn 0.3s ease-out;
+            padding: 22px 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+            position: relative;
+            animation: modalPop 0.3s ease-out;
         }
 
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
+        @keyframes modalPop {
+            0% { transform: scale(0.85); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .choice-btns {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 15px;
+        .modal-tag {
+            font-family: 'Special Elite', cursive;
+            font-size: 11px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
-        .btn-choice {
-            flex: 1;
-            padding: 12px;
-            border-radius: 15px;
-            border: none;
-            font-size: 15px;
+        .modal-headline {
+            font-size: 18px;
             font-weight: 800;
-            cursor: pointer;
+            color: var(--ink);
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--ink);
+            padding-bottom: 6px;
         }
 
-        .btn-truth { background: rgba(59, 130, 246, 0.2); border: 2px solid #3b82f6; color: #60a5fa; }
-        .btn-dare { background: rgba(236, 72, 153, 0.2); border: 2px solid var(--pink-accent); color: #f472b6; }
-
-        .task-title { font-size: 18px; color: var(--gold); margin-bottom: 10px; font-weight: 800; }
-        .task-desc { font-size: 15px; color: #f3e8ff; line-height: 1.4; margin-bottom: 18px; font-weight: 600; }
-
-        .answer-box {
-            width: 100%;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(236, 72, 153, 0.3);
-            border-radius: 15px;
-            padding: 10px;
-            color: #fff;
-            font-size: 14px;
-            margin-bottom: 15px;
-            resize: none;
-            outline: none;
+        .modal-body {
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #2b2219;
+            margin-bottom: 18px;
+            white-space: pre-line;
         }
 
-        .btn-insta {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: #fff;
+        .modal-close-btn {
+            background: var(--ink);
+            color: var(--paper-bg);
+            font-family: 'Special Elite', cursive;
             border: none;
-            padding: 12px 20px;
-            border-radius: 18px;
-            font-size: 14px;
-            font-weight: 800;
+            padding: 8px 18px;
+            font-size: 12px;
             cursor: pointer;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Couple Truth or Dare 🎲❤️</h1>
-        <p>Spin the bottle & share your reply, Jaanu!</p>
+    <div class="newspaper">
+        <!-- HEADER -->
+        <div class="header-top">
+            <span>VOL. XXIII NO. 1</span>
+            <span>SPECIAL QUEEN EDITION</span>
+        </div>
+
+        <h1 class="newspaper-title">THE ROMANTIC DAILY</h1>
+
+        <div class="sub-header">
+            <span>CITY EDITION</span>
+            <span id="current-date">JULY 27, 2026</span>
+            <span>PRICE: ONE SWEET SMILE</span>
+        </div>
+
+        <!-- BREAKING BANNER -->
+        <div class="breaking-banner">✦ EXCLUSIVE FRONT PAGE REPORT ✦</div>
+
+        <h2 class="main-headline">BREAKING NEWS: World's Most Beautiful Queen Smiling Today! 👑💋</h2>
+
+        <!-- LEAD FRONT PAGE ARTICLE -->
+        <div class="lead-article" onclick="openArticle('lead')">
+            <div class="lead-title">
+                <span>FRONT PAGE LEAD</span>
+                <span>📌 READ MORE</span>
+            </div>
+            <p class="lead-text">
+                "Meri Jaan, Meri Zindagi apka Lali apko aj bhut miss kar rha haii aj kiya roz karta hai ab nhi rha jata terey bagair...
+            </p>
+            <div class="tap-hint">[ Tap to read full royal message ]</div>
+        </div>
+
+        <!-- GRID ARTICLES -->
+        <div class="grid-columns">
+            <div class="news-box" onclick="openArticle('weather')">
+                <span class="box-category">WEATHER REPORT</span>
+                <div class="box-title">100% Love & Warmth ☀️💋</div>
+                <div class="box-snippet">Aj der sari Puppy aur neck par pyaar dene ka mausam hai...</div>
+            </div>
+
+            <div class="news-box" onclick="openArticle('horoscope')">
+                <span class="box-category">HOROSCOPE</span>
+                <div class="box-title">Stars Align For Anu ⭐✨</div>
+                <div class="box-snippet">Unlimited kisses & royal treatment guaranteed by destiny...</div>
+            </div>
+        </div>
+
+        <!-- CLASSIFIED / LOCAL GOSSIP -->
+        <div class="classified-section" onclick="openArticle('classified')">
+            <div class="classified-title">✦ LOCAL GOSSIP & CLASSIFIEDS ✦</div>
+            <div class="classified-body">
+                "Mein apki bahaooo mein sona chata huun der sari bateen karna chata huun Begum Sahiba..." 💖🛋️
+            </div>
+        </div>
     </div>
 
-    <div class="bottle-stage">
-        <div class="bottle" id="bottle">🍾</div>
-    </div>
-
-    <button class="spin-btn" onclick="spinBottle()">SPIN BOTTLE 🔄</button>
-
-    <!-- MODAL -->
-    <div class="modal" id="modal">
-        <div class="modal-card" id="modal-content">
-            <!-- Dynamic Content -->
+    <!-- MODAL POPUP -->
+    <div class="modal-overlay" id="articleModal">
+        <div class="modal-card">
+            <div class="modal-tag" id="modalTag">CATEGORY</div>
+            <h3 class="modal-headline" id="modalHeadline">Headline</h3>
+            <div class="modal-body" id="modalBody">Body Text</div>
+            <button class="modal-close-btn" onclick="closeArticle()">FOLD NEWSPAPER 🗞️</button>
         </div>
     </div>
 
     <script>
-        const INSTAGRAM_USERNAME = "rabi__dadani57";
+        // Set dynamic today's date format
+        const today = new Date();
+        const options = { year: 'numeric', month: 'LONG', day: 'numeric' };
+        document.getElementById('current-date').innerText = today.toLocaleDateString('en-US', options).toUpperCase();
 
-        let currentRotation = 0;
-        let isSpinning = false;
-        let currentTaskText = "";
-        let currentType = "";
-
-        const truths = [
-            "Mera konsa esa cute aadat hai jo tumhein bhut pasand hai? ❤️",
-            "Tumhare Phone mein meri koi favorite Picture hai? 📱✨",
-            "Batao, mujhse kitni mohabbat karti hoo? 💖"
-        ];
-
-        const dares = [
-            "Raat ko jaldi sogi... max 3 baje tak bas! ⏰😴",
-            "Jo Picture delete ki hai wo dubara bhejogi aur sath mein 2 aur new pictures dogi! 📸💋",
-            "Sunday tak naraz nahi ho sakti ho mujhse! Promise karo 🤞💕"
-        ];
-
-        function spinBottle() {
-            if (isSpinning) return;
-            isSpinning = true;
-
-            const randomDegrees = Math.floor(Math.random() * 360) + 1440; 
-            currentRotation += randomDegrees;
-
-            const bottle = document.getElementById('bottle');
-            bottle.style.transform = `rotate(${currentRotation}deg)`;
-
-            setTimeout(() => {
-                isSpinning = false;
-                showChoiceModal();
-            }, 3000);
-        }
-
-        function showChoiceModal() {
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = `
-                <h2 style="color: var(--gold); margin-bottom: 12px;">Bottle Stopped! 🎉</h2>
-                <p style="color: #e9d5ff; font-size: 14px; margin-bottom: 18px;">Kya choose karna chahogi, Meri Jaan?</p>
-                <div class="choice-btns">
-                    <button class="btn-choice btn-truth" onclick="showTask('Truth')">TRUTH 💭</button>
-                    <button class="btn-choice btn-dare" onclick="showTask('Dare')">DARE 🔥</button>
-                </div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function showTask(type) {
-            currentType = type;
-            const list = type === 'Truth' ? truths : dares;
-            currentTaskText = list[Math.floor(Math.random() * list.length)];
-
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = `
-                <div class="task-title">${type === 'Truth' ? '💭 TRUTH' : '🔥 DARE'}</div>
-                <div class="task-desc">${currentTaskText}</div>
-                <textarea class="answer-box" id="userAnswer" placeholder="Apna answer ya reply yahan likho..."></textarea>
-                <button class="btn-insta" onclick="sendToInstagram()">Send Answer on Insta DM 📸</button>
-            `;
-        }
-
-        function sendToInstagram() {
-            const ans = document.getElementById('userAnswer').value.trim();
-            if(!ans) {
-                alert("Pehle reply toh likho Meri Jaan! 😉");
-                return;
+        const articles = {
+            lead: {
+                tag: "ROYAL FRONT PAGE LEAD 📜",
+                headline: "Dil Ki Awaaz: Jaldi Se Shadi Karlo! 💍",
+                body: "Meri Jaan, Meri Zindagi apka Lali apko aj bhut miss kar rha haii aj kiya roz karta hai ab nhi rha jata terey bagair terey neck par love bite diye bagair terey pyarey se Til par puppy diye bagair tumharey lips stick kharab karey bagaiir... 💋✨\n\nTumse bhut sarey Hug karney ko dil chata hai, itna zor se karna chata huun key dharkan tumhari hoo yeh meri humee pata bhi na chalye, hum dono key dil is tarah jur jayee hum dono se! ❤️\n\nJaldi se Shadi karlooo mujse Guriya. 🥺💍💖"
+            },
+            weather: {
+                tag: "WEATHER & FORECAST 🌤️💋",
+                tagColor: "Weather Alert",
+                headline: "100% Chance Of Unlimited Romance Today!",
+                body: "Aaj mausam mein Mohabbat ki nami bohot zyada hai! ☔❤️\n\nForecast kehta hai ki: '100% Chance hai aj tum der sari Puppy dogii muje aur muje Neck par deney dogiii Janu!' 💋🔥\n\nIs mausam se bachne ka koi rasta nahi hai Begum Sahiba! 😉"
+            },
+            horoscope: {
+                tag: "ASTROLOGY & DESTINY ✨🔮",
+                headline: "Stars Align Exclusively For Queen Anu!",
+                body: "Aaj ke sitare keh rahe hain ki Anu ki zindagi mein sirf aur sirf pyaaro ki baarish hone wali hai! ⭐✨\n\n'Stars align for Anu: Unlimited kisses & royal treatment guaranteed for the entire lifetime!' 👑💋"
+            },
+            classified: {
+                tag: "CLASSIFIED SECRET NOTE 💌",
+                headline: "Begum Sahiba Ke Naam Khaas Paighaam",
+                body: "Gossip Columns se khabar aayi hai ki: 🗞️\n\n'Mein apki bahaooo mein sona chata huun, der sari bateen karna chata huun Begum Sahiba...' 🥰💤\n\nBas ab aur sabar nahi hota, jaldi se paas aa jao! ❤️"
             }
+        };
 
-            const fullText = `*Couple Game Reply* 🎲❤️\n${currentType}: ${currentTaskText}\nAnswer: ${ans}`;
-            
-            // Clipboard par save kar diya taaki DM mein paste kar sakein
-            navigator.clipboard.writeText(fullText);
+        function openArticle(key) {
+            const data = articles[key];
+            document.getElementById('modalTag').innerText = data.tag;
+            document.getElementById('modalHeadline').innerText = data.headline;
+            document.getElementById('modalBody').innerText = data.body;
+            document.getElementById('articleModal').style.display = 'flex';
+        }
 
-            alert("Answer copy ho gaya hai! Direct Insta DM mein paste kar do 💖");
-            
-            // Open direct Instagram profile/chat page
-            window.open(`https://instagram.com/${INSTAGRAM_USERNAME}`, '_blank');
-            document.getElementById('modal').style.display = 'none';
+        function closeArticle() {
+            document.getElementById('articleModal').style.display = 'none';
         }
     </script>
 </body>
