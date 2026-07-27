@@ -3,396 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>THE ROMANTIC DAILY 🗞️👑</title>
+    <title>Find The Hidden Hearts 🔍❤️</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Special+Elite&display=swap');
-
         :root {
-            --paper-bg: #f2ebd9;
-            --paper-border: #2b261f;
-            --ink: #1a1612;
-            --accent: #8b1e1e;
+            --bg-dark: #120c1f;
+            --accent-pink: #ff4d6d;
+            --gold: #ffb703;
+            --card-bg: #221533;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
             -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #0e0a07;
-            background-image: radial-gradient(#2b2015 1px, transparent 1px);
-            background-size: 20px 20px;
-            color: var(--ink);
-            font-family: 'Playfair Display', serif;
-            padding: 15px 10px;
+            background-color: var(--bg-dark);
+            color: #fff;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-        }
-
-        .newspaper {
-            background-color: var(--paper-bg);
-            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 3px, rgba(0,0,0,0.02) 3px);
-            width: 100%;
-            max-width: 480px;
-            padding: 20px 18px;
-            border: 1px solid #d4c8ad;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 80px rgba(139,115,85,0.25);
-            position: relative;
-        }
-
-        /* HEADER SECTION */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            border-bottom: 2px solid var(--ink);
-            padding-bottom: 5px;
-            font-family: 'Special Elite', cursive;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            justify-content: flex-start;
+            padding: 15px 10px;
+            overflow-x: hidden;
         }
 
-        .newspaper-title {
+        /* HEADER & SCORE TRACKER */
+        .header {
             text-align: center;
-            font-size: 34px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 10px 0 5px 0;
-            line-height: 0.95;
-            border-bottom: 4px double var(--ink);
-            padding-bottom: 8px;
-            color: var(--ink);
-        }
-
-        .sub-header {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--ink);
-            padding: 4px 0;
-            font-family: 'Special Elite', cursive;
-            font-size: 10px;
-            margin-bottom: 15px;
-        }
-
-        /* BREAKING NEWS HEADLINE */
-        .breaking-banner {
-            background: var(--ink);
-            color: var(--paper-bg);
-            text-align: center;
-            font-family: 'Special Elite', cursive;
-            font-size: 11px;
-            padding: 4px 8px;
-            letter-spacing: 1.5px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .main-headline {
-            font-size: 24px;
-            font-weight: 900;
-            text-align: center;
-            line-height: 1.15;
             margin-bottom: 12px;
-            color: var(--accent);
-            text-transform: uppercase;
+            width: 100%;
+            max-width: 420px;
         }
 
-        /* LEAD ARTICLE */
-        .lead-article {
-            border: 2px solid var(--ink);
-            padding: 14px 12px;
-            background: rgba(0,0,0,0.02);
-            margin-bottom: 18px;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.15s ease;
+        .header h1 {
+            font-size: 20px;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
-        .lead-article:active {
-            transform: scale(0.99);
+        .header p {
+            font-size: 13px;
+            color: #cbd5e1;
         }
 
-        .lead-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--ink);
-            padding-bottom: 4px;
+        .tracker-bar {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            border-radius: 20px;
+            padding: 8px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .lead-text {
-            font-size: 13.5px;
-            line-height: 1.55;
-            text-align: justify;
-            font-weight: 400;
-        }
-
-        .tap-hint {
-            font-family: 'Special Elite', cursive;
-            font-size: 9px;
-            color: var(--accent);
-            text-align: right;
-            margin-top: 6px;
-            font-weight: bold;
-        }
-
-        /* GRID SECTIONS */
-        .grid-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .news-box {
-            border: 1px solid var(--ink);
-            padding: 10px;
-            background: rgba(255,255,255,0.2);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .news-box:active {
-            background: rgba(139, 30, 30, 0.08);
-        }
-
-        .box-category {
-            font-family: 'Special Elite', cursive;
-            font-size: 10px;
-            background: var(--ink);
-            color: var(--paper-bg);
-            display: inline-block;
-            padding: 2px 5px;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .box-title {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            line-height: 1.25;
-        }
-
-        .box-snippet {
-            font-size: 11.5px;
-            line-height: 1.4;
-            opacity: 0.85;
-        }
-
-        /* FULL WIDTH BOTTOM CLASSIFIED */
-        .classified-section {
-            border-top: 3px double var(--ink);
-            padding-top: 10px;
             margin-top: 10px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .heart-count {
+            color: var(--accent-pink);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* SCENE CANVAS / ILLUSTRATION ROOM */
+        .scene-card {
+            width: 100%;
+            max-width: 420px;
+            height: 480px;
+            background: linear-gradient(180deg, #1d1233 0%, #2a1b4e 100%);
+            border: 3px solid rgba(255, 183, 3, 0.4);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        /* ROOM SVG ELEMENTS & STYLING */
+        .room-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* HIDDEN HEARTS INTERACTIVE */
+        .hidden-heart {
             cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            opacity: 0.7;
         }
 
-        .classified-title {
-            font-family: 'Special Elite', cursive;
-            font-size: 12px;
-            text-align: center;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
+        .hidden-heart:hover, .hidden-heart:active {
+            transform: scale(1.3);
+            opacity: 1;
         }
 
-        .classified-body {
-            border: 1px dashed var(--ink);
-            padding: 10px;
-            text-align: center;
-            font-style: italic;
-            font-size: 13px;
-            line-height: 1.4;
-            background: rgba(0,0,0,0.01);
+        .hidden-heart.found {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* MODAL POPUP */
-        .modal-overlay {
+        /* SPARKLING ANIMATION FOR UNFOUND HEARTS */
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 2px rgba(255, 77, 109, 0.4)); }
+            50% { filter: drop-shadow(0 0 7px rgba(255, 77, 109, 0.9)); }
+            100% { filter: drop-shadow(0 0 2px rgba(255, 77, 109, 0.4)); }
+        }
+
+        .sparkle {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        /* MODAL POPUPS FOR NOTES & FINAL MESSAGE */
+        .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 7, 5, 0.85);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
+            background: rgba(10, 6, 18, 0.88);
+            backdrop-filter: blur(8px);
+            z-index: 100;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
 
         .modal-card {
-            background: var(--paper-bg);
-            border: 3px double var(--ink);
+            background: var(--card-bg);
+            border: 2px solid var(--accent-pink);
+            border-radius: 24px;
             max-width: 380px;
             width: 100%;
-            padding: 22px 18px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.9);
-            position: relative;
-            animation: modalPop 0.3s ease-out;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.25);
+            animation: modalPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
         @keyframes modalPop {
-            0% { transform: scale(0.85); opacity: 0; }
+            0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .modal-tag {
-            font-family: 'Special Elite', cursive;
-            font-size: 11px;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-
-        .modal-headline {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--ink);
+        .modal-card h2 {
+            color: var(--gold);
+            font-size: 20px;
             margin-bottom: 12px;
-            border-bottom: 1px solid var(--ink);
-            padding-bottom: 6px;
         }
 
-        .modal-body {
+        .modal-card p {
             font-size: 14.5px;
             line-height: 1.6;
-            color: #2b2219;
-            margin-bottom: 18px;
+            color: #f1f5f9;
+            margin-bottom: 20px;
             white-space: pre-line;
+            text-align: left;
         }
 
-        .modal-close-btn {
-            background: var(--ink);
-            color: var(--paper-bg);
-            font-family: 'Special Elite', cursive;
+        .btn-close {
+            background: linear-gradient(135deg, var(--accent-pink), #c026d3);
+            color: #fff;
             border: none;
-            padding: 8px 18px;
-            font-size: 12px;
+            padding: 12px 28px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
             width: 100%;
-            letter-spacing: 1px;
+        }
+
+        /* FLOATING TOAST NOTIFICATION */
+        .toast {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 77, 109, 0.95);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
 
-    <div class="newspaper">
-        <!-- HEADER -->
-        <div class="header-top">
-            <span>VOL. XXIII NO. 1</span>
-            <span>SPECIAL QUEEN EDITION</span>
-        </div>
+    <div class="header">
+        <h1>Find The Hidden Hearts 🔍❤️</h1>
+        <p>Room mein chhupe hue 10 glowing hearts dhoondiye!</p>
 
-        <h1 class="newspaper-title">THE ROMANTIC DAILY</h1>
-
-        <div class="sub-header">
-            <span>CITY EDITION</span>
-            <span id="current-date">JULY 27, 2026</span>
-            <span>PRICE: ONE SWEET SMILE</span>
-        </div>
-
-        <!-- BREAKING BANNER -->
-        <div class="breaking-banner">✦ EXCLUSIVE FRONT PAGE REPORT ✦</div>
-
-        <h2 class="main-headline">BREAKING NEWS: World's Most Beautiful Queen Smiling Today! 👑💋</h2>
-
-        <!-- LEAD FRONT PAGE ARTICLE -->
-        <div class="lead-article" onclick="openArticle('lead')">
-            <div class="lead-title">
-                <span>FRONT PAGE LEAD</span>
-                <span>📌 READ MORE</span>
-            </div>
-            <p class="lead-text">
-                "Meri Jaan, Meri Zindagi apka Lali apko aj bhut miss kar rha haii aj kiya roz karta hai ab nhi rha jata terey bagair...
-            </p>
-            <div class="tap-hint">[ Tap to read full royal message ]</div>
-        </div>
-
-        <!-- GRID ARTICLES -->
-        <div class="grid-columns">
-            <div class="news-box" onclick="openArticle('weather')">
-                <span class="box-category">WEATHER REPORT</span>
-                <div class="box-title">100% Love & Warmth ☀️💋</div>
-                <div class="box-snippet">Aj der sari Puppy aur neck par pyaar dene ka mausam hai...</div>
-            </div>
-
-            <div class="news-box" onclick="openArticle('horoscope')">
-                <span class="box-category">HOROSCOPE</span>
-                <div class="box-title">Stars Align For Anu ⭐✨</div>
-                <div class="box-snippet">Unlimited kisses & royal treatment guaranteed by destiny...</div>
-            </div>
-        </div>
-
-        <!-- CLASSIFIED / LOCAL GOSSIP -->
-        <div class="classified-section" onclick="openArticle('classified')">
-            <div class="classified-title">✦ LOCAL GOSSIP & CLASSIFIEDS ✦</div>
-            <div class="classified-body">
-                "Mein apki bahaooo mein sona chata huun der sari bateen karna chata huun Begum Sahiba..." 💖🛋️
+        <div class="tracker-bar">
+            <span>Progress:</span>
+            <div class="heart-count">
+                <span id="foundCount">0</span> / 10 Hearts Found ✨
             </div>
         </div>
     </div>
 
-    <!-- MODAL POPUP -->
-    <div class="modal-overlay" id="articleModal">
+    <!-- COZY ROOM GRAPHICS CANVAS -->
+    <div class="scene-card">
+        <div class="toast" id="toast">Heart Found! ❤️</div>
+
+        <svg class="room-svg" viewBox="0 0 400 480" xmlns="http://www.w3.org/2000/svg">
+            <!-- BACKGROUND & WALL -->
+            <rect x="0" y="0" width="400" height="340" fill="#23173d"/>
+            <rect x="0" y="340" width="400" height="140" fill="#170e28"/> <!-- Floor -->
+            <line x1="0" y1="340" x2="400" y2="340" stroke="#ffb703" stroke-width="2" opacity="0.3"/>
+
+            <!-- NIGHT WINDOW WITH STARS -->
+            <rect x="30" y="30" width="100" height="130" rx="10" fill="#0d081a" stroke="#ffb703" stroke-width="3"/>
+            <circle cx="60" cy="60" r="1.5" fill="#fff"/>
+            <circle cx="100" cy="80" r="1.5" fill="#fff"/>
+            <circle cx="80" cy="110" r="2" fill="#ffb703"/>
+            <!-- Moon -->
+            <circle cx="105" cy="55" r="12" fill="#ffb703" opacity="0.85"/>
+
+            <!-- HEART #1: Inside Window (Starry Sky) -->
+            <path id="heart-1" class="hidden-heart sparkle" onclick="findHeart(1)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(60, 100) scale(1.3)" fill="#ff4d6d"/>
+
+            <!-- WALL CLOCK -->
+            <circle cx="210" cy="70" r="22" fill="#2d1c4d" stroke="#ffb703" stroke-width="2"/>
+            <line x1="210" y1="70" x2="210" y2="58" stroke="#fff" stroke-width="2"/>
+            <line x1="210" y1="70" x2="220" y2="70" stroke="#fff" stroke-width="2"/>
+            <!-- HEART #2: On Clock Pendulum -->
+            <path id="heart-2" class="hidden-heart sparkle" onclick="findHeart(2)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(210, 100) scale(1.2)" fill="#ff4d6d"/>
+
+            <!-- PHOTO FRAME ON WALL -->
+            <rect x="270" y="40" width="90" height="70" rx="5" fill="#36225a" stroke="#ff4d6d" stroke-width="2"/>
+            <text x="315" y="80" font-size="22" text-anchor="middle">👑💖</text>
+            <!-- HEART #3: In Photo Frame Corner -->
+            <path id="heart-3" class="hidden-heart sparkle" onclick="findHeart(3)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(345, 52) scale(1.2)" fill="#ff4d6d"/>
+
+            <!-- BOOKSHELF -->
+            <rect x="260" y="150" width="120" height="12" fill="#52327c"/>
+            <!-- Books -->
+            <rect x="270" y="120" width="14" height="30" fill="#ff4d6d"/>
+            <rect x="286" y="115" width="12" height="35" fill="#ffb703"/>
+            <rect x="300" y="125" width="16" height="25" fill="#a855f7"/>
+            <!-- HEART #4: Between Books -->
+            <path id="heart-4" class="hidden-heart sparkle" onclick="findHeart(4)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(325, 138) scale(1.3)" fill="#ff4d6d"/>
+
+            <!-- COZY SOFA / BED -->
+            <rect x="30" y="270" width="220" height="90" rx="15" fill="#3b2366"/>
+            <rect x="20" y="260" width="30" height="100" rx="10" fill="#2d1a50"/> <!-- Left Armrest -->
+            <rect x="230" y="260" width="30" height="100" rx="10" fill="#2d1a50"/> <!-- Right Armrest -->
+            <!-- Pillows -->
+            <rect x="50" y="280" width="55" height="40" rx="8" fill="#ff4d6d" opacity="0.8"/>
+            <rect x="165" y="280" width="55" height="40" rx="8" fill="#ffb703" opacity="0.8"/>
+            <!-- HEART #5: On Pink Pillow -->
+            <path id="heart-5" class="hidden-heart sparkle" onclick="findHeart(5)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(77, 300) scale(1.3)" fill="#ff4d6d"/>
+
+            <!-- SMALL TABLE NEAR SOFA -->
+            <ellipse cx="320" cy="330" rx="45" ry="12" fill="#1f1338"/>
+            <rect x="315" y="330" width="10" height="60" fill="#3b2366"/>
+            <!-- COFFEE MUG ON TABLE -->
+            <rect x="305" y="310" width="20" height="22" rx="3" fill="#ffb703"/>
+            <!-- HEART #6: In Coffee Steam -->
+            <path id="heart-6" class="hidden-heart sparkle" onclick="findHeart(6)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(315, 295) scale(1.2)" fill="#ff4d6d"/>
+
+            <!-- HOUSE PLANT ON FLOOR -->
+            <path d="M 50,420 L 70,420 L 65,450 L 55,450 Z" fill="#ffb703"/> <!-- Pot -->
+            <circle cx="50" cy="405" r="14" fill="#22c55e"/>
+            <circle cx="70" cy="400" r="16" fill="#15803d"/>
+            <circle cx="60" cy="385" r="15" fill="#16a34a"/>
+            <!-- HEART #7: Inside Plant Leaves -->
+            <path id="heart-7" class="hidden-heart sparkle" onclick="findHeart(7)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(60, 395) scale(1.3)" fill="#ff4d6d"/>
+
+            <!-- CARPET ON FLOOR -->
+            <ellipse cx="200" cy="410" rx="100" ry="25" fill="#2e1a52" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="4"/>
+            <!-- HEART #8: Center of Carpet Pattern -->
+            <path id="heart-8" class="hidden-heart sparkle" onclick="findHeart(8)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(200, 410) scale(1.3)" fill="#ff4d6d"/>
+
+            <!-- NIGHT STAND LAMP -->
+            <path d="M 350,220 L 375,220 L 380,245 L 345,245 Z" fill="#ff4d6d" opacity="0.9"/>
+            <rect x="360" y="245" width="5" height="25" fill="#ffb703"/>
+            <!-- HEART #9: Inside Lamp Shade Glow -->
+            <path id="heart-9" class="hidden-heart sparkle" onclick="findHeart(9)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(362, 232) scale(1.2)" fill="#ff4d6d"/>
+
+            <!-- HEART #10: Under Pillow / Sofa Edge -->
+            <path id="heart-10" class="hidden-heart sparkle" onclick="findHeart(10)" d="M 0,-4 C -2,-8 -7,-5 -5,-1 C -3,3 0,6 0,6 C 0,6 3,3 5,-1 C 7,-5 2,-8 0,-4 Z" transform="translate(192, 310) scale(1.2)" fill="#ff4d6d"/>
+        </svg>
+    </div>
+
+    <!-- MODAL FOR SECRET NOTES & FINAL GRAND MESSAGE -->
+    <div class="modal" id="noteModal">
         <div class="modal-card">
-            <div class="modal-tag" id="modalTag">CATEGORY</div>
-            <h3 class="modal-headline" id="modalHeadline">Headline</h3>
-            <div class="modal-body" id="modalBody">Body Text</div>
-            <button class="modal-close-btn" onclick="closeArticle()">FOLD NEWSPAPER 🗞️</button>
+            <h2 id="modalTitle">HEART FOUND! ❤️</h2>
+            <p id="modalBody">Secret note text goes here...</p>
+            <button class="btn-close" id="modalBtn" onclick="closeModal()">CONTINUE SEARCH 🔍</button>
         </div>
     </div>
 
     <script>
-        // Set dynamic today's date format
-        const today = new Date();
-        const options = { year: 'numeric', month: 'LONG', day: 'numeric' };
-        document.getElementById('current-date').innerText = today.toLocaleDateString('en-US', options).toUpperCase();
+        let foundCount = 0;
+        const totalHearts = 10;
+        let foundSet = new Set();
 
-        const articles = {
-            lead: {
-                tag: "ROYAL FRONT PAGE LEAD 📜",
-                headline: "Dil Ki Awaaz: Jaldi Se Shadi Karlo! 💍",
-                body: "Meri Jaan, Meri Zindagi apka Lali apko aj bhut miss kar rha haii aj kiya roz karta hai ab nhi rha jata terey bagair terey neck par love bite diye bagair terey pyarey se Til par puppy diye bagair tumharey lips stick kharab karey bagaiir... 💋✨\n\nTumse bhut sarey Hug karney ko dil chata hai, itna zor se karna chata huun key dharkan tumhari hoo yeh meri humee pata bhi na chalye, hum dono key dil is tarah jur jayee hum dono se! ❤️\n\nJaldi se Shadi karlooo mujse Guriya. 🥺💍💖"
-            },
-            weather: {
-                tag: "WEATHER & FORECAST 🌤️💋",
-                tagColor: "Weather Alert",
-                headline: "100% Chance Of Unlimited Romance Today!",
-                body: "Aaj mausam mein Mohabbat ki nami bohot zyada hai! ☔❤️\n\nForecast kehta hai ki: '100% Chance hai aj tum der sari Puppy dogii muje aur muje Neck par deney dogiii Janu!' 💋🔥\n\nIs mausam se bachne ka koi rasta nahi hai Begum Sahiba! 😉"
-            },
-            horoscope: {
-                tag: "ASTROLOGY & DESTINY ✨🔮",
-                headline: "Stars Align Exclusively For Queen Anu!",
-                body: "Aaj ke sitare keh rahe hain ki Anu ki zindagi mein sirf aur sirf pyaaro ki baarish hone wali hai! ⭐✨\n\n'Stars align for Anu: Unlimited kisses & royal treatment guaranteed for the entire lifetime!' 👑💋"
-            },
-            classified: {
-                tag: "CLASSIFIED SECRET NOTE 💌",
-                headline: "Begum Sahiba Ke Naam Khaas Paighaam",
-                body: "Gossip Columns se khabar aayi hai ki: 🗞️\n\n'Mein apki bahaooo mein sona chata huun, der sari bateen karna chata huun Begum Sahiba...' 🥰💤\n\nBas ab aur sabar nahi hota, jaldi se paas aa jao! ❤️"
-            }
+        const heartMessages = {
+            1: "Starry Window Heart ⭐: 'Aapki muskaan is chaand aur sitaron se bhi zyada roshan hai Begum Sahiba!'",
+            2: "Clock Pendulum Heart ⏰: 'Har ek second jo aapke bagair guzarta hai, bas aapki hi yaad dilata hai.'",
+            3: "Photo Frame Heart 📸: 'Meri nazar mein duniya ki sabse khoobsurat tasveer aapki muskaan hai.'",
+            4: "Bookshelf Heart 📚: 'Meri zindagi ki sabse pyari kahani aapke naam se shuru hoti hai.'",
+            5: "Pink Pillow Heart 🛋️: 'Aapki bahon mein jo sukoon hai, wo duniya ke kisi kone mein nahi.'",
+            6: "Coffee Steam Heart ☕: 'Jaise garam coffee mood banati hai, waise hi aapki ek jhalak meri poori zindagi!'",
+            7: "Garden Plant Heart 🪴: 'Mera pyaar aapke liye har din aur zyada gehra hota ja raha hai.'",
+            8: "Carpet Heart 💖: 'Aap jahan jahan kadam rakhte ho, wahan khushiyan khud ba khud aa jaati hain.'",
+            9: "Warm Lamp Heart 💡: 'Aap meri zindagi ki wo roshni ho jo har andhere ko khatam kar deti hai.'",
+            10: "Cozy Cushion Heart 🥰: 'Ek chota sa secret: Aap duniya ki sabse pyari aur cute Guriya ho!'"
         };
 
-        function openArticle(key) {
-            const data = articles[key];
-            document.getElementById('modalTag').innerText = data.tag;
-            document.getElementById('modalHeadline').innerText = data.headline;
-            document.getElementById('modalBody').innerText = data.body;
-            document.getElementById('articleModal').style.display = 'flex';
+        const finalGrandMessage = `🎉 SAARE 10 HEARTS MIL GAYE! 🎉
+👑 SPECIAL GRAND UNLOCK 👑
+
+Meri Jaan , Meri Zindagi apka Lali apko aj bhut miss kar rha haii aj kiya roz karta hai ab nhi rha jata terey bagair teri neck par love bite diye bagair terey pyarey se Til par puppy diye bagair tumharey lips stick kharab karey bagaiir... 💋✨
+
+Tum bhut sarey Hug karney ko dil chata hai itna zor se karna chata huun key dharkan tumhari hoo yeh meri humee pata bhi na chalye hum dono key dil is tarah jur jayee hum dono se! ❤️
+
+Jaldi se Shadi karlooo mujse Guriya. 🥺💍💖
+
+---
+🌤️ Weather Report: 100% Chance hai aj tum der sari Puppy dogii muje or muje Neck par deney dogiii Janu.
+⭐ Horoscope: Stars align for Anu: Unlimited kisses & royal treatment guaranteed!
+💌 Secret Note: Mein apki bahaooo mein sona chata huun der sari bateen karna chata huun Begum Sahiba... 🥰💤`;
+
+        function findHeart(id) {
+            if (foundSet.has(id)) return;
+
+            foundSet.add(id);
+            foundCount++;
+            document.getElementById("foundCount").innerText = foundCount;
+
+            // Hide Found Heart visually
+            document.getElementById(`heart-${id}`).classList.add("found");
+
+            // Toast feedback
+            showToast(`Heart #${foundCount} Unlocked! ❤️`);
+
+            // Show Note Modal
+            setTimeout(() => {
+                if (foundCount === totalHearts) {
+                    showModal("🏆 ALL HEARTS FOUND! GRAND MESSAGE 👑", finalGrandMessage, "FOREVER YOURS ❤️");
+                } else {
+                    showModal(`SECRET NOTE #${foundCount} 💌`, heartMessages[id], "KEEP LOOKING 🔍");
+                }
+            }, 300);
         }
 
-        function closeArticle() {
-            document.getElementById('articleModal').style.display = 'none';
+        function showToast(text) {
+            const toast = document.getElementById("toast");
+            toast.innerText = text;
+            toast.style.opacity = "1";
+            setTimeout(() => { toast.style.opacity = "0"; }, 1500);
+        }
+
+        function showModal(title, body, btnText) {
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalBody").innerText = body;
+            document.getElementById("modalBtn").innerText = btnText;
+            document.getElementById("noteModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("noteModal").style.display = "none";
         }
     </script>
 </body>
