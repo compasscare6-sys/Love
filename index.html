@@ -1,377 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Anu's Love Cafe 🍕❤️</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            -webkit-touch-callout: none;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrow Mind Challenge</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-        body {
-            background-color: #fca5a5;
-            overflow: hidden;
-            touch-action: none; /* Prevents pull-to-refresh on mobile */
-        }
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-        #gameCanvas {
-            display: block;
-            width: 100vw;
-            height: 100vh;
-            background: #fef2f2;
-        }
+    .card {
+      background: #1e293b;
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
 
-        /* UI Overlays */
-        .ui-top {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            pointer-events: none;
-        }
+    h1 {
+      font-size: 1.6rem;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
 
-        .score-board {
-            background: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 20px;
-            font-weight: 900;
-            color: #e11d48;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 2px solid #fecdd3;
-        }
+    .level-badge {
+      display: inline-block;
+      background: #0369a1;
+      color: #e0f2fe;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
 
-        .target-board {
-            background: #e11d48;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);
-        }
+    p.instructions {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 20px;
+    }
 
-        /* Virtual Joystick Area Hint */
-        .joystick-hint {
-            position: absolute;
-            bottom: 40px;
-            width: 100%;
-            text-align: center;
-            color: #9ca3af;
-            font-size: 14px;
-            font-weight: bold;
-            pointer-events: none;
-        }
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      gap: 10px;
+      margin: 0 auto 20px auto;
+      justify-content: center;
+    }
 
-        /* FINAL REVEAL MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    .cell {
+      aspect-ratio: 1;
+      background: #334155;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s ease, background-color 0.3s ease;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+    }
 
-        .modal-card {
-            background: linear-gradient(145deg, #fff, #ffe4e6);
-            border: 3px solid #e11d48;
-            border-radius: 24px;
-            max-width: 380px;
-            width: 100%;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(225, 29, 72, 0.5);
-            max-height: 85vh;
-            overflow-y: auto;
-            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    .cell:active {
+      transform: scale(0.92);
+    }
 
-        @keyframes pop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+    .cell.start {
+      border: 2px solid #38bdf8;
+    }
 
-        .modal-card h2 {
-            color: #e11d48;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
+    .cell.end {
+      border: 2px solid #f43f5e;
+      background: #4c0519;
+    }
 
-        .modal-card p {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 20px;
-            white-space: pre-line;
-            text-align: left;
-            font-weight: 500;
-        }
+    .cell.connected {
+      background: #0284c7;
+      box-shadow: 0 0 15px rgba(2, 132, 199, 0.6);
+    }
 
-        .btn-play {
-            background: linear-gradient(135deg, #e11d48, #be123c);
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(225, 29, 72, 0.4);
-        }
-    </style>
+    .arrow {
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Direction Rotations */
+    .dir-0 { transform: rotate(0deg); }     /* Up */
+    .dir-1 { transform: rotate(90deg); }    /* Right */
+    .dir-2 { transform: rotate(180deg); }   /* Down */
+    .dir-3 { transform: rotate(-90deg); }   /* Left */
+
+    /* Win Screen */
+    .win-screen {
+      display: none;
+      padding: 40px 20px;
+      animation: fadeIn 0.6s ease forward;
+    }
+
+    .win-emoji {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+    }
+
+    .win-message {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #38bdf8;
+      line-height: 1.4;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="ui-top">
-        <div class="score-board">❤️ <span id="scoreVal">0</span></div>
-        <div class="target-board">Serve 5 Pizzas! 🍕</div>
-    </div>
-    
-    <div class="joystick-hint">Drag anywhere on screen to move 🕹️</div>
+  <div class="card" id="game-card">
+    <div class="level-badge" id="level-badge">Level 1 of 3</div>
+    <h1>Arrow Mind Path</h1>
+    <p class="instructions">Arrows par tap kar ke rotate karein aur path ko START (⬆️) se END (🎯) tak connect karein!</p>
 
-    <canvas id="gameCanvas"></canvas>
+    <div class="grid" id="grid"></div>
+  </div>
 
-    <!-- GRAND FINAL MODAL -->
-    <div class="modal" id="finalModal">
-        <div class="modal-card">
-            <h2>🏆 CAFE CONQUERED! 💖</h2>
-            <p id="modalMsg"></p>
-            <button class="btn-play" onclick="location.reload()">PLAY AGAIN 🔄</button>
-        </div>
-    </div>
+  <div class="card win-screen" id="win-screen">
+    <div class="win-emoji">🎉</div>
+    <div class="win-message">Maza aya Janu yeh game khel kar</div>
+  </div>
 
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
+  <script>
+    // Game Levels Setup
+    const levels = [
+      {
+        size: 3,
+        // Grid 3x3
+        data: [
+          { dir: 1 }, { dir: 2 }, { dir: 1 },
+          { dir: 0 }, { dir: 1 }, { dir: 2 },
+          { dir: 3 }, { dir: 0 }, { isEnd: true }
+        ]
+      },
+      {
+        size: 4,
+        // Grid 4x4
+        data: [
+          { dir: 1 }, { dir: 2 }, { dir: 1 }, { dir: 2 },
+          { dir: 0 }, { dir: 1 }, { dir: 2 }, { dir: 3 },
+          { dir: 3 }, { dir: 0 }, { dir: 1 }, { dir: 2 },
+          { dir: 1 }, { dir: 0 }, { dir: 1 }, { isEnd: true }
+        ]
+      },
+      {
+        size: 5,
+        // Grid 5x5 - Mind Bender
+        data: [
+          { dir: 1 }, { dir: 2 }, { dir: 3 }, { dir: 1 }, { dir: 2 },
+          { dir: 0 }, { dir: 1 }, { dir: 2 }, { dir: 0 }, { dir: 2 },
+          { dir: 3 }, { dir: 0 }, { dir: 1 }, { dir: 2 }, { dir: 2 },
+          { dir: 1 }, { dir: 3 }, { dir: 0 }, { dir: 1 }, { dir: 2 },
+          { dir: 0 }, { dir: 1 }, { dir: 0 }, { dir: 1 }, { isEnd: true }
+        ]
+      }
+    ];
 
-        // Resize Canvas to fit screen
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+    let currentLevel = 0;
+    const gridEl = document.getElementById('grid');
+    const badgeEl = document.getElementById('level-badge');
+    const gameCard = document.getElementById('game-card');
+    const winScreen = document.getElementById('win-screen');
 
-        // Game State
-        let score = 0;
-        const targetScore = 5; 
-        let isGameWon = false;
+    function loadLevel(levelIndex) {
+      const level = levels[levelIndex];
+      badgeEl.innerText = `Level ${levelIndex + 1} of ${levels.length}`;
+      
+      // Dynamic Grid Columns based on size
+      gridEl.style.gridTemplateColumns = `repeat(${level.size}, 1fr)`;
+      gridEl.innerHTML = '';
 
-        // Joystick State
-        let touchStart = { x: 0, y: 0 };
-        let touchCurrent = { x: 0, y: 0 };
-        let isTouching = false;
-        let joyVector = { x: 0, y: 0 }; // Normalized -1 to 1
+      level.data.forEach((item, index) => {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
 
-        // Setup Touch / Mouse Controls for Joystick
-        window.addEventListener('touchstart', (e) => {
-            isTouching = true;
-            touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            touchCurrent = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-        });
-        window.addEventListener('touchmove', (e) => {
-            if (!isTouching) return;
-            touchCurrent = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            calculateJoystick();
-        });
-        window.addEventListener('touchend', () => {
-            isTouching = false;
-            joyVector = { x: 0, y: 0 };
-        });
-
-        // For PC testing (Mouse)
-        window.addEventListener('mousedown', (e) => {
-            isTouching = true;
-            touchStart = { x: e.clientX, y: e.clientY };
-            touchCurrent = { x: e.clientX, y: e.clientY };
-        });
-        window.addEventListener('mousemove', (e) => {
-            if (!isTouching) return;
-            touchCurrent = { x: e.clientX, y: e.clientY };
-            calculateJoystick();
-        });
-        window.addEventListener('mouseup', () => {
-            isTouching = false;
-            joyVector = { x: 0, y: 0 };
-        });
-
-        function calculateJoystick() {
-            let dx = touchCurrent.x - touchStart.x;
-            let dy = touchCurrent.y - touchStart.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-            let maxRadius = 50; 
-            
-            if (distance > 0) {
-                joyVector.x = dx / distance;
-                joyVector.y = dy / distance;
-            }
-        }
-
-        // --- GAME ENTITIES ---
-
-        // Player (Anu)
-        let player = {
-            x: canvas.width / 2,
-            y: canvas.height / 2 + 100,
-            radius: 20,
-            speed: 4,
-            hasPizza: false
-        };
-
-        // Stations
-        const oven = { x: canvas.width / 2, y: 120, width: 100, height: 80, emoji: "🔥" };
-        const table = { x: canvas.width / 2, y: canvas.height / 2 - 20, width: 120, height: 80, emoji: "🍽️" };
+        if (index === 0) cell.classList.add('start');
         
-        let customerActive = true;
-        let moneyDrops = [];
-
-        function drawRectWithText(rect, bgCol, text, label) {
-            ctx.fillStyle = bgCol;
-            ctx.beginPath();
-            ctx.roundRect(rect.x - rect.width/2, rect.y - rect.height/2, rect.width, rect.height, 10);
-            ctx.fill();
-            
-            ctx.font = "30px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(text, rect.x, rect.y - 10);
-            
-            ctx.font = "14px Arial";
-            ctx.fillStyle = "#fff";
-            ctx.fillText(label, rect.x, rect.y + 25);
+        if (item.isEnd) {
+          cell.classList.add('end');
+          cell.innerHTML = '🎯';
+        } else {
+          cell.innerHTML = `<span class="arrow dir-${item.dir}">⬆️</span>`;
+          cell.addEventListener('click', () => rotateArrow(index));
         }
 
-        function gameLoop() {
-            if (isGameWon) return;
+        gridEl.appendChild(cell);
+      });
 
-            // Clear Screen
-            ctx.fillStyle = "#fecaca"; // Light red floor
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+      checkPath();
+    }
 
-            // 1. Update Player Position based on Joystick
-            if (isTouching) {
-                player.x += joyVector.x * player.speed;
-                player.y += joyVector.y * player.speed;
+    function rotateArrow(index) {
+      const levelData = levels[currentLevel].data;
+      levelData[index].dir = (levelData[index].dir + 1) % 4;
+      
+      const arrowEl = gridEl.children[index].querySelector('.arrow');
+      arrowEl.className = `arrow dir-${levelData[index].dir}`;
+      
+      checkPath();
+    }
 
-                // Wall Collisions
-                if(player.x < 20) player.x = 20;
-                if(player.x > canvas.width - 20) player.x = canvas.width - 20;
-                if(player.y < 20) player.y = 20;
-                if(player.y > canvas.height - 20) player.y = canvas.height - 20;
-            }
+    function checkPath() {
+      const level = levels[currentLevel];
+      const size = level.size;
+      const data = level.data;
 
-            // 2. Draw Environment
-            drawRectWithText(oven, "#475569", "🔥", "OVEN");
-            drawRectWithText(table, "#8b5cf6", "🍽️", "TABLE");
+      // Clear highlights
+      Array.from(gridEl.children).forEach(c => c.classList.remove('connected'));
 
-            if (customerActive) {
-                ctx.font = "30px Arial";
-                ctx.fillText("🧑‍💼", table.x, table.y - 60); // Customer waiting
-            }
+      let current = 0;
+      const visited = new Set();
 
-            // 3. Draw Money Drops
-            for (let i = moneyDrops.length - 1; i >= 0; i--) {
-                let m = moneyDrops[i];
-                ctx.font = "25px Arial";
-                ctx.fillText("❤️", m.x, m.y);
-                
-                // Collect money logic
-                let dist = Math.hypot(player.x - m.x, player.y - m.y);
-                if (dist < 30) {
-                    score++;
-                    document.getElementById("scoreVal").innerText = score;
-                    moneyDrops.splice(i, 1);
-                    customerActive = true; // New customer arrives
+      while (current !== null && !visited.has(current)) {
+        visited.add(current);
+        gridEl.children[current].classList.add('connected');
 
-                    if (score >= targetScore) {
-                        winGame();
-                    }
-                }
-            }
-
-            // 4. Draw Player
-            ctx.font = "40px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("👸", player.x, player.y);
-            
-            // If player carries pizza
-            if (player.hasPizza) {
-                ctx.font = "20px Arial";
-                ctx.fillText("🍕", player.x + 15, player.y - 15);
-            }
-
-            // 5. Draw Virtual Joystick (if touching)
-            if (isTouching) {
-                ctx.beginPath();
-                ctx.arc(touchStart.x, touchStart.y, 50, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-                ctx.fill();
-                ctx.strokeStyle = "rgba(255, 255, 255, 0.6)";
-                ctx.stroke();
-
-                ctx.beginPath();
-                let knobX = touchStart.x + (joyVector.x * 40);
-                let knobY = touchStart.y + (joyVector.y * 40);
-                ctx.arc(knobX, knobY, 20, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(225, 29, 72, 0.8)";
-                ctx.fill();
-            }
-
-            // --- GAMEPLAY LOGIC ---
-            
-            // Pick Pizza from Oven
-            let distToOven = Math.hypot(player.x - oven.x, player.y - oven.y);
-            if (distToOven < 60 && !player.hasPizza) {
-                player.hasPizza = true;
-            }
-
-            // Serve Pizza to Table
-            let distToTable = Math.hypot(player.x - table.x, player.y - table.y);
-            if (distToTable < 60 && player.hasPizza && customerActive) {
-                player.hasPizza = false;
-                customerActive = false; // Customer leaves
-                
-                // Drop Love Coins
-                moneyDrops.push({ x: table.x - 30, y: table.y + 50 });
-                moneyDrops.push({ x: table.x + 30, y: table.y + 50 });
-            }
-
-            requestAnimationFrame(gameLoop);
+        if (data[current].isEnd) {
+          // Level Completed!
+          setTimeout(nextLevel, 400);
+          return;
         }
 
-        function winGame() {
-            isGameWon = true;
-            const finalMessage = `Meri Jaan, Meri Zindagi apka Lali apko aj bhut miss kar rha haii aj kiya roz karta hai ab nhi rha jata terey bagair teri neck par love bite diye bagair terey pyarey se Til par puppy diye bagair tumharey lips stick kharab karey bagaiir... 💋✨
+        const dir = data[current].dir;
+        let next = null;
 
-Tum bhut sarey Hug karney ko dil chata hai itna zor se karna chata huun key dharkan tumhari hoo yeh meri humee pata bhi na chalye hum dono key dil is tarah jur jayee hum dono se! ❤️
+        // Grid Navigation Logic
+        if (dir === 0 && current >= size) next = current - size;                  // Up
+        else if (dir === 1 && (current % size) !== size - 1) next = current + 1; // Right
+        else if (dir === 2 && current < size * (size - 1)) next = current + size; // Down
+        else if (dir === 3 && (current % size) !== 0) next = current - 1;        // Left
 
-Jaldi se Shadi karlooo mujse Guriya. 🥺💍💖
+        current = next;
+      }
+    }
 
----
-🌤️ Weather Report: 100% Chance hai aj tum der sari Puppy dogii muje or muje Neck par deney dogiii Janu.
-⭐ Horoscope: Stars align for Anu: Unlimited kisses & royal treatment guaranteed!
-💌 Secret Note: Mein apki bahaooo mein sona chata huun der sari bateen karna chata huun Begum Sahiba... 🥰💤`;
+    function nextLevel() {
+      if (currentLevel < levels.length - 1) {
+        currentLevel++;
+        loadLevel(currentLevel);
+      } else {
+        // Show Final Message
+        gameCard.style.display = 'none';
+        winScreen.style.display = 'block';
+      }
+    }
 
-            document.getElementById("modalMsg").innerText = finalMessage;
-            document.getElementById("finalModal").style.display = "flex";
-        }
-
-        // Start Game
-        gameLoop();
-    </script>
+    // Initialize Game
+    loadLevel(currentLevel);
+  </script>
 </body>
 </html>
