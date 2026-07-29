@@ -1,381 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Special Surprise For Anu ❤️</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
+<meta charset="UTF-8">
+<title>Sorry My Love 💖</title>
+<style>
+body {
+  margin:0;
+  font-family: 'Comic Sans MS', cursive;
+  background: #111;
+  color:white;
+  text-align:center;
+}
 
-    body {
-      background: #090d16;
-      color: #f8fafc;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 15px;
-      overflow: hidden;
-    }
+/* GAME */
+#game {
+  margin-top:50px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,100px);
+  gap:10px;
+  justify-content:center;
+}
+.cell {
+  width:100px;
+  height:100px;
+  background:#222;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  cursor:pointer;
+  border-radius:10px;
+}
 
-    /* Game Card */
-    .card {
-      background: #1e293b;
-      padding: 24px;
-      border-radius: 24px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-      width: 100%;
-      max-width: 360px;
-      text-align: center;
-      border: 1px solid #334155;
-    }
+/* STAGE */
+#stage {
+  display:none;
+  height:100vh;
+  background: linear-gradient(to top, #1a0033, #330066);
+  position:relative;
+  overflow:hidden;
+}
 
-    h1 {
-      font-size: 1.6rem;
-      color: #38bdf8;
-      margin-bottom: 6px;
-    }
+.floor {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:150px;
+  background:#220044;
+}
 
-    p.subtitle {
-      font-size: 0.88rem;
-      color: #94a3b8;
-      margin-bottom: 20px;
-    }
+/* TEDDIES */
+.teddy {
+  position:absolute;
+  bottom:150px;
+  width:100px;
+  height:100px;
+  border-radius:50%;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
-    }
+.male {
+  left:50px;
+  background:#8B4513;
+}
 
-    .cell {
-      aspect-ratio: 1;
-      background: #334155;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.2s, transform 0.1s;
-    }
+.female {
+  right:50px;
+  background:pink;
+  animation: angry 0.5s infinite;
+}
 
-    .cell:active {
-      transform: scale(0.92);
-    }
+.female::after {
+  content:"🎀";
+  position:absolute;
+  top:-20px;
+  left:30px;
+}
 
-    .cell.start {
-      border: 3px solid #38bdf8;
-    }
+/* ANIMATIONS */
+@keyframes angry {
+  0%{transform:translateX(0);}
+  50%{transform:translateX(5px);}
+  100%{transform:translateX(0);}
+}
 
-    .cell.end {
-      border: 3px solid #f43f5e;
-      background: #4c0519;
-    }
+.walk {
+  animation: walk 3s forwards;
+}
 
-    .cell.solved {
-      background: #0284c7;
-      box-shadow: 0 0 20px #0284c7;
-    }
+@keyframes walk {
+  from {left:50px;}
+  to {left:65%;}
+}
 
-    .arrow {
-      display: inline-block;
-      transition: transform 0.2s ease;
-    }
+.hug {
+  animation: hug 1s forwards;
+}
 
-    .dir-0 { transform: rotate(0deg); }     /* Up ⬆️ */
-    .dir-1 { transform: rotate(90deg); }    /* Right ➡️ */
-    .dir-2 { transform: rotate(180deg); }   /* Down ⬇️ */
-    .dir-3 { transform: rotate(-90deg); }   /* Left ⬅️ */
+@keyframes hug {
+  from {transform:scale(1);}
+  to {transform:scale(1.2);}
+}
 
-    /* Large Visual Story Stage */
-    .story-card {
-      display: none;
-      background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
-      padding: 24px 18px;
-      border-radius: 28px;
-      border: 2px solid #f43f5e;
-      text-align: center;
-      max-width: 440px;
-      width: 100%;
-      box-shadow: 0 25px 50px rgba(244, 63, 94, 0.3);
-      position: relative;
-    }
+/* DIALOGUE */
+#dialogue {
+  position:absolute;
+  bottom:10px;
+  width:100%;
+  font-size:22px;
+}
 
-    /* Big Stage Canvas */
-    .teddy-stage {
-      height: 260px;
-      background: radial-gradient(circle at center, #2e1065 0%, #0f172a 80%);
-      border-radius: 20px;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid #4c1d95;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-    }
+.loveText {
+  color:#ff4d88;
+  font-size:26px;
+}
 
-    /* Floor line */
-    .floor {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 45px;
-      background: #1e1145;
-      border-top: 2px solid #581c87;
-    }
+/* EMOJIS */
+.emoji {
+  position:absolute;
+  font-size:24px;
+  animation: floatUp 2s forwards;
+}
 
-    /* Teddy Base Styling */
-    .teddy {
-      position: absolute;
-      bottom: 30px;
-      font-size: 5rem;
-      transition: all 0.3s ease;
-      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-      z-index: 2;
-    }
-
-    /* Brown Male Teddy */
-    .male-teddy {
-      left: 20px;
-      filter: sepia(100%) hue-rotate(-20deg) saturate(300%) drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-    }
-
-    /* Pink Female Teddy */
-    .female-teddy {
-      right: 20px;
-      filter: drop-shadow(0 0 15px #f43f5e) hue-rotate(90deg) saturate(250%);
-    }
-
-    /* Walking Animation */
-    .walking {
-      animation: walkStep 0.4s infinite alternate ease-in-out;
-    }
-
-    @keyframes walkStep {
-      0% { transform: translateY(0) rotate(-4deg); }
-      100% { transform: translateY(-12px) rotate(4deg); }
-    }
-
-    .angry {
-      animation: angryShake 0.4s infinite alternate;
-    }
-
-    @keyframes angryShake {
-      0% { transform: rotate(-8deg) scale(1); }
-      100% { transform: rotate(8deg) scale(1.05); }
-    }
-
-    /* Kiss & Hug Positions */
-    .male-walk-target {
-      left: 190px !important;
-    }
-
-    .male-hug-pos {
-      left: 170px !important;
-      transform: rotate(15deg) scale(1.1);
-    }
-
-    .female-hug-pos {
-      right: 170px !important;
-      transform: rotate(-15deg) scale(1.1);
-    }
-
-    /* Kiss Popups */
-    .kiss-effect {
-      position: absolute;
-      font-size: 2.8rem;
-      top: 90px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      animation: popKiss 1s ease forward;
-      z-index: 10;
-    }
-
-    @keyframes popKiss {
-      0% { opacity: 0; transform: translate(-50%, 20px) scale(0.5); }
-      50% { opacity: 1; transform: translate(-50%, -20px) scale(1.4); }
-      100% { opacity: 0; transform: translate(-50%, -50px) scale(1); }
-    }
-
-    /* Dialogue Container */
-    .dialogue-box {
-      min-height: 75px;
-      background: #0f172a;
-      border-radius: 16px;
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #334155;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .typing-text {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #38bdf8;
-      line-height: 1.4;
-    }
-
-    .final-msg {
-      color: #f43f5e !important;
-      font-size: 1.15rem !important;
-    }
-  </style>
+@keyframes floatUp {
+  from {opacity:1; transform:translateY(0);}
+  to {opacity:0; transform:translateY(-100px);}
+}
+</style>
 </head>
 <body>
 
-  <!-- Game Screen -->
-  <div class="card" id="game-card">
-    <h1>Arrow Puzzle 🧩</h1>
-    <p class="subtitle">Tap arrows to connect START (⬆️) to TARGET (🎯)</p>
-    <div class="grid" id="grid"></div>
+<!-- GAME -->
+<div id="game">
+  <h2>Fix the path to reach 🎯</h2>
+  <div class="grid">
+    <div class="cell">⬆️</div>
+    <div class="cell arrow" data-rot="0">➡️</div>
+    <div class="cell arrow" data-rot="0">⬇️</div>
+    <div class="cell">🎯</div>
   </div>
+</div>
 
-  <!-- Big Animated Visual Story Screen -->
-  <div class="story-card" id="story-card">
-    <div class="teddy-stage" id="stage">
-      <div class="floor"></div>
-      <div class="teddy male-teddy" id="male-teddy">🧸</div>
-      <div class="teddy female-teddy angry" id="female-teddy">🧸🎀</div>
-    </div>
+<!-- STAGE -->
+<div id="stage">
+  <div class="floor"></div>
+  <div class="teddy male" id="male"></div>
+  <div class="teddy female" id="female"></div>
+  <div id="dialogue"></div>
+</div>
 
-    <div class="dialogue-box">
-      <div class="typing-text" id="typewriter"></div>
-    </div>
-  </div>
+<script>
+// ROTATE ARROWS
+document.querySelectorAll(".arrow").forEach(cell=>{
+  cell.onclick = ()=>{
+    let rot = (parseInt(cell.dataset.rot)+90)%360;
+    cell.dataset.rot = rot;
 
-  <script>
-    // 2x2 Simple Puzzle Board
-    const board = [
-      { dir: 0, winDir: 1 }, // Must point Right (➡️)
-      { dir: 0, winDir: 2 }, // Must point Down (⬇️)
-      { dir: 0, winDir: 1 }, 
-      { isEnd: true }        // Target 🎯
-    ];
+    let arrows = ["➡️","⬇️","⬅️","⬆️"];
+    cell.innerText = arrows[rot/90];
 
-    const gridEl = document.getElementById('grid');
-    const gameCard = document.getElementById('game-card');
-    const storyCard = document.getElementById('story-card');
-    const stageEl = document.getElementById('stage');
-    const maleTeddy = document.getElementById('male-teddy');
-    const femaleTeddy = document.getElementById('female-teddy');
-    const typeWriterEl = document.getElementById('typewriter');
+    checkWin();
+  }
+});
 
-    function renderBoard() {
-      gridEl.innerHTML = '';
-      board.forEach((item, i) => {
-        const cell = document.createElement('div');
-        cell.className = 'cell';
+// CHECK PATH (simple condition)
+function checkWin(){
+  let cells = document.querySelectorAll(".arrow");
+  if(cells[0].innerText==="⬇️" && cells[1].innerText==="➡️"){
+    document.getElementById("game").style.display="none";
+    startAnimation();
+  }
+}
 
-        if (i === 0) cell.classList.add('start');
+// ANIMATION FLOW
+function startAnimation(){
+  let stage = document.getElementById("stage");
+  stage.style.display="block";
 
-        if (item.isEnd) {
-          cell.classList.add('end');
-          cell.innerHTML = '🎯';
-        } else {
-          cell.innerHTML = `<span class="arrow dir-${item.dir}">⬆️</span>`;
-          cell.addEventListener('click', () => {
-            item.dir = (item.dir + 1) % 4;
-            renderBoard();
-            checkWin();
-          });
-        }
-        gridEl.appendChild(cell);
-      });
-    }
+  let male = document.getElementById("male");
+  let female = document.getElementById("female");
 
-    function checkWin() {
-      const pathA = (board[0].dir === 1 && board[1].dir === 2);
-      const pathB = (board[0].dir === 2 && board[2].dir === 1);
+  // Step 1: Walk
+  setTimeout(()=>{
+    male.classList.add("walk");
+  },500);
 
-      if (pathA || pathB) {
-        Array.from(gridEl.children).forEach(c => c.classList.add('solved'));
+  // Step 2: Kiss
+  setTimeout(()=>{
+    spawnEmoji("💋");
+    spawnEmoji("❤️");
+  },3500);
 
-        setTimeout(() => {
-          gameCard.style.display = 'none';
-          storyCard.style.display = 'block';
-          startTeddyStory();
-        }, 500);
-      }
-    }
+  // Step 3 Dialogue
+  setTimeout(()=>{
+    typeText("Bubu Guusaa khatam kardoo Jaan 🥺");
+  },4000);
 
-    function typeText(text, speed = 45) {
-      return new Promise(resolve => {
-        typeWriterEl.innerHTML = '';
-        let i = 0;
-        const timer = setInterval(() => {
-          typeWriterEl.innerHTML += text.charAt(i);
-          i++;
-          if (i >= text.length) {
-            clearInterval(timer);
-            resolve();
-          }
-        }, speed);
-      });
-    }
+  // Step 4 Female calm
+  setTimeout(()=>{
+    female.style.animation="none";
+    typeText("Okay Bubu ✨");
+  },7000);
 
-    function triggerKissEffect() {
-      const kiss = document.createElement('div');
-      kiss.className = 'kiss-effect';
-      kiss.innerHTML = '💋❤️✨';
-      stageEl.appendChild(kiss);
-      setTimeout(() => kiss.remove(), 1000);
-    }
+  // Step 5 Hug + kiss
+  setTimeout(()=>{
+    spawnEmoji("❤️");
+    spawnEmoji("✨");
+    male.classList.add("hug");
+    female.classList.add("hug");
+  },9000);
 
-    async function startTeddyStory() {
-      await new Promise(r => setTimeout(r, 600));
+  // Step 6 Final Message
+  setTimeout(()=>{
+    typeText("I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹", true);
+  },12000);
+}
 
-      // 1. Male Teddy Walks Step by Step
-      maleTeddy.classList.add('walking');
-      maleTeddy.classList.add('male-walk-target');
+// TYPEWRITER
+function typeText(text, final=false){
+  let el = document.getElementById("dialogue");
+  el.innerHTML="";
+  if(final) el.classList.add("loveText");
+  let i=0;
+  let interval=setInterval(()=>{
+    el.innerHTML += text[i];
+    i++;
+    if(i>=text.length) clearInterval(interval);
+  },50);
+}
 
-      // Stop walking after reaching female teddy
-      await new Promise(r => setTimeout(r, 2200));
-      maleTeddy.classList.remove('walking');
+// EMOJI EFFECT
+function spawnEmoji(symbol){
+  let e = document.createElement("div");
+  e.className="emoji";
+  e.innerText=symbol;
+  e.style.left = (50 + Math.random()*40)+"%";
+  e.style.bottom = "200px";
+  document.getElementById("stage").appendChild(e);
 
-      await new Promise(r => setTimeout(r, 400));
+  setTimeout(()=>e.remove(),2000);
+}
+</script>
 
-      // 2. Male Teddy Kisses
-      triggerKissEffect();
-      await new Promise(r => setTimeout(r, 800));
-
-      // 3. Male Dialogue
-      await typeText("Bubu Guusaa khatam kardoo Jaan 🥺");
-
-      await new Promise(r => setTimeout(r, 1400));
-
-      // 4. Female Teddy stops being angry & replies
-      femaleTeddy.classList.remove('angry');
-      await typeText("Okay Bubu ✨");
-
-      await new Promise(r => setTimeout(r, 800));
-
-      // 5. Female Teddy Kiss back
-      triggerKissEffect();
-      await new Promise(r => setTimeout(r, 800));
-
-      // 6. Hug Animation
-      maleTeddy.classList.add('male-hug-pos');
-      femaleTeddy.classList.add('female-hug-pos');
-
-      await new Promise(r => setTimeout(r, 1200));
-
-      // 7. Final Message
-      typeWriterEl.classList.add('final-msg');
-      await typeText("I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹");
-    }
-
-    renderBoard();
-  </script>
 </body>
 </html>
