@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arrow Mind Challenge</title>
+  <title>A Special Challenge For You ❤️</title>
   <style>
     * {
       box-sizing: border-box;
@@ -26,11 +26,12 @@
     .card {
       background: #1e293b;
       padding: 24px;
-      border-radius: 20px;
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+      border-radius: 24px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5);
       width: 100%;
       max-width: 420px;
       text-align: center;
+      position: relative;
     }
 
     h1 {
@@ -43,17 +44,18 @@
       display: inline-block;
       background: #0369a1;
       color: #e0f2fe;
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     p.instructions {
       font-size: 0.9rem;
       color: #94a3b8;
       margin-bottom: 20px;
+      line-height: 1.4;
     }
 
     /* Grid Layout */
@@ -93,7 +95,7 @@
 
     .cell.connected {
       background: #0284c7;
-      box-shadow: 0 0 15px rgba(2, 132, 199, 0.6);
+      box-shadow: 0 0 15px rgba(2, 132, 199, 0.7);
     }
 
     .arrow {
@@ -101,13 +103,37 @@
       transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Direction Rotations */
+    /* Rotations */
     .dir-0 { transform: rotate(0deg); }     /* Up */
     .dir-1 { transform: rotate(90deg); }    /* Right */
     .dir-2 { transform: rotate(180deg); }   /* Down */
     .dir-3 { transform: rotate(-90deg); }   /* Left */
 
-    /* Win Screen */
+    /* Custom Toast Pop-up */
+    .note-toast {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #f43f5e;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(244, 63, 94, 0.4);
+      display: none;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translate(-50%, 10px) scale(0.8); }
+      to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    }
+
+    /* Final Win Screen */
     .win-screen {
       display: none;
       padding: 40px 20px;
@@ -135,8 +161,9 @@
 <body>
 
   <div class="card" id="game-card">
+    <div class="note-toast" id="note-toast">☕ Coffee/Chai tayar hai aapki!</div>
     <div class="level-badge" id="level-badge">Level 1 of 3</div>
-    <h1>Arrow Mind Path</h1>
+    <h1>Arrow Mind Path 🧩</h1>
     <p class="instructions">Arrows par tap kar ke rotate karein aur path ko START (⬆️) se END (🎯) tak connect karein!</p>
 
     <div class="grid" id="grid"></div>
@@ -148,11 +175,10 @@
   </div>
 
   <script>
-    // Game Levels Setup
     const levels = [
       {
         size: 3,
-        // Grid 3x3
+        note: "☕ Garam garam chai/coffee tayar hai!",
         data: [
           { dir: 1 }, { dir: 2 }, { dir: 1 },
           { dir: 0 }, { dir: 1 }, { dir: 2 },
@@ -161,7 +187,7 @@
       },
       {
         size: 4,
-        // Grid 4x4
+        note: "❤️ Subah subah gussa bilkul acha nahi lagta...",
         data: [
           { dir: 1 }, { dir: 2 }, { dir: 1 }, { dir: 2 },
           { dir: 0 }, { dir: 1 }, { dir: 2 }, { dir: 3 },
@@ -171,7 +197,7 @@
       },
       {
         size: 5,
-        // Grid 5x5 - Mind Bender
+        note: "",
         data: [
           { dir: 1 }, { dir: 2 }, { dir: 3 }, { dir: 1 }, { dir: 2 },
           { dir: 0 }, { dir: 1 }, { dir: 2 }, { dir: 0 }, { dir: 2 },
@@ -187,12 +213,12 @@
     const badgeEl = document.getElementById('level-badge');
     const gameCard = document.getElementById('game-card');
     const winScreen = document.getElementById('win-screen');
+    const toastEl = document.getElementById('note-toast');
 
     function loadLevel(levelIndex) {
       const level = levels[levelIndex];
       badgeEl.innerText = `Level ${levelIndex + 1} of ${levels.length}`;
       
-      // Dynamic Grid Columns based on size
       gridEl.style.gridTemplateColumns = `repeat(${level.size}, 1fr)`;
       gridEl.innerHTML = '';
 
@@ -231,7 +257,6 @@
       const size = level.size;
       const data = level.data;
 
-      // Clear highlights
       Array.from(gridEl.children).forEach(c => c.classList.remove('connected'));
 
       let current = 0;
@@ -242,15 +267,14 @@
         gridEl.children[current].classList.add('connected');
 
         if (data[current].isEnd) {
-          // Level Completed!
-          setTimeout(nextLevel, 400);
+          if (level.note) showToast(level.note);
+          setTimeout(nextLevel, 600);
           return;
         }
 
         const dir = data[current].dir;
         let next = null;
 
-        // Grid Navigation Logic
         if (dir === 0 && current >= size) next = current - size;                  // Up
         else if (dir === 1 && (current % size) !== size - 1) next = current + 1; // Right
         else if (dir === 2 && current < size * (size - 1)) next = current + size; // Down
@@ -260,18 +284,24 @@
       }
     }
 
+    function showToast(msg) {
+      toastEl.innerText = msg;
+      toastEl.style.display = 'block';
+      setTimeout(() => {
+        toastEl.style.display = 'none';
+      }, 2500);
+    }
+
     function nextLevel() {
       if (currentLevel < levels.length - 1) {
         currentLevel++;
         loadLevel(currentLevel);
       } else {
-        // Show Final Message
         gameCard.style.display = 'none';
         winScreen.style.display = 'block';
       }
     }
 
-    // Initialize Game
     loadLevel(currentLevel);
   </script>
 </body>
