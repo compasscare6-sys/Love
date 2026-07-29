@@ -1,619 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Sorry Jaan 🥺❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  :root{
-    --pink: #ff8fab;
-    --pink-dark: #ff5c8a;
-    --brown: #8b5a2b;
-    --brown-dark: #6b4423;
-    --cream: #ffe8d6;
-  }
-  *{ box-sizing: border-box; }
-  html,body{
-    margin:0; padding:0; min-height:100vh;
-    font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
-    background: radial-gradient(ellipse at top, #2b1055 0%, #1a0b3d 45%, #0d0621 100%);
-    overflow-x:hidden;
-    color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    padding: 20px;
-  }
-  .stars{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-  }
-  .star{
-    position:absolute; width:3px; height:3px; background:#fff; border-radius:50%;
-    opacity:.7; animation: twinkle 2.5s ease-in-out infinite;
-  }
-  @keyframes twinkle{ 0%,100%{opacity:.15;} 50%{opacity:1;} }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Surprise For Anu ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
 
-  .wrap{
-    position:relative; z-index:1;
-    width: 100%; max-width: 640px;
-    text-align:center;
-  }
+    body {
+      background: #090d16;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 15px;
+    }
 
-  h1{
-    font-size: 1.5rem;
-    margin: 0 0 6px;
-    color: #ffd6e8;
-    text-shadow: 0 0 10px rgba(255,140,180,.6);
-  }
-  .sub{
-    font-size:.9rem; color:#c9b8e8; margin-bottom: 20px;
-  }
+    .story-card {
+      background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+      padding: 24px 18px;
+      border-radius: 28px;
+      border: 2px solid #f43f5e;
+      text-align: center;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 25px 50px rgba(244, 63, 94, 0.35);
+      position: relative;
+    }
 
-  /* ---------------- GAME PHASE ---------------- */
-  #gamePhase{
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,182,210,.3);
-    border-radius: 20px;
-    padding: 28px 20px;
-    backdrop-filter: blur(6px);
-    transition: opacity .5s ease, transform .5s ease;
-  }
-  #gamePhase.hide{
-    opacity:0; transform: scale(.9);
-    pointer-events:none;
-    position:absolute;
-    left:-9999px;
-  }
-  .grid{
-    display:grid;
-    grid-template-columns: repeat(3, 90px);
-    grid-template-rows: repeat(2, 90px);
-    gap: 8px;
-    justify-content:center;
-    margin: 10px auto 18px;
-  }
-  .cell{
-    display:flex; align-items:center; justify-content:center;
-    background: linear-gradient(145deg, #3a2060, #241041);
-    border: 2px solid rgba(255,182,210,.35);
-    border-radius: 14px;
-    font-size: 2rem;
-    position: relative;
-    user-select:none;
-  }
-  .cell.fixed{
-    background: linear-gradient(145deg, #4a2870, #2b1450);
-    border-color: rgba(255,255,255,.25);
-  }
-  .cell.arrow{
-    cursor:pointer;
-    transition: box-shadow .25s ease, border-color .25s ease;
-  }
-  .cell.arrow:hover{
-    box-shadow: 0 0 16px rgba(255,140,180,.6);
-    border-color: #ff8fab;
-  }
-  .cell.arrow .glyph{
-    display:inline-block;
-    transition: transform .3s ease;
-  }
-  .cell.correct{
-    box-shadow: 0 0 20px 4px rgba(120,255,180,.7);
-    border-color: #79ffb4;
-  }
-  .cell.blank{
-    background: linear-gradient(145deg, #241041, #1a0b30);
-    border-color: rgba(255,255,255,.08);
-  }
-  .hint{
-    font-size:.85rem; color:#d8c8f0; margin-top:6px;
-  }
-  #gamePhase.solved-flash{
-    animation: winPulse .8s ease;
-  }
-  @keyframes winPulse{
-    0%,100%{ box-shadow:none; }
-    50%{ box-shadow: 0 0 60px 10px rgba(255,140,180,.7); }
-  }
+    .teddy-stage {
+      height: 260px;
+      background: radial-gradient(circle at center, #2e1065 0%, #0f172a 80%);
+      border-radius: 20px;
+      margin-bottom: 15px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #4c1d95;
+    }
 
-  /* ---------------- ANIMATION PHASE ---------------- */
-  #animationPhase{
-    display:none;
-    opacity:0;
-    transition: opacity .8s ease;
-  }
-  #animationPhase.show{
-    display:block;
-    opacity:1;
-  }
-  .stage{
-    position:relative;
-    width:100%;
-    height: 340px;
-    border-radius: 20px;
-    overflow:hidden;
-    background: linear-gradient(180deg, #2c1150 0%, #401f6b 55%, #241040 100%);
-    box-shadow: 0 0 40px rgba(120,60,180,.4) inset, 0 10px 30px rgba(0,0,0,.5);
-    border: 1px solid rgba(255,182,210,.25);
-  }
-  .floor{
-    position:absolute; left:0; bottom:0; width:100%; height: 70px;
-    background: linear-gradient(180deg, #52306b, #2a1440);
-    border-top: 2px solid rgba(255,182,210,.25);
-  }
-  .sparkle{
-    position:absolute;
-    font-size: .9rem;
-    opacity:.8;
-    animation: sparkleFloat 3s ease-in-out infinite;
-  }
-  @keyframes sparkleFloat{
-    0%,100%{ transform: translateY(0) scale(1); opacity:.5;}
-    50%{ transform: translateY(-8px) scale(1.2); opacity:1;}
-  }
+    .floor {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 45px;
+      background: #1e1145;
+      border-top: 2px solid #581c87;
+    }
 
-  .bear{
-    position:absolute;
-    bottom: 62px;
-    width: 110px;
-    height: 140px;
-    transition: left 0.4s ease, transform .4s ease;
-  }
-  .bear .head{
-    position:absolute; top:0; left:15px; width:80px; height:70px;
-    background: var(--fur); border-radius: 50%;
-    box-shadow: inset -6px -6px 10px rgba(0,0,0,.25);
-  }
-  .bear .ear{
-    position:absolute; width:26px; height:26px; background:var(--fur);
-    border-radius:50%; top:-8px; box-shadow: inset -4px -4px 8px rgba(0,0,0,.25);
-  }
-  .bear .ear.l{ left:8px; }
-  .bear .ear.r{ left:76px; }
-  .bear .snout{
-    position:absolute; width:38px; height:30px; background:var(--fur-light);
-    border-radius:50%; top:34px; left:36px;
-  }
-  .bear .nose{
-    position:absolute; width:10px; height:8px; background:#3a2415;
-    border-radius:50%; top:38px; left:50px;
-  }
-  .bear .eye{
-    position:absolute; width:6px; height:6px; background:#241014; border-radius:50%; top:24px;
-  }
-  .bear .eye.l{ left:32px; }
-  .bear .eye.r{ left:63px; }
-  .bear .body{
-    position:absolute; top:56px; left:5px; width:100px; height:78px;
-    background: var(--fur); border-radius: 45% 45% 40% 40%;
-    box-shadow: inset -6px -6px 10px rgba(0,0,0,.2);
-  }
-  .bear .belly{
-    position:absolute; top:70px; left:28px; width:54px; height:56px;
-    background: var(--fur-light); border-radius: 50% 50% 45% 45%;
-  }
-  .bear .arm{
-    position:absolute; width:22px; height:50px; background:var(--fur);
-    border-radius: 20px; top:60px; transform-origin: top center;
-  }
-  .bear .arm.l{ left:-8px; transform: rotate(12deg); }
-  .bear .arm.r{ left:96px; transform: rotate(-12deg); }
-  .bear .leg{
-    position:absolute; width:26px; height:34px; background:var(--fur);
-    border-radius: 16px; bottom:-14px;
-  }
-  .bear .leg.l{ left:14px; }
-  .bear .leg.r{ left:70px; }
-  .bear .bow{
-    position:absolute; top:-6px; left:38px; font-size: 22px; z-index:3;
-  }
+    .teddy {
+      position: absolute;
+      bottom: 30px;
+      font-size: 5rem;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+    }
 
-  .bear.male{ --fur:#8b5a2b; --fur-light:#c69766; left: 20px; }
-  .bear.female{ --fur:#ff9db8; --fur-light:#ffd6e2; left: calc(100% - 130px); }
+    .male-teddy {
+      left: 20px;
+      filter: sepia(100%) hue-rotate(-20deg) saturate(300%);
+      transition: left 2.2s linear;
+    }
 
-  .bear.female.angry{
-    animation: angryShake .35s ease-in-out infinite;
-  }
-  @keyframes angryShake{
-    0%,100%{ transform: translateX(0) rotate(0deg); }
-    25%{ transform: translateX(-4px) rotate(-3deg); }
-    75%{ transform: translateX(4px) rotate(3deg); }
-  }
-  .bear.walking{
-    animation: bounceStep .35s ease-in-out infinite;
-  }
-  @keyframes bounceStep{
-    0%,100%{ transform: translateY(0); }
-    50%{ transform: translateY(-6px); }
-  }
-  .bear.hug-male, .bear.hug-female{
-    z-index: 4;
-  }
-  .bear.female.lean-kiss{
-    transform: translateX(-14px) rotate(-8deg);
-    transition: transform .35s ease;
-  }
-  .bear.male.lean-kiss-back{
-    transform: translateX(14px) rotate(8deg);
-    transition: transform .35s ease;
-  }
-  .bear.happy .eye{ /* soft happy look */ }
+    .female-teddy {
+      right: 20px;
+      filter: drop-shadow(0 0 15px #f43f5e) hue-rotate(90deg) saturate(250%);
+    }
 
-  .bear.hugging{
-    animation: huggle 0.6s ease-in-out infinite;
-  }
-  @keyframes huggle{
-    0%,100%{ transform: scale(1); }
-    50%{ transform: scale(1.04); }
-  }
-  .bear.hug-male .arm.r{
-    transform: rotate(-95deg) translate(6px,4px) !important;
-    transition: transform .4s ease;
-  }
-  .bear.hug-female .arm.l{
-    transform: rotate(95deg) translate(-6px,4px) !important;
-    transition: transform .4s ease;
-  }
+    .walking {
+      animation: walkStep 0.4s infinite alternate ease-in-out;
+    }
 
-  .big-kiss{
-    position:absolute;
-    font-size: 3rem;
-    z-index: 5;
-    transform: translate(-50%,-50%) scale(0);
-    animation: kissPop 1.4s ease-out forwards;
-  }
-  @keyframes kissPop{
-    0%{ transform: translate(-50%,-50%) scale(0); opacity:0; }
-    30%{ transform: translate(-50%,-50%) scale(1.3); opacity:1; }
-    60%{ transform: translate(-50%,-70%) scale(1.1); opacity:1; }
-    100%{ transform: translate(-50%,-140%) scale(.8); opacity:0; }
-  }
+    @keyframes walkStep {
+      0% { transform: translateY(0) rotate(-5deg); }
+      100% { transform: translateY(-12px) rotate(5deg); }
+    }
 
-  .floaters{
-    position:absolute; inset:0; pointer-events:none; overflow:hidden;
-  }
-  .floater{
-    position:absolute;
-    font-size: 1.4rem;
-    animation: floatUp 1.6s ease-out forwards;
-  }
-  @keyframes floatUp{
-    0%{ transform: translateY(0) scale(.6) rotate(0deg); opacity:1; }
-    100%{ transform: translateY(-140px) scale(1.3) rotate(20deg); opacity:0; }
-  }
+    .angry {
+      animation: angryShake 0.4s infinite alternate;
+    }
 
-  .bubbles{
-    min-height: 60px;
-    margin-top: 16px;
-    font-size: 1.05rem;
-    color:#ffe8f2;
-  }
-  .bubble{
-    display:inline-block;
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,182,210,.4);
-    border-radius: 16px;
-    padding: 10px 18px;
-    margin-bottom: 6px;
-  }
-  .bubble.male{ color:#ffe0c2; }
-  .bubble.female{ color:#ffd0e6; }
+    @keyframes angryShake {
+      0% { transform: rotate(-8deg); }
+      100% { transform: rotate(8deg); }
+    }
 
-  .final-msg{
-    margin-top: 18px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    min-height: 90px;
-    background: linear-gradient(90deg, #ff5c8a, #ff8fab, #ff2e63, #ff8fab);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shimmer 3s linear infinite;
-    line-height: 1.5;
-  }
-  @keyframes shimmer{
-    0%{ background-position: 0% 50%; }
-    100%{ background-position: 300% 50%; }
-  }
-  .cursor{
-    display:inline-block; width: 2px; background: currentColor; margin-left:2px;
-    animation: blink 0.8s steps(1) infinite;
-  }
-  @keyframes blink{ 50%{ opacity:0; } }
+    .male-walk-target { left: 190px !important; }
+    .male-hug-pos { left: 170px !important; transform: rotate(15deg) scale(1.1); }
+    .female-hug-pos { right: 170px !important; transform: rotate(-15deg) scale(1.1); }
 
-  .petals{
-    position:fixed; inset:0; pointer-events:none; z-index:2; overflow:hidden;
-    display:none;
-  }
-  .petal{
-    position:absolute; top:-20px; font-size: 1.2rem;
-    animation: fall linear forwards;
-  }
-  @keyframes fall{
-    to{ transform: translateY(110vh) rotate(360deg); opacity:.2; }
-  }
-</style>
+    .kiss-effect {
+      position: absolute;
+      font-size: 2.8rem;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: popKiss 1s ease forward;
+    }
+
+    @keyframes popKiss {
+      0% { opacity: 0; transform: translate(-50%, 20px) scale(0.5); }
+      50% { opacity: 1; transform: translate(-50%, -20px) scale(1.4); }
+      100% { opacity: 0; transform: translate(-50%, -50px) scale(1); }
+    }
+
+    .dialogue-box {
+      min-height: 75px;
+      background: #0f172a;
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #334155;
+      margin-bottom: 15px;
+    }
+
+    .typing-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #38bdf8;
+      line-height: 1.4;
+    }
+
+    .final-msg { color: #f43f5e !important; }
+
+    /* Interactive Action Buttons */
+    .action-buttons {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .btn {
+      background: #334155;
+      color: #f8fafc;
+      border: 1px solid #38bdf8;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #0284c7;
+      border-color: #0284c7;
+    }
+
+    .btn-heart {
+      background: #f43f5e;
+      border-color: #f43f5e;
+    }
+
+    .btn-heart:hover {
+      background: #e11d48;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-<div class="stars" id="stars"></div>
-<div class="petals" id="petals"></div>
-
-<div class="wrap">
-  <h1>A tiny puzzle before I say something 🥺</h1>
-  <div class="sub">Solve it, jaan... something cute is waiting for you 💕</div>
-
-  <!-- ================= GAME PHASE ================= -->
-  <div id="gamePhase">
-    <div class="grid" id="grid">
-      <div class="cell fixed" id="startCell"><span>⬆️</span></div>
-      <div class="cell arrow" data-key="a1"><span class="glyph">➡️</span></div>
-      <div class="cell blank"></div>
-
-      <div class="cell arrow" data-key="a2"><span class="glyph">➡️</span></div>
-      <div class="cell blank"></div>
-      <div class="cell arrow" id="targetArrow" data-key="a3"><span class="glyph">➡️</span></div>
-    </div>
-    <div class="hint">Tap the arrows to rotate them and connect ⬆️ to 🎯</div>
-  </div>
-
-  <!-- ================= ANIMATION PHASE ================= -->
-  <div id="animationPhase">
-    <div class="stage" id="stage">
-      <div class="sparkle" style="top:10%; left:12%;">✨</div>
-      <div class="sparkle" style="top:20%; left:80%; animation-delay:.5s;">✨</div>
-      <div class="sparkle" style="top:35%; left:45%; animation-delay:1s;">⭐</div>
-      <div class="sparkle" style="top:8%; left:60%; animation-delay:1.5s;">✨</div>
-
-      <div class="floaters" id="floaters"></div>
-
-      <div class="bear male" id="maleBear">
-        <div class="ear l"></div><div class="ear r"></div>
-        <div class="head"></div>
-        <div class="eye l"></div><div class="eye r"></div>
-        <div class="snout"></div><div class="nose"></div>
-        <div class="body"></div>
-        <div class="belly"></div>
-        <div class="arm l"></div><div class="arm r"></div>
-        <div class="leg l"></div><div class="leg r"></div>
-      </div>
-
-      <div class="bear female angry" id="femaleBear">
-        <div class="bow">🎀</div>
-        <div class="ear l"></div><div class="ear r"></div>
-        <div class="head"></div>
-        <div class="eye l"></div><div class="eye r"></div>
-        <div class="snout"></div><div class="nose"></div>
-        <div class="body"></div>
-        <div class="belly"></div>
-        <div class="arm l"></div><div class="arm r"></div>
-        <div class="leg l"></div><div class="leg r"></div>
-      </div>
-
+  <div class="story-card">
+    <div class="teddy-stage" id="stage">
       <div class="floor"></div>
+      <div class="teddy male-teddy" id="male-teddy">🧸</div>
+      <div class="teddy female-teddy angry" id="female-teddy">🧸🎀</div>
     </div>
 
-    <div class="bubbles" id="bubbles"></div>
-    <div class="final-msg" id="finalMsg"></div>
+    <div class="dialogue-box">
+      <div class="typing-text" id="typewriter">...</div>
+    </div>
+
+    <!-- Buttons after story completes -->
+    <div class="action-buttons" id="action-buttons">
+      <button class="btn" onclick="responseClick('food')">🍔 Aapke Liye Kuch Order Karu?</button>
+      <button class="btn" onclick="responseClick('call')">📞 Direct Call Par Baat Karein?</button>
+      <button class="btn btn-heart" onclick="responseClick('forgive')">❤️ Gussa Khatam (Maaf Kiya)</button>
+    </div>
   </div>
-</div>
 
-<script>
-/* ---------- background stars ---------- */
-const starsEl = document.getElementById('stars');
-for(let i=0;i<60;i++){
-  const s = document.createElement('div');
-  s.className='star';
-  s.style.top = Math.random()*100+'%';
-  s.style.left = Math.random()*100+'%';
-  s.style.animationDelay = (Math.random()*3)+'s';
-  starsEl.appendChild(s);
-}
+  <script>
+    const stageEl = document.getElementById('stage');
+    const maleTeddy = document.getElementById('male-teddy');
+    const femaleTeddy = document.getElementById('female-teddy');
+    const typeWriterEl = document.getElementById('typewriter');
+    const btnContainer = document.getElementById('action-buttons');
 
-/* ---------- puzzle logic ---------- */
-// direction angles: 0=East,90=South,180=West,270=North
-const state = {
-  a1: [180,270][Math.floor(Math.random()*2)], // not East(0) initially... actually needs != 90? target for a1 is South(90)
-  a2: [90,180,270][Math.floor(Math.random()*3)], // target for a2 is East(0)
-  a3: 0
-};
-// ensure a1 isn't already at 90, and a2 isn't already at 0 (guaranteed by pools above)
+    function typeText(text, speed = 45) {
+      return new Promise(resolve => {
+        typeWriterEl.innerHTML = '';
+        let i = 0;
+        const timer = setInterval(() => {
+          typeWriterEl.innerHTML += text.charAt(i);
+          i++;
+          if (i >= text.length) {
+            clearInterval(timer);
+            resolve();
+          }
+        }, speed);
+      });
+    }
 
-const cells = document.querySelectorAll('.cell.arrow');
-function render(){
-  cells.forEach(c=>{
-    const key = c.dataset.key;
-    const glyph = c.querySelector('.glyph');
-    glyph.style.transform = `rotate(${state[key]}deg)`;
-  });
-}
-render();
+    function triggerKissEffect() {
+      const kiss = document.createElement('div');
+      kiss.className = 'kiss-effect';
+      kiss.innerHTML = '💋❤️✨';
+      stageEl.appendChild(kiss);
+      setTimeout(() => kiss.remove(), 1000);
+    }
 
-let solved = false;
-cells.forEach(c=>{
-  c.addEventListener('click', ()=>{
-    if(solved) return;
-    const key = c.dataset.key;
-    state[key] = (state[key]+90)%360;
-    render();
-    checkWin();
-  });
-});
+    async function startTeddyStory() {
+      await new Promise(r => setTimeout(r, 800));
 
-function checkWin(){
-  const path1 = state.a1 === 90; // a1 pointing South reaches target row
-  const path2 = state.a2 === 0;  // a2 pointing East reaches target column
-  if(path1 || path2){
-    solved = true;
-    document.getElementById('gamePhase').classList.add('solved-flash');
-    if(path1) document.querySelector('[data-key="a1"]').classList.add('correct');
-    if(path2) document.querySelector('[data-key="a2"]').classList.add('correct');
-    setTimeout(()=>{
-      document.getElementById('gamePhase').classList.add('hide');
-      document.getElementById('animationPhase').classList.add('show');
-      runSequence();
-    }, 900);
-  }
-}
+      maleTeddy.classList.add('walking');
+      maleTeddy.classList.add('male-walk-target');
 
-/* ---------- animation sequence ---------- */
-function delay(ms){ return new Promise(res=>setTimeout(res,ms)); }
+      await new Promise(r => setTimeout(r, 2200));
+      maleTeddy.classList.remove('walking');
 
-function spawnBigKiss(x, y){
-  const container = document.getElementById('floaters');
-  const k = document.createElement('div');
-  k.className = 'big-kiss';
-  k.textContent = '💋';
-  k.style.left = x + 'px';
-  k.style.top = y + 'px';
-  container.appendChild(k);
-  setTimeout(()=>k.remove(), 1500);
-}
+      await new Promise(r => setTimeout(r, 400));
+      triggerKissEffect();
+      await new Promise(r => setTimeout(r, 800));
 
-function spawnFloaters(emojis, x, count=6){
-  const container = document.getElementById('floaters');
-  for(let i=0;i<count;i++){
-    const f = document.createElement('div');
-    f.className='floater';
-    f.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    f.style.left = (x + (Math.random()*40-20)) + 'px';
-    f.style.bottom = '90px';
-    f.style.animationDelay = (i*0.12)+'s';
-    container.appendChild(f);
-    setTimeout(()=>f.remove(), 2000);
-  }
-}
+      await typeText("Bubu Guusaa khatam kardoo Jaan 🥺");
 
-async function typewriter(el, text, speed=45){
-  el.innerHTML = '';
-  const cursor = document.createElement('span');
-  cursor.className='cursor';
-  cursor.textContent='\u00A0';
-  el.appendChild(cursor);
-  for(let i=0;i<text.length;i++){
-    cursor.insertAdjacentText('beforebegin', text[i]);
-    await delay(speed);
-  }
-  await delay(400);
-  cursor.remove();
-}
+      await new Promise(r => setTimeout(r, 1400));
 
-function startPetals(){
-  const p = document.getElementById('petals');
-  p.style.display='block';
-  const emojis = ['❤️','🌹','💕','✨'];
-  setInterval(()=>{
-    const el = document.createElement('div');
-    el.className='petal';
-    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left = Math.random()*100+'%';
-    const dur = 4+Math.random()*4;
-    el.style.animationDuration = dur+'s';
-    p.appendChild(el);
-    setTimeout(()=>el.remove(), dur*1000+200);
-  }, 350);
-}
+      femaleTeddy.classList.remove('angry');
+      await typeText("Okay Bubu ✨");
 
-async function moveTo(el, fromLeft, toLeft, steps=12, stepDelay=90){
-  for(let i=1;i<=steps;i++){
-    const cur = fromLeft + (toLeft-fromLeft)*(i/steps);
-    el.style.left = cur + 'px';
-    await delay(stepDelay);
-  }
-}
+      await new Promise(r => setTimeout(r, 800));
 
-async function walkMaleToFemale(){
-  const male = document.getElementById('maleBear');
-  const stage = document.getElementById('stage');
-  male.classList.add('walking');
-  const stageWidth = stage.clientWidth;
-  const targetLeft = stageWidth - 260; // stop just left of female bear
-  const startLeft = 20;
-  await moveTo(male, startLeft, targetLeft, 14, 110);
-  male.classList.remove('walking');
-}
+      triggerKissEffect();
+      await new Promise(r => setTimeout(r, 800));
 
-async function runSequence(){
-  const male = document.getElementById('maleBear');
-  const female = document.getElementById('femaleBear');
-  const bubbles = document.getElementById('bubbles');
-  const finalMsg = document.getElementById('finalMsg');
+      maleTeddy.classList.add('male-hug-pos');
+      femaleTeddy.classList.add('female-hug-pos');
 
-  await delay(500);
+      await new Promise(r => setTimeout(r, 1200));
 
-  // Step 1: male walks toward female
-  await walkMaleToFemale();
-  await delay(300);
+      typeWriterEl.classList.add('final-msg');
+      await typeText("I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹");
 
-  // Step 2: kiss - floating kiss/heart emojis
-  const maleX = male.getBoundingClientRect().left - document.getElementById('stage').getBoundingClientRect().left;
-  spawnFloaters(['💋','❤️','✨'], maleX+80, 8);
-  await delay(1000);
+      // Show options
+      btnContainer.style.display = 'flex';
+    }
 
-  // Step 3: male dialogue
-  const b1 = document.createElement('div');
-  b1.className='bubble male';
-  bubbles.innerHTML='';
-  bubbles.appendChild(b1);
-  await typewriter(b1, 'Bubu Guusaa khatam kardoo Jaan 🥺');
-  await delay(600);
+    async function responseClick(type) {
+      if (type === 'food') {
+        await typeText("Aap batao Foodpanda se kya mangwau aapke ghar? 🍕🍰");
+      } else if (type === 'call') {
+        await typeText("Main call kar raha hu, please pick kar lo ek baar... 🥺📱");
+      } else if (type === 'forgive') {
+        await typeText("Yayyy! Thank you Begum! ❤️ Ab jaldi se ek pyari si smile bhejo! 😊");
+      }
+    }
 
-  // Step 4: female stops being angry + replies
-  female.classList.remove('angry');
-  female.classList.add('happy');
-  const b2 = document.createElement('div');
-  b2.className='bubble female';
-  bubbles.innerHTML='';
-  bubbles.appendChild(b2);
-  await typewriter(b2, 'Okay Bubu ✨');
-  await delay(500);
-
-  // Step 5a: female steps toward male and kisses him — real movement, not just a lean
-  const stage = document.getElementById('stage');
-  const stageRect = stage.getBoundingClientRect();
-  const maleLeftNow = male.offsetLeft;
-  const femaleLeftNow = female.offsetLeft;
-  const femaleKissTarget = maleLeftNow + 95; // step in close, right next to him
-
-  female.classList.add('walking');
-  await moveTo(female, femaleLeftNow, femaleKissTarget, 8, 90);
-  female.classList.remove('walking');
-
-  female.classList.add('lean-kiss');
-  male.classList.add('lean-kiss-back');
-  await delay(250);
-
-  // big central kiss pop, right between their faces
-  const midX = (male.offsetLeft + 55 + female.offsetLeft + 55) / 2;
-  spawnBigKiss(midX, 40);
-  spawnFloaters(['❤️','💕','✨'], midX, 8);
-  await delay(1400);
-
-  female.classList.remove('lean-kiss');
-  male.classList.remove('lean-kiss-back');
-  await delay(300);
-
-  // Step 5b: both move fully together into a real hug embrace and hold it
-  const stageWidth2 = stage.clientWidth;
-  const hugMaleLeft = stageWidth2/2 - 100;
-  const hugFemaleLeft = stageWidth2/2 - 10;
-  await Promise.all([
-    moveTo(male, male.offsetLeft, hugMaleLeft, 10, 70),
-    moveTo(female, female.offsetLeft, hugFemaleLeft, 10, 70)
-  ]);
-  male.classList.add('hug-male', 'hugging');
-  female.classList.add('hug-female', 'hugging');
-  spawnFloaters(['❤️','💞','✨'], stageWidth2/2, 12);
-  await delay(1000);
-  spawnFloaters(['❤️','💞','🥰'], stageWidth2/2, 10);
-  await delay(1600);
-  male.classList.remove('hugging');
-  female.classList.remove('hugging');
-
-  // Step 6: final love message
-  bubbles.innerHTML='';
-  await typewriter(finalMsg, 'I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹', 40);
-  startPetals();
-}
-</script>
+    window.onload = startTeddyStory;
+  </script>
 </body>
 </html>
