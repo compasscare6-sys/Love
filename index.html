@@ -3,592 +3,285 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Special Celebration For Anu ❤️</title>
-  <!-- Confetti Engine -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <title>For My Beloved Anu ❤️</title>
+  <!-- Google Fonts for Aesthetic Handwritten Feel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+  
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
     body {
-      background: #090d16;
-      color: #f8fafc;
+      background-color: #f7f3ed;
+      color: #4a3e3d;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 15px;
-      overflow-x: hidden;
-      position: relative;
+      padding: 20px;
+      background-image: radial-gradient(#e5ded4 1px, transparent 1px);
+      background-size: 20px 20px;
     }
 
-    /* Main Container Card */
-    .app-card {
-      background: rgba(30, 41, 59, 0.85);
-      backdrop-filter: blur(12px);
-      border: 2px solid #e11d48;
-      border-radius: 28px;
-      padding: 28px 20px;
+    /* Journal Notebook Container */
+    .journal-card {
+      background: #fdfbf7;
+      border: 1px solid #e8e0d5;
+      border-radius: 24px;
+      padding: 35px 25px;
+      max-width: 460px;
       width: 100%;
-      max-width: 440px;
+      box-shadow: 0 15px 35px rgba(120, 100, 90, 0.08);
+      position: relative;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(225, 29, 72, 0.35);
-      position: relative;
-      transition: all 0.5s ease;
-      min-height: 520px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
-    /* Progress Dots */
-    .progress-bar {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      position: relative;
+    /* Header Note */
+    .top-note {
+      font-size: 0.95rem;
+      color: #7a6e6b;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      font-weight: 500;
     }
 
-    .progress-bar::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: #334155;
-      z-index: 1;
-      transform: translateY(-50%);
-    }
-
-    .step-dot {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #1e293b;
-      border: 2px solid #64748b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: bold;
-      z-index: 2;
-      transition: all 0.4s ease;
-    }
-
-    .step-dot.active {
-      background: #e11d48;
-      border-color: #f43f5e;
-      box-shadow: 0 0 15px #f43f5e;
-      color: #fff;
-    }
-
-    /* Screens */
-    .screen {
-      display: none;
-      animation: fadeIn 0.5s ease forward;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex-grow: 1;
-    }
-
-    .screen.active {
-      display: flex;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 16px;
-      background: rgba(225, 29, 72, 0.2);
-      border: 1px solid #e11d48;
-      color: #fb7185;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 1.65rem;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-
-    p.desc {
-      font-size: 0.92rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-      margin-bottom: 18px;
-    }
-
-    /* Visual Stage */
-    .visual-box {
-      background: radial-gradient(circle, #2e1065 0%, #0f172a 100%);
+    /* Kissing Teddy Bear GIF Frame */
+    .gif-container {
+      width: 100%;
+      max-width: 260px;
+      height: 180px;
+      margin: 0 auto 25px auto;
       border-radius: 20px;
-      padding: 15px;
-      margin-bottom: 18px;
-      border: 1px solid #4c1d95;
+      overflow: hidden;
+      background: #faf6f0;
+      border: 2px dashed #d8c8b8;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+    }
+
+    .gif-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    /* Aesthetic Stamp Badges */
+    .stamps-row {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
-      min-height: 130px;
+      gap: 15px;
+      margin-bottom: 25px;
     }
 
-    .avatar {
-      font-size: 4rem;
-      animation: bounce 2s infinite ease-in-out;
-      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    /* Sorry Meter */
-    .meter-container {
-      width: 100%;
-      background: #0f172a;
-      border: 1px solid #334155;
+    .stamp {
+      background: #f3ece2;
+      border: 1px solid #dfd3c3;
+      padding: 8px 14px;
       border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 18px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: #8c5a52;
+      transform: rotate(-2deg);
+    }
+
+    .stamp.rotate-right {
+      transform: rotate(3deg);
+      background: #f7e8e8;
+      border-color: #eac5c5;
+      color: #b85b5b;
+    }
+
+    /* Heartfelt Paragraph */
+    .letter-body {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #5a4d4b;
+      margin-bottom: 30px;
       text-align: left;
     }
 
-    .meter-label {
-      font-size: 0.85rem;
-      color: #fb7185;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-
-    .meter-bar-bg {
-      height: 12px;
-      background: #1e293b;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .meter-bar-fill {
-      height: 100%;
-      width: 99.9%;
-      background: linear-gradient(90deg, #f43f5e 0%, #e11d48 100%);
-      box-shadow: 0 0 10px #f43f5e;
-    }
-
-    /* Buttons */
-    .btn-main {
-      width: 100%;
-      background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 16px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(225, 29, 72, 0.4);
-      transition: all 0.2s ease;
-      margin-top: 10px;
-    }
-
-    .btn-main:active {
-      transform: scale(0.97);
-    }
-
-    .btn-gold {
-      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
-      box-shadow: 0 10px 25px rgba(234, 179, 8, 0.4);
-    }
-
-    /* 3D Flipping Cards Grid for Screen 3 */
-    .flip-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      width: 100%;
+    .letter-body p {
       margin-bottom: 15px;
     }
 
-    .flip-card {
-      background-color: transparent;
-      height: 110px;
-      perspective: 1000px;
-      cursor: pointer;
+    /* Handwritten Signatures */
+    .signature-section {
+      text-align: left;
+      margin-top: 10px;
+      margin-bottom: 25px;
     }
 
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-style: preserve-3d;
-      border-radius: 16px;
-    }
-
-    .flip-card.flipped .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flip-card-front, .flip-card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 8px;
-    }
-
-    .flip-card-front {
-      background: #1e293b;
-      border: 1px solid #38bdf8;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .flip-card-front .icon {
-      font-size: 2rem;
+    .heart-icon {
+      color: #d96b6b;
+      font-size: 1.2rem;
       margin-bottom: 4px;
     }
 
-    .flip-card-front h4 {
-      font-size: 0.88rem;
-      color: #38bdf8;
+    .yours-text {
+      font-family: 'Sacramento', cursive;
+      font-size: 2.2rem;
+      color: #7a423a;
+      line-height: 1;
     }
 
-    .flip-card-front span {
-      font-size: 0.68rem;
-      color: #94a3b8;
-      margin-top: 2px;
-    }
-
-    .flip-card-back {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-      color: white;
-      transform: rotateY(180deg);
-      border: 1px solid #38bdf8;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
-    }
-
-    .flip-card-back p {
-      font-size: 0.75rem;
+    .person-text {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: #8c7b78;
       font-weight: 600;
-      line-height: 1.35;
+      margin-top: 4px;
     }
 
-    /* Prank Stage (Screen 4) */
-    .prank-area {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      margin-top: 10px;
+    /* Audio Player Widget */
+    .audio-box {
+      background: #f5eee6;
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      border: 1px solid #e5d8cb;
     }
 
-    .btn-yes {
-      position: absolute;
-      left: 10%;
-      top: 40%;
-      width: 130px;
-      background: #10b981;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
-      font-size: 0.95rem;
-      z-index: 10;
-    }
-
-    .btn-no {
-      position: absolute;
-      right: 10%;
-      top: 40%;
-      width: 130px;
-      background: #ef4444;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
-      font-size: 0.95rem;
-      transition: all 0.15s ease;
-      z-index: 10;
-    }
-
-    .letter-box {
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 18px;
-      padding: 16px;
+    .song-info {
       text-align: left;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: #f1f5f9;
-      margin-bottom: 18px;
+    }
+
+    .song-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #4a3e3d;
+    }
+
+    .song-artist {
+      font-size: 0.75rem;
+      color: #8c7b78;
+    }
+
+    .play-btn {
+      background: #b85b5b;
+      color: white;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 10px rgba(184, 91, 91, 0.3);
+    }
+
+    /* Read Again Button */
+    .btn-read-again {
+      background: transparent;
+      border: none;
+      color: #8c7b78;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-read-again:hover {
+      background: #efe7dd;
+      color: #4a3e3d;
     }
   </style>
 </head>
 <body>
 
-  <div class="app-card" id="appCard">
+  <div class="journal-card">
     
-    <!-- Progress Bar -->
-    <div class="progress-bar">
-      <div class="step-dot active" id="dot1">1</div>
-      <div class="step-dot" id="dot2">2</div>
-      <div class="step-dot" id="dot3">3</div>
-      <div class="step-dot" id="dot4">4</div>
-      <div class="step-dot" id="dot5">5</div>
+    <!-- Top Note -->
+    <p class="top-note">
+      I'm better with actions than with words, so I made you a little page instead — a song, our cute memories, and a few things I mean with my whole heart.
+    </p>
+
+    <!-- Kissing Teddy Bear GIF -->
+    <div class="gif-container">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3dldm0ycXExMzhvZXZ4ZHZ5b3ZkdmU5ZzM4cWVqYXJ6aXJwbHlybyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LpmG3139A86Q3sQ0eM/giphy.gif" alt="Kissing Teddy Bears">
     </div>
 
-    <!-- SCREEN 1: SORRY DAY -->
-    <div class="screen active" id="screen1">
-      <div class="badge">Official Announcement 📜</div>
-      <h1>National Sorry Day 🥺</h1>
-      
-      <div class="visual-box">
-        <div class="avatar">🧸💔</div>
-      </div>
+    <!-- Aesthetic Stamps -->
+    <div class="stamps-row">
+      <div class="stamp">For My Anu 🎀</div>
+      <div class="stamp rotate-right">ILYSM ❤️</div>
+    </div>
 
-      <div class="meter-container">
-        <div class="meter-label">
-          <span>SORRY LEVEL</span>
-          <span>1000% 🔥</span>
-        </div>
-        <div class="meter-bar-bg">
-          <div class="meter-bar-fill"></div>
-        </div>
+    <!-- Audio Song Player -->
+    <div class="audio-box">
+      <div class="song-info">
+        <div class="song-title">Tere Bin 🎵</div>
+        <div class="song-artist">Atif Aslam • For Begum</div>
       </div>
+      <button class="play-btn" id="playBtn" onclick="toggleAudio()">▶</button>
+    </div>
 
-      <p class="desc">
-        Aapka mood kharab hua toh mera din ruk gaya. Jab tak aap smile nahi karogi, yeh Lali chain se nahi baith sakta...
+    <!-- Heartfelt Letter Content -->
+    <div class="letter-body">
+      <p>
+        Thank you for being the calm in my chaos and the spark in my ordinary, for the late-night talks, and the way you always know when I need you even before I say it.
       </p>
-
-      <button class="btn-main" onclick="goToScreen(2)">
-        Accept Apology & Continue ➡️
-      </button>
-    </div>
-
-    <!-- SCREEN 2: HAPPY WIFE DAY -->
-    <div class="screen" id="screen2">
-      <div class="badge" style="border-color:#eab308; color:#fde047;">Celebration Mode 🎉</div>
-      <h1 style="color: #fde047;">Happy Wife Day! 👑❤️</h1>
-      
-      <div class="visual-box" style="background: radial-gradient(circle, #854d0e 0%, #0f172a 100%);">
-        <div class="avatar">🧸👑🎀</div>
-      </div>
-
-      <p class="desc">
-        Sorry Day finish! Ab officially <b>"Happy Wife Day"</b> start ho chuka hai! Aap meri rani ho, aur aapka gussa hone par aapko manana mera haq hai. ✨
+      <p>
+        I hope today feels soft and warm and completely yours. I hope you feel even a fraction of how much you're adored. And I hope you always know — even on the days I forget to say it — <b>I choose you, every single time.</b>
       </p>
-
-      <button class="btn-main btn-gold" onclick="goToScreen(3)">
-        Tap To Unlock Secret Promises 🎁
-      </button>
     </div>
 
-    <!-- SCREEN 3: RUKHSATI FLIPPING CARDS -->
-    <div class="screen" id="screen3">
-      <div class="badge" style="border-color:#38bdf8; color:#38bdf8;">Interactive Treat Cards 🍧</div>
-      <h1>Rukhsati Ke Baad Ke Promises 💌</h1>
-      <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 12px;">(Cards par tap karke flip karein 👆)</p>
-
-      <div class="flip-grid">
-        <!-- Card 1: Gola Ganda -->
-        <div class="flip-card" onclick="flipCard(this)">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="icon">🍧</div>
-              <h4>Gola Ganda</h4>
-              <span>Tap to reveal ➔</span>
-            </div>
-            <div class="flip-card-back">
-              <p>Dhoraji ka special extra condensed milk wala Gola Ganda late night date par! 🍧✨</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: Pani Puri -->
-        <div class="flip-card" onclick="flipCard(this)">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="icon">🥣</div>
-              <h4>Pani Puri</h4>
-              <span>Tap to reveal ➔</span>
-            </div>
-            <div class="flip-card-back">
-              <p>Khatta-meetha teekha pani puri competition... Aur main jaan boojh kar har jaunga! 😋🔥</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: Churan -->
-        <div class="flip-card" onclick="flipCard(this)">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="icon">🍬</div>
-              <h4>Churan & Chatpata</h4>
-              <span>Tap to reveal ➔</span>
-            </div>
-            <div class="flip-card-back">
-              <p>Aapki favorite chatpati churan, imli, aur aam papad ka unlimited stock ghar par! 😜🌶️</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4: Ice cream -->
-        <div class="flip-card" onclick="flipCard(this)">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <div class="icon">🍦</div>
-              <h4>Ice Cream</h4>
-              <span>Tap to reveal ➔</span>
-            </div>
-            <div class="flip-card-back">
-              <p>Jab bhi gussa aayega, direct aapki favorite Ice Cream Parlor ki long drive! 🍦🚗</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button class="btn-main" onclick="goToScreen(4)">
-        Ab Ek Sach Btao... 🤫
-      </button>
+    <!-- Signatures -->
+    <div class="signature-section">
+      <div class="heart-icon">♥</div>
+      <div class="yours-text">yours, completely</div>
+      <div class="person-text">— YOUR LALI</div>
     </div>
 
-    <!-- SCREEN 4: PRANK BUTTON SCREEN -->
-    <div class="screen" id="screen4">
-      <div class="badge" style="border-color:#ef4444; color:#f87171;">Prank Level 😈</div>
-      <h1>Kya Aapne Dil Se Maaf Kar Diya? 🥺</h1>
-      
-      <p class="desc" id="prank-text">
-        Sach sach batana... (NO wala button dabane ki koshish karke dekho! 😜)
-      </p>
-
-      <div class="prank-area" id="prankArea">
-        <button class="btn-yes" onclick="goToScreen(5)">YES! ❤️ Maaf Kiya</button>
-        <button class="btn-no" id="noBtn" onmouseover="dodgeButton()" onclick="dodgeButton()">NO! ❌ Abhi Nahi</button>
-      </div>
-    </div>
-
-    <!-- SCREEN 5: GRAND FINALE -->
-    <div class="screen" id="screen5">
-      <div class="badge">Final Love Message 🌹</div>
-      <h1>I Love You Begum! ❤️</h1>
-
-      <div class="letter-box">
-        Anu Jaan, rukhsati se pehle ka yeh doori wala time thora mushkil zaroor hota hai, lekin mera pyaar aapke liye har din barh raha hai.<br><br>
-        Aap mere liye sabse zaroori ho. Ab jaldi se apni gusse wali shakal ko ek pyari si smile mein change kar lo! 🥺🌹
-      </div>
-
-      <button class="btn-main" onclick="triggerFinalLove()">
-        ❤️ Send Hugs & Kisses!
-      </button>
-    </div>
+    <!-- Read Again Button -->
+    <button class="btn-read-again" onclick="scrollToTop()">
+      🔄 READ IT AGAIN
+    </button>
 
   </div>
 
+  <!-- Background Audio (Replace link if needed) -->
+  <audio id="bgSong" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
   <script>
-    let currentStep = 1;
+    const song = document.getElementById('bgSong');
+    const playBtn = document.getElementById('playBtn');
 
-    function flipCard(cardEl) {
-      cardEl.classList.toggle('flipped');
-    }
-
-    function goToScreen(step) {
-      document.getElementById(`screen${currentStep}`).classList.remove('active');
-      document.getElementById(`dot${currentStep}`).classList.remove('active');
-
-      currentStep = step;
-
-      document.getElementById(`screen${currentStep}`).classList.add('active');
-      document.getElementById(`dot${currentStep}`).classList.add('active');
-
-      if (step === 2) {
-        document.getElementById('appCard').style.borderColor = '#eab308';
-        confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 }
-        });
-      } else if (step === 3) {
-        document.getElementById('appCard').style.borderColor = '#38bdf8';
-      } else if (step === 4) {
-        document.getElementById('appCard').style.borderColor = '#ef4444';
-      } else if (step === 5) {
-        document.getElementById('appCard').style.borderColor = '#f43f5e';
+    function toggleAudio() {
+      if (song.paused) {
+        song.play();
+        playBtn.innerHTML = '❚❚';
+      } else {
+        song.pause();
+        playBtn.innerHTML = '▶';
       }
     }
 
-    function dodgeButton() {
-      const noBtn = document.getElementById('noBtn');
-      const prankArea = document.getElementById('prankArea');
-      
-      const areaWidth = prankArea.clientWidth - noBtn.clientWidth;
-      const areaHeight = prankArea.clientHeight - noBtn.clientHeight;
-
-      const newX = Math.floor(Math.random() * areaWidth);
-      const newY = Math.floor(Math.random() * areaHeight);
-
-      noBtn.style.left = `${newX}px`;
-      noBtn.style.top = `${newY}px`;
-
-      const messages = [
-        "Arey pakad kar dikhao! 😜",
-        "Peeche hatt gaya! 😂",
-        "Itni aasan se NO nahi dabane dunga! 🙈",
-        "Bas YES hi option hai Begum! ❤️",
-        "Try again! 🤪"
-      ];
-      
-      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-      document.getElementById('prank-text').innerText = randomMsg;
-    }
-
-    function triggerFinalLove() {
-      var duration = 3 * 1000;
-      var animationEnd = Date.now() + duration;
-
-      var interval = setInterval(function() {
-        var timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) {
-          return clearInterval(interval);
-        }
-        confetti({
-          particleCount: 50,
-          startVelocity: 30,
-          spread: 360,
-          origin: { x: Math.random(), y: Math.random() - 0.2 },
-          colors: ['#f43f5e', '#e11d48', '#fb7185', '#ffffff']
-        });
-      }, 200);
-
-      alert("Pyaar Successfully Deliver Ho Gaya! ❤️ Ab jaldi se Call/Text check karein!");
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
+
 </body>
 </html>
