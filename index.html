@@ -1,247 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Sorry My Love 💖</title>
-<style>
-body {
-  margin:0;
-  font-family: 'Comic Sans MS', cursive;
-  background: #111;
-  color:white;
-  text-align:center;
-}
+Create a complete, single-file HTML, CSS, and JavaScript interactive web page designed to apologize to my wife in a cute and romantic way. 
 
-/* GAME */
-#game {
-  margin-top:50px;
-}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,100px);
-  gap:10px;
-  justify-content:center;
-}
-.cell {
-  width:100px;
-  height:100px;
-  background:#222;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:40px;
-  cursor:pointer;
-  border-radius:10px;
-}
+Here are the step-by-step requirements:
 
-/* STAGE */
-#stage {
-  display:none;
-  height:100vh;
-  background: linear-gradient(to top, #1a0033, #330066);
-  position:relative;
-  overflow:hidden;
-}
+1. Game Phase:
+   - Start with a very simple 2x2 "Arrow Puzzle Game".
+   - The top-left cell is START (⬆️) and the bottom-right cell is TARGET (🎯).
+   - There are 3 clickable arrow cells. Clicking an arrow rotates it by 90 degrees.
+   - When the user rotates arrows to make a valid path connecting START to TARGET, the game grid automatically hides, and the Animation Phase begins.
 
-.floor {
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:150px;
-  background:#220044;
-}
+2. Animation Stage (Visuals & Characters):
+   - Display a large, beautiful romantic stage/room background (dark blue/purple gradient with a floor).
+   - Character 1 (Male Teddy Bear): Distinct Warm Brown color.
+   - Character 2 (Female Teddy Bear): Cute Soft Pink color wearing a ribbon/bow (🎀).
+   - Initially, the Pink Female Teddy is placed on the right side and is shaking/wobbling in an "angry" state.
+   - The Brown Male Teddy starts on the left side.
 
-/* TEDDIES */
-.teddy {
-  position:absolute;
-  bottom:150px;
-  width:100px;
-  height:100px;
-  border-radius:50%;
-}
+3. Animation Sequence & Dialogues (Step-by-Step):
+   - Step 1: The Brown Male Teddy plays a step-by-step walking animation, moving across the screen right next to the Pink Female Teddy.
+   - Step 2: The Male Teddy gives a kiss (triggering floating kiss/heart emojis 💋❤️✨).
+   - Step 3: Typewriter effect dialogue below the stage: "Bubu Guusaa khatam kardoo Jaan 🥺"
+   - Step 4: Pink Female Teddy stops being angry, and typewriter dialogue displays: "Okay Bubu ✨"
+   - Step 5: Pink Female Teddy kisses back with heart emojis, and then BOTH teddies lean into each other for a HUG animation.
+   - Step 6: Final Typewriter Love Message appears in romantic pink/red text: "I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹"
 
-.male {
-  left:50px;
-  background:#8B4513;
-}
-
-.female {
-  right:50px;
-  background:pink;
-  animation: angry 0.5s infinite;
-}
-
-.female::after {
-  content:"🎀";
-  position:absolute;
-  top:-20px;
-  left:30px;
-}
-
-/* ANIMATIONS */
-@keyframes angry {
-  0%{transform:translateX(0);}
-  50%{transform:translateX(5px);}
-  100%{transform:translateX(0);}
-}
-
-.walk {
-  animation: walk 3s forwards;
-}
-
-@keyframes walk {
-  from {left:50px;}
-  to {left:65%;}
-}
-
-.hug {
-  animation: hug 1s forwards;
-}
-
-@keyframes hug {
-  from {transform:scale(1);}
-  to {transform:scale(1.2);}
-}
-
-/* DIALOGUE */
-#dialogue {
-  position:absolute;
-  bottom:10px;
-  width:100%;
-  font-size:22px;
-}
-
-.loveText {
-  color:#ff4d88;
-  font-size:26px;
-}
-
-/* EMOJIS */
-.emoji {
-  position:absolute;
-  font-size:24px;
-  animation: floatUp 2s forwards;
-}
-
-@keyframes floatUp {
-  from {opacity:1; transform:translateY(0);}
-  to {opacity:0; transform:translateY(-100px);}
-}
-</style>
-</head>
-<body>
-
-<!-- GAME -->
-<div id="game">
-  <h2>Fix the path to reach 🎯</h2>
-  <div class="grid">
-    <div class="cell">⬆️</div>
-    <div class="cell arrow" data-rot="0">➡️</div>
-    <div class="cell arrow" data-rot="0">⬇️</div>
-    <div class="cell">🎯</div>
-  </div>
-</div>
-
-<!-- STAGE -->
-<div id="stage">
-  <div class="floor"></div>
-  <div class="teddy male" id="male"></div>
-  <div class="teddy female" id="female"></div>
-  <div id="dialogue"></div>
-</div>
-
-<script>
-// ROTATE ARROWS
-document.querySelectorAll(".arrow").forEach(cell=>{
-  cell.onclick = ()=>{
-    let rot = (parseInt(cell.dataset.rot)+90)%360;
-    cell.dataset.rot = rot;
-
-    let arrows = ["➡️","⬇️","⬅️","⬆️"];
-    cell.innerText = arrows[rot/90];
-
-    checkWin();
-  }
-});
-
-// CHECK PATH (simple condition)
-function checkWin(){
-  let cells = document.querySelectorAll(".arrow");
-  if(cells[0].innerText==="⬇️" && cells[1].innerText==="➡️"){
-    document.getElementById("game").style.display="none";
-    startAnimation();
-  }
-}
-
-// ANIMATION FLOW
-function startAnimation(){
-  let stage = document.getElementById("stage");
-  stage.style.display="block";
-
-  let male = document.getElementById("male");
-  let female = document.getElementById("female");
-
-  // Step 1: Walk
-  setTimeout(()=>{
-    male.classList.add("walk");
-  },500);
-
-  // Step 2: Kiss
-  setTimeout(()=>{
-    spawnEmoji("💋");
-    spawnEmoji("❤️");
-  },3500);
-
-  // Step 3 Dialogue
-  setTimeout(()=>{
-    typeText("Bubu Guusaa khatam kardoo Jaan 🥺");
-  },4000);
-
-  // Step 4 Female calm
-  setTimeout(()=>{
-    female.style.animation="none";
-    typeText("Okay Bubu ✨");
-  },7000);
-
-  // Step 5 Hug + kiss
-  setTimeout(()=>{
-    spawnEmoji("❤️");
-    spawnEmoji("✨");
-    male.classList.add("hug");
-    female.classList.add("hug");
-  },9000);
-
-  // Step 6 Final Message
-  setTimeout(()=>{
-    typeText("I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹", true);
-  },12000);
-}
-
-// TYPEWRITER
-function typeText(text, final=false){
-  let el = document.getElementById("dialogue");
-  el.innerHTML="";
-  if(final) el.classList.add("loveText");
-  let i=0;
-  let interval=setInterval(()=>{
-    el.innerHTML += text[i];
-    i++;
-    if(i>=text.length) clearInterval(interval);
-  },50);
-}
-
-// EMOJI EFFECT
-function spawnEmoji(symbol){
-  let e = document.createElement("div");
-  e.className="emoji";
-  e.innerText=symbol;
-  e.style.left = (50 + Math.random()*40)+"%";
-  e.style.bottom = "200px";
-  document.getElementById("stage").appendChild(e);
-
-  setTimeout(()=>e.remove(),2000);
-}
-</script>
-
-</body>
-</html>
+Please provide all HTML, CSS, and JS inside a single self-contained file.
