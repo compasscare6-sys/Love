@@ -31,7 +31,7 @@
       border-radius: 20px;
       box-shadow: 0 15px 30px rgba(0,0,0,0.5);
       width: 100%;
-      max-width: 360px;
+      max-width: 340px;
       text-align: center;
     }
 
@@ -49,7 +49,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       margin-bottom: 20px;
     }
@@ -61,7 +61,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       cursor: pointer;
       user-select: none;
       transition: background-color 0.2s, transform 0.1s;
@@ -82,7 +82,7 @@
 
     .cell.solved {
       background: #0284c7;
-      box-shadow: 0 0 12px #0284c7;
+      box-shadow: 0 0 15px #0284c7;
     }
 
     .arrow {
@@ -90,10 +90,11 @@
       transition: transform 0.2s ease;
     }
 
-    .dir-0 { transform: rotate(0deg); }
-    .dir-1 { transform: rotate(90deg); }
-    .dir-2 { transform: rotate(180deg); }
-    .dir-3 { transform: rotate(-90deg); }
+    /* Rotations */
+    .dir-0 { transform: rotate(0deg); }     /* Up ⬆️ */
+    .dir-1 { transform: rotate(90deg); }    /* Right ➡️ */
+    .dir-2 { transform: rotate(180deg); }   /* Down ⬇️ */
+    .dir-3 { transform: rotate(-90deg); }   /* Left ⬅️ */
 
     /* Story Stage */
     .story-card {
@@ -103,7 +104,7 @@
       border-radius: 24px;
       border: 2px solid #f43f5e;
       text-align: center;
-      max-width: 380px;
+      max-width: 360px;
       width: 100%;
       box-shadow: 0 20px 40px rgba(244, 63, 94, 0.25);
       position: relative;
@@ -120,20 +121,20 @@
     }
 
     .teddy {
-      font-size: 4rem;
+      font-size: 3.8rem;
       transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
       position: absolute;
     }
 
     .male-teddy {
-      left: 20px;
+      left: 15px;
     }
 
     .female-teddy {
-      right: 20px;
+      right: 15px;
     }
 
-    /* Animation States */
+    /* Animations */
     .angry {
       animation: shake 0.5s infinite alternate;
     }
@@ -144,7 +145,7 @@
     }
 
     .walk-close {
-      transform: translateX(180px);
+      transform: translateX(160px);
     }
 
     .kiss-effect {
@@ -161,16 +162,16 @@
     }
 
     .hug-male {
-      transform: translateX(130px) rotate(10deg);
+      transform: translateX(120px) rotate(10deg);
     }
 
     .hug-female {
-      transform: translateX(-130px) rotate(-10deg);
+      transform: translateX(-120px) rotate(-10deg);
     }
 
-    /* Typing Box */
+    /* Dialogue Box */
     .dialogue-box {
-      min-height: 60px;
+      min-height: 65px;
       background: #0f172a;
       border-radius: 12px;
       padding: 12px 16px;
@@ -189,7 +190,7 @@
 
     .final-msg {
       color: #f43f5e !important;
-      font-size: 1.15rem !important;
+      font-size: 1.1rem !important;
     }
   </style>
 </head>
@@ -198,7 +199,7 @@
   <!-- Game Screen -->
   <div class="card" id="game-card">
     <h1>Arrow Puzzle 🧩</h1>
-    <p class="subtitle">Arrows par tap kar ke rotate karein aur START (⬆️) ko Target (🎯) tak point karein!</p>
+    <p class="subtitle">Tap arrows to connect START (⬆️) to TARGET (🎯)</p>
     <div class="grid" id="grid"></div>
   </div>
 
@@ -216,17 +217,13 @@
   </div>
 
   <script>
-    // 3x3 Easy Grid Setup
+    // Extremely Simple 2x2 Grid (3 Arrows + 1 Target)
+    // 0: Top-Left (Start), 1: Top-Right, 2: Bottom-Left, 3: Bottom-Right (Target)
     const board = [
-      { dir: 0, targetDir: 1 },
-      { dir: 3, targetDir: 2 },
-      { dir: 1, targetDir: 2 },
-      { dir: 2, targetDir: 0 },
-      { dir: 0, targetDir: 1 },
-      { dir: 3, targetDir: 2 },
-      { dir: 1, targetDir: 0 },
-      { dir: 2, targetDir: 1 },
-      { isEnd: true }
+      { dir: 0, winDir: 1 }, // Must point Right (➡️)
+      { dir: 0, winDir: 2 }, // Must point Down (⬇️)
+      { dir: 0, winDir: 1 }, // Must point Right (➡️)
+      { isEnd: true }        // Target 🎯
     ];
 
     const gridEl = document.getElementById('grid');
@@ -251,7 +248,7 @@
         } else {
           cell.innerHTML = `<span class="arrow dir-${item.dir}">⬆️</span>`;
           cell.addEventListener('click', () => {
-            item.dir = (item.dir + 1) % 4;
+            item.dir = (item.dir + 1) % 4; // Rotate 90 degrees
             renderBoard();
             checkWin();
           });
@@ -261,26 +258,25 @@
     }
 
     function checkWin() {
-      const isPathCorrect = 
-        board[0].dir === board[0].targetDir &&
-        board[1].dir === board[1].targetDir &&
-        board[4].dir === board[4].targetDir &&
-        board[5].dir === board[5].targetDir;
+      // Direct path check:
+      // Option A: Top-Left (Right) -> Top-Right (Down) -> Target
+      // Option B: Top-Left (Down) -> Bottom-Left (Right) -> Target
+      const pathA = (board[0].dir === 1 && board[1].dir === 2);
+      const pathB = (board[0].dir === 2 && board[2].dir === 1);
 
-      if (isPathCorrect) {
-        const solvedIndices = [0, 1, 4, 5, 8];
-        solvedIndices.forEach(idx => gridEl.children[idx].classList.add('solved'));
+      if (pathA || pathB) {
+        // Highlight all cells
+        Array.from(gridEl.children).forEach(c => c.classList.add('solved'));
 
         setTimeout(() => {
           gameCard.style.display = 'none';
           storyCard.style.display = 'block';
           startTeddyStory();
-        }, 600);
+        }, 500);
       }
     }
 
-    // Typewriter Helper
-    function typeText(text, speed = 50) {
+    function typeText(text, speed = 45) {
       return new Promise(resolve => {
         typeWriterEl.innerHTML = '';
         let i = 0;
@@ -303,40 +299,32 @@
       setTimeout(() => heart.remove(), 900);
     }
 
-    // Sequence Animation Story
     async function startTeddyStory() {
-      // 1. Male Teddy walks close to Angry Female Teddy
-      await new Promise(r => setTimeout(r, 600));
+      await new Promise(r => setTimeout(r, 500));
       maleTeddy.classList.add('walk-close');
 
       await new Promise(r => setTimeout(r, 1300));
 
-      // 2. Male Teddy Kisses
       spawnHeart();
       await new Promise(r => setTimeout(r, 600));
 
-      // 3. Male Teddy Typing Dialogue
       await typeText("Bubu Guusaa khatam kardoo Jaan 🥺");
 
       await new Promise(r => setTimeout(r, 1200));
 
-      // 4. Female Teddy stops being angry & replies
       femaleTeddy.classList.remove('angry');
       await typeText("Okay Bubu ✨");
 
       await new Promise(r => setTimeout(r, 800));
 
-      // 5. Female Teddy Kisses back
       spawnHeart();
       await new Promise(r => setTimeout(r, 600));
 
-      // 6. Both Hug
       maleTeddy.className = 'teddy male-teddy hug-male';
       femaleTeddy.className = 'teddy female-teddy hug-female';
 
       await new Promise(r => setTimeout(r, 1000));
 
-      // 7. Final Love Message
       typeWriterEl.classList.add('final-msg');
       await typeText("I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹");
     }
