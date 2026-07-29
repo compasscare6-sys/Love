@@ -13,14 +13,14 @@
     }
 
     body {
-      background: #0f172a;
+      background: #090d16;
       color: #f8fafc;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 15px;
       overflow: hidden;
     }
 
@@ -28,17 +28,18 @@
     .card {
       background: #1e293b;
       padding: 24px;
-      border-radius: 20px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
       width: 100%;
-      max-width: 340px;
+      max-width: 360px;
       text-align: center;
+      border: 1px solid #334155;
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: #38bdf8;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     p.subtitle {
@@ -50,18 +51,18 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 20px;
     }
 
     .cell {
       aspect-ratio: 1;
       background: #334155;
-      border-radius: 12px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       cursor: pointer;
       user-select: none;
       transition: background-color 0.2s, transform 0.1s;
@@ -72,17 +73,17 @@
     }
 
     .cell.start {
-      border: 2px solid #38bdf8;
+      border: 3px solid #38bdf8;
     }
 
     .cell.end {
-      border: 2px solid #f43f5e;
+      border: 3px solid #f43f5e;
       background: #4c0519;
     }
 
     .cell.solved {
       background: #0284c7;
-      box-shadow: 0 0 15px #0284c7;
+      box-shadow: 0 0 20px #0284c7;
     }
 
     .arrow {
@@ -90,99 +91,136 @@
       transition: transform 0.2s ease;
     }
 
-    /* Rotations */
     .dir-0 { transform: rotate(0deg); }     /* Up ⬆️ */
     .dir-1 { transform: rotate(90deg); }    /* Right ➡️ */
     .dir-2 { transform: rotate(180deg); }   /* Down ⬇️ */
     .dir-3 { transform: rotate(-90deg); }   /* Left ⬅️ */
 
-    /* Story Stage */
+    /* Large Visual Story Stage */
     .story-card {
       display: none;
-      background: #1e293b;
-      padding: 30px 20px;
-      border-radius: 24px;
+      background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+      padding: 24px 18px;
+      border-radius: 28px;
       border: 2px solid #f43f5e;
       text-align: center;
-      max-width: 360px;
+      max-width: 440px;
       width: 100%;
-      box-shadow: 0 20px 40px rgba(244, 63, 94, 0.25);
+      box-shadow: 0 25px 50px rgba(244, 63, 94, 0.3);
       position: relative;
     }
 
+    /* Big Stage Canvas */
     .teddy-stage {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 120px;
-      margin: 20px 0;
+      height: 260px;
+      background: radial-gradient(circle at center, #2e1065 0%, #0f172a 80%);
+      border-radius: 20px;
+      margin-bottom: 20px;
       position: relative;
-      padding: 0 20px;
+      overflow: hidden;
+      border: 1px solid #4c1d95;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
     }
 
-    .teddy {
-      font-size: 3.8rem;
-      transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Floor line */
+    .floor {
       position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 45px;
+      background: #1e1145;
+      border-top: 2px solid #581c87;
     }
 
+    /* Teddy Base Styling */
+    .teddy {
+      position: absolute;
+      bottom: 30px;
+      font-size: 5rem;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+      z-index: 2;
+    }
+
+    /* Brown Male Teddy */
     .male-teddy {
-      left: 15px;
+      left: 20px;
+      filter: sepia(100%) hue-rotate(-20deg) saturate(300%) drop-shadow(0 10px 10px rgba(0,0,0,0.5));
     }
 
+    /* Pink Female Teddy */
     .female-teddy {
-      right: 15px;
+      right: 20px;
+      filter: drop-shadow(0 0 15px #f43f5e) hue-rotate(90deg) saturate(250%);
     }
 
-    /* Animations */
+    /* Walking Animation */
+    .walking {
+      animation: walkStep 0.4s infinite alternate ease-in-out;
+    }
+
+    @keyframes walkStep {
+      0% { transform: translateY(0) rotate(-4deg); }
+      100% { transform: translateY(-12px) rotate(4deg); }
+    }
+
     .angry {
-      animation: shake 0.5s infinite alternate;
+      animation: angryShake 0.4s infinite alternate;
     }
 
-    @keyframes shake {
-      0% { transform: rotate(-5deg); }
-      100% { transform: rotate(5deg); }
+    @keyframes angryShake {
+      0% { transform: rotate(-8deg) scale(1); }
+      100% { transform: rotate(8deg) scale(1.05); }
     }
 
-    .walk-close {
-      transform: translateX(160px);
+    /* Kiss & Hug Positions */
+    .male-walk-target {
+      left: 190px !important;
     }
 
+    .male-hug-pos {
+      left: 170px !important;
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    .female-hug-pos {
+      right: 170px !important;
+      transform: rotate(-15deg) scale(1.1);
+    }
+
+    /* Kiss Popups */
     .kiss-effect {
       position: absolute;
-      font-size: 2rem;
+      font-size: 2.8rem;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
       opacity: 0;
-      animation: popHeart 0.8s ease forward;
+      animation: popKiss 1s ease forward;
+      z-index: 10;
     }
 
-    @keyframes popHeart {
-      0% { opacity: 0; transform: scale(0.5) translateY(0); }
-      50% { opacity: 1; transform: scale(1.3) translateY(-20px); }
-      100% { opacity: 0; transform: scale(1) translateY(-40px); }
+    @keyframes popKiss {
+      0% { opacity: 0; transform: translate(-50%, 20px) scale(0.5); }
+      50% { opacity: 1; transform: translate(-50%, -20px) scale(1.4); }
+      100% { opacity: 0; transform: translate(-50%, -50px) scale(1); }
     }
 
-    .hug-male {
-      transform: translateX(120px) rotate(10deg);
-    }
-
-    .hug-female {
-      transform: translateX(-120px) rotate(-10deg);
-    }
-
-    /* Dialogue Box */
+    /* Dialogue Container */
     .dialogue-box {
-      min-height: 65px;
+      min-height: 75px;
       background: #0f172a;
-      border-radius: 12px;
-      padding: 12px 16px;
+      border-radius: 16px;
+      padding: 14px 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid #334155;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .typing-text {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: #38bdf8;
       line-height: 1.4;
@@ -190,7 +228,7 @@
 
     .final-msg {
       color: #f43f5e !important;
-      font-size: 1.1rem !important;
+      font-size: 1.15rem !important;
     }
   </style>
 </head>
@@ -203,11 +241,11 @@
     <div class="grid" id="grid"></div>
   </div>
 
-  <!-- Story Animation Screen -->
+  <!-- Big Animated Visual Story Screen -->
   <div class="story-card" id="story-card">
-    <div class="teddy-stage">
+    <div class="teddy-stage" id="stage">
+      <div class="floor"></div>
       <div class="teddy male-teddy" id="male-teddy">🧸</div>
-      <div id="heart-anchor" style="position: absolute; left: 50%; top: 20%;"></div>
       <div class="teddy female-teddy angry" id="female-teddy">🧸🎀</div>
     </div>
 
@@ -217,22 +255,21 @@
   </div>
 
   <script>
-    // Extremely Simple 2x2 Grid (3 Arrows + 1 Target)
-    // 0: Top-Left (Start), 1: Top-Right, 2: Bottom-Left, 3: Bottom-Right (Target)
+    // 2x2 Simple Puzzle Board
     const board = [
       { dir: 0, winDir: 1 }, // Must point Right (➡️)
       { dir: 0, winDir: 2 }, // Must point Down (⬇️)
-      { dir: 0, winDir: 1 }, // Must point Right (➡️)
+      { dir: 0, winDir: 1 }, 
       { isEnd: true }        // Target 🎯
     ];
 
     const gridEl = document.getElementById('grid');
     const gameCard = document.getElementById('game-card');
     const storyCard = document.getElementById('story-card');
+    const stageEl = document.getElementById('stage');
     const maleTeddy = document.getElementById('male-teddy');
     const femaleTeddy = document.getElementById('female-teddy');
     const typeWriterEl = document.getElementById('typewriter');
-    const heartAnchor = document.getElementById('heart-anchor');
 
     function renderBoard() {
       gridEl.innerHTML = '';
@@ -248,7 +285,7 @@
         } else {
           cell.innerHTML = `<span class="arrow dir-${item.dir}">⬆️</span>`;
           cell.addEventListener('click', () => {
-            item.dir = (item.dir + 1) % 4; // Rotate 90 degrees
+            item.dir = (item.dir + 1) % 4;
             renderBoard();
             checkWin();
           });
@@ -258,14 +295,10 @@
     }
 
     function checkWin() {
-      // Direct path check:
-      // Option A: Top-Left (Right) -> Top-Right (Down) -> Target
-      // Option B: Top-Left (Down) -> Bottom-Left (Right) -> Target
       const pathA = (board[0].dir === 1 && board[1].dir === 2);
       const pathB = (board[0].dir === 2 && board[2].dir === 1);
 
       if (pathA || pathB) {
-        // Highlight all cells
         Array.from(gridEl.children).forEach(c => c.classList.add('solved'));
 
         setTimeout(() => {
@@ -291,40 +324,53 @@
       });
     }
 
-    function spawnHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'kiss-effect';
-      heart.innerHTML = '💋❤️';
-      heartAnchor.appendChild(heart);
-      setTimeout(() => heart.remove(), 900);
+    function triggerKissEffect() {
+      const kiss = document.createElement('div');
+      kiss.className = 'kiss-effect';
+      kiss.innerHTML = '💋❤️✨';
+      stageEl.appendChild(kiss);
+      setTimeout(() => kiss.remove(), 1000);
     }
 
     async function startTeddyStory() {
-      await new Promise(r => setTimeout(r, 500));
-      maleTeddy.classList.add('walk-close');
-
-      await new Promise(r => setTimeout(r, 1300));
-
-      spawnHeart();
       await new Promise(r => setTimeout(r, 600));
 
+      // 1. Male Teddy Walks Step by Step
+      maleTeddy.classList.add('walking');
+      maleTeddy.classList.add('male-walk-target');
+
+      // Stop walking after reaching female teddy
+      await new Promise(r => setTimeout(r, 2200));
+      maleTeddy.classList.remove('walking');
+
+      await new Promise(r => setTimeout(r, 400));
+
+      // 2. Male Teddy Kisses
+      triggerKissEffect();
+      await new Promise(r => setTimeout(r, 800));
+
+      // 3. Male Dialogue
       await typeText("Bubu Guusaa khatam kardoo Jaan 🥺");
 
-      await new Promise(r => setTimeout(r, 1200));
+      await new Promise(r => setTimeout(r, 1400));
 
+      // 4. Female Teddy stops being angry & replies
       femaleTeddy.classList.remove('angry');
       await typeText("Okay Bubu ✨");
 
       await new Promise(r => setTimeout(r, 800));
 
-      spawnHeart();
-      await new Promise(r => setTimeout(r, 600));
+      // 5. Female Teddy Kiss back
+      triggerKissEffect();
+      await new Promise(r => setTimeout(r, 800));
 
-      maleTeddy.className = 'teddy male-teddy hug-male';
-      femaleTeddy.className = 'teddy female-teddy hug-female';
+      // 6. Hug Animation
+      maleTeddy.classList.add('male-hug-pos');
+      femaleTeddy.classList.add('female-hug-pos');
 
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise(r => setTimeout(r, 1200));
 
+      // 7. Final Message
       typeWriterEl.classList.add('final-msg');
       await typeText("I Love You janu ab tu teddy ne bhi maaf kardiya ap bhi kardoo apney lali koo Begum . ❤️🌹");
     }
