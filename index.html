@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rabi & Anu - Romantic Quiz & Love Meter 🎯❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Flappy Heart Adventure 🕊️❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700&family=Sacramento&display=swap" rel="stylesheet">
   
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
+      touch-action: manipulation;
     }
 
     body {
@@ -23,173 +25,133 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
-      overflow-x: hidden;
-      user-select: none;
-    }
-
-    /* Container Card */
-    .quiz-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      border: 2px solid #f472b6;
-      border-radius: 28px;
-      padding: 35px 25px;
-      max-width: 450px;
-      width: 100%;
-      box-shadow: 0 20px 45px rgba(244, 114, 182, 0.25);
-      text-align: center;
-      position: relative;
-    }
-
-    /* Love Meter Progress Bar */
-    .progress-container {
-      width: 100%;
-      background: #fbcfe8;
-      height: 12px;
-      border-radius: 10px;
+      padding: 15px;
       overflow: hidden;
-      margin-bottom: 25px;
-      border: 1px solid #f472b6;
     }
 
-    .progress-bar {
-      height: 100%;
-      width: 25%;
-      background: linear-gradient(90deg, #f472b6, #e11d48);
-      border-radius: 10px;
-      transition: width 0.4s ease;
-    }
-
-    /* Question Styles */
-    .q-number {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #be123c;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .q-title {
-      font-family: 'Caveat', cursive;
-      font-size: 2.1rem;
-      color: #701a75;
-      line-height: 1.3;
-      margin-bottom: 25px;
-    }
-
-    /* Option Buttons */
-    .options-grid {
+    /* Game Container Frame */
+    .game-box {
+      background: rgba(255, 255, 255, 0.95);
+      border: 3px solid #f472b6;
+      border-radius: 28px;
+      width: 100%;
+      max-width: 400px;
+      height: 90vh;
+      max-height: 620px;
+      box-shadow: 0 20px 45px rgba(244, 114, 182, 0.25);
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-
-    .btn-option {
-      background: #ffffff;
-      border: 1.5px solid #f472b6;
-      border-radius: 18px;
-      padding: 14px 18px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #4a044e;
-      cursor: pointer;
-      display: flex;
       align-items: center;
+    }
+
+    /* Score Header */
+    .header-bar {
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
       justify-content: space-between;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 10px rgba(244, 114, 182, 0.1);
+      align-items: center;
+      background: rgba(253, 244, 255, 0.8);
+      border-bottom: 2px dashed #f472b6;
+      z-index: 10;
     }
 
-    .btn-option:hover {
-      background: #fce7f3;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(244, 114, 182, 0.2);
+    .game-title {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: #831843;
     }
 
-    .btn-option:active {
-      transform: scale(0.98);
+    .score-badge {
+      background: #ffffff;
+      border: 2px solid #f472b6;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #be123c;
     }
 
-    /* Certificate Section (Initially Hidden) */
-    .certificate-box {
-      display: none;
-      animation: zoomIn 0.5s ease-out forwards;
+    /* Canvas Area */
+    #gameCanvas {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #fbcfe8 0%, #f3e8ff 100%);
+      cursor: pointer;
     }
 
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+    /* Modal Screens */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      text-align: center;
+      z-index: 20;
     }
 
-    .cert-badge {
+    .modal-emoji {
       font-size: 3.5rem;
       margin-bottom: 10px;
+      animation: float 1.5s ease-in-out infinite alternate;
     }
 
-    .cert-title {
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-12px); }
+    }
+
+    .modal-h1 {
       font-family: 'Caveat', cursive;
       font-size: 2.5rem;
       color: #be123c;
-      margin-bottom: 5px;
-    }
-
-    .cert-sub {
-      font-size: 0.85rem;
-      color: #a21caf;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-
-    .cert-card {
-      background: #fff5f8;
-      border: 2px dashed #f472b6;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 22px;
-    }
-
-    .couple-names {
-      font-family: 'Caveat', cursive;
-      font-size: 2.2rem;
-      color: #831843;
       margin-bottom: 8px;
     }
 
-    .match-percent {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #e11d48;
-      margin-bottom: 10px;
+    .modal-p {
+      font-size: 0.9rem;
+      color: #701a75;
+      line-height: 1.6;
+      margin-bottom: 22px;
     }
 
-    .cert-message {
-      font-size: 0.92rem;
-      color: #4a044e;
-      line-height: 1.6;
+    .btn-start {
+      background: linear-gradient(135deg, #f472b6 0%, #e11d48 100%);
+      color: white;
+      border: none;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 13px 32px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
+    }
+
+    /* Victory Card */
+    .note-card {
+      background: #fff5f8;
+      border: 2px dashed #f472b6;
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 20px;
+      width: 100%;
     }
 
     .signature {
       font-family: 'Sacramento', cursive;
-      font-size: 2rem;
+      font-size: 2.1rem;
       color: #be123c;
-      margin-top: 15px;
-    }
-
-    .btn-restart {
-      background: linear-gradient(135deg, #f472b6 0%, #e11d48 100%);
-      color: white;
-      border: none;
-      font-size: 0.9rem;
-      font-weight: 700;
-      padding: 12px 28px;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(225, 29, 72, 0.25);
+      margin-top: 8px;
     }
 
     /* Confetti Particle */
@@ -208,150 +170,194 @@
 </head>
 <body>
 
-  <div class="quiz-card">
+  <div class="game-box">
     
-    <!-- QUIZ SECTION -->
-    <div id="quizBox">
-      <!-- Progress Bar -->
-      <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-
-      <div class="q-number" id="qNumber">Question 1 of 4</div>
-      <h2 class="q-title" id="qTitle">Who fell in love first? 💘</h2>
-
-      <div class="options-grid" id="optionsGrid">
-        <!-- Options rendered dynamically -->
-      </div>
+    <div class="header-bar">
+      <div class="game-title">Flappy Heart 🕊️💖</div>
+      <div class="score-badge">Score: <span id="scoreText">0</span>/20</div>
     </div>
 
-    <!-- CERTIFICATE SECTION (Hidden) -->
-    <div class="certificate-box" id="certBox">
-      <div class="cert-badge">👑💖</div>
-      <h2 class="cert-title">Love Match Certificate</h2>
-      <div class="cert-sub">OFFICIALLY SEALED WITH LOVE</div>
+    <canvas id="gameCanvas" width="380" height="520"></canvas>
 
-      <div class="cert-card">
-        <div class="couple-names">Rabi  Anu</div>
-        <div class="match-percent">100% PERFECT MATCH 💕</div>
-        <div class="cert-message">
-          "Verified by hearts! No matter who gets angry first or who fell in love first—Rabi & Anu are made for each other forever and always." 🌸✨
-        </div>
+    <!-- Start Screen -->
+    <div class="overlay" id="startModal">
+      <div class="modal-emoji">💖🕊️</div>
+      <h2 class="modal-h1">Flappy Love Adventure!</h2>
+      <p class="modal-p">
+        Screen par tap karke heart ko fly karao! Pillars se bach kar <b>20 Points</b> banao aur secret romantic message unlock karo! ✨
+      </p>
+      <button class="btn-start" onclick="startGame()">TAP TO PLAY 🚀</button>
+    </div>
+
+    <!-- Victory Screen -->
+    <div class="overlay" id="victoryModal" style="display: none;">
+      <div class="modal-emoji">👑🥳</div>
+      <h2 class="modal-h1">You Reached My Heart!</h2>
+      
+      <div class="note-card">
+        <p style="font-size: 0.95rem; color: #4a044e; line-height: 1.6;">
+          <b>Score: 20/20 Perfect Flying!</b><br>
+          "Kitni bhi obstacles aayein Anu, mera dil hamesha aapki taraf hi fly karta hai. You are my forever love!" 🌸✨
+        </p>
         <div class="signature">yours, completely — RABI</div>
       </div>
 
-      <button class="btn-restart" onclick="restartQuiz()">PLAY AGAIN 🔄</button>
+      <button class="btn-start" onclick="startGame()">PLAY AGAIN 🔄</button>
     </div>
 
   </div>
 
   <script>
-    const quizData = [
-      {
-        question: "Who fell in love first? 💘",
-        options: [
-          { text: "Rabi (Obviously!) 🙋‍♂️", icon: "❤️" },
-          { text: "Anu (Secretly!) 👸", icon: "💖" },
-          { text: "Dono ko ek sath hua tha! ✨", icon: "🌸" }
-        ]
-      },
-      {
-        question: "Who gets angrier quickly? 😤",
-        options: [
-          { text: "Anu (Pyara sa gussa) 💖", icon: "👑" },
-          { text: "Rabi (Lekin jaldi maan jata hai) 🙈", icon: "🧸" },
-          { text: "Koi nahi, dono bohot soft hain 💕", icon: "🕊️" }
-        ]
-      },
-      {
-        question: "What is Rabi's favorite thing about Anu? 🥰",
-        options: [
-          { text: "Her cute smile & voice 🌸", icon: "✨" },
-          { text: "How she cares deeply 🫂", icon: "💖" },
-          { text: "EVERY SINGLE THING! 💯", icon: "👑" }
-        ]
-      },
-      {
-        question: "Best cure for any fight or bad mood? 🩹",
-        options: [
-          { text: "One Tight Hug 🫂", icon: "🌸" },
-          { text: "Sweet Kissi & Sorry 💋", icon: "❤️" },
-          { text: "Late-night Chai & Ice Cream 🍦", icon: "✨" }
-        ]
-      }
-    ];
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreText = document.getElementById('scoreText');
+    const startModal = document.getElementById('startModal');
+    const victoryModal = document.getElementById('victoryModal');
 
-    let currentQ = 0;
+    let isPlaying = false;
+    let score = 0;
+    
+    // Player Properties
+    let bird = {
+      x: 50,
+      y: 200,
+      radius: 18,
+      gravity: 0.35,
+      lift: -7.5,
+      velocity: 0
+    };
 
-    function renderQuestion() {
-      const q = quizData[currentQ];
-      document.getElementById('qNumber').innerText = `Question ${currentQ + 1} of ${quizData.length}`;
-      document.getElementById('qTitle').innerText = q.question;
-      document.getElementById('progressBar').style.width = `${((currentQ + 1) / quizData.length) * 100}%`;
+    let pipes = [];
+    let pipeWidth = 52;
+    let pipeGap = 130;
+    let frame = 0;
 
-      const optionsGrid = document.getElementById('optionsGrid');
-      optionsGrid.innerHTML = '';
-
-      q.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-option';
-        btn.innerHTML = `<span>${opt.text}</span> <span>${opt.icon}</span>`;
-        btn.onclick = (e) => selectAnswer(e);
-        optionsGrid.appendChild(btn);
-      });
-    }
-
-    function selectAnswer(e) {
-      triggerParticles(e.clientX, e.clientY);
+    function startGame() {
+      score = 0;
+      scoreText.innerText = score;
+      bird.y = 200;
+      bird.velocity = 0;
+      pipes = [];
+      frame = 0;
+      isPlaying = true;
       
-      currentQ++;
-      if (currentQ < quizData.length) {
-        setTimeout(renderQuestion, 300);
-      } else {
-        setTimeout(showCertificate, 400);
+      startModal.style.display = 'none';
+      victoryModal.style.display = 'none';
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function jump() {
+      if (isPlaying) {
+        bird.velocity = bird.lift;
       }
     }
 
-    function showCertificate() {
-      document.getElementById('quizBox').style.display = 'none';
-      document.getElementById('certBox').style.display = 'block';
+    // Touch & Click Controls
+    canvas.addEventListener('click', jump);
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') jump();
+    });
+
+    function gameLoop() {
+      if (!isPlaying) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Bird Gravity Update
+      bird.velocity += bird.gravity;
+      bird.y += bird.velocity;
+
+      // Draw Player Heart Emoji
+      ctx.font = "32px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("💖", bird.x, bird.y);
+
+      // Spawn Pipes
+      if (frame % 90 === 0) {
+        let minHeight = 60;
+        let maxHeight = canvas.height - pipeGap - minHeight;
+        let topHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+        pipes.push({
+          x: canvas.width,
+          top: topHeight,
+          bottom: canvas.height - topHeight - pipeGap,
+          passed: false
+        });
+      }
+
+      // Draw and Move Pipes
+      for (let i = pipes.length - 1; i >= 0; i--) {
+        let p = pipes[i];
+        p.x -= 2.5;
+
+        // Draw Romantic Pillared Clouds
+        ctx.fillStyle = "#f472b6";
+        // Top Pipe
+        ctx.beginPath();
+        ctx.roundRect(p.x, 0, pipeWidth, p.top, [0, 0, 16, 16]);
+        ctx.fill();
+
+        // Bottom Pipe
+        ctx.beginPath();
+        ctx.roundRect(p.x, canvas.height - p.bottom, pipeWidth, p.bottom, [16, 16, 0, 0]);
+        ctx.fill();
+
+        // Check Collision
+        if (
+          bird.x + bird.radius > p.x &&
+          bird.x - bird.radius < p.x + pipeWidth &&
+          (bird.y - bird.radius < p.top || bird.y + bird.radius > canvas.height - p.bottom)
+        ) {
+          gameOver();
+          return;
+        }
+
+        // Score Update
+        if (p.x + pipeWidth < bird.x && !p.passed) {
+          score++;
+          p.passed = true;
+          scoreText.innerText = score;
+
+          if (score >= 20) {
+            winGame();
+            return;
+          }
+        }
+
+        // Remove Offscreen Pipes
+        if (p.x < -pipeWidth) {
+          pipes.splice(i, 1);
+        }
+      }
+
+      // Floor / Ceiling Collision
+      if (bird.y + bird.radius >= canvas.height || bird.y - bird.radius <= 0) {
+        gameOver();
+        return;
+      }
+
+      frame++;
+      requestAnimationFrame(gameLoop);
+    }
+
+    function gameOver() {
+      isPlaying = false;
+      startModal.style.display = 'flex';
+      document.querySelector('#startModal .modal-h1').innerText = "Oops! Try Again 💕";
+      document.querySelector('#startModal .modal-p').innerText = `Your score was ${score}. Tap below to fly again for Anu!`;
+    }
+
+    function winGame() {
+      isPlaying = false;
+      victoryModal.style.display = 'flex';
       triggerConfetti();
     }
 
-    function restartQuiz() {
-      currentQ = 0;
-      document.getElementById('quizBox').style.display = 'block';
-      document.getElementById('certBox').style.display = 'none';
-      renderQuestion();
-    }
-
-    // Tap/Click Particle Animation
-    function triggerParticles(x, y) {
-      const symbols = ['💖', '❤️', '✨', '🌸', '💕'];
-      for (let i = 0; i < 5; i++) {
-        const p = document.createElement('div');
-        p.style.position = 'fixed';
-        p.style.left = x + 'px';
-        p.style.top = y + 'px';
-        p.style.fontSize = '20px';
-        p.style.pointerEvents = 'none';
-        p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-        p.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
-        document.body.appendChild(p);
-
-        setTimeout(() => {
-          p.style.transform = `translate(${(Math.random() - 0.5) * 100}px, -80px) scale(1.3)`;
-          p.style.opacity = '0';
-        }, 20);
-
-        setTimeout(() => p.remove(), 800);
-      }
-    }
-
-    // Confetti Fireworks Effect for Final Certificate
     function triggerConfetti() {
       const symbols = ['💖', '❤️', '✨', '🌸', '💕', '👑', '🎉', '🌹'];
-      for (let i = 0; i < 35; i++) {
+      for (let i = 0; i < 40; i++) {
         setTimeout(() => {
           const confetti = document.createElement('div');
           confetti.className = 'confetti';
@@ -362,12 +368,9 @@
           document.body.appendChild(confetti);
 
           setTimeout(() => confetti.remove(), 2500);
-        }, i * 50);
+        }, i * 40);
       }
     }
-
-    // Initialize First Question
-    renderQuestion();
   </script>
 
 </body>
