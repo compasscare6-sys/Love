@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Why I Love You Anu 🎡❤️</title>
+  <title>Rabi & Anu - Romantic Quiz & Love Meter 🎯❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
@@ -20,9 +20,8 @@
       color: #4c1d95;
       font-family: 'Plus Jakarta Sans', sans-serif;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       min-height: 100vh;
       padding: 20px;
       overflow-x: hidden;
@@ -30,178 +29,170 @@
     }
 
     /* Container Card */
-    .wheel-card {
+    .quiz-card {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       border: 2px solid #f472b6;
       border-radius: 28px;
-      padding: 30px 20px;
-      max-width: 440px;
+      padding: 35px 25px;
+      max-width: 450px;
       width: 100%;
       box-shadow: 0 20px 45px rgba(244, 114, 182, 0.25);
       text-align: center;
       position: relative;
     }
 
-    .header-title {
-      font-family: 'Caveat', cursive;
-      font-size: 2.5rem;
-      color: #831843;
-      margin-bottom: 4px;
-    }
-
-    .sub-title {
-      font-size: 0.85rem;
-      color: #701a75;
-      font-weight: 600;
-      margin-bottom: 25px;
-    }
-
-    /* Wheel Section Wrapper */
-    .wheel-wrapper {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin: 0 auto 25px auto;
-    }
-
-    /* Top Arrow Pointer */
-    .pointer {
-      position: absolute;
-      top: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 14px solid transparent;
-      border-right: 14px solid transparent;
-      border-top: 24px solid #be123c;
-      z-index: 10;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
-    }
-
-    /* Canvas Canvas element for Smooth Wheel Drawing */
-    #wheelCanvas {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
-      border: 6px solid #fff;
-    }
-
-    /* Spin Button */
-    .spin-btn {
-      background: linear-gradient(135deg, #f472b6 0%, #e11d48 100%);
-      color: white;
-      border: none;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      padding: 14px 36px;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
-      transition: all 0.2s ease;
-    }
-
-    .spin-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(225, 29, 72, 0.4);
-    }
-
-    .spin-btn:disabled {
-      background: #cbd5e1;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-    }
-
-    /* Result Modal Window */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(6px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      padding: 20px;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      background: #ffffff;
-      border: 2px solid #f472b6;
-      border-radius: 24px;
-      padding: 30px 22px;
-      max-width: 380px;
+    /* Love Meter Progress Bar */
+    .progress-container {
       width: 100%;
-      text-align: center;
-      transform: scale(0.8);
-      transition: transform 0.3s ease;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      background: #fbcfe8;
+      height: 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 25px;
+      border: 1px solid #f472b6;
     }
 
-    .modal-overlay.active .modal-card {
-      transform: scale(1);
+    .progress-bar {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, #f472b6, #e11d48);
+      border-radius: 10px;
+      transition: width 0.4s ease;
     }
 
-    .modal-heart {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      animation: pulse 1s infinite alternate;
-    }
-
-    .modal-tag {
+    /* Question Styles */
+    .q-number {
       font-size: 0.8rem;
-      letter-spacing: 1px;
-      color: #9d174d;
       font-weight: 700;
+      color: #be123c;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-bottom: 8px;
     }
 
-    .modal-text {
-      font-size: 1.15rem;
+    .q-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.1rem;
+      color: #701a75;
+      line-height: 1.3;
+      margin-bottom: 25px;
+    }
+
+    /* Option Buttons */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .btn-option {
+      background: #ffffff;
+      border: 1.5px solid #f472b6;
+      border-radius: 18px;
+      padding: 14px 18px;
+      font-size: 0.95rem;
       font-weight: 600;
       color: #4a044e;
-      line-height: 1.6;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(244, 114, 182, 0.1);
+    }
+
+    .btn-option:hover {
+      background: #fce7f3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(244, 114, 182, 0.2);
+    }
+
+    .btn-option:active {
+      transform: scale(0.98);
+    }
+
+    /* Certificate Section (Initially Hidden) */
+    .certificate-box {
+      display: none;
+      animation: zoomIn 0.5s ease-out forwards;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .cert-badge {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+    }
+
+    .cert-title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.5rem;
+      color: #be123c;
+      margin-bottom: 5px;
+    }
+
+    .cert-sub {
+      font-size: 0.85rem;
+      color: #a21caf;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .cert-card {
+      background: #fff5f8;
+      border: 2px dashed #f472b6;
+      border-radius: 20px;
+      padding: 20px;
       margin-bottom: 22px;
     }
 
-    .btn-close {
-      background: #fbcfe8;
-      border: 1px solid #f472b6;
-      color: #9d174d;
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 10px 26px;
-      border-radius: 20px;
-      cursor: pointer;
+    .couple-names {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: #831843;
+      margin-bottom: 8px;
     }
 
-    .btn-close:hover {
-      background: #f472b6;
+    .match-percent {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #e11d48;
+      margin-bottom: 10px;
+    }
+
+    .cert-message {
+      font-size: 0.92rem;
+      color: #4a044e;
+      line-height: 1.6;
+    }
+
+    .signature {
+      font-family: 'Sacramento', cursive;
+      font-size: 2rem;
+      color: #be123c;
+      margin-top: 15px;
+    }
+
+    .btn-restart {
+      background: linear-gradient(135deg, #f472b6 0%, #e11d48 100%);
       color: white;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(225, 29, 72, 0.25);
     }
 
-    @keyframes pulse {
-      from { transform: scale(1); }
-      to { transform: scale(1.15); }
-    }
-
-    /* Confetti Particle CSS */
+    /* Confetti Particle */
     .confetti {
       position: fixed;
       pointer-events: none;
@@ -217,163 +208,150 @@
 </head>
 <body>
 
-  <div class="wheel-card">
-    <h1 class="header-title">Why I Love You Anu 🎡❤️</h1>
-    <p class="sub-title">Tap the button below to spin the romantic wheel!</p>
+  <div class="quiz-card">
+    
+    <!-- QUIZ SECTION -->
+    <div id="quizBox">
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
 
-    <div class="wheel-wrapper">
-      <div class="pointer"></div>
-      <canvas id="wheelCanvas" width="600" height="600"></canvas>
+      <div class="q-number" id="qNumber">Question 1 of 4</div>
+      <h2 class="q-title" id="qTitle">Who fell in love first? 💘</h2>
+
+      <div class="options-grid" id="optionsGrid">
+        <!-- Options rendered dynamically -->
+      </div>
     </div>
 
-    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN THE WHEEL 💖</button>
-  </div>
+    <!-- CERTIFICATE SECTION (Hidden) -->
+    <div class="certificate-box" id="certBox">
+      <div class="cert-badge">👑💖</div>
+      <h2 class="cert-title">Love Match Certificate</h2>
+      <div class="cert-sub">OFFICIALLY SEALED WITH LOVE</div>
 
-  <!-- Result Reveal Modal -->
-  <div class="modal-overlay" id="resultModal">
-    <div class="modal-card">
-      <div class="modal-heart">💖</div>
-      <div class="modal-tag">Reason #<span id="reasonNum">1</span> For Loving You</div>
-      <div class="modal-text" id="reasonText">"Your cute smile when you get mad."</div>
-      <button class="btn-close" onclick="closeModal()">SPIN AGAIN 🔄</button>
+      <div class="cert-card">
+        <div class="couple-names">Rabi  Anu</div>
+        <div class="match-percent">100% PERFECT MATCH 💕</div>
+        <div class="cert-message">
+          "Verified by hearts! No matter who gets angry first or who fell in love first—Rabi & Anu are made for each other forever and always." 🌸✨
+        </div>
+        <div class="signature">yours, completely — RABI</div>
+      </div>
+
+      <button class="btn-restart" onclick="restartQuiz()">PLAY AGAIN 🔄</button>
     </div>
+
   </div>
 
   <script>
-    // Romantic reasons list on the wheel
-    const reasons = [
-      "Your cute smile when you get mad 😤❤️",
-      "How deeply you care for me 🫂✨",
-      "Your voice late at night 🌙🌸",
-      "The way your eyes light up 👁️💖",
-      "How you always make me laugh 😂💕",
-      "How soft & kind your heart is 🌸👑",
-      "Because you are my safest place 🏡❤️",
-      "Simply because you are MY ANU 👸💖"
-    ];
-
-    const colors = [
-      "#fce7f3", "#fbcfe8", "#f472b6", "#e879f9",
-      "#fdf4ff", "#f3e8ff", "#d8b4fe", "#fda4af"
-    ];
-
-    const canvas = document.getElementById('wheelCanvas');
-    const ctx = canvas.getContext('2d');
-    const numSegments = reasons.length;
-    const arcSize = (2 * Math.PI) / numSegments;
-    
-    let currentAngle = 0;
-    let isSpinning = false;
-
-    // Draw Wheel Segments and Text
-    function drawWheel() {
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const radius = canvas.width / 2 - 10;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < numSegments; i++) {
-        const angle = currentAngle + i * arcSize;
-
-        // Draw sector slice
-        ctx.beginPath();
-        ctx.fillStyle = colors[i % colors.length];
-        ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
-        ctx.lineTo(centerX, centerY);
-        ctx.fill();
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "#ffffff";
-        ctx.stroke();
-
-        // Draw short text label inside slice
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(angle + arcSize / 2);
-        ctx.textAlign = "right";
-        ctx.fillStyle = "#701a75";
-        ctx.font = "bold 20px 'Plus Jakarta Sans', sans-serif";
-        
-        // Truncate text preview for wheel fitting
-        let shortText = reasons[i].split(" ").slice(0, 3).join(" ") + "...";
-        ctx.fillText(shortText, radius - 25, 8);
-        ctx.restore();
+    const quizData = [
+      {
+        question: "Who fell in love first? 💘",
+        options: [
+          { text: "Rabi (Obviously!) 🙋‍♂️", icon: "❤️" },
+          { text: "Anu (Secretly!) 👸", icon: "💖" },
+          { text: "Dono ko ek sath hua tha! ✨", icon: "🌸" }
+        ]
+      },
+      {
+        question: "Who gets angrier quickly? 😤",
+        options: [
+          { text: "Anu (Pyara sa gussa) 💖", icon: "👑" },
+          { text: "Rabi (Lekin jaldi maan jata hai) 🙈", icon: "🧸" },
+          { text: "Koi nahi, dono bohot soft hain 💕", icon: "🕊️" }
+        ]
+      },
+      {
+        question: "What is Rabi's favorite thing about Anu? 🥰",
+        options: [
+          { text: "Her cute smile & voice 🌸", icon: "✨" },
+          { text: "How she cares deeply 🫂", icon: "💖" },
+          { text: "EVERY SINGLE THING! 💯", icon: "👑" }
+        ]
+      },
+      {
+        question: "Best cure for any fight or bad mood? 🩹",
+        options: [
+          { text: "One Tight Hug 🫂", icon: "🌸" },
+          { text: "Sweet Kissi & Sorry 💋", icon: "❤️" },
+          { text: "Late-night Chai & Ice Cream 🍦", icon: "✨" }
+        ]
       }
+    ];
 
-      // Draw Center Romantic Pin
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, 35, 0, 2 * Math.PI);
-      ctx.fillStyle = "#ffffff";
-      ctx.fill();
-      ctx.lineWidth = 4;
-      ctx.strokeStyle = "#f472b6";
-      ctx.stroke();
+    let currentQ = 0;
 
-      ctx.font = "24px sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("❤️", centerX, centerY);
+    function renderQuestion() {
+      const q = quizData[currentQ];
+      document.getElementById('qNumber').innerText = `Question ${currentQ + 1} of ${quizData.length}`;
+      document.getElementById('qTitle').innerText = q.question;
+      document.getElementById('progressBar').style.width = `${((currentQ + 1) / quizData.length) * 100}%`;
+
+      const optionsGrid = document.getElementById('optionsGrid');
+      optionsGrid.innerHTML = '';
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-option';
+        btn.innerHTML = `<span>${opt.text}</span> <span>${opt.icon}</span>`;
+        btn.onclick = (e) => selectAnswer(e);
+        optionsGrid.appendChild(btn);
+      });
     }
 
-    drawWheel();
-
-    // Spin Logic
-    function spinWheel() {
-      if (isSpinning) return;
-      isSpinning = true;
-      document.getElementById('spinBtn').disabled = true;
-
-      // Random multi-round spin (5 full spins + random offset)
-      const extraRounds = 5 + Math.floor(Math.random() * 3);
-      const randomSegment = Math.floor(Math.random() * numSegments);
+    function selectAnswer(e) {
+      triggerParticles(e.clientX, e.clientY);
       
-      // Calculate target angle to stop precisely at selected segment top
-      const targetSegmentAngle = (numSegments - randomSegment - 0.5) * arcSize - (Math.PI / 2);
-      const totalRotation = (extraRounds * 2 * Math.PI) + targetSegmentAngle;
-
-      let startTime = null;
-      const spinDuration = 4500; // 4.5 seconds
-
-      function animateSpin(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / spinDuration, 1);
-        
-        // Ease-out cubic formula for realistic deceleration
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        currentAngle = totalRotation * easeOut;
-
-        drawWheel();
-
-        if (progress < 1) {
-          requestAnimationFrame(animateSpin);
-        } else {
-          isSpinning = false;
-          showResult(randomSegment);
-        }
+      currentQ++;
+      if (currentQ < quizData.length) {
+        setTimeout(renderQuestion, 300);
+      } else {
+        setTimeout(showCertificate, 400);
       }
-
-      requestAnimationFrame(animateSpin);
     }
 
-    // Show Result & Trigger Fireworks/Confetti
-    function showResult(index) {
-      document.getElementById('reasonNum').innerText = index + 1;
-      document.getElementById('reasonText').innerText = reasons[index];
-      document.getElementById('resultModal').classList.add('active');
+    function showCertificate() {
+      document.getElementById('quizBox').style.display = 'none';
+      document.getElementById('certBox').style.display = 'block';
       triggerConfetti();
     }
 
-    function closeModal() {
-      document.getElementById('resultModal').classList.remove('active');
-      document.getElementById('spinBtn').disabled = false;
+    function restartQuiz() {
+      currentQ = 0;
+      document.getElementById('quizBox').style.display = 'block';
+      document.getElementById('certBox').style.display = 'none';
+      renderQuestion();
     }
 
-    // Confetti & Fireworks Effect
+    // Tap/Click Particle Animation
+    function triggerParticles(x, y) {
+      const symbols = ['💖', '❤️', '✨', '🌸', '💕'];
+      for (let i = 0; i < 5; i++) {
+        const p = document.createElement('div');
+        p.style.position = 'fixed';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        p.style.fontSize = '20px';
+        p.style.pointerEvents = 'none';
+        p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        p.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+        document.body.appendChild(p);
+
+        setTimeout(() => {
+          p.style.transform = `translate(${(Math.random() - 0.5) * 100}px, -80px) scale(1.3)`;
+          p.style.opacity = '0';
+        }, 20);
+
+        setTimeout(() => p.remove(), 800);
+      }
+    }
+
+    // Confetti Fireworks Effect for Final Certificate
     function triggerConfetti() {
       const symbols = ['💖', '❤️', '✨', '🌸', '💕', '👑', '🎉', '🌹'];
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 35; i++) {
         setTimeout(() => {
           const confetti = document.createElement('div');
           confetti.className = 'confetti';
@@ -384,9 +362,12 @@
           document.body.appendChild(confetti);
 
           setTimeout(() => confetti.remove(), 2500);
-        }, i * 40);
+        }, i * 50);
       }
     }
+
+    // Initialize First Question
+    renderQuestion();
   </script>
 
 </body>
