@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Flappy Heart Adventure 🕊️❤️</title>
+  <title>For My Queen Anu 💖</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700&family=Sacramento&display=swap" rel="stylesheet">
@@ -29,52 +29,169 @@
       overflow: hidden;
     }
 
-    /* Game Container Frame */
-    .game-box {
+    /* Container Frame */
+    .app-box {
       background: rgba(255, 255, 255, 0.95);
       border: 3px solid #f472b6;
       border-radius: 28px;
       width: 100%;
       max-width: 400px;
       height: 90vh;
-      max-height: 620px;
+      max-height: 640px;
       box-shadow: 0 20px 45px rgba(244, 114, 182, 0.25);
       position: relative;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
-    /* Score Header */
+    /* Common Card Styles */
+    .screen-card {
+      width: 100%;
+      height: 100%;
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.5s ease-in-out;
+      background: rgba(255, 255, 255, 0.95);
+      overflow-y: auto;
+    }
+
+    .hidden-screen {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+
+    .main-emoji {
+      font-size: 3.2rem;
+      margin-bottom: 8px;
+      animation: float 1.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    h1.title {
+      font-family: 'Caveat', cursive;
+      font-size: 2.3rem;
+      color: #be123c;
+      margin-bottom: 6px;
+    }
+
+    p.subtitle {
+      font-size: 0.9rem;
+      color: #701a75;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    /* Calendar Input Styling */
+    .date-picker-wrapper {
+      margin: 10px 0 20px 0;
+      width: 100%;
+      max-width: 260px;
+    }
+
+    .date-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #f472b6;
+      border-radius: 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #be123c;
+      outline: none;
+      background: #fff5f8;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(244, 114, 182, 0.15);
+      cursor: pointer;
+    }
+
+    .btn-action {
+      background: linear-gradient(135deg, #f472b6 0%, #e11d48 100%);
+      color: white;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-action:active {
+      transform: scale(0.96);
+    }
+
+    /* Secret Reveal Note */
+    .secret-note {
+      background: #fff5f8;
+      border: 2px dashed #f472b6;
+      border-radius: 20px;
+      padding: 16px;
+      margin: 10px 0 15px 0;
+      width: 100%;
+      max-height: 320px;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .secret-note p {
+      font-size: 0.88rem;
+      color: #4a044e;
+      line-height: 1.6;
+    }
+
+    .signature {
+      font-family: 'Sacramento', cursive;
+      font-size: 2rem;
+      color: #be123c;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    /* Game Header & Canvas */
     .header-bar {
       width: 100%;
-      padding: 15px 20px;
+      padding: 10px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(253, 244, 255, 0.8);
+      background: rgba(253, 244, 255, 0.9);
       border-bottom: 2px dashed #f472b6;
       z-index: 10;
     }
 
     .game-title {
       font-family: 'Caveat', cursive;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #831843;
     }
 
     .score-badge {
       background: #ffffff;
       border: 2px solid #f472b6;
-      padding: 5px 15px;
+      padding: 4px 12px;
       border-radius: 20px;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: #be123c;
     }
 
-    /* Canvas Area */
     #gameCanvas {
       width: 100%;
       height: 100%;
@@ -82,7 +199,6 @@
       cursor: pointer;
     }
 
-    /* Modal Screens */
     .overlay {
       position: absolute;
       top: 0;
@@ -95,66 +211,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 25px;
+      padding: 20px;
       text-align: center;
       z-index: 20;
     }
 
-    .modal-emoji {
-      font-size: 3.5rem;
-      margin-bottom: 10px;
-      animation: float 1.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes float {
-      from { transform: translateY(0); }
-      to { transform: translateY(-12px); }
-    }
-
-    .modal-h1 {
-      font-family: 'Caveat', cursive;
-      font-size: 2.5rem;
-      color: #be123c;
-      margin-bottom: 8px;
-    }
-
-    .modal-p {
-      font-size: 0.9rem;
-      color: #701a75;
-      line-height: 1.6;
-      margin-bottom: 22px;
-    }
-
-    .btn-start {
-      background: linear-gradient(135deg, #f472b6 0%, #e11d48 100%);
-      color: white;
-      border: none;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 13px 32px;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
-    }
-
-    /* Victory Card */
-    .note-card {
-      background: #fff5f8;
-      border: 2px dashed #f472b6;
-      border-radius: 20px;
-      padding: 18px;
-      margin-bottom: 20px;
-      width: 100%;
-    }
-
-    .signature {
-      font-family: 'Sacramento', cursive;
-      font-size: 2.1rem;
-      color: #be123c;
-      margin-top: 8px;
-    }
-
-    /* Confetti Particle */
     .confetti {
       position: fixed;
       pointer-events: none;
@@ -170,44 +231,105 @@
 </head>
 <body>
 
-  <div class="game-box">
-    
-    <div class="header-bar">
-      <div class="game-title">Flappy Heart 🕊️💖</div>
-      <div class="score-badge">Score: <span id="scoreText">0</span>/20</div>
-    </div>
+  <div class="app-box">
 
-    <canvas id="gameCanvas" width="380" height="520"></canvas>
-
-    <!-- Start Screen -->
-    <div class="overlay" id="startModal">
-      <div class="modal-emoji">💖🕊️</div>
-      <h2 class="modal-h1">Flappy Love Adventure!</h2>
-      <p class="modal-p">
-        Screen par tap karke heart ko fly karao! Pillars se bach kar <b>20 Points</b> banao aur secret romantic message unlock karo! ✨
+    <!-- SCREEN 1: Welcome & Calendar -->
+    <div class="screen-card" id="screen1">
+      <div class="main-emoji">📅💖</div>
+      <h1 class="title">Welcome My Love!</h1>
+      <p class="subtitle">
+        Anu, humari life ki sabse special date select karein aur dekhein ek magical memory! ✨
       </p>
-      <button class="btn-start" onclick="startGame()">TAP TO PLAY 🚀</button>
-    </div>
-
-    <!-- Victory Screen -->
-    <div class="overlay" id="victoryModal" style="display: none;">
-      <div class="modal-emoji">👑🥳</div>
-      <h2 class="modal-h1">You Reached My Heart!</h2>
       
-      <div class="note-card">
-        <p style="font-size: 0.95rem; color: #4a044e; line-height: 1.6;">
-          <b>Score: 20/20 Perfect Flying!</b><br>
-          "Kitni bhi obstacles aayein Anu, mera dil hamesha aapki taraf hi fly karta hai. You are my forever love!" 🌸✨
-        </p>
-        <div class="signature">yours, completely — RABI</div>
+      <div class="date-picker-wrapper">
+        <input type="date" id="loveDate" class="date-input">
       </div>
 
-      <button class="btn-start" onclick="startGame()">PLAY AGAIN 🔄</button>
+      <button class="btn-action" onclick="unlockMemory()">UNLOCK SURPRISE 🔑</button>
+    </div>
+
+    <!-- SCREEN 2: Romantic Note Reveal -->
+    <div class="screen-card hidden-screen" id="screen2">
+      <div class="main-emoji">💌✨</div>
+      <h1 class="title">18th Feb — Special Love!</h1>
+      
+      <div class="secret-note">
+        <p id="dateDisplay" style="font-weight: 700; color: #be123c; margin-bottom: 8px; text-align: center;"></p>
+        <p>
+          Dil ki har ek dhadkan bas ek hi baat kehti hai ki aap mere saath hain toh sab kuch perfect hai. 18 Feb ki yeh date mere dil par hamesha ke liye likhi hui hai. Aap meri zindagi ki sabse khoobsurat reality ho Anu! Forever & Always. 🌹💖<br><br>
+          Mein kal bhi tumharey sath tha aj bhi tumharey sath huun jab tak sansey hai tab tak terey sath huun.<br><br>
+          Tera Hasna, Muskurana, muje pyar se <i>Wairey, pagal, chiprey</i>, or pata nhi kia kia bolna sub se muje mohobbat hai. Mere baaten dil par kabhi nhi lia karey janab ap q key mein hamesha apka bhalla chata huun apki fiker karta huun apki care karna chata huun or hamesha apkey sath zindagi guzarna chata huun. I Love You Soo Much meri Begum Sahiba. Umaahhh Umaahhh umaaahhh. 💋
+        </p>
+        <div class="signature">Forever Yours — RABI</div>
+      </div>
+
+      <button class="btn-action" onclick="goToGame()">PLAY SURPRISE GAME 🕊️</button>
+    </div>
+
+    <!-- SCREEN 3: Flappy Heart Game -->
+    <div class="screen-card hidden-screen" id="screen3" style="padding: 0; justify-content: flex-start;">
+      
+      <div class="header-bar">
+        <div class="game-title">Flappy Heart 🕊️💖</div>
+        <div class="score-badge">Score: <span id="scoreText">0</span>/20</div>
+      </div>
+
+      <canvas id="gameCanvas" width="380" height="520"></canvas>
+
+      <!-- Start Overlay inside Game -->
+      <div class="overlay" id="startModal">
+        <div class="main-emoji">💖🕊️</div>
+        <h1 class="title" style="font-size: 2.1rem;">Flappy Love Adventure!</h1>
+        <p class="subtitle">
+          Screen par tap karke heart fly karao! <b>20 Points</b> bana kar victory unlock karo! 👑
+        </p>
+        <button class="btn-action" onclick="startGame()">TAP TO PLAY 🚀</button>
+      </div>
+
+      <!-- Victory Overlay inside Game -->
+      <div class="overlay" id="victoryModal" style="display: none;">
+        <div class="main-emoji">👑🥳</div>
+        <h1 class="title" style="font-size: 2.1rem;">Champion of My Heart!</h1>
+        
+        <div class="secret-note" style="text-align: center;">
+          <p style="font-size: 0.95rem; color: #4a044e; line-height: 1.6;">
+            <b>Score: 20/20 Perfect Flying!</b><br><br>
+            "Kitni bhi obstacles aayein Begum, mera dil hamesha aapki taraf hi fly karta hai. You won my heart forever!" 🌹✨
+          </p>
+          <div class="signature">RABI</div>
+        </div>
+
+        <button class="btn-action" onclick="startGame()">PLAY AGAIN 🔄</button>
+      </div>
+
     </div>
 
   </div>
 
   <script>
+    // Navigation Functions
+    function unlockMemory() {
+      const dateInput = document.getElementById('loveDate').value;
+      if (!dateInput) {
+        alert("Pehle date select karein Begum! 😊");
+        return;
+      }
+
+      const selected = new Date(dateInput);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('dateDisplay').innerText = "📍 " + selected.toLocaleDateString('en-US', options);
+
+      document.getElementById('screen1').classList.add('hidden-screen');
+      document.getElementById('screen2').classList.remove('hidden-screen');
+      triggerConfetti();
+    }
+
+    function goToGame() {
+      document.getElementById('screen2').classList.add('hidden-screen');
+      document.getElementById('screen3').classList.remove('hidden-screen');
+    }
+
+    // --- GAME LOGIC ---
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const scoreText = document.getElementById('scoreText');
@@ -217,7 +339,6 @@
     let isPlaying = false;
     let score = 0;
     
-    // Player Properties
     let bird = {
       x: 50,
       y: 200,
@@ -253,7 +374,6 @@
       }
     }
 
-    // Touch & Click Controls
     canvas.addEventListener('click', jump);
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space') jump();
@@ -264,7 +384,6 @@
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Bird Gravity Update
       bird.velocity += bird.gravity;
       bird.y += bird.velocity;
 
@@ -287,19 +406,16 @@
         });
       }
 
-      // Draw and Move Pipes
+      // Draw & Move Pipes
       for (let i = pipes.length - 1; i >= 0; i--) {
         let p = pipes[i];
         p.x -= 2.5;
 
-        // Draw Romantic Pillared Clouds
         ctx.fillStyle = "#f472b6";
-        // Top Pipe
         ctx.beginPath();
         ctx.roundRect(p.x, 0, pipeWidth, p.top, [0, 0, 16, 16]);
         ctx.fill();
 
-        // Bottom Pipe
         ctx.beginPath();
         ctx.roundRect(p.x, canvas.height - p.bottom, pipeWidth, p.bottom, [16, 16, 0, 0]);
         ctx.fill();
@@ -326,13 +442,11 @@
           }
         }
 
-        // Remove Offscreen Pipes
         if (p.x < -pipeWidth) {
           pipes.splice(i, 1);
         }
       }
 
-      // Floor / Ceiling Collision
       if (bird.y + bird.radius >= canvas.height || bird.y - bird.radius <= 0) {
         gameOver();
         return;
@@ -345,8 +459,8 @@
     function gameOver() {
       isPlaying = false;
       startModal.style.display = 'flex';
-      document.querySelector('#startModal .modal-h1').innerText = "Oops! Try Again 💕";
-      document.querySelector('#startModal .modal-p').innerText = `Your score was ${score}. Tap below to fly again for Anu!`;
+      document.querySelector('#startModal .title').innerText = "Oops! Try Again 💕";
+      document.querySelector('#startModal .subtitle').innerText = `Score: ${score}. Tap below to fly again!`;
     }
 
     function winGame() {
@@ -357,7 +471,7 @@
 
     function triggerConfetti() {
       const symbols = ['💖', '❤️', '✨', '🌸', '💕', '👑', '🎉', '🌹'];
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 35; i++) {
         setTimeout(() => {
           const confetti = document.createElement('div');
           confetti.className = 'confetti';
