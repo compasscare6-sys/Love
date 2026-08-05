@@ -29,7 +29,6 @@
       overflow: hidden;
     }
 
-    /* Game Container */
     .app-box {
       background: rgba(255, 255, 255, 0.95);
       border: 3px solid #f472b6;
@@ -45,10 +44,9 @@
       flex-direction: column;
     }
 
-    /* Header Bar */
     .header-bar {
       width: 100%;
-      padding: 12px 18px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -59,22 +57,27 @@
 
     .game-title {
       font-family: 'Caveat', cursive;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #be123c;
       font-weight: 700;
     }
 
-    .score-badge {
+    .status-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .badge {
       background: #ffffff;
       border: 2px solid #f472b6;
-      padding: 4px 14px;
+      padding: 3px 10px;
       border-radius: 20px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: #be123c;
     }
 
-    /* Canvas */
     #gameCanvas {
       width: 100%;
       height: 100%;
@@ -82,7 +85,6 @@
       cursor: pointer;
     }
 
-    /* Overlay Screens */
     .overlay {
       position: absolute;
       top: 0;
@@ -162,7 +164,6 @@
       text-align: center;
     }
 
-    /* Confetti Animation */
     .confetti {
       position: fixed;
       pointer-events: none;
@@ -180,23 +181,25 @@
 
   <div class="app-box">
     
-    <!-- Top Header -->
     <div class="header-bar">
       <div class="game-title">Flappy Heart 🕊️💖</div>
-      <div class="score-badge">Score: <span id="scoreText">0</span>/20</div>
+      <div class="status-group">
+        <div class="badge" id="livesDisplay">💖 x 5</div>
+        <div class="badge">Score: <span id="scoreText">0</span>/20</div>
+      </div>
     </div>
 
-    <!-- Canvas area -->
     <canvas id="gameCanvas" width="380" height="520"></canvas>
 
     <!-- Start Overlay -->
     <div class="overlay" id="startModal">
-      <div class="main-emoji">💖🕊️</div>
-      <h1 class="title">Flappy Love Adventure!</h1>
+      <div class="main-emoji">💖🛡️</div>
+      <h1 class="title">Easy Love Adventure!</h1>
       <p class="subtitle">
-        Screen par tap karke heart fly karao! <br><b>20 Points</b> bana kar special victory message unlock karein! 👑
+        Aapko milengi <b>5 Extra Lives</b>! <br>Agar bar se touch bhi ho jaye toh 1 life kam hogi, game over nahi hoga! 🌸<br><br>
+        Reach <b>20 Points</b> to unlock surprise note!
       </p>
-      <button class="btn-action" onclick="startGame()">TAP TO PLAY 🚀</button>
+      <button class="btn-action" onclick="startGame()">START FLYING 🚀</button>
     </div>
 
     <!-- Victory Overlay -->
@@ -206,7 +209,7 @@
       
       <div class="secret-note">
         <p style="font-size: 0.88rem; color: #4a044e; line-height: 1.6;">
-          <b>Score: 20/20 Perfect Flying!</b><br><br>
+          <b>Score: 20/20 Victory!</b><br><br>
           Dil ki har ek dhadkan bas ek hi baat kehti hai ki aap mere saath hain toh sab kuch perfect hai. 18 Feb ki yeh date mere dil par hamesha ke liye likhi hui hai. Aap meri zindagi ki sabse khoobsurat reality ho Anu! Forever & Always. 🌹💖<br><br>
           Mein kal bhi tumharey sath tha aj bhi tumharey sath huun jab tak sansey hai tab tak terey sath huun.<br><br>
           Tera Hasna, Muskurana, muje pyar se <i>Wairey, pagal, chiprey</i>, or pata nhi kia kia bolna sub se muje mohobbat hai. Mere baaten dil par kabhi nhi lia karey janab ap q key mein hamesha apka bhalla chata huun apki fiker karta huun apki care karna chata huun or hamesha apkey sath zindagi guzarna chata huun. I Love You Soo Much meri Begum Sahiba. Umaahhh Umaahhh umaaahhh. 💋
@@ -223,30 +226,36 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const scoreText = document.getElementById('scoreText');
+    const livesDisplay = document.getElementById('livesDisplay');
     const startModal = document.getElementById('startModal');
     const victoryModal = document.getElementById('victoryModal');
 
     let isPlaying = false;
     let score = 0;
-    
-    // EASY SETTINGS
+    let lives = 5;
+    let invincibilityTimer = 0;
+
     let bird = {
       x: 60,
       y: 200,
       radius: 16,
-      gravity: 0.22,  // Soft drop (Easy to control)
-      lift: -5.8,     // Gentle bounce
+      gravity: 0.20,
+      lift: -5.5,
       velocity: 0
     };
 
     let pipes = [];
     let pipeWidth = 50;
-    let pipeGap = 165;  // Extra wide gap for easy passing
+    let pipeGap = 160;
     let frame = 0;
 
     function startGame() {
       score = 0;
+      lives = 5;
+      invincibilityTimer = 0;
       scoreText.innerText = score;
+      updateLivesText();
+      
       bird.y = 200;
       bird.velocity = 0;
       pipes = [];
@@ -259,13 +268,16 @@
       requestAnimationFrame(gameLoop);
     }
 
+    function updateLivesText() {
+      livesDisplay.innerText = "💖 x " + lives;
+    }
+
     function jump() {
       if (isPlaying) {
         bird.velocity = bird.lift;
       }
     }
 
-    // Touch & Keyboard Controls
     canvas.addEventListener('click', jump);
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space') jump();
@@ -276,18 +288,24 @@
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Heart Physics Update
+      // Heart Movement
       bird.velocity += bird.gravity;
       bird.y += bird.velocity;
 
-      // Draw Player Heart Emoji
-      ctx.font = "34px sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("💖", bird.x, bird.y);
+      if (invincibilityTimer > 0) {
+        invincibilityTimer--;
+      }
 
-      // Spawn Pipes slowly (Every 110 frames)
-      if (frame % 110 === 0) {
+      // Draw Player Heart (Blink if hit recently)
+      if (invincibilityTimer === 0 || Math.floor(frame / 6) % 2 === 0) {
+        ctx.font = "34px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("💖", bird.x, bird.y);
+      }
+
+      // Spawn Pipes
+      if (frame % 115 === 0) {
         let minHeight = 50;
         let maxHeight = canvas.height - pipeGap - minHeight;
         let topHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
@@ -302,9 +320,8 @@
       // Draw & Move Pipes
       for (let i = pipes.length - 1; i >= 0; i--) {
         let p = pipes[i];
-        p.x -= 2.0; // Slow speed for smooth play
+        p.x -= 2.0;
 
-        // Soft Pink Pillars
         ctx.fillStyle = "#f472b6";
         ctx.beginPath();
         ctx.roundRect(p.x, 0, pipeWidth, p.top, [0, 0, 16, 16]);
@@ -314,18 +331,27 @@
         ctx.roundRect(p.x, canvas.height - p.bottom, pipeWidth, p.bottom, [16, 16, 0, 0]);
         ctx.fill();
 
-        // Slightly relaxed collision box (easy mode)
-        let hitMargin = 5;
-        if (
+        // Hit Check with 5 Lives System
+        let hitMargin = 6;
+        let isColliding = (
           bird.x + bird.radius - hitMargin > p.x &&
           bird.x - bird.radius + hitMargin < p.x + pipeWidth &&
           (bird.y - bird.radius + hitMargin < p.top || bird.y + bird.radius - hitMargin > canvas.height - p.bottom)
-        ) {
-          gameOver();
-          return;
+        );
+
+        if (isColliding && invincibilityTimer === 0) {
+          lives--;
+          updateLivesText();
+          invincibilityTimer = 75; // ~1.5 sec shield
+          bird.velocity = -3;     // Mild bounce back
+
+          if (lives <= 0) {
+            gameOver();
+            return;
+          }
         }
 
-        // Score Update
+        // Score Add
         if (p.x + pipeWidth < bird.x && !p.passed) {
           score++;
           p.passed = true;
@@ -344,8 +370,18 @@
 
       // Top/Bottom Screen Collision
       if (bird.y + bird.radius >= canvas.height || bird.y - bird.radius <= 0) {
-        gameOver();
-        return;
+        if (invincibilityTimer === 0) {
+          lives--;
+          updateLivesText();
+          invincibilityTimer = 75;
+          bird.y = canvas.height / 2;
+          bird.velocity = 0;
+
+          if (lives <= 0) {
+            gameOver();
+            return;
+          }
+        }
       }
 
       frame++;
@@ -355,8 +391,8 @@
     function gameOver() {
       isPlaying = false;
       startModal.style.display = 'flex';
-      document.querySelector('#startModal .title').innerText = "Oops! Try Again 💕";
-      document.querySelector('#startModal .subtitle').innerHTML = `Score: <b>${score}</b><br>Bas thoda sa aur fly karein Begum! 🕊️`;
+      document.querySelector('#startModal .title').innerText = "Try Again Begum! 💕";
+      document.querySelector('#startModal .subtitle').innerHTML = `Score: <b>${score}</b><br>Iss baar 5 lives ke sath 20 points pakka complete ho jayenge! ✨`;
     }
 
     function winGame() {
