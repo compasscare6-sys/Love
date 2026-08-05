@@ -46,7 +46,7 @@
 
     .header-bar {
       width: 100%;
-      padding: 12px 18px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -57,17 +57,23 @@
 
     .game-title {
       font-family: 'Caveat', cursive;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #be123c;
       font-weight: 700;
     }
 
-    .score-badge {
+    .status-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .badge {
       background: #ffffff;
       border: 2px solid #f472b6;
-      padding: 4px 14px;
+      padding: 3px 10px;
       border-radius: 20px;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: #be123c;
     }
@@ -177,20 +183,23 @@
     
     <div class="header-bar">
       <div class="game-title">Flappy Heart 🕊️💖</div>
-      <div class="score-badge">Score: <span id="scoreText">0</span>/5</div>
+      <div class="status-group">
+        <div class="badge" id="livesDisplay">💖 x 5</div>
+        <div class="badge">Score: <span id="scoreText">0</span>/20</div>
+      </div>
     </div>
 
     <canvas id="gameCanvas" width="380" height="520"></canvas>
 
     <!-- Start Overlay -->
     <div class="overlay" id="startModal">
-      <div class="main-emoji">💖✨</div>
-      <h1 class="title">Super Easy Mode!</h1>
+      <div class="main-emoji">💖🛡️</div>
+      <h1 class="title">Easy Love Adventure!</h1>
       <p class="subtitle">
-        Begum ke liye <b>God Mode</b> active hai! 🛡️<br><br>
-        Sirf <b>5 Points</b> bana kar special victory message unlock karein! 👑
+        Aapko milengi <b>5 Extra Lives</b>! <br>Agar bar se touch bhi ho jaye toh 1 life kam hogi, game over nahi hoga! 🌸<br><br>
+        Reach <b>20 Points</b> to unlock surprise note!
       </p>
-      <button class="btn-action" onclick="startGame()">TAP TO PLAY 🚀</button>
+      <button class="btn-action" onclick="startGame()">START FLYING 🚀</button>
     </div>
 
     <!-- Victory Overlay -->
@@ -200,7 +209,7 @@
       
       <div class="secret-note">
         <p style="font-size: 0.88rem; color: #4a044e; line-height: 1.6;">
-          <b>Score: 5/5 Victory!</b><br><br>
+          <b>Score: 20/20 Victory!</b><br><br>
           Dil ki har ek dhadkan bas ek hi baat kehti hai ki aap mere saath hain toh sab kuch perfect hai. 18 Feb ki yeh date mere dil par hamesha ke liye likhi hui hai. Aap meri zindagi ki sabse khoobsurat reality ho Anu! Forever & Always. 🌹💖<br><br>
           Mein kal bhi tumharey sath tha aj bhi tumharey sath huun jab tak sansey hai tab tak terey sath huun.<br><br>
           Tera Hasna, Muskurana, muje pyar se <i>Wairey, pagal, chiprey</i>, or pata nhi kia kia bolna sub se muje mohobbat hai. Mere baaten dil par kabhi nhi lia karey janab ap q key mein hamesha apka bhalla chata huun apki fiker karta huun apki care karna chata huun or hamesha apkey sath zindagi guzarna chata huun. I Love You Soo Much meri Begum Sahiba. Umaahhh Umaahhh umaaahhh. 💋
@@ -217,29 +226,35 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const scoreText = document.getElementById('scoreText');
+    const livesDisplay = document.getElementById('livesDisplay');
     const startModal = document.getElementById('startModal');
     const victoryModal = document.getElementById('victoryModal');
 
     let isPlaying = false;
     let score = 0;
+    let lives = 5;
+    let invincibilityTimer = 0;
 
     let bird = {
       x: 60,
       y: 200,
       radius: 16,
-      gravity: 0.15, // Ultra soft drop
-      lift: -4.8,    // Gentle jump
+      gravity: 0.20,
+      lift: -5.5,
       velocity: 0
     };
 
     let pipes = [];
-    let pipeWidth = 45;
-    let pipeGap = 200; // Super wide space
+    let pipeWidth = 50;
+    let pipeGap = 160;
     let frame = 0;
 
     function startGame() {
       score = 0;
+      lives = 5;
+      invincibilityTimer = 0;
       scoreText.innerText = score;
+      updateLivesText();
       
       bird.y = 200;
       bird.velocity = 0;
@@ -251,6 +266,10 @@
       victoryModal.style.display = 'none';
 
       requestAnimationFrame(gameLoop);
+    }
+
+    function updateLivesText() {
+      livesDisplay.innerText = "💖 x " + lives;
     }
 
     function jump() {
@@ -273,58 +292,62 @@
       bird.velocity += bird.gravity;
       bird.y += bird.velocity;
 
-      // Screen border auto-bounce
-      if (bird.y < 30) bird.y = 30;
-      if (bird.y > canvas.height - 30) {
-        bird.y = canvas.height - 30;
-        bird.velocity = -3;
+      if (invincibilityTimer > 0) {
+        invincibilityTimer--;
       }
 
-      // Draw Player Heart Emoji
-      ctx.font = "34px sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("💖", bird.x, bird.y);
+      // Draw Player Heart (Blink if hit recently)
+      if (invincibilityTimer === 0 || Math.floor(frame / 6) % 2 === 0) {
+        ctx.font = "34px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("💖", bird.x, bird.y);
+      }
 
-      // Spawn Pipes slowly (Every 130 frames)
-      if (frame % 130 === 0) {
-        let minHeight = 40;
+      // Spawn Pipes
+      if (frame % 115 === 0) {
+        let minHeight = 50;
         let maxHeight = canvas.height - pipeGap - minHeight;
         let topHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
         pipes.push({
           x: canvas.width,
           top: topHeight,
           bottom: canvas.height - topHeight - pipeGap,
-          passed: false,
-          broken: false
+          passed: false
         });
       }
 
       // Draw & Move Pipes
       for (let i = pipes.length - 1; i >= 0; i--) {
         let p = pipes[i];
-        p.x -= 1.6; // Very slow speed
+        p.x -= 2.0;
 
-        if (!p.broken) {
-          ctx.fillStyle = "#f472b6";
-          ctx.beginPath();
-          ctx.roundRect(p.x, 0, pipeWidth, p.top, [0, 0, 16, 16]);
-          ctx.fill();
+        ctx.fillStyle = "#f472b6";
+        ctx.beginPath();
+        ctx.roundRect(p.x, 0, pipeWidth, p.top, [0, 0, 16, 16]);
+        ctx.fill();
 
-          ctx.beginPath();
-          ctx.roundRect(p.x, canvas.height - p.bottom, pipeWidth, p.bottom, [16, 16, 0, 0]);
-          ctx.fill();
+        ctx.beginPath();
+        ctx.roundRect(p.x, canvas.height - p.bottom, pipeWidth, p.bottom, [16, 16, 0, 0]);
+        ctx.fill();
 
-          // GOD MODE: Touch karne par bar break/hide ho jayegi, Game Over nahi hoga
-          let hitMargin = 2;
-          let isColliding = (
-            bird.x + bird.radius - hitMargin > p.x &&
-            bird.x - bird.radius + hitMargin < p.x + pipeWidth &&
-            (bird.y - bird.radius + hitMargin < p.top || bird.y + bird.radius - hitMargin > canvas.height - p.bottom)
-          );
+        // Hit Check with 5 Lives System
+        let hitMargin = 6;
+        let isColliding = (
+          bird.x + bird.radius - hitMargin > p.x &&
+          bird.x - bird.radius + hitMargin < p.x + pipeWidth &&
+          (bird.y - bird.radius + hitMargin < p.top || bird.y + bird.radius - hitMargin > canvas.height - p.bottom)
+        );
 
-          if (isColliding) {
-            p.broken = true; 
+        if (isColliding && invincibilityTimer === 0) {
+          lives--;
+          updateLivesText();
+          invincibilityTimer = 75; // ~1.5 sec shield
+          bird.velocity = -3;     // Mild bounce back
+
+          if (lives <= 0) {
+            gameOver();
+            return;
           }
         }
 
@@ -334,7 +357,7 @@
           p.passed = true;
           scoreText.innerText = score;
 
-          if (score >= 5) {
+          if (score >= 20) {
             winGame();
             return;
           }
@@ -345,8 +368,31 @@
         }
       }
 
+      // Top/Bottom Screen Collision
+      if (bird.y + bird.radius >= canvas.height || bird.y - bird.radius <= 0) {
+        if (invincibilityTimer === 0) {
+          lives--;
+          updateLivesText();
+          invincibilityTimer = 75;
+          bird.y = canvas.height / 2;
+          bird.velocity = 0;
+
+          if (lives <= 0) {
+            gameOver();
+            return;
+          }
+        }
+      }
+
       frame++;
       requestAnimationFrame(gameLoop);
+    }
+
+    function gameOver() {
+      isPlaying = false;
+      startModal.style.display = 'flex';
+      document.querySelector('#startModal .title').innerText = "Try Again Begum! 💕";
+      document.querySelector('#startModal .subtitle').innerHTML = `Score: <b>${score}</b><br>Iss baar 5 lives ke sath 20 points pakka complete ho jayenge! ✨`;
     }
 
     function winGame() {
