@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>How Well Do You Know Rabi? 💖</title>
+  <title>For My Dearest Begum Anu 👑</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Sacramento&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0f172a 0%, #31103f 50%, #4c0519 100%);
+      background: linear-gradient(135deg, #1e0523 0%, #4a0e2e 50%, #881337 100%);
       color: #fff;
       font-family: 'Plus Jakarta Sans', sans-serif;
       display: flex;
@@ -26,182 +26,173 @@
       align-items: center;
       min-height: 100vh;
       padding: 15px;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    .quiz-card {
+    .main-card {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(20px);
       border: 1.5px solid rgba(251, 113, 133, 0.35);
       border-radius: 32px;
       width: 100%;
-      max-width: 400px;
-      min-height: 560px;
+      max-width: 420px;
+      min-height: 520px;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
       position: relative;
-      padding: 24px 20px;
+      padding: 28px 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* Header & Progress */
-    .quiz-header {
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
 
-    .quiz-title {
+    .heart-icon {
+      font-size: 3.5rem;
+      animation: pulse 1.5s infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .title {
       font-family: 'Caveat', cursive;
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       color: #fb7185;
       text-shadow: 0 0 15px rgba(251, 113, 133, 0.5);
+      line-height: 1.2;
     }
 
-    .progress-bar-bg {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      margin-top: 12px;
-      overflow: hidden;
+    .sub-text {
+      font-size: 0.95rem;
+      color: #fbcfe8;
+      margin: 15px 0 25px 0;
+      line-height: 1.5;
     }
 
-    .progress-fill {
-      width: 20%;
-      height: 100%;
-      background: linear-gradient(90deg, #fb7185, #e11d48);
-      border-radius: 10px;
-      transition: width 0.4s ease;
-    }
-
-    /* Question Box */
-    .question-box {
-      margin: 20px 0;
-      text-align: left;
-    }
-
-    .question-number {
-      font-size: 0.8rem;
-      color: #f472b6;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .question-text {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      margin-top: 6px;
-      line-height: 1.4;
-    }
-
-    /* Options */
-    .options-grid {
+    /* Buttons Container */
+    .btn-container {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .option-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 18px;
-      padding: 14px 16px;
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .option-btn:active {
-      transform: scale(0.98);
-    }
-
-    .option-btn.correct {
-      background: rgba(34, 197, 94, 0.25);
-      border-color: #22c55e;
-      color: #86efac;
-    }
-
-    .option-btn.wrong {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: #ef4444;
-      color: #fca5a5;
-    }
-
-    /* Result Overlay */
-    .result-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(15px);
-      border-radius: 32px;
-      display: flex;
-      flex-direction: column;
+      gap: 15px;
       justify-content: center;
       align-items: center;
-      padding: 24px;
-      text-align: center;
+      width: 100%;
+      position: relative;
+      min-height: 80px;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(225, 29, 72, 0.5);
+      transition: transform 0.2s ease;
+      z-index: 2;
+    }
+
+    .btn-yes:active {
+      transform: scale(0.95);
+    }
+
+    .btn-no {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fecdd3;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    /* Scrapbook Letter Overlay */
+    .scrapbook-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(15px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+      z-index: 100;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease;
-      z-index: 50;
     }
 
-    .result-overlay.active {
+    .scrapbook-modal.active {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .result-title {
-      font-family: 'Caveat', cursive;
-      font-size: 2.8rem;
-      color: #fb7185;
-    }
-
-    .certificate-box {
+    .scrapbook-card {
       background: #fff;
       color: #334155;
-      border-radius: 24px;
-      padding: 20px;
-      margin: 16px 0;
+      border-radius: 28px;
+      padding: 22px 18px;
       width: 100%;
-      border: 2px dashed #fda4af;
-      text-align: left;
-      font-size: 0.88rem;
-      line-height: 1.6;
-      max-height: 280px;
-      overflow-y: auto;
+      max-width: 380px;
+      border: 3px dashed #fda4af;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      position: relative;
     }
 
-    .btn-finish {
-      background: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 25px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.4);
+    .letter-header {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: #be123c;
+      text-align: center;
+    }
+
+    .letter-content {
+      background: #fff1f2;
+      border-radius: 18px;
+      padding: 16px;
+      margin: 12px 0;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #4c0519;
+      max-height: 280px;
+      overflow-y: auto;
+      text-align: left;
     }
 
     .signature {
       font-family: 'Sacramento', cursive;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: #be123c;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
-    /* Particle Animation */
+    .btn-close {
+      background: #be123c;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-top: 5px;
+      width: 100%;
+    }
+
+    /* Particles */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -217,133 +208,63 @@
 </head>
 <body>
 
-  <div class="quiz-card">
-    <div class="quiz-header">
-      <h1 class="quiz-title">How Well Do You Know Rabi? 👑</h1>
-      <div class="progress-bar-bg">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
+  <div class="main-card" id="mainCard">
+    <div class="heart-icon">👑💖</div>
+    <h1 class="title">Begum Sahiba!</h1>
+    <p class="sub-text">
+      Mujhe pata hai main kabhi kabhi pagal aur wairey jaisi baatein karta hoon... Par kya aap mujhe maaf karke hamesha mere saath muskuraogi? 🥺
+    </p>
+
+    <div class="btn-container">
+      <button class="btn-yes" onclick="openScrapbook()">Haan Meri Jaan! ❤️</button>
+      <button class="btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">Nahi, Abhi Gussa Hoon 😜</button>
     </div>
+  </div>
 
-    <div class="question-box">
-      <div class="question-number" id="qNum">Question 1 of 5</div>
-      <div class="question-text" id="qText">Loading...</div>
-      
-      <div class="options-grid" id="optionsContainer">
-        <!-- Options generated by JS -->
+  <!-- SCRAPBOOK LETTER MODAL -->
+  <div class="scrapbook-modal" id="scrapbookModal">
+    <div class="scrapbook-card">
+      <h2 class="letter-header">For My Princess Anu 📜</h2>
+      <div class="letter-content">
+        Meri pyari Begum,<br><br>
+        Mujhe pata hai humare beech kabhi kabhi larai ho jaati hai aur main aapko rula deta hoon, par sach yeh hai ki mere dil mein aapke alawa koi aur nahi hai.<br><br>
+        Aapka muskurana, mujhse pyar se baatein karna, aur mujhe <i>Wairey, pagal, chiprey</i> bolna hi meri duniya hai. Main aage se poori koshish karunga ki aapke pyaare se chehre par hamesha khushi rahe.<br><br>
+        <b>18 Feb</b> ki date gawah hai ki humara yeh rishta kitna khaas hai. Main kal bhi aapka tha, aaj bhi hoon aur hamesha aapka rahunga.<br><br>
+        <b>I Love You So Much Begum Sahiba! Umaahhh 💋</b>
       </div>
-    </div>
-
-    <p style="text-align: center; font-size: 0.78rem; opacity: 0.7;">Made for Begum Anu 💖</p>
-
-    <!-- RESULT OVERLAY -->
-    <div class="result-overlay" id="resultOverlay">
-      <h2 class="result-title">100% Love Score! 🏆</h2>
-      <div class="certificate-box">
-        <h3 style="color:#be123c; font-size:1.1rem; text-align:center; margin-bottom:8px;">
-          BEST BEGUM CERTIFICATE 👑
-        </h3>
-        Dil ki har ek dhadkan bas ek hi baat kehti hai ki aap mere saath hain toh sab kuch perfect hai. <br><br>
-        <b>18 Feb</b> ki date gawah hai ki mein kal bhi tumharey sath tha, aj bhi tumharey sath huun, aur jab tak sansey hain tab tak terey sath huun.<br><br>
-        Mere baaten dil par kabhi nhi lia karey janab ap q key mein hamesha apka bhalla chata huun, apki fiker karta huun, apki care karna chata huun. 
-        <br><br>
-        <b>I Love You Soo Much Begum Sahiba! Umaahhh 💋</b>
-        <div class="signature">Forever Yours — RABI</div>
-      </div>
-      <button class="btn-finish" onclick="location.reload()">PLAY AGAIN ❤️</button>
+      <div class="signature">Forever Yours — RABI</div>
+      <button class="btn-close" onclick="closeScrapbook()">CLOSE WITH A SMILE 💕</button>
     </div>
   </div>
 
   <script>
-    const questions = [
-      {
-        q: "Mera sabse favorite nickname jo aap mujhe pyar se bolti ho?",
-        options: [
-          { text: "A) Wairey 🤪", correct: false },
-          { text: "B) Pagal 🙈", correct: false },
-          { text: "C) Chiprey 😜", correct: false },
-          { text: "D) Yeh saare ke saare hi mere favorites hain! ❤️", correct: true }
-        ]
-      },
-      {
-        q: "Meri sabse buri aadat kaunsi hai?",
-        options: [
-          { text: "A) Tumhe tang karna", correct: false },
-          { text: "B) Tumse bar bar puppy mangna 💋", correct: false },
-          { text: "C) Dosto mein har sat jana", correct: false },
-          { text: "D) Yeh teeno hi meri buri aadatein hain! 🙈", correct: true }
-        ]
-      },
-      {
-        q: "Jab aap naraz hoti ho toh Rabi ke dil mein kya chalta hai?",
-        options: [
-          { text: "A) Bechaini aur sirf aapko manane ki fikar 🥺", correct: true },
-          { text: "B) So jata hai", correct: false },
-          { text: "C) Game khelne lagta hai", correct: false },
-          { text: "D) Khana khane chala jata hai", correct: false }
-        ]
-      },
-      {
-        q: "Rabi ki life mein sabse zyada importance kiski hai?",
-        options: [
-          { text: "A) Meri Begum Sahiba (Anu) ki 👑", correct: true },
-          { text: "B) Kisi ki nahi", correct: false },
-          { text: "C) Internet ki", correct: false },
-          { text: "D) Matches ki", correct: false }
-        ]
-      },
-      {
-        q: "Mujhe Anu ko dekhna kab sabse zyada pasand hai?",
-        options: [
-          { text: "A) Jab wo tayar ho kar snap bejti hai", correct: false },
-          { text: "B) Masi wali halat mein", correct: false },
-          { text: "C) Kabhi bhi nahi", correct: false },
-          { text: "D) Har Haal mein Begum Pyari lagti hai ❤️", correct: true }
-        ]
-      }
-    ];
+    const noBtn = document.getElementById('noBtn');
 
-    let currentQ = 0;
+    function moveNoButton() {
+      // Screen limits ke andar button ko randomly move karwana
+      const card = document.getElementById('mainCard');
+      const cardRect = card.getBoundingClientRect();
+      
+      const maxX = cardRect.width - noBtn.offsetWidth - 30;
+      const maxY = cardRect.height - noBtn.offsetHeight - 30;
 
-    function loadQuestion() {
-      const qData = questions[currentQ];
-      document.getElementById('qNum').innerText = `Question ${currentQ + 1} of 5`;
-      document.getElementById('qText').innerText = qData.q;
-      document.getElementById('progressFill').style.width = ((currentQ + 1) * 20) + '%';
+      const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
+      const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
 
-      const container = document.getElementById('optionsContainer');
-      container.innerHTML = '';
-
-      qData.options.forEach((opt) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerText = opt.text;
-        btn.onclick = () => handleAnswer(btn, opt.correct);
-        container.appendChild(btn);
-      });
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
     }
 
-    function handleAnswer(btn, isCorrect) {
-      if (isCorrect) {
-        btn.classList.add('correct');
-        triggerParticles();
-        setTimeout(() => {
-          currentQ++;
-          if (currentQ < questions.length) {
-            loadQuestion();
-          } else {
-            document.getElementById('resultOverlay').classList.add('active');
-            triggerParticles(40);
-          }
-        }, 700);
-      } else {
-        btn.classList.add('wrong');
-        setTimeout(() => btn.classList.remove('wrong'), 500);
-      }
+    function openScrapbook() {
+      document.getElementById('scrapbookModal').classList.add('active');
+      triggerRain(35);
     }
 
-    function triggerParticles(count = 15) {
-      const symbols = ['💖', '✨', '🌹', '💋', '💕'];
+    function closeScrapbook() {
+      document.getElementById('scrapbookModal').classList.remove('active');
+    }
+
+    function triggerRain(count) {
+      const symbols = ['💋', '💖', '🌹', '✨', '💕', '🥺'];
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
           const p = document.createElement('div');
@@ -358,9 +279,6 @@
         }, i * 40);
       }
     }
-
-    // Start Quiz
-    loadQuestion();
   </script>
 
 </body>
