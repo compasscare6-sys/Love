@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>For My Begum 👑</title>
+  <title>Good Morning Begum Sahiba! ☕️❤️</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Sacramento&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -26,124 +26,110 @@
       align-items: center;
       min-height: 100vh;
       padding: 15px;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    .card {
+    .container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Morning Header */
+    .morning-badge {
+      background: rgba(251, 113, 133, 0.2);
+      border: 1px solid rgba(251, 113, 133, 0.4);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fbcfe8;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Main Letter Box */
+    .letter-card {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(20px);
-      border: 1.5px solid rgba(251, 113, 133, 0.4);
-      border-radius: 30px;
-      width: 100%;
-      max-width: 360px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-      position: relative;
-    }
-
-    .emoji-head {
-      font-size: 3.8rem;
-      margin-bottom: 10px;
-      animation: bounce 1.2s infinite alternate;
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
-    }
-
-    .title {
-      font-family: 'Caveat', cursive;
-      font-size: 2.8rem;
-      color: #fb7185;
-      line-height: 1.1;
-    }
-
-    .sub-title {
-      font-size: 1rem;
-      color: #fbcfe8;
-      margin: 12px 0 25px 0;
-    }
-
-    .btn-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      min-height: 80px;
-      position: relative;
-    }
-
-    .btn-yes {
-      background: linear-gradient(135deg, #fb7185, #e11d48);
-      color: #fff;
-      border: none;
-      padding: 14px 24px;
-      border-radius: 25px;
-      font-weight: 800;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.5);
-      z-index: 2;
-    }
-
-    .btn-no {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fecdd3;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 14px 20px;
-      border-radius: 25px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      position: absolute;
-      transition: all 0.15s ease;
-      z-index: 10;
-    }
-
-    /* Love Popup */
-    .popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.93);
-      backdrop-filter: blur(12px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 100;
-    }
-
-    .popup.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .popup-box {
-      background: #fff;
-      color: #881337;
+      border: 1.5px solid rgba(251, 113, 133, 0.35);
       border-radius: 28px;
-      padding: 30px 20px;
       width: 100%;
-      max-width: 320px;
+      padding: 24px 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+      text-align: left;
+      position: relative;
+    }
+
+    .greeting {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: #fb7185;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .letter-text {
+      font-size: 0.93rem;
+      line-height: 1.65;
+      color: #ffe4e6;
+      font-weight: 500;
+    }
+
+    .highlight {
+      color: #fb7185;
+      font-weight: 700;
+    }
+
+    .sign-off {
+      margin-top: 18px;
+      text-align: right;
+    }
+
+    .signature {
+      font-family: 'Sacramento', cursive;
+      font-size: 2.3rem;
+      color: #fda4af;
+    }
+
+    /* Interactive Action Section */
+    .action-box {
+      margin-top: 20px;
+      width: 100%;
       text-align: center;
-      border: 3px dashed #fda4af;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
 
-    .kiss-text {
-      font-size: 1.5rem;
+    .btn-kiss {
+      background: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
       font-weight: 800;
-      color: #be123c;
-      margin: 15px 0;
-      line-height: 1.4;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(225, 29, 72, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
+    .btn-kiss:active {
+      transform: scale(0.95);
+    }
+
+    .kiss-counter {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #f472b6;
+      font-weight: 700;
+    }
+
+    /* Floating Particles */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -153,58 +139,57 @@
 
     @keyframes floatUp {
       0% { transform: translateY(0) scale(0.8); opacity: 1; }
-      100% { transform: translateY(-100vh) scale(1.6); opacity: 0; }
+      100% { transform: translateY(-100vh) scale(1.8); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
-  <div class="card" id="mainCard">
-    <div class="emoji-head">😜👑</div>
-    <h1 class="title">Suno Begum Sahiba!</h1>
-    <p class="sub-title">Kya aap mujhse abhi ke abhi behad pyaar karti ho?</p>
+  <div class="container">
+    <div class="morning-badge">☀️ Special Morning Note</div>
 
-    <div class="btn-wrap">
-      <button class="btn-yes" onclick="showLove()">Haan Bohat Ziada! ❤️</button>
-      <button class="btn-no" id="noBtn" onmouseover="dodge()" onclick="dodge()">Nahi Karti 😜</button>
-    </div>
-  </div>
-
-  <!-- POPUP -->
-  <div class="popup" id="lovePopup">
-    <div class="popup-box">
-      <div style="font-size: 3.5rem;">💋😘💖</div>
-      <div class="kiss-text">
-        Muahhhh! <br>
-        I LOVE YOU SO MUCH MY BEGUM! ❤️
+    <div class="letter-card">
+      <div class="greeting">Good Morning meri pyari Begum Sahiba! ☕️🌹</div>
+      
+      <div class="letter-text">
+        Aaj subah uthte hi sabse pehle aapki bohot yaad aayi... vaise raat ko tumhe apni baahon mein sula kar maza aaya jab <span class="highlight">pillow ko ANU samajh baitha main</span>. 🙈
+        <br><br>
+        Chalo ab jaldi se mujhe <b>'Gilli Muchi'</b> ki zaroorat hai jo mera poora din bana de! 💋
+        <br><br>
+        Anna, itni pyari lagti ho na jab gussa karti ho, usse 100 guna zyada cute lagti ho jab face par smile aa jaati hai cute wali januri. 😊
+        <br><br>
+        Umeed karta hoon aaj ka din meri Anu ka bohot acha guzray. <b>ALLAH PAK</b> hum dono ka saath hamesha bana kar rakhey. Main aapka tha, aapka hoon aur aapka rahunga zindagi bhar, kabhi aapse door nahi jaane wala, Begum. ❤️
+        <br><br>
+        Jaldi se utho aur mujhe ek meethi si kissi bhejo! 
+        <br>
+        <span class="highlight">I Love You So Much Meri Jaan! 🔥</span>
       </div>
-      <p style="font-size: 0.9rem; color: #4c0519; font-weight: 700;">(Mera chota sa wairey/chiprey jaisa baby) 🙈</p>
+
+      <div class="sign-off">
+        <div style="font-size: 0.8rem; opacity: 0.8;">Forever Yours,</div>
+        <div class="signature">Your Mendhak 🐸❤️</div>
+      </div>
+    </div>
+
+    <div class="action-box">
+      <button class="btn-kiss" onclick="sendKiss()">
+        <span>Send Gilli Muchi To Rabi</span> 💋
+      </button>
+      <div class="kiss-counter" id="kissCounter">Kisses Sent: 0</div>
     </div>
   </div>
 
   <script>
-    const noBtn = document.getElementById('noBtn');
+    let kisses = 0;
 
-    function dodge() {
-      const card = document.getElementById('mainCard');
-      const rect = card.getBoundingClientRect();
-      
-      const maxX = rect.width - noBtn.offsetWidth - 20;
-      const maxY = rect.height - noBtn.offsetHeight - 20;
-
-      const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
-      const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
-
-      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-    }
-
-    function showLove() {
-      document.getElementById('lovePopup').classList.add('active');
-      triggerRain(40);
+    function sendKiss() {
+      kisses++;
+      document.getElementById('kissCounter').innerText = `Kisses Sent to Mendhak: ${kisses} 💋`;
+      triggerRain(15);
     }
 
     function triggerRain(count) {
-      const symbols = ['💋', '💖', '🌹', '✨', '💕', '😘'];
+      const symbols = ['💋', '💖', '🐸', '✨', '💕', '🔥', '☕️'];
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
           const p = document.createElement('div');
@@ -216,7 +201,7 @@
           document.body.appendChild(p);
 
           setTimeout(() => p.remove(), 3000);
-        }, i * 40);
+        }, i * 50);
       }
     }
   </script>
