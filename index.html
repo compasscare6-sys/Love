@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>For My Dearest Begum Anu 👑</title>
+  <title>For My Begum 👑</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -18,7 +18,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #1e0523 0%, #4a0e2e 50%, #881337 100%);
+      background: linear-gradient(135deg, #180325 0%, #4a0e2e 50%, #881337 100%);
       color: #fff;
       font-family: 'Plus Jakarta Sans', sans-serif;
       display: flex;
@@ -26,173 +26,124 @@
       align-items: center;
       min-height: 100vh;
       padding: 15px;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    .main-card {
+    .card {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(20px);
-      border: 1.5px solid rgba(251, 113, 133, 0.35);
-      border-radius: 32px;
+      border: 1.5px solid rgba(251, 113, 133, 0.4);
+      border-radius: 30px;
       width: 100%;
-      max-width: 420px;
-      min-height: 520px;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-      position: relative;
-      padding: 28px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      max-width: 360px;
+      padding: 30px 20px;
       text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      position: relative;
     }
 
-    .heart-icon {
-      font-size: 3.5rem;
-      animation: pulse 1.5s infinite;
+    .emoji-head {
+      font-size: 3.8rem;
       margin-bottom: 10px;
+      animation: bounce 1.2s infinite alternate;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-      100% { transform: scale(1); }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
     }
 
     .title {
       font-family: 'Caveat', cursive;
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       color: #fb7185;
-      text-shadow: 0 0 15px rgba(251, 113, 133, 0.5);
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
-    .sub-text {
-      font-size: 0.95rem;
+    .sub-title {
+      font-size: 1rem;
       color: #fbcfe8;
-      margin: 15px 0 25px 0;
-      line-height: 1.5;
+      margin: 12px 0 25px 0;
     }
 
-    /* Buttons Container */
-    .btn-container {
+    .btn-wrap {
       display: flex;
-      gap: 15px;
       justify-content: center;
       align-items: center;
-      width: 100%;
-      position: relative;
+      gap: 12px;
       min-height: 80px;
+      position: relative;
     }
 
     .btn-yes {
-      background: linear-gradient(135deg, #fb7185 0%, #e11d48 100%);
-      color: white;
+      background: linear-gradient(135deg, #fb7185, #e11d48);
+      color: #fff;
       border: none;
-      padding: 14px 28px;
-      border-radius: 30px;
+      padding: 14px 24px;
+      border-radius: 25px;
       font-weight: 800;
       font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(225, 29, 72, 0.5);
-      transition: transform 0.2s ease;
+      box-shadow: 0 8px 20px rgba(225, 29, 72, 0.5);
       z-index: 2;
-    }
-
-    .btn-yes:active {
-      transform: scale(0.95);
     }
 
     .btn-no {
       background: rgba(255, 255, 255, 0.15);
       color: #fecdd3;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 14px 24px;
-      border-radius: 30px;
+      padding: 14px 20px;
+      border-radius: 25px;
       font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
       position: absolute;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
       z-index: 10;
     }
 
-    /* Scrapbook Letter Overlay */
-    .scrapbook-modal {
+    /* Love Popup */
+    .popup {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(15px);
+      background: rgba(15, 23, 42, 0.93);
+      backdrop-filter: blur(12px);
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 18px;
-      z-index: 100;
+      padding: 20px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
+      z-index: 100;
     }
 
-    .scrapbook-modal.active {
+    .popup.active {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .scrapbook-card {
+    .popup-box {
       background: #fff;
-      color: #334155;
+      color: #881337;
       border-radius: 28px;
-      padding: 22px 18px;
+      padding: 30px 20px;
       width: 100%;
-      max-width: 380px;
+      max-width: 320px;
+      text-align: center;
       border: 3px dashed #fda4af;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      position: relative;
     }
 
-    .letter-header {
-      font-family: 'Caveat', cursive;
-      font-size: 2.2rem;
+    .kiss-text {
+      font-size: 1.5rem;
+      font-weight: 800;
       color: #be123c;
-      text-align: center;
+      margin: 15px 0;
+      line-height: 1.4;
     }
 
-    .letter-content {
-      background: #fff1f2;
-      border-radius: 18px;
-      padding: 16px;
-      margin: 12px 0;
-      font-size: 0.88rem;
-      line-height: 1.65;
-      color: #4c0519;
-      max-height: 280px;
-      overflow-y: auto;
-      text-align: left;
-    }
-
-    .signature {
-      font-family: 'Sacramento', cursive;
-      font-size: 2.2rem;
-      color: #be123c;
-      text-align: center;
-      margin-top: 5px;
-    }
-
-    .btn-close {
-      background: #be123c;
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      margin-top: 5px;
-      width: 100%;
-    }
-
-    /* Particles */
     .particle {
       position: fixed;
       pointer-events: none;
@@ -208,45 +159,38 @@
 </head>
 <body>
 
-  <div class="main-card" id="mainCard">
-    <div class="heart-icon">👑💖</div>
-    <h1 class="title">Begum Sahiba!</h1>
-    <p class="sub-text">
-      Mujhe pata hai main kabhi kabhi pagal aur wairey jaisi baatein karta hoon... Par kya aap mujhe maaf karke hamesha mere saath muskuraogi? 🥺
-    </p>
+  <div class="card" id="mainCard">
+    <div class="emoji-head">😜👑</div>
+    <h1 class="title">Suno Begum Sahiba!</h1>
+    <p class="sub-title">Kya aap mujhse abhi ke abhi behad pyaar karti ho?</p>
 
-    <div class="btn-container">
-      <button class="btn-yes" onclick="openScrapbook()">Haan Meri Jaan! ❤️</button>
-      <button class="btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">Nahi, Abhi Gussa Hoon 😜</button>
+    <div class="btn-wrap">
+      <button class="btn-yes" onclick="showLove()">Haan Bohat Ziada! ❤️</button>
+      <button class="btn-no" id="noBtn" onmouseover="dodge()" onclick="dodge()">Nahi Karti 😜</button>
     </div>
   </div>
 
-  <!-- SCRAPBOOK LETTER MODAL -->
-  <div class="scrapbook-modal" id="scrapbookModal">
-    <div class="scrapbook-card">
-      <h2 class="letter-header">For My Princess Anu 📜</h2>
-      <div class="letter-content">
-        Meri pyari Begum,<br><br>
-        Mujhe pata hai humare beech kabhi kabhi larai ho jaati hai aur main aapko rula deta hoon, par sach yeh hai ki mere dil mein aapke alawa koi aur nahi hai.<br><br>
-        Aapka muskurana, mujhse pyar se baatein karna, aur mujhe <i>Wairey, pagal, chiprey</i> bolna hi meri duniya hai. Main aage se poori koshish karunga ki aapke pyaare se chehre par hamesha khushi rahe.<br><br>
-        <b>18 Feb</b> ki date gawah hai ki humara yeh rishta kitna khaas hai. Main kal bhi aapka tha, aaj bhi hoon aur hamesha aapka rahunga.<br><br>
-        <b>I Love You So Much Begum Sahiba! Umaahhh 💋</b>
+  <!-- POPUP -->
+  <div class="popup" id="lovePopup">
+    <div class="popup-box">
+      <div style="font-size: 3.5rem;">💋😘💖</div>
+      <div class="kiss-text">
+        Muahhhh! <br>
+        I LOVE YOU SO MUCH MY BEGUM! ❤️
       </div>
-      <div class="signature">Forever Yours — RABI</div>
-      <button class="btn-close" onclick="closeScrapbook()">CLOSE WITH A SMILE 💕</button>
+      <p style="font-size: 0.9rem; color: #4c0519; font-weight: 700;">(Mera chota sa wairey/chiprey jaisa baby) 🙈</p>
     </div>
   </div>
 
   <script>
     const noBtn = document.getElementById('noBtn');
 
-    function moveNoButton() {
-      // Screen limits ke andar button ko randomly move karwana
+    function dodge() {
       const card = document.getElementById('mainCard');
-      const cardRect = card.getBoundingClientRect();
+      const rect = card.getBoundingClientRect();
       
-      const maxX = cardRect.width - noBtn.offsetWidth - 30;
-      const maxY = cardRect.height - noBtn.offsetHeight - 30;
+      const maxX = rect.width - noBtn.offsetWidth - 20;
+      const maxY = rect.height - noBtn.offsetHeight - 20;
 
       const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
       const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
@@ -254,17 +198,13 @@
       noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
     }
 
-    function openScrapbook() {
-      document.getElementById('scrapbookModal').classList.add('active');
-      triggerRain(35);
-    }
-
-    function closeScrapbook() {
-      document.getElementById('scrapbookModal').classList.remove('active');
+    function showLove() {
+      document.getElementById('lovePopup').classList.add('active');
+      triggerRain(40);
     }
 
     function triggerRain(count) {
-      const symbols = ['💋', '💖', '🌹', '✨', '💕', '🥺'];
+      const symbols = ['💋', '💖', '🌹', '✨', '💕', '😘'];
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
           const p = document.createElement('div');
@@ -272,7 +212,7 @@
           p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
           p.style.left = Math.random() * 100 + 'vw';
           p.style.bottom = '0px';
-          p.style.fontSize = (Math.random() * 18 + 18) + 'px';
+          p.style.fontSize = (Math.random() * 20 + 20) + 'px';
           document.body.appendChild(p);
 
           setTimeout(() => p.remove(), 3000);
