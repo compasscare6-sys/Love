@@ -6,7 +6,7 @@
   <title>Begum's Treat Vending 💖</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Sacramento&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   
   <style>
     * {
@@ -46,7 +46,7 @@
       padding: 10px;
       border-radius: 20px;
       border: 2px solid #fbcfe8;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .machine-title {
@@ -56,7 +56,6 @@
       line-height: 1;
     }
 
-    /* Glass Display */
     .glass-window {
       background: rgba(15, 23, 42, 0.85);
       border: 3px solid #fda4af;
@@ -67,7 +66,6 @@
       gap: 12px;
       min-height: 220px;
       box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-      position: relative;
     }
 
     .item-box {
@@ -80,7 +78,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s;
     }
 
     .item-code {
@@ -93,18 +90,9 @@
       margin-bottom: 4px;
     }
 
-    .item-emoji {
-      font-size: 2rem;
-    }
+    .item-emoji { font-size: 2rem; }
+    .item-name { font-size: 0.75rem; font-weight: 700; color: #fbcfe8; margin-top: 4px; }
 
-    .item-name {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fbcfe8;
-      margin-top: 4px;
-    }
-
-    /* Controls */
     .control-panel {
       margin-top: 15px;
       background: #500724;
@@ -125,9 +113,28 @@
       border-radius: 10px;
       width: 100%;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       border: 1px solid #22c55e;
       letter-spacing: 1px;
+    }
+
+    .code-input-wrap {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .code-input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid #fb7185;
+      background: rgba(255, 255, 255, 0.9);
+      color: #881337;
+      font-weight: 800;
+      text-align: center;
+      font-size: 0.9rem;
+      text-transform: uppercase;
     }
 
     .keypad {
@@ -144,21 +151,18 @@
       padding: 12px;
       border-radius: 15px;
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       transition: transform 0.1s;
     }
 
-    .btn-key:active {
-      transform: scale(0.95);
-    }
+    .btn-key:active { transform: scale(0.95); }
 
-    /* Drop Tray / Output */
     .drop-tray {
       margin-top: 15px;
       background: #1e293b;
-      height: 60px;
+      height: 55px;
       border-radius: 15px;
       border: 3px solid #64748b;
       display: flex;
@@ -167,11 +171,8 @@
       font-size: 0.85rem;
       color: #94a3b8;
       font-weight: 700;
-      position: relative;
-      overflow: hidden;
     }
 
-    /* Result Popup */
     .popup-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -188,10 +189,7 @@
       z-index: 100;
     }
 
-    .popup-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .popup-overlay.active { opacity: 1; pointer-events: auto; }
 
     .result-card {
       background: #fff;
@@ -219,24 +217,43 @@
     .status-unlucky { background: #ffe4e6; color: #be123c; }
 
     .result-text {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: #881337;
-      margin: 10px 0 20px 0;
+      margin: 10px 0 15px 0;
       line-height: 1.5;
     }
 
-    .btn-close {
-      background: linear-gradient(135deg, #fb7185, #e11d48);
+    .btn-insta {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
       color: white;
       border: none;
-      padding: 10px 24px;
+      padding: 12px 20px;
       border-radius: 20px;
       font-weight: 800;
+      font-size: 0.88rem;
       cursor: pointer;
+      width: 100%;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    /* Particles */
+    .btn-close {
+      background: #e2e8f0;
+      color: #475569;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      width: 100%;
+    }
+
     .particle {
       position: fixed;
       pointer-events: none;
@@ -255,36 +272,38 @@
   <div class="vending-container">
     <div class="machine-header">
       <div class="machine-title">Begum's Treat Vending 💖</div>
-      <p style="font-size:0.75rem; color:#fbcfe8;">Press A1 - A4 to test your luck!</p>
+      <p style="font-size:0.75rem; color:#fbcfe8;">Enter Secret Code & Pick Item!</p>
     </div>
 
-    <!-- Glass Window with Items -->
     <div class="glass-window">
-      <div class="item-box" id="box-A1">
+      <div class="item-box">
         <span class="item-code">A1</span>
         <span class="item-emoji">🥭</span>
         <span class="item-name">Imli Pass</span>
       </div>
-      <div class="item-box" id="box-A2">
+      <div class="item-box">
         <span class="item-code">A2</span>
         <span class="item-emoji">📋</span>
         <span class="item-name">Class Right</span>
       </div>
-      <div class="item-box" id="box-A3">
+      <div class="item-box">
         <span class="item-code">A3</span>
         <span class="item-emoji">🍨</span>
         <span class="item-name">Rasmalai & Kiss</span>
       </div>
-      <div class="item-box" id="box-A4">
+      <div class="item-box">
         <span class="item-code">A4</span>
         <span class="item-emoji">📸</span>
         <span class="item-name">Snap Challenge</span>
       </div>
     </div>
 
-    <!-- Control Panel -->
     <div class="control-panel">
-      <div class="display-screen" id="screen">SELECT ITEM (A1 - A4)</div>
+      <div class="display-screen" id="screen">ENTER CODE (e.g. ANU18)</div>
+
+      <div class="code-input-wrap">
+        <input type="text" id="codeInput" class="code-input" placeholder="Type ANU18" maxlength="10">
+      </div>
       
       <div class="keypad">
         <button class="btn-key" onclick="pressButton('A1')">A1: Imli</button>
@@ -299,30 +318,36 @@
     </div>
   </div>
 
-  <!-- RESULT POPUP -->
   <div class="popup-overlay" id="popup">
     <div class="result-card">
       <div id="popEmoji" style="font-size: 3.5rem;">🎉</div>
       <div id="popStatus" class="result-status">RESULT</div>
-      <div id="popText" class="result-text">Message goes here...</div>
-      <button class="btn-close" onclick="closePopup()">ACCEPT OUTCOME 💋</button>
+      <div id="popText" class="result-text">Message...</div>
+      
+      <button class="btn-insta" id="instaBtn" onclick="sendToInsta()">
+        📩 Send Result to Rabi on Insta
+      </button>
+      <button class="btn-close" onclick="closePopup()">Close</button>
     </div>
   </div>
 
   <script>
+    const MY_INSTA_USERNAME = "rabi__dadani57"; 
+
+    let a3Attempts = 0;
+    let currentResultText = "";
+
     const outcomes = {
       'A1': [
         { lucky: true, emoji: '🥭', text: "Aaj aap Imli khayein, poori permission hai! 😋" },
-        { lucky: false, emoji: '🚫', text: "Aaj Imli Bilkul Band! Galat outcome aa gaya, no imli today! 😜" }
+        { lucky: false, emoji: '🚫', text: "Aaj Imli Bilkul Band! No imli today! 😜" }
       ],
       'A2': [
         { lucky: true, emoji: '📋', text: "Aaj raat Rabi ki ache se Class lagane ki permission di jaati hai! 😤" },
         { lucky: false, emoji: '🛡️', text: "Aaj Class Nahi Laga Sakti! Rabi Safe hai ab! 🙈" }
       ],
-      'A3': [
-        // RIGGED: Sirf Puppy dene wala outcome hi aayega! 🔥
-        { lucky: false, emoji: '💋', text: "Ab toh main aaj Puppy dekar rahoon-ga, aap mujhe rok nahi sakti!" }
-      ],
+      'A3_LUCKY': { lucky: true, emoji: '🍨', text: "Rasmalai mein aaj Puppy NAHI milegi! 🙈" },
+      'A3_UNLUCKY': { lucky: false, emoji: '💋', text: "Ab toh main aaj Puppy dekar rahoon-ga, aap mujhe rok nahi sakti! 💋🔥" },
       'A4': [
         { lucky: true, emoji: '📸', text: "Abhi ki Snap bhejni hai toh bhejo, baaki aapki marzi! 😉" },
         { lucky: false, emoji: '🤪', text: "Abhi ke abhi Snap bhejni padegi, chahe masi wali halat mein hi kyun na ho! 📸🔥" }
@@ -330,38 +355,60 @@
     };
 
     function pressButton(code) {
+      const input = document.getElementById('codeInput').value.trim();
       const screen = document.getElementById('screen');
       const tray = document.getElementById('tray');
-      
+
+      if (!input) {
+        screen.innerText = "⚠️ ENTER SECRET CODE FIRST!";
+        return;
+      }
+
       screen.innerText = `DISPENSING ${code}...`;
-      tray.innerText = "⚙️ Vending Item...";
+      tray.innerText = "⚙️ Processing Machine...";
 
       setTimeout(() => {
-        const choiceList = outcomes[code];
-        // Always picks the forced outcome for A3, and random for others
-        const result = choiceList[Math.floor(Math.random() * choiceList.length)];
+        let result;
+
+        if (code === 'A3') {
+          a3Attempts++;
+          if (a3Attempts % 4 === 0) {
+            result = outcomes['A3_UNLUCKY'];
+          } else {
+            result = Math.random() > 0.5 ? outcomes['A3_LUCKY'] : outcomes['A3_UNLUCKY'];
+          }
+        } else {
+          const list = outcomes[code];
+          result = list[Math.floor(Math.random() * list.length)];
+        }
         
         showResult(result);
-        screen.innerText = "SELECT ITEM (A1 - A4)";
+        screen.innerText = `CODE ACCEPTED: ${input.toUpperCase()}`;
         tray.innerText = "🎁 ITEM DROPPED!";
       }, 1200);
     }
 
     function showResult(item) {
+      currentResultText = `${item.emoji} ${item.text}`;
       document.getElementById('popEmoji').innerText = item.emoji;
       document.getElementById('popText').innerText = item.text;
       
       const statusEl = document.getElementById('popStatus');
       if (item.lucky) {
-        statusEl.innerText = "OPTION A (LUCKY)";
+        statusEl.innerText = "BEGUM'S LUCK ✨";
         statusEl.className = "result-status status-lucky";
       } else {
-        statusEl.innerText = "DESTINY HAS SPOKEN 💋";
+        statusEl.innerText = "MENDHAK'S DESTINY 💋";
         statusEl.className = "result-status status-unlucky";
       }
 
       document.getElementById('popup').classList.add('active');
-      triggerRain(25);
+      triggerRain(20);
+    }
+
+    function sendToInsta() {
+      const textMessage = encodeURIComponent(`Suno Rabi! Mera Vending Machine Result aaya hai:\n\n"${currentResultText}" 💖`);
+      window.location.href = `https://ig.me/m/${MY_INSTA_USERNAME}?text=${textMessage}`;
     }
 
     function closePopup() {
